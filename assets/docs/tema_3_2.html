@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fórmula, Matriz Asociada y Propiedades</title>
+
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '\\(', right: '\\)', display: false}
+      ],
+      throwOnError: false
+    });"></script>
+
+  <style>
+    :root{
+      --primary:#1e3a8a; --primary-light:#eff6ff; --primary-border:#3b82f6;
+      --secondary:#0f766e; --secondary-light:#f0fdfa; --secondary-border:#14b8a6;
+      --accent:#b45309; --accent-light:#fffbeb; --accent-border:#f59e0b;
+      --bg:#f8fafc; --surface:#fff; --text:#1e293b; --text-muted:#64748b;
+      --border:#e2e8f0; --shadow:0 4px 6px -1px rgba(0,0,0,.05),0 2px 4px -2px rgba(0,0,0,.05);
+    }
+    *{box-sizing:border-box;scroll-behavior:smooth}
+    body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+         background:var(--bg);color:var(--text);line-height:1.65;margin:0;padding:0}
+    .container{max-width:1000px;margin:0 auto;padding:2rem 1.5rem 5rem}
+
+    header.doc-header{background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 100%);
+      color:#fff;padding:2.5rem 2rem;border-radius:16px;margin-bottom:2rem;
+      box-shadow:0 10px 25px -5px rgba(30,58,138,.25)}
+    header.doc-header h1{margin:0 0 .75rem 0;font-size:2.1rem;font-weight:700;letter-spacing:-.02em}
+    .meta-bar{display:flex;flex-wrap:wrap;gap:1rem;font-size:.92rem;color:#cbd5e1;
+      border-top:1px solid rgba(255,255,255,.15);padding-top:.85rem;margin-top:.85rem}
+    .meta-bar span strong{color:#fff}
+
+    .controls-bar{display:flex;justify-content:flex-end;gap:.75rem;margin-bottom:1.5rem}
+    .btn{background:var(--surface);border:1px solid var(--border);color:var(--text);
+      padding:.45rem .9rem;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;
+      transition:all .15s ease;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+    .btn:hover{background:var(--primary-light);border-color:var(--primary-border);color:var(--primary)}
+
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;
+      padding:1.75rem 2rem;margin-bottom:2rem;box-shadow:var(--shadow)}
+    h2.module-title{color:var(--primary);font-size:1.6rem;margin-top:0;
+      padding-bottom:.6rem;border-bottom:2px solid var(--primary-light);
+      display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+    .badge{background:var(--primary);color:#fff;font-size:.8rem;padding:.2rem .6rem;
+      border-radius:6px;font-weight:700;letter-spacing:.04em}
+    h3.section-title{color:#0f172a;font-size:1.25rem;margin-top:1.8rem;margin-bottom:.75rem}
+    h4.sub-title{color:#334155;font-size:1.05rem;margin-top:1.2rem;margin-bottom:.5rem}
+
+    .table-wrapper{overflow-x:auto;margin:1.2rem 0;border-radius:10px;border:1px solid var(--border)}
+    table{width:100%;border-collapse:collapse;font-size:.95rem;background:var(--surface)}
+    th{background:#f1f5f9;color:#0f172a;font-weight:700;text-align:left;padding:.8rem 1rem;
+      border-bottom:2px solid var(--border)}
+    td{padding:.75rem 1rem;border-bottom:1px solid var(--border);vertical-align:middle}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:#f8fafc}
+    table a{color:var(--primary);text-decoration:none;font-weight:600}
+    table a:hover{text-decoration:underline}
+
+    .callout{border-left:4px solid;border-radius:0 10px 10px 0;padding:1.1rem 1.35rem;margin:1.25rem 0}
+    .callout-def{background:var(--primary-light);border-color:var(--primary-border)}
+    .callout-thm{background:var(--secondary-light);border-color:var(--secondary-border)}
+    .callout-note{background:var(--accent-light);border-color:var(--accent-border)}
+    .callout-title{font-weight:700;margin-bottom:.5rem;display:flex;align-items:center;
+      gap:.45rem;font-size:1rem}
+    .callout-def .callout-title{color:var(--primary)}
+    .callout-thm .callout-title{color:var(--secondary)}
+    .callout-note .callout-title{color:var(--accent)}
+    .callout ol,.callout ul{margin:.5rem 0 0 0;padding-left:1.4rem}
+    .callout ol li,.callout ul li{margin-bottom:.35rem}
+
+    .example-box{background:#fafafa;border:1px solid #e2e8f0;border-radius:12px;
+      padding:1.2rem 1.4rem;margin:1.35rem 0}
+    .example-header{font-weight:700;color:#0f172a;margin-bottom:.6rem;font-size:1.03rem;
+      display:flex;align-items:center;gap:.45rem}
+
+    details.solution{margin-top:.9rem;background:var(--surface);border:1px solid #cbd5e1;
+      border-radius:8px;overflow:hidden}
+    details.solution summary{padding:.65rem 1rem;font-weight:600;color:var(--primary);
+      cursor:pointer;background:#f1f5f9;user-select:none;list-style:none;
+      display:flex;align-items:center;gap:.5rem;transition:background .15s ease}
+    details.solution summary::-webkit-details-marker{display:none}
+    details.solution summary::before{content:"▶";font-size:.75rem;
+      transition:transform .2s ease;display:inline-block}
+    details.solution[open] summary::before{transform:rotate(90deg)}
+    details.solution summary:hover{background:#e2e8f0}
+    .solution-content{padding:1.1rem 1.25rem;border-top:1px solid #e2e8f0}
+    .solution-content ol,.solution-content ul{padding-left:1.4rem}
+    .solution-content li{margin-bottom:.4rem}
+
+    .diagram-caption{text-align:center;font-size:.85rem;color:var(--text-muted);
+      margin-top:.35rem;font-weight:600}
+    .back-top{text-align:right;margin-top:1.5rem;padding-top:.75rem;border-top:1px solid var(--border)}
+    .back-top a{font-size:.88rem;color:var(--text-muted);text-decoration:none;font-weight:600}
+    .back-top a:hover{color:var(--primary)}
+
+    .proposed{background:#fffbeb;border:1px solid #fde68a;border-left:4px solid #f59e0b;
+      border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.2rem 0}
+    .proposed-title{font-weight:700;color:#92400e;margin-bottom:.4rem}
+
+    @media (max-width:640px){
+      body{font-size:.96rem;line-height:1.6}
+      .container{padding:.9rem .85rem 3.5rem}
+      header.doc-header{padding:1.4rem 1.15rem;border-radius:12px;margin-bottom:1.25rem}
+      header.doc-header h1{font-size:1.45rem;line-height:1.25}
+      .meta-bar{flex-direction:column;gap:.35rem;font-size:.85rem}
+      .controls-bar{flex-direction:column;gap:.5rem}
+      .controls-bar .btn{width:100%;text-align:center;padding:.65rem .85rem}
+      .card{padding:1.15rem 1rem;border-radius:12px;margin-bottom:1.25rem}
+      h2.module-title{font-size:1.22rem;line-height:1.3}
+      h3.section-title{font-size:1.1rem;margin-top:1.4rem}
+      .example-box,.callout{padding:.95rem 1rem;margin:1rem 0}
+      th,td{padding:.55rem .65rem;font-size:.86rem}
+      .katex-display{overflow-x:auto;overflow-y:hidden;padding:.35rem 0;max-width:100%}
+      .katex-display>.katex{font-size:.95em}
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="doc-header" id="inicio">
+    <h1>🧮 Fórmula, Matriz Asociada y Propiedades de una Transformación Lineal</h1>
+    <p style="margin:0;color:#e2e8f0;font-size:1.05rem;">
+      Obtención de la fórmula de una transformación lineal (existencia y unicidad),
+      matriz asociada y matrices de cambio de base, matriz canónica a partir de la matriz asociada,
+      y propiedades algebraicas de la representación matricial.
+    </p>
+    <div class="meta-bar">
+      <span><strong>Tema:</strong> Representación Matricial de TL</span>
+      <span>•</span>
+      <span><strong>Área:</strong> Álgebra Lineal</span>
+      <span>•</span>
+      <span><strong>Nivel:</strong> Universitario</span>
+    </div>
+  </header>
+
+  <!-- ===================== CONTROLES ===================== -->
+  <div class="controls-bar">
+    <button class="btn" onclick="toggleAllDetails(true)">📂 Expandir todas las soluciones</button>
+    <button class="btn" onclick="toggleAllDetails(false)">📁 Contraer todas las soluciones</button>
+  </div>
+
+  <!-- ===================== MAPA DE CONTENIDOS ===================== -->
+  <section class="card" id="mapa-de-contenidos">
+    <h2 class="module-title">📑 Mapa de Contenidos</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:80px;">Módulo</th>
+            <th style="width:280px;">Tema Principal</th>
+            <th>Subtemas Clave</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge">01</span></td>
+            <td><a href="#mod-1">Fórmula de una Transformación Lineal</a></td>
+            <td>
+              <a href="#sec-1-1">1.1 Principio general</a> •
+              <a href="#sec-1-2">1.2 Existencia y unicidad</a> •
+              <a href="#sec-1-3">1.3 Criterio según filas</a> •
+              <a href="#sec-1-4">1.4 Esquema de resolución</a> •
+              <a href="#sec-1-5">1.5 Ejemplos</a>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="badge">02</span></td>
+            <td><a href="#mod-2">Matriz Asociada y Cambio de Base</a></td>
+            <td>
+              <a href="#sec-2-1">2.1 Definiciones</a> •
+              <a href="#sec-2-2">2.2 Propiedades</a> •
+              <a href="#sec-2-3">2.3 Matriz asociada: ejemplo</a> •
+              <a href="#sec-2-4">2.4 Cambio de coordenadas</a> •
+              <a href="#sec-2-5">2.5 Ejercicios propuestos</a>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="badge">03</span></td>
+            <td><a href="#mod-3">Matriz Canónica desde la Matriz Asociada</a></td>
+            <td>
+              <a href="#sec-3-1">3.1 Teorema</a> •
+              <a href="#sec-3-2">3.2 Caso particular (semejanza)</a> •
+              <a href="#sec-3-3">3.3 Ejemplos</a>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="badge">04</span></td>
+            <td><a href="#mod-4">Propiedades de la Representación Matricial</a></td>
+            <td>
+              <a href="#sec-4-1">4.1 Teorema de propiedades</a> •
+              <a href="#sec-4-2">4.2 Suma (base canónica)</a> •
+              <a href="#sec-4-3">4.3 Composición (base canónica)</a> •
+              <a href="#sec-4-4">4.4 Suma (bases no canónicas)</a> •
+              <a href="#sec-4-5">4.5 Composición (base no canónica)</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- MÓDULO 01: FÓRMULA DE UNA TRANSFORMACIÓN LINEAL                       -->
+  <!-- ===================================================================== -->
+  <section class="card" id="mod-1">
+    <h2 class="module-title"><span class="badge">MÓDULO 01</span> Fórmula de una Transformación Lineal</h2>
+
+    <h3 class="section-title" id="sec-1-1">1.1 Principio general</h3>
+    <p>Consideremos una transformación $T:\mathbb{R}^3\to\mathbb{R}$ definida por $T(x,y,z)=2x-3y+5z$. Esta transformación toma un vector de $\mathbb{R}^3$ y devuelve un escalar (un vector de $\mathbb{R}^1$). Podemos reescribir esta operación separándola como el producto de una matriz de coeficientes de tamaño $1\times 3$ por un vector genérico de $\mathbb{R}^3$:</p>
+    $$
+    T\begin{pmatrix} x \\ y \\ z \end{pmatrix} = 2x-3y+5z
+    = \begin{pmatrix} 2 & -3 & 5 \end{pmatrix}_{1\times 3}
+      \begin{pmatrix} x \\ y \\ z \end{pmatrix}_{3\times 1}
+    $$
+    <p>Este principio de representar transformaciones mediante el producto matriz-vector se generaliza para <strong>cualquier</strong> transformación lineal entre espacios de dimensión finita. La matriz que acompaña al vector contiene los coeficientes que definen la regla de correspondencia. Es precisamente esta propiedad la que permite utilizar herramientas del álgebra matricial (como Gauss-Jordan) para hallar la fórmula de una transformación a partir de sus imágenes.</p>
+
+    <h3 class="section-title" id="sec-1-2">1.2 Existencia y unicidad</h3>
+    <div class="callout callout-thm">
+      <div class="callout-title">📐 Teorema: Existencia y unicidad de una transformación lineal</div>
+      <p style="margin:0;">Sea $B_1=\{\mathbf{v}_1,\dots,\mathbf{v}_n\}$ una base de $V$ y $\mathbf{w}_1,\dots,\mathbf{w}_n$ vectores de $W$. Existe una única transformación lineal $T:V\to W$ tal que $T(\mathbf{v}_i)=\mathbf{w}_i$ para $i=1,\dots,n$.</p>
+      <p style="margin:.6rem 0 .4rem 0;">Sean $M_{B_1}=[\mathbf{v}_1\ \dots\ \mathbf{v}_n]$, $M_{T(B_1)}=[\mathbf{w}_1\ \dots\ \mathbf{w}_n]$ y $M_{T(E)}$ la matriz de $T$ en bases canónicas. Dado que $T(\mathbf{v}_i)=M_{T(E)}\mathbf{v}_i=\mathbf{w}_i$, al agrupar como columnas se obtiene:</p>
+      $$M_{T(E)}\cdot M_{B_1} = M_{T(B_1)}$$
+    </div>
+
+    <p>Se emplea el resultado del teorema anterior aplicando la traspuesta a toda la ecuación:</p>
+    $$M_{B_1}^T\cdot M_{T(E)}^T = M_{T(B_1)}^T$$
+    <p>Esto permite plantear una matriz ampliada y aplicar Gauss-Jordan para hallar $M_{T(E)}^T$ directamente:</p>
+    $$[M_{B_1}^T \mid M_{T(B_1)}^T] \xrightarrow{\text{Gauss-Jordan}} [I \mid M_{T(E)}^T]$$
+    <p>Al finalizar, la matriz de la derecha es la traspuesta de la matriz de la transformación. Al transponerla obtenemos $M_{T(E)}$ y, multiplicándola por un vector genérico del dominio, obtenemos la fórmula buscada.</p>
+
+    <h3 class="section-title" id="sec-1-3">1.3 Criterio según el resultado de las filas</h3>
+    <div class="callout callout-thm">
+      <div class="callout-title">📐 Criterio de existencia y unicidad</div>
+      <p style="margin:0;">Al plantear el sistema mediante $[M_{B_1}^T \mid M_{T(B_1)}^T]$ y aplicar eliminación de Gauss-Jordan, la forma final de las filas determina el resultado:</p>
+      <ul>
+        <li><strong>Rango completo:</strong> la matriz de la izquierda se reduce a la identidad. Hay <strong>una única solución</strong>: la transformación <strong>existe y es única</strong>.</li>
+        <li><strong>Fila de $0=0$:</strong> la matriz de la izquierda tiene filas de ceros pero la igualdad se mantiene (consistente). Hay variables libres: la transformación <strong>existe, pero no es única</strong> (infinitas soluciones).</li>
+        <li><strong>Fila de $0=c$, $c\neq 0$:</strong> hay contradicción (inconsistente). La transformación <strong>no existe</strong>.</li>
+      </ul>
+    </div>
+
+    <h3 class="section-title" id="sec-1-4">1.4 Esquema de resolución</h3>
+    <div class="callout callout-note">
+      <div class="callout-title">📝 Pasos</div>
+      <ol>
+        <li>Construir $M_{B_1}$ (vectores de la base como columnas) y $M_{T(B_1)}$ (imágenes como columnas).</li>
+        <li>Transponer ambos lados: $M_{B_1}^T\,M_{T(E)}^T = M_{T(B_1)}^T$.</li>
+        <li>Aplicar Gauss-Jordan a $[M_{B_1}^T \mid M_{T(B_1)}^T] \to [I \mid M_{T(E)}^T]$.</li>
+        <li>Transponer el bloque derecho para recuperar $M_{T(E)}$.</li>
+        <li>Multiplicar $M_{T(E)}$ por un vector genérico $(x,y,z)^T$ para obtener la fórmula.</li>
+      </ol>
+    </div>
+
+    <h3 class="section-title" id="sec-1-5">1.5 Ejemplos</h3>
+
+    <!-- Ejemplo 1.1 -->
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 1.1: Fórmula a partir de dos imágenes</div>
+      <p>Sea $T:\mathbb{R}^2\to\mathbb{R}^2$ lineal. Con base $B=\left\{\begin{pmatrix}2\\1\end{pmatrix},\begin{pmatrix}1\\1\end{pmatrix}\right\}$ se sabe que:</p>
+      $$T\begin{pmatrix}2\\1\end{pmatrix}=\begin{pmatrix}3\\4\end{pmatrix},\qquad T\begin{pmatrix}1\\1\end{pmatrix}=\begin{pmatrix}2\\3\end{pmatrix}$$
+      <p>Halle la fórmula general de $T$.</p>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          <p>Escribimos un vector genérico como combinación lineal de la base:</p>
+          $$\begin{pmatrix}x\\y\end{pmatrix}=\alpha\begin{pmatrix}2\\1\end{pmatrix}+\beta\begin{pmatrix}1\\1\end{pmatrix}\;\Rightarrow\;\begin{cases}x=2\alpha+\beta\\ y=\alpha+\beta\end{cases}$$
+          <p>Restando: $x-y=\alpha$. Luego $\beta=2y-x$.</p>
+          $$\begin{pmatrix}x\\y\end{pmatrix}=(x-y)\begin{pmatrix}2\\1\end{pmatrix}+(2y-x)\begin{pmatrix}1\\1\end{pmatrix}$$
+          <p>Aplicando $T$ y usando los datos:</p>
+          $$T\begin{pmatrix}x\\y\end{pmatrix}=(x-y)\begin{pmatrix}3\\4\end{pmatrix}+(2y-x)\begin{pmatrix}2\\3\end{pmatrix}
+          =\begin{pmatrix}3x-3y+4y-2x\\4x-4y+6y-3x\end{pmatrix}=\begin{pmatrix}x+y\\x+2y\end{pmatrix}$$
+          <p><strong>Resultado:</strong> $T\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}x+y\\x+2y\end{pmatrix}$.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Ejemplo 1.2 -->
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 1.2: Enfoque matricial ($\mathbb{R}^2\to\mathbb{R}^3$)</div>
+      <p>$B_1=\left\{\begin{pmatrix}1\\0\end{pmatrix},\begin{pmatrix}1\\1\end{pmatrix}\right\}$, $T\begin{pmatrix}1\\0\end{pmatrix}=\begin{pmatrix}0\\1\\0\end{pmatrix}$, $T\begin{pmatrix}1\\1\end{pmatrix}=\begin{pmatrix}0\\1\\0\end{pmatrix}$. Halle la fórmula mediante matrices.</p>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          <p>Matrices originales y sus transpuestas:</p>
+          $$M_{B_1}=\begin{pmatrix}1&1\\0&1\end{pmatrix},\quad M_{T(B_1)}=\begin{pmatrix}0&0\\1&1\\0&0\end{pmatrix}$$
+          $$M_{B_1}^T=\begin{pmatrix}1&0\\1&1\end{pmatrix},\quad M_{T(B_1)}^T=\begin{pmatrix}0&1&0\\0&1&0\end{pmatrix}$$
+          <p>Gauss-Jordan:</p>
+          $$\left[\begin{array}{cc|ccc}1&0&0&1&0\\1&1&0&1&0\end{array}\right]\xrightarrow{F_2-F_1\to F_2}
+          \left[\begin{array}{cc|ccc}1&0&0&1&0\\0&1&0&0&0\end{array}\right]$$
+          <p>Por tanto $M_{T(E)}^T=\begin{pmatrix}0&1&0\\0&0&0\end{pmatrix}$, luego $M_{T(E)}=\begin{pmatrix}0&0\\1&0\\0&0\end{pmatrix}$.</p>
+          $$T\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}0&0\\1&0\\0&0\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}0\\x\\0\end{pmatrix}$$
+        </div>
+      </details>
+    </div>
+
+    <!-- Ejemplo 1.3 -->
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 1.3: Existencia y unicidad ($\mathbb{R}^3\to\mathbb{R}^3$)</div>
+      <p>Analice si existe y es única la TL con:</p>
+      $$T\begin{pmatrix}1\\0\\0\end{pmatrix}=\begin{pmatrix}0\\1\\0\end{pmatrix},\quad T\begin{pmatrix}0\\1\\0\end{pmatrix}=\begin{pmatrix}0\\1\\0\end{pmatrix},\quad T\begin{pmatrix}1\\1\\1\end{pmatrix}=\begin{pmatrix}0\\0\\0\end{pmatrix}$$
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          $$M_{B_1}=\begin{pmatrix}1&0&1\\0&1&1\\0&0&1\end{pmatrix},\quad M_{T(B_1)}=\begin{pmatrix}0&0&0\\1&1&0\\0&0&0\end{pmatrix}$$
+          $$M_{B_1}^T=\begin{pmatrix}1&0&0\\0&1&0\\1&1&1\end{pmatrix},\quad M_{T(B_1)}^T=\begin{pmatrix}0&1&0\\0&1&0\\0&0&0\end{pmatrix}$$
+          <p>Gauss-Jordan:</p>
+          $$\left[\begin{array}{ccc|ccc}1&0&0&0&1&0\\0&1&0&0&1&0\\1&1&1&0&0&0\end{array}\right]\xrightarrow{F_3-F_1-F_2\to F_3}
+          \left[\begin{array}{ccc|ccc}1&0&0&0&1&0\\0&1&0&0&1&0\\0&0&1&0&-2&0\end{array}\right]$$
+          <p>Se obtuvo la identidad a la izquierda: <strong>existe y es única</strong>.</p>
+          $$M_{T(E)}^T=\begin{pmatrix}0&1&0\\0&1&0\\0&-2&0\end{pmatrix}\;\Rightarrow\;M_{T(E)}=\begin{pmatrix}0&0&0\\1&1&-2\\0&0&0\end{pmatrix}$$
+          $$T\begin{pmatrix}x\\y\\z\end{pmatrix}=\begin{pmatrix}0\\x+y-2z\\0\end{pmatrix}$$
+        </div>
+      </details>
+    </div>
+
+    <!-- Ejemplo 1.4 -->
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 1.4: Existencia y unicidad ($\mathbb{R}^2\to\mathbb{R}^2$)</div>
+      <p>$T\begin{pmatrix}1\\1\end{pmatrix}=\begin{pmatrix}2\\0\end{pmatrix},\quad T\begin{pmatrix}-1\\2\end{pmatrix}=\begin{pmatrix}1\\3\end{pmatrix}$.</p>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          $$M_{B_1}^T=\begin{pmatrix}1&1\\-1&2\end{pmatrix},\quad M_{T(B_1)}^T=\begin{pmatrix}2&0\\1&3\end{pmatrix}$$
+          $$\left[\begin{array}{cc|cc}1&1&2&0\\-1&2&1&3\end{array}\right]\xrightarrow{F_2+F_1\to F_2}\left[\begin{array}{cc|cc}1&1&2&0\\0&3&3&3\end{array}\right]\xrightarrow{\tfrac13 F_2\to F_2}\left[\begin{array}{cc|cc}1&1&2&0\\0&1&1&1\end{array}\right]$$
+          $$\xrightarrow{F_1-F_2\to F_1}\left[\begin{array}{cc|cc}1&0&1&-1\\0&1&1&1\end{array}\right]$$
+          <p><strong>Existe y es única.</strong> $M_{T(E)}^T=\begin{pmatrix}1&-1\\1&1\end{pmatrix}\Rightarrow M_{T(E)}=\begin{pmatrix}1&1\\-1&1\end{pmatrix}$.</p>
+          $$T\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}x+y\\-x+y\end{pmatrix}$$
+        </div>
+      </details>
+    </div>
+
+    <!-- Ejemplo 1.5 -->
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 1.5: No existe ($\mathbb{R}^3\to\mathbb{R}^2$)</div>
+      <p>$T\begin{pmatrix}1\\0\\0\end{pmatrix}=\begin{pmatrix}1\\1\end{pmatrix},\quad T\begin{pmatrix}0\\1\\0\end{pmatrix}=\begin{pmatrix}2\\0\end{pmatrix},\quad T\begin{pmatrix}1\\1\\0\end{pmatrix}=\begin{pmatrix}4\\1\end{pmatrix}$.</p>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          $$M_{B_1}^T=\begin{pmatrix}1&0&0\\0&1&0\\1&1&0\end{pmatrix},\quad M_{T(B_1)}^T=\begin{pmatrix}1&1\\2&0\\4&1\end{pmatrix}$$
+          $$\left[\begin{array}{ccc|cc}1&0&0&1&1\\0&1&0&2&0\\1&1&0&4&1\end{array}\right]\xrightarrow{F_3-F_1-F_2\to F_3}
+          \left[\begin{array}{ccc|cc}1&0&0&1&1\\0&1&0&2&0\\0&0&0&1&0\end{array}\right]$$
+          <p>Aparece $0=1$ en la última fila: el sistema es <strong>inconsistente</strong>. <strong>No existe</strong> transformación lineal con esos datos.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Ejemplo 1.6 -->
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 1.6: Existe pero no es única</div>
+      <p>$T\begin{pmatrix}1\\1\end{pmatrix}=\begin{pmatrix}1\\2\\3\end{pmatrix},\quad T\begin{pmatrix}2\\2\end{pmatrix}=\begin{pmatrix}2\\4\\6\end{pmatrix}$.</p>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          $$M_{B_1}^T=\begin{pmatrix}1&1\\2&2\end{pmatrix},\quad M_{T(B_1)}^T=\begin{pmatrix}1&2&3\\2&4&6\end{pmatrix}$$
+          $$\left[\begin{array}{cc|ccc}1&1&1&2&3\\2&2&2&4&6\end{array}\right]\xrightarrow{F_2-2F_1\to F_2}
+          \left[\begin{array}{cc|ccc}1&1&1&2&3\\0&0&0&0&0\end{array}\right]$$
+          <p>La fila $0=0$ confirma consistencia: <strong>existe</strong>. Pero como la matriz izquierda no llega a identidad (hay variable libre), <strong>no es única</strong>.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- MÓDULO 02: MATRIZ ASOCIADA Y CAMBIO DE BASE                          -->
+  <!-- ===================================================================== -->
+  <section class="card" id="mod-2">
+    <h2 class="module-title"><span class="badge">MÓDULO 02</span> Matriz Asociada y Cambio de Base</h2>
+
+    <h3 class="section-title" id="sec-2-1">2.1 Definiciones</h3>
+    <p>Sea $T:V\to W$ una TL con $\dim(V)=n$ y $\dim(W)=m$. Sean $B_1$ y $B_2$ bases de $V$ y $W$ respectivamente. Denotamos por $M_{B_1}$ y $M_{B_2}$ las matrices cuyas columnas son los vectores de dichas bases.</p>
+
+    <div class="callout callout-def">
+      <div class="callout-title">📌 Matriz asociada</div>
+      <p style="margin:0;">$M(T)_{B_1B_2}$ es la matriz asociada a $T$ respecto de las bases $B_1$ y $B_2$. Pertenece a $\mathbb{R}^{m\times n}$ y cumple, para todo $\mathbf{v}\in V$:</p>
+      $$M(T)_{B_1B_2}\,[\mathbf{v}]_{B_1} = [T(\mathbf{v})]_{B_2}$$
+      <p style="margin:.5rem 0 0 0;">Su cálculo por Gauss-Jordan:</p>
+      $$[M_{B_2} \mid M_{T(B_1)}] \sim [I \mid M(T)_{B_1B_2}]$$
+    </div>
+
+    <p>En el caso especial de la identidad $I:V\to V$ y dos bases $B_1,B_2$ del mismo espacio, la matriz $M(I)_{B_1B_2}$ se denomina <strong>matriz de cambio de base</strong>:</p>
+    $$[M_{B_2} \mid M_{B_1}] \sim [I \mid M(I)_{B_1B_2}]$$
+
+    <h3 class="section-title" id="sec-2-2">2.2 Propiedades de la representación matricial y cambio de base</h3>
+    <div class="callout callout-thm">
+      <div class="callout-title">📐 Propiedades</div>
+      <ul>
+        <li><strong>Acción sobre coordenadas:</strong> $M(T)_{B_1B_2}[v]_{B_1}=[T(v)]_{B_2}$. Para $T=I$: $M(I)_{B_1B_2}[v]_{B_1}=[v]_{B_2}$.</li>
+        <li><strong>Matriz estándar:</strong> si $B_1,B_2$ son las canónicas, $M(T)_{E_V E_W}=M_{T(E)}$ (usualmente $A$).</li>
+        <li><strong>Rango:</strong> $\text{rango}(M(T)_{B_1B_2})=\dim(\text{Im}(T))$.</li>
+        <li><strong>Invertibilidad (cambio de base):</strong> $M(I)_{B_1B_2}$ es invertible y $(M(I)_{B_1B_2})^{-1}=M(I)_{B_2B_1}$.</li>
+        <li><strong>Cálculo de coordenadas:</strong> $[M_{B_2}\mid x]\sim[I\mid [x]_{B_2}]$.</li>
+      </ul>
+    </div>
+
+    <h3 class="section-title" id="sec-2-3">2.3 Matriz asociada: ejemplo completo</h3>
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 2.1: Matriz asociada y transformación de un vector</div>
+      <p>$T:\mathbb{R}^2\to\mathbb{R}^3$, $T\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}x+2y\\x-y\\y\end{pmatrix}$, $B_1=\left\{\begin{pmatrix}0\\1\end{pmatrix},\begin{pmatrix}1\\1\end{pmatrix}\right\}$, $B_2=\left\{\begin{pmatrix}1\\0\\0\end{pmatrix},\begin{pmatrix}1\\1\\0\end{pmatrix},\begin{pmatrix}0\\1\\1\end{pmatrix}\right\}$. Halle $M(T)_{B_1B_2}$ y transforme $v=\begin{pmatrix}3\\5\end{pmatrix}$ sin usar la fórmula.</p>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          <p><strong>1) Imágenes de la base:</strong></p>
+          $$T\begin{pmatrix}0\\1\end{pmatrix}=\begin{pmatrix}2\\-1\\1\end{pmatrix},\qquad T\begin{pmatrix}1\\1\end{pmatrix}=\begin{pmatrix}3\\0\\1\end{pmatrix}$$
+          $$M_{B_2}=\begin{pmatrix}1&1&0\\0&1&1\\0&0&1\end{pmatrix},\quad M_{T(B_1)}=\begin{pmatrix}2&3\\-1&0\\1&1\end{pmatrix}$$
+          $$\left[\begin{array}{ccc|cc}1&1&0&2&3\\0&1&1&-1&0\\0&0&1&1&1\end{array}\right]\xrightarrow{F_2-F_3\to F_2}
+          \left[\begin{array}{ccc|cc}1&1&0&2&3\\0&1&0&-2&-1\\0&0&1&1&1\end{array}\right]\xrightarrow{F_1-F_2\to F_1}
+          \left[\begin{array}{ccc|cc}1&0&0&4&4\\0&1&0&-2&-1\\0&0&1&1&1\end{array}\right]$$
+          $$M(T)_{B_1B_2}=\begin{pmatrix}4&4\\-2&-1\\1&1\end{pmatrix}$$
+          <p><strong>2) Coordenadas de $v$ en $B_1$:</strong></p>
+          $$\left[\begin{array}{cc|c}0&1&3\\1&1&5\end{array}\right]\xrightarrow{F_1\leftrightarrow F_2}\left[\begin{array}{cc|c}1&1&5\\0&1&3\end{array}\right]\xrightarrow{F_1-F_2\to F_1}\left[\begin{array}{cc|c}1&0&2\\0&1&3\end{array}\right]\Rightarrow [v]_{B_1}=\begin{pmatrix}2\\3\end{pmatrix}$$
+          <p><strong>3) Aplicar matriz asociada:</strong></p>
+          $$[T(v)]_{B_2}=\begin{pmatrix}4&4\\-2&-1\\1&1\end{pmatrix}\begin{pmatrix}2\\3\end{pmatrix}=\begin{pmatrix}20\\-7\\5\end{pmatrix}$$
+          <p><strong>4) Recuperar $T(v)$:</strong></p>
+          $$T(v)=M_{B_2}[T(v)]_{B_2}=\begin{pmatrix}1&1&0\\0&1&1\\0&0&1\end{pmatrix}\begin{pmatrix}20\\-7\\5\end{pmatrix}=\begin{pmatrix}13\\-2\\5\end{pmatrix}$$
+          <p><strong>Verificación</strong> con la fórmula: $T(3,5)=(3+10,\;3-5,\;5)=(13,-2,5)$ ✔</p>
+        </div>
+      </details>
+    </div>
+
+    <h3 class="section-title" id="sec-2-4">2.4 Matriz de cambio de coordenadas</h3>
+
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 2.2: Cambio de base en $\mathbb{R}^3$</div>
+      <p>$B_1=\left\{\begin{pmatrix}1\\0\\0\end{pmatrix},\begin{pmatrix}0\\1\\0\end{pmatrix},\begin{pmatrix}0\\0\\1\end{pmatrix}\right\}$ (canónica) y $B_2=\left\{\begin{pmatrix}0\\1\\0\end{pmatrix},\begin{pmatrix}1\\1\\0\end{pmatrix},\begin{pmatrix}0\\0\\1\end{pmatrix}\right\}$. Halle $M(I)_{B_1B_2}$ y verifique con $v=\begin{pmatrix}2\\1\\3\end{pmatrix}$.</p>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          $$\left[\begin{array}{ccc|ccc}0&1&0&1&0&0\\1&1&0&0&1&0\\0&0&1&0&0&1\end{array}\right]\xrightarrow{F_1\leftrightarrow F_2}
+          \left[\begin{array}{ccc|ccc}1&1&0&0&1&0\\0&1&0&1&0&0\\0&0&1&0&0&1\end{array}\right]\xrightarrow{F_1-F_2\to F_1}
+          \left[\begin{array}{ccc|ccc}1&0&0&-1&1&0\\0&1&0&1&0&0\\0&0&1&0&0&1\end{array}\right]$$
+          $$M(I)_{B_1B_2}=\begin{pmatrix}-1&1&0\\1&0&0\\0&0&1\end{pmatrix}$$
+          <p>Como $B_1$ es canónica, $[v]_{B_1}=(2,1,3)^T$. Aplicando la matriz:</p>
+          $$[v]_{B_2}=\begin{pmatrix}-1&1&0\\1&0&0\\0&0&1\end{pmatrix}\begin{pmatrix}2\\1\\3\end{pmatrix}=\begin{pmatrix}-1\\2\\3\end{pmatrix}$$
+          <p><strong>Verificación:</strong> $-1\begin{pmatrix}0\\1\\0\end{pmatrix}+2\begin{pmatrix}1\\1\\0\end{pmatrix}+3\begin{pmatrix}0\\0\\1\end{pmatrix}=\begin{pmatrix}2\\1\\3\end{pmatrix}=v$ ✔</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 2.3: Cambio de base en un subespacio de $\mathbb{R}^4$</div>
+      <p>$B_1=\left\{\begin{pmatrix}1\\1\\0\\0\end{pmatrix},\begin{pmatrix}0\\1\\0\\0\end{pmatrix}\right\}$ y $B_2=\left\{\begin{pmatrix}1\\0\\0\\0\end{pmatrix},\begin{pmatrix}1\\2\\0\\0\end{pmatrix}\right\}$. Halle $M(I)_{B_1B_2}$ y verifique con $v=\begin{pmatrix}1\\1\\0\\0\end{pmatrix}$.</p>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          <p>Ambos conjuntos generan un subespacio de dimensión 2 (las dos últimas filas son nulas):</p>
+          $$\left[\begin{array}{cc|cc}1&1&1&0\\0&2&1&1\\0&0&0&0\\0&0&0&0\end{array}\right]\xrightarrow{\tfrac12 F_2\to F_2}
+          \left[\begin{array}{cc|cc}1&1&1&0\\0&1&\tfrac12&\tfrac12\\0&0&0&0\\0&0&0&0\end{array}\right]\xrightarrow{F_1-F_2\to F_1}
+          \left[\begin{array}{cc|cc}1&0&\tfrac12&-\tfrac12\\0&1&\tfrac12&\tfrac12\\0&0&0&0\\0&0&0&0\end{array}\right]$$
+          $$M(I)_{B_1B_2}=\begin{pmatrix}\tfrac12&-\tfrac12\\[2pt]\tfrac12&\tfrac12\end{pmatrix}$$
+          <p>De $[M_{B_1}\mid v]$ se obtiene $[v]_{B_1}=\begin{pmatrix}1\\0\end{pmatrix}$. Luego:</p>
+          $$[v]_{B_2}=\begin{pmatrix}\tfrac12&-\tfrac12\\[2pt]\tfrac12&\tfrac12\end{pmatrix}\begin{pmatrix}1\\0\end{pmatrix}=\begin{pmatrix}\tfrac12\\[2pt]\tfrac12\end{pmatrix}$$
+          <p><strong>Verificación:</strong> $\tfrac12\begin{pmatrix}1\\0\\0\\0\end{pmatrix}+\tfrac12\begin{pmatrix}1\\2\\0\\0\end{pmatrix}=\begin{pmatrix}1\\1\\0\\0\end{pmatrix}=v$ ✔</p>
+        </div>
+      </details>
+    </div>
+
+    <h3 class="section-title" id="sec-2-5">2.5 Ejercicios propuestos</h3>
+
+    <div class="proposed">
+      <div class="proposed-title">✏️ Ejercicio 2.1: Cálculo de la matriz asociada</div>
+      <p>Para cada TL, halle $M(T)_{B_1B_2}$ y verifique con el vector $v$ indicado:</p>
+      <ol type="a">
+        <li>$T\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}x+2y\\3x-y\end{pmatrix}$, $B_1=\left\{\begin{pmatrix}1\\0\end{pmatrix},\begin{pmatrix}0\\1\end{pmatrix}\right\}$, $B_2=\left\{\begin{pmatrix}1\\1\end{pmatrix},\begin{pmatrix}1\\0\end{pmatrix}\right\}$. Verifique con $v=\begin{pmatrix}1\\0\end{pmatrix}$.</li>
+        <li>$T\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}x-y\\2x\end{pmatrix}$, $B_1=\left\{\begin{pmatrix}1\\1\end{pmatrix},\begin{pmatrix}1\\-1\end{pmatrix}\right\}$, $B_2=\left\{\begin{pmatrix}1\\0\end{pmatrix},\begin{pmatrix}1\\1\end{pmatrix}\right\}$. Verifique con $v=\begin{pmatrix}1\\1\end{pmatrix}$.</li>
+        <li>$T\begin{pmatrix}x\\y\\z\end{pmatrix}=\begin{pmatrix}x+y\\y-z\end{pmatrix}$, $B_1$ canónica de $\mathbb{R}^3$, $B_2=\left\{\begin{pmatrix}1\\1\end{pmatrix},\begin{pmatrix}1\\-1\end{pmatrix}\right\}$. Verifique con $v=\begin{pmatrix}1\\0\\0\end{pmatrix}$.</li>
+      </ol>
+    </div>
+
+    <div class="proposed">
+      <div class="proposed-title">✏️ Ejercicio 2.2: Matriz de cambio de base</div>
+      <p>Halle $M(I)_{B_1B_2}$ y verifique con el vector indicado:</p>
+      <ol type="a">
+        <li>$B_1=\left\{\begin{pmatrix}1\\0\end{pmatrix},\begin{pmatrix}0\\1\end{pmatrix}\right\}$, $B_2=\left\{\begin{pmatrix}1\\1\end{pmatrix},\begin{pmatrix}1\\-1\end{pmatrix}\right\}$. Verifique con $v=\begin{pmatrix}1\\0\end{pmatrix}$.</li>
+        <li>$B_1=\left\{\begin{pmatrix}1\\0\end{pmatrix},\begin{pmatrix}0\\1\end{pmatrix}\right\}$, $B_2=\left\{\begin{pmatrix}3\\1\end{pmatrix},\begin{pmatrix}1\\2\end{pmatrix}\right\}$. Verifique con $v=\begin{pmatrix}3\\1\end{pmatrix}$.</li>
+        <li>$B_1$ canónica de $\mathbb{R}^3$, $B_2=\left\{\begin{pmatrix}1\\1\\0\end{pmatrix},\begin{pmatrix}1\\0\\1\end{pmatrix},\begin{pmatrix}0\\1\\1\end{pmatrix}\right\}$. Verifique con $v=\begin{pmatrix}1\\0\\0\end{pmatrix}$.</li>
+      </ol>
+    </div>
+
+    <div class="proposed">
+      <div class="proposed-title">✏️ Ejercicio 2.3: Propiedades de la matriz de cambio de base</div>
+      <p>Sea $M(I)_{B_1B_2}=\begin{pmatrix}2&1\\1&1\end{pmatrix}$ la matriz de cambio de base de $B_1$ a $B_2$. Resuelva:</p>
+      <ul>
+        <li>Si $[v]_{B_1}=\begin{pmatrix}3\\-1\end{pmatrix}$, halle $[v]_{B_2}$.</li>
+        <li>Aprovechando las propiedades, halle directamente $M(I)_{B_2B_1}$.</li>
+      </ul>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          <p>(a) $[v]_{B_2}=\begin{pmatrix}2&1\\1&1\end{pmatrix}\begin{pmatrix}3\\-1\end{pmatrix}=\begin{pmatrix}5\\2\end{pmatrix}$.</p>
+          <p>(b) $M(I)_{B_2B_1}=\big(M(I)_{B_1B_2}\big)^{-1}=\dfrac{1}{2\cdot 1-1\cdot 1}\begin{pmatrix}1&-1\\-1&2\end{pmatrix}=\begin{pmatrix}1&-1\\-1&2\end{pmatrix}$.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- MÓDULO 03: MATRIZ CANÓNICA DESDE LA MATRIZ ASOCIADA                  -->
+  <!-- ===================================================================== -->
+  <section class="card" id="mod-3">
+    <h2 class="module-title"><span class="badge">MÓDULO 03</span> Matriz Canónica desde la Matriz Asociada</h2>
+
+    <h3 class="section-title" id="sec-3-1">3.1 Teorema: matriz respecto de nuevas bases</h3>
+
+    <div class="callout callout-thm">
+      <div class="callout-title">📐 Matriz de una TL respecto de nuevas bases</div>
+      <p style="margin:0;">Sea $T:V\to W$ una TL, $B_1$ base de $V$, $B_2$ base de $W$ y $E$ la base canónica. La matriz $M(T)_{B_1B_2}$ tiene por columnas las coordenadas de las imágenes de los vectores de $B_1$ expresadas en $B_2$:</p>
+      $$M(T)_{B_1B_2}=\big[\,[T(v_1)]_{B_2}\ \cdots\ [T(v_n)]_{B_2}\,\big]$$
+      <p style="margin:.6rem 0 .4rem 0;">Si $T$ viene dada por su matriz en bases canónicas $M_{T(E)}$, y $M_{B_1},M_{B_2}$ son las matrices de las bases, entonces:</p>
+      $$M(T)_{B_1B_2}=M_{B_2}^{-1}M_{T(E)}M_{B_1}\qquad\text{y}\qquad M_{T(E)}=M_{B_2}\,M(T)_{B_1B_2}\,M_{B_1}^{-1}$$
+    </div>
+
+    <p><strong>Cálculo por Gauss-Jordan:</strong></p>
+    $$[M_{B_2} \mid M_{T(E)}M_{B_1}]\xrightarrow{\text{Gauss-Jordan}}[I \mid M(T)_{B_1B_2}]$$
+
+    <h3 class="section-title" id="sec-3-2">3.2 Caso particular: semejanza</h3>
+    <p>Si el dominio y codominio coinciden y se usa la misma base $B_1$:</p>
+    $$M(T)_{B_1B_1}=M_{B_1}^{-1}M_{T(E)}M_{B_1}=M_{B_1}^{-1}M_{T(B_1)}$$
+    <p>Y al despejar:</p>
+    $$M_{T(E)}=M_{B_1}\,M(T)_{B_1B_1}\,M_{B_1}^{-1}$$
+    <p>Por Gauss-Jordan:</p>
+    $$[M_{B_1}\mid M_{T(B_1)}]\xrightarrow{\text{Gauss-Jordan}}[I\mid M(T)_{B_1B_1}]$$
+
+    <h3 class="section-title" id="sec-3-3">3.3 Ejemplos</h3>
+
+    <!-- Ejemplo 3.1 -->
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 3.1: $\mathbb{R}^2\to\mathbb{R}^3$ con bases distintas</div>
+      <p>$T\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}x+2y\\3x-y\\x+y\end{pmatrix}$, $B_1=\left\{\begin{pmatrix}1\\1\end{pmatrix},\begin{pmatrix}2\\1\end{pmatrix}\right\}$, $B_2=\left\{\begin{pmatrix}1\\0\\0\end{pmatrix},\begin{pmatrix}1\\1\\0\end{pmatrix},\begin{pmatrix}1\\1\\1\end{pmatrix}\right\}$. Halle $M(T)_{B_1B_2}$ y verifique la fórmula.</p>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          $$T\begin{pmatrix}1\\1\end{pmatrix}=\begin{pmatrix}3\\2\\2\end{pmatrix},\quad T\begin{pmatrix}2\\1\end{pmatrix}=\begin{pmatrix}4\\5\\3\end{pmatrix}$$
+          $$\left[\begin{array}{ccc|cc}1&1&1&3&4\\0&1&1&2&5\\0&0&1&2&3\end{array}\right]\xrightarrow{R_2-R_3\to R_2}\left[\begin{array}{ccc|cc}1&1&1&3&4\\0&1&0&0&2\\0&0&1&2&3\end{array}\right]\xrightarrow{R_1-R_3\to R_1}\left[\begin{array}{ccc|cc}1&1&0&1&1\\0&1&0&0&2\\0&0&1&2&3\end{array}\right]$$
+          $$\xrightarrow{R_1-R_2\to R_1}\left[\begin{array}{ccc|cc}1&0&0&1&-1\\0&1&0&0&2\\0&0&1&2&3\end{array}\right]\Rightarrow M(T)_{B_1B_2}=\begin{pmatrix}1&-1\\0&2\\2&3\end{pmatrix}$$
+          <p>Ahora $M_{B_1}^{-1}=\begin{pmatrix}-1&2\\1&-1\end{pmatrix}$. Producto:</p>
+          $$M_{B_2}M(T)_{B_1B_2}=\begin{pmatrix}1&1&1\\0&1&1\\0&0&1\end{pmatrix}\begin{pmatrix}1&-1\\0&2\\2&3\end{pmatrix}=\begin{pmatrix}3&4\\2&5\\2&3\end{pmatrix}$$
+          $$M_{T(E)}=\begin{pmatrix}3&4\\2&5\\2&3\end{pmatrix}\begin{pmatrix}-1&2\\1&-1\end{pmatrix}=\begin{pmatrix}1&2\\3&-1\\1&1\end{pmatrix}$$
+          <p>Coincide con $T\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}x+2y\\3x-y\\x+y\end{pmatrix}$ ✔</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Ejemplo 3.2 -->
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 3.2: $\mathbb{R}^2\to\mathbb{R}^2$ con bases distintas</div>
+      <p>$T\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}2x+y\\x-3y\end{pmatrix}$, $B_1=\left\{\begin{pmatrix}1\\1\end{pmatrix},\begin{pmatrix}1\\0\end{pmatrix}\right\}$, $B_2=\left\{\begin{pmatrix}2\\1\end{pmatrix},\begin{pmatrix}1\\1\end{pmatrix}\right\}$.</p>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          $$T\begin{pmatrix}1\\1\end{pmatrix}=\begin{pmatrix}3\\-2\end{pmatrix},\quad T\begin{pmatrix}1\\0\end{pmatrix}=\begin{pmatrix}2\\1\end{pmatrix}$$
+          $$\left[\begin{array}{cc|cc}2&1&3&2\\1&1&-2&1\end{array}\right]\xrightarrow{R_1\leftrightarrow R_2}\left[\begin{array}{cc|cc}1&1&-2&1\\2&1&3&2\end{array}\right]\xrightarrow{R_2-2R_1\to R_2}\left[\begin{array}{cc|cc}1&1&-2&1\\0&-1&7&0\end{array}\right]$$
+          $$\xrightarrow{-R_2\to R_2}\left[\begin{array}{cc|cc}1&1&-2&1\\0&1&-7&0\end{array}\right]\xrightarrow{R_1-R_2\to R_1}\left[\begin{array}{cc|cc}1&0&5&1\\0&1&-7&0\end{array}\right]$$
+          $$M(T)_{B_1B_2}=\begin{pmatrix}5&1\\-7&0\end{pmatrix}$$
+          <p>$M_{B_1}^{-1}=\begin{pmatrix}0&1\\1&-1\end{pmatrix}$. Productos:</p>
+          $$\begin{pmatrix}2&1\\1&1\end{pmatrix}\begin{pmatrix}5&1\\-7&0\end{pmatrix}=\begin{pmatrix}3&2\\-2&1\end{pmatrix};\quad\begin{pmatrix}3&2\\-2&1\end{pmatrix}\begin{pmatrix}0&1\\1&-1\end{pmatrix}=\begin{pmatrix}2&1\\1&-3\end{pmatrix}$$
+          <p>Coincide con la fórmula original ✔</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Ejemplo 3.3 -->
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 3.3: Endomorfismo de $\mathbb{R}^3$ con la misma base</div>
+      <p>$T\begin{pmatrix}x\\y\\z\end{pmatrix}=\begin{pmatrix}x+y\\y+z\\x+z\end{pmatrix}$, $B=\left\{\begin{pmatrix}1\\1\\1\end{pmatrix},\begin{pmatrix}1\\1\\0\end{pmatrix},\begin{pmatrix}1\\0\\0\end{pmatrix}\right\}$.</p>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          $$T\begin{pmatrix}1\\1\\1\end{pmatrix}=\begin{pmatrix}2\\2\\2\end{pmatrix},\quad T\begin{pmatrix}1\\1\\0\end{pmatrix}=\begin{pmatrix}2\\1\\1\end{pmatrix},\quad T\begin{pmatrix}1\\0\\0\end{pmatrix}=\begin{pmatrix}1\\0\\1\end{pmatrix}$$
+          $$\left[\begin{array}{ccc|ccc}1&1&1&2&2&1\\1&1&0&2&1&0\\1&0&0&2&1&1\end{array}\right]\xrightarrow{R_1\leftrightarrow R_3}\left[\begin{array}{ccc|ccc}1&0&0&2&1&1\\1&1&0&2&1&0\\1&1&1&2&2&1\end{array}\right]$$
+          $$\xrightarrow{R_2-R_1,\ R_3-R_1}\left[\begin{array}{ccc|ccc}1&0&0&2&1&1\\0&1&0&0&0&-1\\0&1&1&0&1&0\end{array}\right]\xrightarrow{R_3-R_2\to R_3}\left[\begin{array}{ccc|ccc}1&0&0&2&1&1\\0&1&0&0&0&-1\\0&0&1&0&1&1\end{array}\right]$$
+          $$M(T)_{BB}=\begin{pmatrix}2&1&1\\0&0&-1\\0&1&1\end{pmatrix}$$
+          <p>$M_B^{-1}=\begin{pmatrix}0&0&1\\0&1&-1\\1&-1&0\end{pmatrix}$. Productos:</p>
+          $$\begin{pmatrix}1&1&1\\1&1&0\\1&0&0\end{pmatrix}\begin{pmatrix}2&1&1\\0&0&-1\\0&1&1\end{pmatrix}=\begin{pmatrix}2&2&1\\2&1&0\\2&1&1\end{pmatrix}$$
+          $$\begin{pmatrix}2&2&1\\2&1&0\\2&1&1\end{pmatrix}\begin{pmatrix}0&0&1\\0&1&-1\\1&-1&0\end{pmatrix}=\begin{pmatrix}1&1&0\\0&1&1\\1&0&1\end{pmatrix}$$
+          <p>Coincide con la fórmula original ✔</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Ejemplo 3.4 -->
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 3.4: $\mathbb{R}^2\to\mathbb{R}^2$ con una misma base</div>
+      <p>$T\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}2x+y\\x-3y\end{pmatrix}$, $B=\left\{\begin{pmatrix}1\\1\end{pmatrix},\begin{pmatrix}1\\0\end{pmatrix}\right\}$.</p>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          $$T\begin{pmatrix}1\\1\end{pmatrix}=\begin{pmatrix}3\\-2\end{pmatrix},\quad T\begin{pmatrix}1\\0\end{pmatrix}=\begin{pmatrix}2\\1\end{pmatrix}$$
+          $$\left[\begin{array}{cc|cc}1&1&3&2\\1&0&-2&1\end{array}\right]\xrightarrow{R_1\leftrightarrow R_2}\left[\begin{array}{cc|cc}1&0&-2&1\\1&1&3&2\end{array}\right]\xrightarrow{R_2-R_1\to R_2}\left[\begin{array}{cc|cc}1&0&-2&1\\0&1&5&1\end{array}\right]$$
+          $$M(T)_{BB}=\begin{pmatrix}-2&1\\5&1\end{pmatrix}$$
+          <p>$M_B^{-1}=\begin{pmatrix}0&1\\1&-1\end{pmatrix}$.</p>
+          $$\begin{pmatrix}1&1\\1&0\end{pmatrix}\begin{pmatrix}-2&1\\5&1\end{pmatrix}=\begin{pmatrix}3&2\\-2&1\end{pmatrix};\quad\begin{pmatrix}3&2\\-2&1\end{pmatrix}\begin{pmatrix}0&1\\1&-1\end{pmatrix}=\begin{pmatrix}2&1\\1&-3\end{pmatrix}$$
+          <p>Coincide con la fórmula original ✔</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- MÓDULO 04: PROPIEDADES DE LA REPRESENTACIÓN MATRICIAL                -->
+  <!-- ===================================================================== -->
+  <section class="card" id="mod-4">
+    <h2 class="module-title"><span class="badge">MÓDULO 04</span> Propiedades de la Representación Matricial</h2>
+
+    <h3 class="section-title" id="sec-4-1">4.1 Teorema de propiedades</h3>
+    <div class="callout callout-thm">
+      <div class="callout-title">📐 Propiedades de la representación matricial</div>
+      <p style="margin:0;">Sean $V,W$ espacios vectoriales sobre $\mathbb{K}$, $B_1$ base de $V$ y $B_2$ base de $W$:</p>
+      <ul>
+        <li><strong>Suma:</strong> $M(T+S)_{B_1B_2}=M(T)_{B_1B_2}+M(S)_{B_1B_2}$.</li>
+        <li><strong>Producto por escalar:</strong> $M(\lambda T)_{B_1B_2}=\lambda\,M(T)_{B_1B_2}$.</li>
+        <li><strong>Identidad:</strong> $M(\mathrm{id}_V)_B=I$.</li>
+        <li><strong>Composición:</strong> $M(U\circ T)_B=M(U)_B\,M(T)_B$.</li>
+        <li><strong>Invertibilidad:</strong> si $T$ es invertible, $M(T^{-1})_B=(M(T)_B)^{-1}$.</li>
+      </ul>
+    </div>
+
+    <h3 class="section-title" id="sec-4-2">4.2 Suma en base canónica</h3>
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 4.1: $[T+S]_E$ en base canónica</div>
+      <p>$T\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}2x-y\\x+3y\end{pmatrix}$, $S\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}-x+4y\\2x-y\end{pmatrix}$. Halle $[T+S]_E$.</p>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          <p>Matrices en base canónica:</p>
+          $$[T]_E=\begin{pmatrix}2&-1\\1&3\end{pmatrix},\quad [S]_E=\begin{pmatrix}-1&4\\2&-1\end{pmatrix}$$
+          $$[T+S]_E=[T]_E+[S]_E=\begin{pmatrix}1&3\\3&2\end{pmatrix}$$
+        </div>
+      </details>
+    </div>
+
+    <h3 class="section-title" id="sec-4-3">4.3 Composición en base canónica</h3>
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 4.2: $[U\circ T]_E$ en base canónica</div>
+      <p>$T\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}x+2y\\3x-y\end{pmatrix}$, $U\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}2x+y\\-x+y\end{pmatrix}$. Halle $[U\circ T]_E$.</p>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          $$[T]_E=\begin{pmatrix}1&2\\3&-1\end{pmatrix},\quad [U]_E=\begin{pmatrix}2&1\\-1&1\end{pmatrix}$$
+          $$[U\circ T]_E=[U]_E\,[T]_E=\begin{pmatrix}2&1\\-1&1\end{pmatrix}\begin{pmatrix}1&2\\3&-1\end{pmatrix}=\begin{pmatrix}5&3\\2&-3\end{pmatrix}$$
+        </div>
+      </details>
+    </div>
+
+    <h3 class="section-title" id="sec-4-4">4.4 Suma en bases no canónicas</h3>
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 4.3: $[T+S]_{B_1B_2}$ con bases no canónicas</div>
+      <p>$T\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}x+y\\2x-y\end{pmatrix}$, $S\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}3x-2y\\x+4y\end{pmatrix}$, $B_1=\left\{\begin{pmatrix}1\\1\end{pmatrix},\begin{pmatrix}1\\0\end{pmatrix}\right\}$, $B_2=\left\{\begin{pmatrix}1\\2\end{pmatrix},\begin{pmatrix}0\\1\end{pmatrix}\right\}$.</p>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          <p><strong>$[T]_{B_1B_2}$:</strong></p>
+          $$T\begin{pmatrix}1\\1\end{pmatrix}=\begin{pmatrix}2\\1\end{pmatrix}\Rightarrow \left[\begin{array}{cc|c}1&0&2\\2&1&1\end{array}\right]\xrightarrow{R_2-2R_1\to R_2}\left[\begin{array}{cc|c}1&0&2\\0&1&-3\end{array}\right]$$
+          $$T\begin{pmatrix}1\\0\end{pmatrix}=\begin{pmatrix}1\\2\end{pmatrix}\Rightarrow\left[\begin{array}{cc|c}1&0&1\\2&1&2\end{array}\right]\xrightarrow{R_2-2R_1\to R_2}\left[\begin{array}{cc|c}1&0&1\\0&1&0\end{array}\right]$$
+          $$[T]_{B_1B_2}=\begin{pmatrix}2&1\\-3&0\end{pmatrix}$$
+          <p><strong>$[S]_{B_1B_2}$:</strong></p>
+          $$S\begin{pmatrix}1\\1\end{pmatrix}=\begin{pmatrix}1\\5\end{pmatrix}\Rightarrow\left[\begin{array}{cc|c}1&0&1\\2&1&5\end{array}\right]\to\left[\begin{array}{cc|c}1&0&1\\0&1&3\end{array}\right]$$
+          $$S\begin{pmatrix}1\\0\end{pmatrix}=\begin{pmatrix}3\\1\end{pmatrix}\Rightarrow\left[\begin{array}{cc|c}1&0&3\\2&1&1\end{array}\right]\to\left[\begin{array}{cc|c}1&0&3\\0&1&-5\end{array}\right]$$
+          $$[S]_{B_1B_2}=\begin{pmatrix}1&3\\3&-5\end{pmatrix}$$
+          $$[T+S]_{B_1B_2}=\begin{pmatrix}2&1\\-3&0\end{pmatrix}+\begin{pmatrix}1&3\\3&-5\end{pmatrix}=\begin{pmatrix}3&4\\0&-5\end{pmatrix}$$
+        </div>
+      </details>
+    </div>
+
+    <h3 class="section-title" id="sec-4-5">4.5 Composición en base no canónica</h3>
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 4.4: $[U\circ T]_B$ con base no canónica</div>
+      <p>$T\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}2x\\x+y\end{pmatrix}$, $U\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}x-y\\3y\end{pmatrix}$, $B=\left\{\begin{pmatrix}1\\1\end{pmatrix},\begin{pmatrix}0\\1\end{pmatrix}\right\}$.</p>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          <p>$M_B=\begin{pmatrix}1&0\\1&1\end{pmatrix}$.</p>
+          <p><strong>$[T]_B$:</strong></p>
+          $$T\begin{pmatrix}1\\1\end{pmatrix}=\begin{pmatrix}2\\2\end{pmatrix}\Rightarrow\left[\begin{array}{cc|c}1&0&2\\1&1&2\end{array}\right]\to\left[\begin{array}{cc|c}1&0&2\\0&1&0\end{array}\right]$$
+          $$T\begin{pmatrix}0\\1\end{pmatrix}=\begin{pmatrix}0\\1\end{pmatrix}\Rightarrow\left[\begin{array}{cc|c}1&0&0\\1&1&1\end{array}\right]\to\left[\begin{array}{cc|c}1&0&0\\0&1&1\end{array}\right]$$
+          $$[T]_B=\begin{pmatrix}2&0\\0&1\end{pmatrix}$$
+          <p><strong>$[U]_B$:</strong></p>
+          $$U\begin{pmatrix}1\\1\end{pmatrix}=\begin{pmatrix}0\\3\end{pmatrix}\Rightarrow\left[\begin{array}{cc|c}1&0&0\\1&1&3\end{array}\right]\to\left[\begin{array}{cc|c}1&0&0\\0&1&3\end{array}\right]$$
+          $$U\begin{pmatrix}0\\1\end{pmatrix}=\begin{pmatrix}-1\\3\end{pmatrix}\Rightarrow\left[\begin{array}{cc|c}1&0&-1\\1&1&3\end{array}\right]\to\left[\begin{array}{cc|c}1&0&-1\\0&1&4\end{array}\right]$$
+          $$[U]_B=\begin{pmatrix}0&-1\\3&4\end{pmatrix}$$
+          <p>Aplicando la propiedad de composición:</p>
+          $$[U\circ T]_B=[U]_B\,[T]_B=\begin{pmatrix}0&-1\\3&4\end{pmatrix}\begin{pmatrix}2&0\\0&1\end{pmatrix}=\begin{pmatrix}0&-1\\6&4\end{pmatrix}$$
+        </div>
+      </details>
+    </div>
+
+    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+  </section>
+
+</div>
+
+<!-- ===================== SCRIPT GLOBAL ===================== -->
+<script>
+  function toggleAllDetails(open) {
+    document.querySelectorAll('details.solution').forEach(d => d.open = open);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autovalores, Autovectores y Diagonalización</title>
+
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '\\(', right: '\\)', display: false}
+      ],
+      throwOnError: false
+    });"></script>
+
+  <style>
+    :root{
+      --primary:#1e3a8a; --primary-light:#eff6ff; --primary-border:#3b82f6;
+      --secondary:#0f766e; --secondary-light:#f0fdfa; --secondary-border:#14b8a6;
+      --accent:#b45309; --accent-light:#fffbeb; --accent-border:#f59e0b;
+      --bg:#f8fafc; --surface:#fff; --text:#1e293b; --text-muted:#64748b;
+      --border:#e2e8f0; --shadow:0 4px 6px -1px rgba(0,0,0,.05),0 2px 4px -2px rgba(0,0,0,.05);
+    }
+    *{box-sizing:border-box;scroll-behavior:smooth}
+    body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+         background:var(--bg);color:var(--text);line-height:1.65;margin:0;padding:0}
+    .container{max-width:1000px;margin:0 auto;padding:2rem 1.5rem 5rem}
+
+    header.doc-header{background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 100%);
+      color:#fff;padding:2.5rem 2rem;border-radius:16px;margin-bottom:2rem;
+      box-shadow:0 10px 25px -5px rgba(30,58,138,.25)}
+    header.doc-header h1{margin:0 0 .75rem 0;font-size:2.1rem;font-weight:700;letter-spacing:-.02em}
+    .meta-bar{display:flex;flex-wrap:wrap;gap:1rem;font-size:.92rem;color:#cbd5e1;
+      border-top:1px solid rgba(255,255,255,.15);padding-top:.85rem;margin-top:.85rem}
+    .meta-bar span strong{color:#fff}
+
+    .controls-bar{display:flex;justify-content:flex-end;gap:.75rem;margin-bottom:1.5rem}
+    .btn{background:var(--surface);border:1px solid var(--border);color:var(--text);
+      padding:.45rem .9rem;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;
+      transition:all .15s ease;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+    .btn:hover{background:var(--primary-light);border-color:var(--primary-border);color:var(--primary)}
+
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;
+      padding:1.75rem 2rem;margin-bottom:2rem;box-shadow:var(--shadow)}
+    h2.module-title{color:var(--primary);font-size:1.6rem;margin-top:0;
+      padding-bottom:.6rem;border-bottom:2px solid var(--primary-light);
+      display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+    .badge{background:var(--primary);color:#fff;font-size:.8rem;padding:.2rem .6rem;
+      border-radius:6px;font-weight:700;letter-spacing:.04em}
+    h3.section-title{color:#0f172a;font-size:1.25rem;margin-top:1.8rem;margin-bottom:.75rem}
+    h4.sub-title{color:#334155;font-size:1.05rem;margin-top:1.2rem;margin-bottom:.5rem}
+
+    .table-wrapper{overflow-x:auto;margin:1.2rem 0;border-radius:10px;border:1px solid var(--border)}
+    table{width:100%;border-collapse:collapse;font-size:.95rem;background:var(--surface)}
+    th{background:#f1f5f9;color:#0f172a;font-weight:700;text-align:left;padding:.8rem 1rem;
+      border-bottom:2px solid var(--border)}
+    td{padding:.75rem 1rem;border-bottom:1px solid var(--border);vertical-align:middle}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:#f8fafc}
+    table a{color:var(--primary);text-decoration:none;font-weight:600}
+    table a:hover{text-decoration:underline}
+
+    .callout{border-left:4px solid;border-radius:0 10px 10px 0;padding:1.1rem 1.35rem;margin:1.25rem 0}
+    .callout-def{background:var(--primary-light);border-color:var(--primary-border)}
+    .callout-thm{background:var(--secondary-light);border-color:var(--secondary-border)}
+    .callout-note{background:var(--accent-light);border-color:var(--accent-border)}
+    .callout-title{font-weight:700;margin-bottom:.5rem;display:flex;align-items:center;
+      gap:.45rem;font-size:1rem}
+    .callout-def .callout-title{color:var(--primary)}
+    .callout-thm .callout-title{color:var(--secondary)}
+    .callout-note .callout-title{color:var(--accent)}
+    .callout ol,.callout ul{margin:.5rem 0 0 0;padding-left:1.4rem}
+    .callout ol li,.callout ul li{margin-bottom:.35rem}
+
+    .example-box{background:#fafafa;border:1px solid #e2e8f0;border-radius:12px;
+      padding:1.2rem 1.4rem;margin:1.35rem 0}
+    .example-header{font-weight:700;color:#0f172a;margin-bottom:.6rem;font-size:1.03rem;
+      display:flex;align-items:center;gap:.45rem}
+
+    details.solution{margin-top:.9rem;background:var(--surface);border:1px solid #cbd5e1;
+      border-radius:8px;overflow:hidden}
+    details.solution summary{padding:.65rem 1rem;font-weight:600;color:var(--primary);
+      cursor:pointer;background:#f1f5f9;user-select:none;list-style:none;
+      display:flex;align-items:center;gap:.5rem;transition:background .15s ease}
+    details.solution summary::-webkit-details-marker{display:none}
+    details.solution summary::before{content:"▶";font-size:.75rem;
+      transition:transform .2s ease;display:inline-block}
+    details.solution[open] summary::before{transform:rotate(90deg)}
+    details.solution summary:hover{background:#e2e8f0}
+    .solution-content{padding:1.1rem 1.25rem;border-top:1px solid #e2e8f0}
+    .solution-content ol,.solution-content ul{padding-left:1.4rem}
+    .solution-content li{margin-bottom:.4rem}
+
+    .diagram-caption{text-align:center;font-size:.85rem;color:var(--text-muted);
+      margin-top:.35rem;font-weight:600}
+    .back-top{text-align:right;margin-top:1.5rem;padding-top:.75rem;border-top:1px solid var(--border)}
+    .back-top a{font-size:.88rem;color:var(--text-muted);text-decoration:none;font-weight:600}
+    .back-top a:hover{color:var(--primary)}
+
+    .proposed{background:#fffbeb;border:1px solid #fde68a;border-left:4px solid #f59e0b;
+      border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.2rem 0}
+    .proposed-title{font-weight:700;color:#92400e;margin-bottom:.4rem}
+
+    @media (max-width:640px){
+      body{font-size:.96rem;line-height:1.6}
+      .container{padding:.9rem .85rem 3.5rem}
+      header.doc-header{padding:1.4rem 1.15rem;border-radius:12px;margin-bottom:1.25rem}
+      header.doc-header h1{font-size:1.45rem;line-height:1.25}
+      .meta-bar{flex-direction:column;gap:.35rem;font-size:.85rem}
+      .controls-bar{flex-direction:column;gap:.5rem}
+      .controls-bar .btn{width:100%;text-align:center;padding:.65rem .85rem}
+      .card{padding:1.15rem 1rem;border-radius:12px;margin-bottom:1.25rem}
+      h2.module-title{font-size:1.22rem;line-height:1.3}
+      h3.section-title{font-size:1.1rem;margin-top:1.4rem}
+      .example-box,.callout{padding:.95rem 1rem;margin:1rem 0}
+      th,td{padding:.55rem .65rem;font-size:.86rem}
+      .katex-display{overflow-x:auto;overflow-y:hidden;padding:.35rem 0;max-width:100%}
+      .katex-display>.katex{font-size:.95em}
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="doc-header" id="inicio">
+    <h1>🧮 Autovalores, Autovectores y Diagonalización</h1>
+    <p style="margin:0;color:#e2e8f0;font-size:1.05rem;">
+      Introducción a los autovalores y autovectores, polinomio característico, multiplicidades,
+      relación con transformaciones lineales, matrices semejantes, diagonalización y
+      diagonalización ortogonal de matrices simétricas (teorema espectral).
+    </p>
+    <div class="meta-bar">
+      <span><strong>Tema:</strong> Autovalores y Diagonalización</span>
+      <span>•</span>
+      <span><strong>Área:</strong> Álgebra Lineal</span>
+      <span>•</span>
+      <span><strong>Nivel:</strong> Universitario</span>
+    </div>
+  </header>
+
+  <!-- ===================== CONTROLES ===================== -->
+  <div class="controls-bar">
+    <button class="btn" onclick="toggleAllDetails(true)">📂 Expandir todas las soluciones</button>
+    <button class="btn" onclick="toggleAllDetails(false)">📁 Contraer todas las soluciones</button>
+  </div>
+
+  <!-- ===================== MAPA DE CONTENIDOS ===================== -->
+  <section class="card" id="mapa-de-contenidos">
+    <h2 class="module-title">📑 Mapa de Contenidos</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:80px;">Módulo</th>
+            <th style="width:260px;">Tema Principal</th>
+            <th>Subtemas Clave</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge">01</span></td>
+            <td><a href="#mod-1">Autovalores y Autovectores</a></td>
+            <td>
+              <a href="#sec-1-1">1.1 Motivación e introducción</a> •
+              <a href="#sec-1-2">1.2 Definiciones</a> •
+              <a href="#sec-1-3">1.3 Polinomio característico</a> •
+              <a href="#sec-1-4">1.4 Multiplicidades</a> •
+              <a href="#sec-1-5">1.5 Propiedades</a>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="badge">02</span></td>
+            <td><a href="#mod-2">Ejemplos de cálculo</a></td>
+            <td>
+              <a href="#sec-2-1">2.1 Matrices B y M (multiplicidades)</a> •
+              <a href="#sec-2-2">2.2 Matriz A (2×2)</a> •
+              <a href="#sec-2-3">2.3 Matriz C (autovalores complejos)</a> •
+              <a href="#sec-2-4">2.4 Matriz singular</a> •
+              <a href="#sec-2-5">2.5 Matriz con incógnita A₃</a>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="badge">03</span></td>
+            <td><a href="#mod-3">Diagonalización</a></td>
+            <td>
+              <a href="#sec-3-1">3.1 Relación con TL</a> •
+              <a href="#sec-3-2">3.2 Matrices semejantes</a> •
+              <a href="#sec-3-3">3.3 Teorema de diagonalización</a> •
+              <a href="#sec-3-4">3.4 Ejemplos</a>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="badge">04</span></td>
+            <td><a href="#mod-4">Diagonalización ortogonal</a></td>
+            <td>
+              <a href="#sec-4-1">4.1 Teorema espectral</a> •
+              <a href="#sec-4-2">4.2 Casos (raíces simples/múltiples)</a> •
+              <a href="#sec-4-3">4.3 Ejemplos</a>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="badge">05</span></td>
+            <td><a href="#mod-5">Ejercicios propuestos</a></td>
+            <td>
+              <a href="#sec-5-1">5.1 Diagonalización y matrices</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- MÓDULO 01: AUTOVALORES Y AUTOVECTORES                                -->
+  <!-- ===================================================================== -->
+  <section class="card" id="mod-1">
+    <h2 class="module-title"><span class="badge">MÓDULO 01</span> Autovalores y Autovectores</h2>
+
+    <h3 class="section-title" id="sec-1-1">1.1 Motivación e introducción</h3>
+    <p>Cuando el dominio y el codominio coinciden y se utiliza una única base $B_1$, la matriz asociada a un operador lineal se relaciona con la matriz canónica $M_{T(E)}$ mediante la <strong>fórmula de semejanza</strong>:</p>
+    $$M(T)_{B_1B_1}=M_{B_1}^{-1}\,M_{T(E)}\,M_{B_1}$$
+    <p>donde $M_{B_1}$ es la matriz de cambio de base cuyas columnas son los vectores de la base $B_1$.</p>
+
+    <p>La pregunta central es si existe una base $B_1$ ideal tal que $M(T)_{B_1B_1}$ adopte la forma más simple posible, es decir, una matriz diagonal $D$.</p>
+
+    <p>Si construimos una base $B_1=\{v_1,v_2,\dots,v_n\}$ formada por vectores que, al aplicarles $M_{T(E)}$, resultan múltiplos escalares de sí mismos:</p>
+    $$M_{T(E)}\,v_i=\lambda_i\,v_i$$
+    <p>entonces la matriz $M_{B_1}$, formada por dichos vectores, diagonaliza la matriz original:</p>
+    $$D=M_{B_1}^{-1}\,M_{T(E)}\,M_{B_1}$$
+    <p>donde $D$ contiene en su diagonal principal los factores de escala $\lambda_i$. Esto motiva introducir los <strong>autovalores</strong> ($\lambda_i$) y <strong>autovectores</strong> ($v_i$).</p>
+
+    <h3 class="section-title" id="sec-1-2">1.2 Definiciones</h3>
+
+    <div class="callout callout-def">
+      <div class="callout-title">📌 Definición: Autovalor, autovector y autoespacio</div>
+      <p style="margin:0;">Si al multiplicar la matriz $A$ por un <strong>vector no nulo</strong> $v$ obtenemos un vector múltiplo de sí mismo, es decir:</p>
+      $$Av=\lambda v$$
+      <p style="margin:.5rem 0 0 0;">decimos que $\lambda\in\mathbb{R}$ es un <strong>autovalor</strong> (o valor propio) y $v$ es su <strong>autovector</strong> (vector propio) asociado. Reescribiendo la ecuación se obtiene el <strong>autoespacio</strong> $S_\lambda$:</p>
+      $$S_\lambda=\left\{v\in\mathbb{R}^{n\times 1}\mid (A-\lambda I)v=0\right\}$$
+    </div>
+
+    <p>¿Cómo se descubren exactamente esos valores de $\lambda$? Por definición, un autovector $v$ jamás puede ser el vector nulo ($v\neq 0$). En álgebra lineal, un sistema homogéneo de este tipo solo posee soluciones no triviales si la matriz de coeficientes $(A-\lambda I)$ carece de inversa, o equivalentemente, si sus columnas son linealmente dependientes. La condición algebraica exacta es que su determinante se anule.</p>
+
+    <h3 class="section-title" id="sec-1-3">1.3 Polinomio característico</h3>
+    <div class="callout callout-def">
+      <div class="callout-title">📌 Polinomio característico</div>
+      <p style="margin:0;">El <strong>polinomio característico</strong> de $A$, denotado $p(\lambda)=\det(A-\lambda I)$, es un polinomio de grado $n$ (con coeficiente principal $(-1)^n$). Al plantear la <strong>ecuación característica</strong>:</p>
+      $$\det(A-\lambda I)=0$$
+      <p style="margin:.5rem 0 0 0;">obtenemos la relación directa para despejar y descubrir todos los autovalores posibles de la matriz.</p>
+    </div>
+
+    <h3 class="section-title" id="sec-1-4">1.4 Multiplicidades</h3>
+    <p>Una vez calculados los autovalores, es importante analizar con qué frecuencia se repiten y cuánto espacio (autovectores linealmente independientes) producen realmente. Estas características determinarán si la matriz puede diagonalizarse.</p>
+    <ul>
+      <li><strong>Algebraica ($m_\lambda$):</strong> orden o cantidad de veces que $\lambda$ se repite como raíz del polinomio característico.</li>
+      <li><strong>Geométrica ($\dim(S_\lambda)$):</strong> dimensión del autoespacio, es decir, el número máximo de autovectores linealmente independientes asociados a ese autovalor.</li>
+    </ul>
+    <p>Ambos conceptos están ligados por la desigualdad:</p>
+    $$\dim(S_\lambda)\le m_\lambda$$
+
+    <h3 class="section-title" id="sec-1-5">1.5 Propiedades mediante autovalores</h3>
+    <div class="callout callout-thm">
+      <div class="callout-title">📐 Propiedades de los autovalores</div>
+      <p style="margin:0;">Sea $A\in\mathbb{R}^{n\times n}$ con autovalores $\lambda_1,\lambda_2,\dots,\lambda_n$:</p>
+      <ul>
+        <li><strong>Traza:</strong> $\lambda_1+\lambda_2+\dots+\lambda_n=\operatorname{Traza}(A)$.</li>
+        <li><strong>Determinante:</strong> $\lambda_1\cdot\lambda_2\cdots\lambda_n=\det(A)$.</li>
+        <li><strong>Triangular:</strong> si $A$ es triangular, sus autovalores son los elementos de su diagonal principal.</li>
+        <li><strong>Independencia:</strong> autovectores asociados a autovalores distintos son linealmente independientes.</li>
+        <li><strong>Autovalor nulo:</strong> $\lambda=0$ es autovalor de $A$ $\iff$ $A$ no es inversible.</li>
+      </ul>
+    </div>
+
+    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- MÓDULO 02: EJEMPLOS DE CÁLCULO                                       -->
+  <!-- ===================================================================== -->
+  <section class="card" id="mod-2">
+    <h2 class="module-title"><span class="badge">MÓDULO 02</span> Ejemplos de Cálculo de Autovalores y Autoespacios</h2>
+
+    <h3 class="section-title" id="sec-2-1">2.1 Matrices $B$ y $M$: mismas raíces, distintas multiplicidades geométricas</h3>
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 2.1: Comparación de $B$ y $M$ con el mismo polinomio característico</div>
+      <p>Sean</p>
+      $$B=\begin{pmatrix}3&2&-1\\2&3&1\\0&0&5\end{pmatrix},\qquad M=\begin{pmatrix}3&2&1\\2&3&1\\0&0&5\end{pmatrix}$$
+      <p>Sabemos que ambas comparten $p(\lambda)=-(\lambda-5)^2(\lambda-1)$. Hallar autovalores y autoespacios; analizar multiplicidades algebraicas y geométricas.</p>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          <p><strong>Autovalores comunes:</strong> $\lambda_1=5$ ($m_{\lambda_1}=2$), $\lambda_2=1$ ($m_{\lambda_2}=1$).</p>
+
+          <p><strong>Autoespacios de $B$:</strong></p>
+          <ul>
+            <li>Para $\lambda=5$: $B-5I=\begin{pmatrix}-2&2&-1\\2&-2&1\\0&0&0\end{pmatrix}$, que da $x-y+\tfrac12 z=0$. Así:
+              $$S_5^{(B)}=\operatorname{gen}\left\{\begin{pmatrix}1\\1\\0\end{pmatrix},\begin{pmatrix}-1\\0\\2\end{pmatrix}\right\},\;\dim=2$$
+            </li>
+            <li>Para $\lambda=1$: $B-I=\begin{pmatrix}2&2&-1\\2&2&1\\0&0&4\end{pmatrix}$, que da $x+y=0$, $z=0$. Así:
+              $$S_1^{(B)}=\operatorname{gen}\left\{\begin{pmatrix}-1\\1\\0\end{pmatrix}\right\},\;\dim=1$$
+            </li>
+          </ul>
+
+          <p><strong>Autoespacios de $M$:</strong></p>
+          <ul>
+            <li>Para $\lambda=5$: $M-5I=\begin{pmatrix}-2&2&1\\2&-2&1\\0&0&0\end{pmatrix}$, que da $x=y$, $z=0$. Así:
+              $$S_5^{(M)}=\operatorname{gen}\left\{\begin{pmatrix}1\\1\\0\end{pmatrix}\right\},\;\dim=1$$
+            </li>
+            <li>Para $\lambda=1$: $M-I$ conduce análogamente a:
+              $$S_1^{(M)}=\operatorname{gen}\left\{\begin{pmatrix}-1\\1\\0\end{pmatrix}\right\},\;\dim=1$$
+            </li>
+          </ul>
+
+          <p><strong>Comparación:</strong> aunque $B$ y $M$ comparten el mismo polinomio característico, <strong>$B$ es diagonalizable</strong> ($\dim S_5=\dim S_1$ igual a sus multiplicidades algebraicas) mientras que <strong>$M$ no lo es</strong> (para $\lambda=5$: $m_\lambda=2$ pero $\dim S_5=1$).</p>
+        </div>
+      </details>
+    </div>
+
+    <h3 class="section-title" id="sec-2-2">2.2 Matriz $A=\begin{pmatrix}3&2\\1&4\end{pmatrix}$</h3>
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 2.2: Autovalores y autoespacios (2×2)</div>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          <p><strong>Polinomio característico:</strong></p>
+          $$p(\lambda)=(3-\lambda)(4-\lambda)-2=\lambda^2-7\lambda+10=(\lambda-5)(\lambda-2)$$
+          <p>Autovalores: $\lambda_1=5$, $\lambda_2=2$ (ambos $m_\lambda=1$).</p>
+          <p><strong>Autoespacio $S_5$:</strong> $(A-5I)v=0$ conduce a $x=y$, por lo que:</p>
+          $$S_5=\operatorname{gen}\left\{\begin{pmatrix}1\\1\end{pmatrix}\right\}$$
+          <p><strong>Autoespacio $S_2$:</strong> $(A-2I)v=0$ conduce a $x=-2y$, por lo que:</p>
+          $$S_2=\operatorname{gen}\left\{\begin{pmatrix}-2\\1\end{pmatrix}\right\}$$
+          <p>Ambos con $\dim=1=m_\lambda$. $A$ es diagonalizable.</p>
+        </div>
+      </details>
+    </div>
+
+    <h3 class="section-title" id="sec-2-3">2.3 Matriz $C=\begin{pmatrix}0&-2\\2&0\end{pmatrix}$ (autovalores complejos)</h3>
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 2.3: Rotación pura en $\mathbb{R}^2$</div>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          <p><strong>Polinomio característico:</strong></p>
+          $$p(\lambda)=\begin{vmatrix}-\lambda&-2\\2&-\lambda\end{vmatrix}=\lambda^2+4=(\lambda-2i)(\lambda+2i)$$
+          <p>Autovalores complejos: $\lambda_{1,2}=\pm 2i$.</p>
+          <p><strong>Autoespacio $S_{2i}$:</strong> $(C-2iI)v=0\Rightarrow x-iy=0$:</p>
+          $$S_{2i}=\operatorname{gen}\left\{\begin{pmatrix}i\\1\end{pmatrix}\right\}$$
+          <p><strong>Autoespacio $S_{-2i}$:</strong> $(C+2iI)v=0\Rightarrow x+iy=0$:</p>
+          $$S_{-2i}=\operatorname{gen}\left\{\begin{pmatrix}-i\\1\end{pmatrix}\right\}$$
+          <p>Como autovalores complejos, $C$ no es diagonalizable sobre $\mathbb{R}$ (sí sobre $\mathbb{C}$).</p>
+        </div>
+      </details>
+    </div>
+
+    <h3 class="section-title" id="sec-2-4">2.4 Matriz singular $A=\begin{pmatrix}1&2\\2&4\end{pmatrix}$</h3>
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 2.4: Verificación empírica del autovalor nulo</div>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          <p><strong>Polinomio característico:</strong></p>
+          $$p(\lambda)=(1-\lambda)(4-\lambda)-4=\lambda^2-5\lambda=\lambda(\lambda-5)$$
+          <p>Autovalores: $\lambda_1=5$, $\lambda_2=0$.</p>
+          <p><strong>Autoespacio $S_5$:</strong> $(A-5I)v=0\Rightarrow x=\tfrac12 y$:</p>
+          $$S_5=\operatorname{gen}\left\{\begin{pmatrix}1\\2\end{pmatrix}\right\}$$
+          <p><strong>Autoespacio $S_0$:</strong> $Av=0\Rightarrow x+2y=0$:</p>
+          $$S_0=\operatorname{gen}\left\{\begin{pmatrix}-2\\1\end{pmatrix}\right\}$$
+          <p><strong>Verificación:</strong> $\det(A)=1\cdot 4-2\cdot 2=0$, por lo que $A$ es singular (no inversible). La segunda fila es el doble de la primera ($R_2=2R_1$), lo que genera dependencia lineal y un núcleo no trivial $\mathcal{N}(A)$ de dimensión 1, que coincide con el autoespacio $S_0$. Se verifica la propiedad: $\lambda=0$ es autovalor $\iff$ $A$ no es inversible.</p>
+        </div>
+      </details>
+    </div>
+
+    <h3 class="section-title" id="sec-2-5">2.5 Matriz $A=\begin{pmatrix}A_1&A_2&A_3\end{pmatrix}$ con incógnita</h3>
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 2.5: Determinar $A_3$ y completar el análisis</div>
+      <p>Sea $A=\begin{pmatrix}A_1&A_2&A_3\end{pmatrix}\in\mathbb{R}^{3\times 3}$ con $A_1=\begin{pmatrix}1\\2\\3\end{pmatrix}$ y $A_2=\begin{pmatrix}1\\1\\0\end{pmatrix}$.</p>
+      <ol type="i">
+        <li>Hallar $A_3$ para que $v=\begin{pmatrix}0\\1\\-1\end{pmatrix}$ sea autovector de $A$ asociado a $\lambda=2$.</li>
+        <li>Hallar los restantes autovalores y autoespacios de $A$.</li>
+      </ol>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          <p><strong>(i)</strong> Sea $A_3=\begin{pmatrix}x\\y\\z\end{pmatrix}$. Planteamos $Av=2v$:</p>
+          $$\begin{pmatrix}1&1&x\\2&1&y\\3&0&z\end{pmatrix}\begin{pmatrix}0\\1\\-1\end{pmatrix}=\begin{pmatrix}0\\2\\-2\end{pmatrix}\Rightarrow\begin{pmatrix}1-x\\1-y\\-z\end{pmatrix}=\begin{pmatrix}0\\2\\-2\end{pmatrix}$$
+          <p>De aquí: $x=1$, $y=-1$, $z=2$. Por tanto:</p>
+          $$A_3=\begin{pmatrix}1\\-1\\2\end{pmatrix},\qquad A=\begin{pmatrix}1&1&1\\2&1&-1\\3&0&2\end{pmatrix}$$
+          <p><strong>(ii)</strong> Polinomio característico:</p>
+          $$p(\lambda)=-(\lambda-2)(\lambda-(1+\sqrt5))(\lambda-(1-\sqrt5))$$
+          <p>Autovalores: $\lambda_1=2$, $\lambda_2=1+\sqrt5$, $\lambda_3=1-\sqrt5$ (todos $m_\lambda=1$).</p>
+          <p>Autoespacios:</p>
+          $$S_2=\operatorname{gen}\left\{\begin{pmatrix}0\\1\\-1\end{pmatrix}\right\},\quad
+            S_{1+\sqrt5}=\operatorname{gen}\left\{\begin{pmatrix}\sqrt5-1\\2-\sqrt5\\3\end{pmatrix}\right\},\quad
+            S_{1-\sqrt5}=\operatorname{gen}\left\{\begin{pmatrix}-1-\sqrt5\\2+\sqrt5\\3\end{pmatrix}\right\}$$
+          <p>Como todos los autovalores son distintos, $A$ es diagonalizable.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- MÓDULO 03: DIAGONALIZACIÓN                                           -->
+  <!-- ===================================================================== -->
+  <section class="card" id="mod-3">
+    <h2 class="module-title"><span class="badge">MÓDULO 03</span> Diagonalización y Matrices Semejantes</h2>
+
+    <h3 class="section-title" id="sec-3-1">3.1 Relación con transformaciones lineales</h3>
+    <div class="callout callout-def">
+      <div class="callout-title">📌 Autovalores de una TL</div>
+      <p style="margin:0;">Sea $T:V\to V$ una transformación lineal. Un escalar $\lambda\in\mathbb{R}$ es <strong>autovalor</strong> de $T$ si y sólo si existe un vector $v\in V$ no nulo ($v\neq 0_V$) tal que:</p>
+      $$T(v)=\lambda\cdot v$$
+      <p style="margin:.5rem 0 0 0;">Al vector $v$ se lo denomina <strong>autovector</strong> asociado al autovalor $\lambda$.</p>
+    </div>
+
+    <div class="callout callout-thm">
+      <div class="callout-title">📐 Autovalores de $T$ y de su matriz asociada</div>
+      <p style="margin:0;">Sea $T:\mathbb{R}^n\to\mathbb{R}^n$ una TL y $A=M_{T(E_V)}$ su matriz canónica. Se cumple:</p>
+      $$\lambda\text{ es autovalor de }T \iff \lambda\text{ es autovalor de la matriz }A$$
+    </div>
+
+    <p>Esto implica que el cálculo de autovalores y autovectores de la matriz canónica equivale automáticamente a calcular dichos datos para la transformación misma (siempre que el espacio de salida coincida con el de llegada, de modo que la matriz sea cuadrada).</p>
+
+    <h3 class="section-title" id="sec-3-2">3.2 Matrices semejantes</h3>
+    <p>Si el dominio y codominio coinciden y usamos la misma base $B_1$, la matriz asociada se obtiene mediante la fórmula de semejanza:</p>
+    $$M(T)_{B_1B_1}=M_{B_1}^{-1}\,M_{T(E)}\,M_{B_1}$$
+    <p>Esto muestra que la matriz en la base $B_1$ y la matriz canónica representan la misma TL desde perspectivas distintas. Da pie al concepto de matrices semejantes:</p>
+
+    <div class="callout callout-def">
+      <div class="callout-title">📌 Matrices semejantes y diagonalizables</div>
+      <p style="margin:0;">Dos matrices $A,B\in\mathbb{R}^{n\times n}$ son <strong>semejantes</strong> si existe una matriz inversible $P\in\mathbb{R}^{n\times n}$ tal que:</p>
+      $$B=P^{-1}\,A\,P$$
+      <p style="margin:.5rem 0 0 0;">Una matriz $A$ se dice <strong>diagonalizable</strong> si es semejante a una matriz diagonal $D$.</p>
+    </div>
+
+    <h3 class="section-title" id="sec-3-3">3.3 Teorema de diagonalización</h3>
+    <div class="callout callout-thm">
+      <div class="callout-title">📐 Diagonalización y polinomio característico</div>
+      <p style="margin:0;">$A$ es <strong>diagonalizable si y sólo si</strong> tiene $n$ autovectores linealmente independientes. Si esto se cumple:</p>
+      <ul>
+        <li>La matriz inversible $P$ se construye ubicando dichos autovectores como columnas:
+          $$P=\begin{pmatrix}v_1&v_2&\dots&v_n\end{pmatrix}$$
+        </li>
+        <li>La matriz diagonal $D$ contiene los respectivos autovalores en su diagonal principal:
+          $$D=\operatorname{diag}(\lambda_1,\lambda_2,\dots,\lambda_n)$$
+        </li>
+      </ul>
+    </div>
+
+    <h3 class="section-title" id="sec-3-4">3.4 Ejemplos</h3>
+
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 3.1: Diagonalización de $A=\begin{pmatrix}3&1\\2&2\end{pmatrix}$</div>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          <p><strong>Autovalores:</strong></p>
+          $$\begin{vmatrix}3-\lambda&1\\2&2-\lambda\end{vmatrix}=\lambda^2-5\lambda+4=(\lambda-4)(\lambda-1)$$
+          <p>$\lambda_1=4$, $\lambda_2=1$. Como son distintos, la matriz es diagonalizable.</p>
+          <p><strong>Autoespacio $S_4$:</strong> $(A-4I)v=0\Rightarrow x=y$:</p>
+          $$v_1=\begin{pmatrix}1\\1\end{pmatrix}$$
+          <p><strong>Autoespacio $S_1$:</strong> $(A-I)v=0\Rightarrow y=-2x$:</p>
+          $$v_2=\begin{pmatrix}1\\-2\end{pmatrix}$$
+          <p><strong>Matrices:</strong></p>
+          $$P=\begin{pmatrix}1&1\\1&-2\end{pmatrix},\quad D=\begin{pmatrix}4&0\\0&1\end{pmatrix}$$
+          <p>Verificación: $P^{-1}=\dfrac{1}{-3}\begin{pmatrix}-2&-1\\-1&1\end{pmatrix}$, y $P^{-1}AP=D$.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 3.2: Diagonalización de $B=\begin{pmatrix}3&2&4\\2&3&-4\\0&0&5\end{pmatrix}$</div>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          <p><strong>Autovalores:</strong> desarrollando por la tercera fila:</p>
+          $$p(\lambda)=(5-\lambda)(\lambda^2-6\lambda+5)=(5-\lambda)(\lambda-5)(\lambda-1)$$
+          <p>$\lambda_1=5$ ($m_\lambda=2$), $\lambda_2=1$ ($m_\lambda=1$).</p>
+          <p><strong>Autoespacio $S_5$:</strong> $(B-5I)v=0\Rightarrow x-y-2z=0$ (2 variables libres):</p>
+          $$S_5=\operatorname{gen}\left\{\begin{pmatrix}1\\1\\0\end{pmatrix},\begin{pmatrix}2\\0\\1\end{pmatrix}\right\}$$
+          <p><strong>Autoespacio $S_1$:</strong> $(B-I)v=0\Rightarrow z=0$, $2x+2y=0$:</p>
+          $$S_1=\operatorname{gen}\left\{\begin{pmatrix}-1\\1\\0\end{pmatrix}\right\}$$
+          <p>Suma de $\dim$ geométricas: $2+1=3$ (orden), por lo que $B$ es diagonalizable.</p>
+          <p><strong>Matrices:</strong></p>
+          $$P=\begin{pmatrix}1&2&-1\\1&0&1\\0&1&0\end{pmatrix},\quad D=\begin{pmatrix}5&0&0\\0&5&0\\0&0&1\end{pmatrix}$$
+        </div>
+      </details>
+    </div>
+
+    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- MÓDULO 04: DIAGONALIZACIÓN ORTOGONAL                                 -->
+  <!-- ===================================================================== -->
+  <section class="card" id="mod-4">
+    <h2 class="module-title"><span class="badge">MÓDULO 04</span> Diagonalización Ortogonal</h2>
+
+    <h3 class="section-title" id="sec-4-1">4.1 Teorema espectral para matrices simétricas</h3>
+    <div class="callout callout-thm">
+      <div class="callout-title">📐 Teorema espectral</div>
+      <p style="margin:0;">Sea $A\in\mathbb{R}^{n\times n}$. La matriz $A$ es <strong>ortogonalmente diagonalizable</strong> (es decir, existe una matriz ortogonal $P$ tal que $P^T A P=D$, con $D$ diagonal) si y sólo si $A$ es <strong>simétrica</strong> ($A=A^T$).</p>
+      <p style="margin:.6rem 0 .4rem 0;">Como consecuencia directa:</p>
+      <ul>
+        <li>Las columnas de $P$ forman una base ortonormal de $\mathbb{R}^n$ ($P^{-1}=P^T$).</li>
+        <li>Los autovectores de $A$ asociados a autovalores distintos son ortogonales entre sí.</li>
+        <li>Toda matriz simétrica se puede diagonalizar.</li>
+      </ul>
+    </div>
+
+    <h3 class="section-title" id="sec-4-2">4.2 Casos prácticos: raíces simples vs. múltiples</h3>
+    <p>El teorema garantiza la existencia de $P$ ortogonal, pero el procedimiento práctico varía según la naturaleza de los autovalores:</p>
+
+    <div class="callout callout-note">
+      <div class="callout-title">📝 Caso 1: Todos los autovalores son distintos</div>
+      <p style="margin:0;">Los autovectores son automáticamente ortogonales. Basta con <strong>normalizar</strong> cada autovector:</p>
+      $$u_i=\frac{v_i}{\|v_i\|}=\frac{v_i}{\sqrt{v_i\cdot v_i}}$$
+    </div>
+
+    <div class="callout callout-note">
+      <div class="callout-title">📝 Caso 2: Existen autovalores repetidos</div>
+      <p style="margin:0;">El autoespacio del autovalor múltiple tiene dimensión $>1$, y sus vectores no garantizan ser ortogonales. Se aplica <strong>Gram-Schmidt</strong> dentro del autoespacio:</p>
+      $$u_2=v_2-\frac{v_2\cdot u_1}{\|u_1\|^2}\,u_1$$
+      <p style="margin:.5rem 0 0 0;">Luego se normalizan individualmente.</p>
+    </div>
+
+    <p>Con esto, $P$ ortogonal cumple $P^{-1}=P^T$, y podemos escribir:</p>
+    $$P^T A P = D\quad\text{o bien}\quad A=P D P^T$$
+    <p>Si $P$ no es ortogonal, la diagonalización sigue siendo válida con la fórmula general $P^{-1}AP=D$.</p>
+
+    <h3 class="section-title" id="sec-4-3">4.3 Ejemplos</h3>
+
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 4.1: $A=\begin{pmatrix}1&2\\2&4\end{pmatrix}$ (simétrica, autovalores distintos)</div>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          <p><strong>Autovalores:</strong> $\lambda_1=0$, $\lambda_2=5$.</p>
+          <p><strong>Autoespacios:</strong></p>
+          $$S_5=\operatorname{gen}\left\{\begin{pmatrix}1\\2\end{pmatrix}\right\},\qquad S_0=\operatorname{gen}\left\{\begin{pmatrix}-2\\1\end{pmatrix}\right\}$$
+          <p><strong>Ortogonalidad:</strong> $(1,2)\cdot(-2,1)=-2+2=0$. ✔</p>
+          <p>Como los autovalores son distintos y $A$ es simétrica, basta con normalizar:</p>
+          $$Q=\begin{pmatrix}\frac{1}{\sqrt5}&-\frac{2}{\sqrt5}\\[2pt]\frac{2}{\sqrt5}&\frac{1}{\sqrt5}\end{pmatrix}$$
+          <p>Diagonalización ortogonal:</p>
+          $$Q^T A Q=D=\begin{pmatrix}5&0\\0&0\end{pmatrix}$$
+        </div>
+      </details>
+    </div>
+
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 4.2: $A=\begin{pmatrix}3&1&1\\1&3&1\\1&1&3\end{pmatrix}$ (simétrica, autovalor doble)</div>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          <p><strong>Autovalores:</strong> sumando las filas 2 y 3 a la fila 1 y factorizando:</p>
+          $$p(\lambda)=(5-\lambda)(2-\lambda)^2$$
+          <p>$\lambda_1=5$ ($m_\lambda=1$), $\lambda_2=2$ ($m_\lambda=2$).</p>
+
+          <p><strong>Autoespacio $S_5$:</strong></p>
+          $$S_5=\operatorname{gen}\left\{\begin{pmatrix}1\\1\\1\end{pmatrix}\right\}$$
+          <p><strong>Autoespacio $S_2$:</strong> $x+y+z=0$:</p>
+          $$S_2=\operatorname{gen}\left\{v_1=\begin{pmatrix}1\\0\\-1\end{pmatrix},\;v_2=\begin{pmatrix}0\\1\\-1\end{pmatrix}\right\}$$
+          <p>Los vectores $v_1$ y $v_2$ <strong>no son ortogonales</strong> ($v_1\cdot v_2=1$). Aplicamos Gram-Schmidt:</p>
+          $$u_1=v_1=\begin{pmatrix}1\\0\\-1\end{pmatrix}$$
+          $$u_2=v_2-\frac{v_2\cdot u_1}{\|u_1\|^2}u_1=\begin{pmatrix}0\\1\\-1\end{pmatrix}-\frac{1}{2}\begin{pmatrix}1\\0\\-1\end{pmatrix}=\begin{pmatrix}-1/2\\1\\-1/2\end{pmatrix}\sim\begin{pmatrix}-1\\2\\-1\end{pmatrix}$$
+          <p><strong>Normalizamos:</strong></p>
+          $$w_1=\frac{1}{\sqrt3}\begin{pmatrix}1\\1\\1\end{pmatrix},\quad
+            w_2=\frac{1}{\sqrt2}\begin{pmatrix}1\\0\\-1\end{pmatrix},\quad
+            w_3=\frac{1}{\sqrt6}\begin{pmatrix}-1\\2\\-1\end{pmatrix}$$
+          <p><strong>Matriz ortogonal:</strong></p>
+          $$Q=\begin{pmatrix}\frac{1}{\sqrt3}&\frac{1}{\sqrt2}&-\frac{1}{\sqrt6}\\[2pt]\frac{1}{\sqrt3}&0&\frac{2}{\sqrt6}\\[2pt]\frac{1}{\sqrt3}&-\frac{1}{\sqrt2}&-\frac{1}{\sqrt6}\end{pmatrix},\qquad D=Q^T A Q=\begin{pmatrix}5&0&0\\0&2&0\\0&0&2\end{pmatrix}$$
+        </div>
+      </details>
+    </div>
+
+    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- MÓDULO 05: EJERCICIOS PROPUESTOS                                     -->
+  <!-- ===================================================================== -->
+  <section class="card" id="mod-5">
+    <h2 class="module-title"><span class="badge">MÓDULO 05</span> Ejercicios Propuestos</h2>
+
+    <h3 class="section-title" id="sec-5-1">5.1 Diagonalización y matrices</h3>
+
+    <div class="proposed">
+      <div class="proposed-title">✏️ Ejercicio 5.1: ¿Es diagonalizable $M$?</div>
+      <p>Consideremos la matriz:</p>
+      $$M=\begin{pmatrix}3&-1&0\\-1&3&0\\1&1&2\end{pmatrix}$$
+      <p>Diga si es diagonalizable o no.</p>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          <p><strong>Autovalores:</strong> $p(\lambda)=\det(M-\lambda I)$. Desarrollando por la tercera columna:</p>
+          $$p(\lambda)=(2-\lambda)\big[(3-\lambda)^2-1\big]=(2-\lambda)(\lambda-2)(\lambda-4)$$
+          <p>$\lambda_1=4$, $\lambda_2=2$ ($m_\lambda=2$).</p>
+          <p><strong>$S_4$:</strong> $(M-4I)v=0\Rightarrow x=y=0$, $z$ libre. $\dim S_4=1$.</p>
+          <p><strong>$S_2$:</strong> $(M-2I)v=0\Rightarrow -x+y=0$, $x+y=0$, $z$ libre. Solo $x=y=0$, $z$ libre: $\dim S_2=1$.</p>
+          <p>Como $m_\lambda(2)=2$ pero $\dim S_2=1$, <strong>$M$ no es diagonalizable</strong>.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="proposed">
+      <div class="proposed-title">✏️ Ejercicio 5.2: Semejanza</div>
+      <p>Consideremos:</p>
+      $$B=\begin{pmatrix}2&1\\0&1\end{pmatrix},\quad A=\begin{pmatrix}1&3\\0&2\end{pmatrix},\quad P=\begin{pmatrix}3&0\\1&1\end{pmatrix}$$
+      <p>Calcule $P^{-1}$ y compruebe la semejanza $B=P^{-1}AP$.</p>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          <p>$\det(P)=3$, $P^{-1}=\dfrac13\begin{pmatrix}1&0\\-1&3\end{pmatrix}$.</p>
+          <p>Producto $AP$:</p>
+          $$AP=\begin{pmatrix}1&3\\0&2\end{pmatrix}\begin{pmatrix}3&0\\1&1\end{pmatrix}=\begin{pmatrix}6&3\\2&2\end{pmatrix}$$
+          <p>Producto $P^{-1}(AP)$:</p>
+          $$P^{-1}AP=\frac13\begin{pmatrix}1&0\\-1&3\end{pmatrix}\begin{pmatrix}6&3\\2&2\end{pmatrix}=\frac13\begin{pmatrix}6&3\\0&3\end{pmatrix}=\begin{pmatrix}2&1\\0&1\end{pmatrix}=B\;\checkmark$$
+        </div>
+      </details>
+    </div>
+
+    <div class="proposed">
+      <div class="proposed-title">✏️ Ejercicio 5.3: Determinar $a,b$ para doble autovalor y diagonalizabilidad</div>
+      <p>Sea:</p>
+      $$M=\begin{pmatrix}1&2&3\\2&a&b\\0&0&3\end{pmatrix}$$
+      <p>Determinar $a,b$ para que $\lambda=3$ sea autovalor doble y $M$ sea diagonalizable.</p>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          <p>La matriz es triangular por bloques; el autovalor $3$ ya aparece en la posición $(3,3)$. Para que $\lambda=3$ sea doble, el bloque $\begin{pmatrix}1&2\\2&a\end{pmatrix}$ debe tener a $3$ como raíz:</p>
+          $$\det\begin{pmatrix}1-3&2\\2&a-3\end{pmatrix}=(-2)(a-3)-4=0\Rightarrow -2a+6-4=0\Rightarrow a=1$$
+          <p>Con $a=1$, ese bloque es $\begin{pmatrix}1&2\\2&1\end{pmatrix}$ con autovalores $3$ y $-1$. Falta analizar la multiplicidad geométrica de $\lambda=3$:</p>
+          $$\dim S_3=3-\operatorname{rango}(M-3I)$$
+          $$M-3I=\begin{pmatrix}-2&2&3\\2&-2&b\\0&0&0\end{pmatrix}\Rightarrow \operatorname{rango}=2 \text{ si } b\neq -3\ (\text{filas independientes})$$
+          <p>Para que $\dim S_3=2=m_\lambda$, necesitamos $\operatorname{rango}(M-3I)=1$. Eso ocurre si la segunda fila es $-\,$la primera: requiere $b=-3$.</p>
+          <p><strong>Respuesta:</strong> $a=1$, $b=-3$.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="proposed">
+      <div class="proposed-title">✏️ Ejercicio 5.4: $p(\lambda)=\lambda^2(1-\lambda)$ y autoespacio conocido</div>
+      <p>Sea $A\in\mathbb{R}^{3\times 3}$ con $p(\lambda)=\lambda^2(1-\lambda)$, y $S=\{(x,y,z)\in\mathbb{R}^{3\times 1}\mid x+y+z=0\}$ un autoespacio de $A$. Analizar si $A$ es diagonalizable.</p>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          <p>El polinomio característico da autovalores $\lambda=0$ ($m_\lambda=2$) y $\lambda=1$ ($m_\lambda=1$).</p>
+          <p>El subespacio $S$ tiene dimensión $2$ (es un plano). Como $S$ es un autoespacio, corresponde a algún autovalor. Su dimensión solo puede ser $\le m_\lambda$ del autovalor correspondiente. Como solo $\lambda=0$ tiene $m_\lambda=2$, debe ser $S=S_0$.</p>
+          <p>Entonces $\dim S_0=2=m_\lambda(0)$. Falta verificar $\dim S_1$: como $m_\lambda(1)=1$, siempre $\dim S_1\ge 1$. Por tanto, la suma de dimensiones geométricas es $2+1=3=n$.</p>
+          <p><strong>Conclusión:</strong> $A$ <strong>es diagonalizable</strong>.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="proposed">
+      <div class="proposed-title">✏️ Ejercicio 5.5: Análisis paramétrico en $c$</div>
+      <p>Dada:</p>
+      $$A=\begin{pmatrix}1&1&2\\2&2&4\\0&0&c\end{pmatrix}$$
+      <ul>
+        <li>Hallar todos los valores de $c$ para los cuales $A$ es diagonalizable.</li>
+        <li>Para $c=0$, hallar (si es posible) $P$ inversible y $D$ diagonal tales que $P^{-1}AP=D$.</li>
+      </ul>
+      <details class="solution"><summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          <p><strong>Polinomio característico:</strong> la primera y segunda fila son proporcionales ($R_2=2R_1$), así que el rango de $A-\lambda I$ pierde al menos una fila. Desarrollando:</p>
+          $$p(\lambda)=-\lambda(\lambda-3)(\lambda-c)$$
+          <p>Autovalores: $\lambda_1=0$, $\lambda_2=3$, $\lambda_3=c$.</p>
+          <p><strong>Diagonalizabilidad según $c$:</strong></p>
+          <ul>
+            <li>Si $c\notin\{0,3\}$: tres autovalores distintos → <strong>siempre diagonalizable</strong>.</li>
+            <li>Si $c=0$: $\lambda=0$ con $m_\lambda=2$. Hay que revisar $\dim S_0$.
+              $$A-0I=\begin{pmatrix}1&1&2\\2&2&4\\0&0&0\end{pmatrix}\Rightarrow \operatorname{rango}=1$$
+              $\dim S_0=3-1=2=m_\lambda(0)$. <strong>Diagonalizable</strong>.
+            </li>
+            <li>Si $c=3$: $\lambda=3$ con $m_\lambda=2$.
+              $$A-3I=\begin{pmatrix}-2&1&2\\2&-1&4\\0&0&0\end{pmatrix}$$
+              El rango es $2$ (filas independientes por el término $4\neq -2$... en realidad, al comparar: las dos primeras filas no son proporcionales, luego $\operatorname{rango}=2$).
+              $\dim S_3=3-2=1<2$. <strong>No diagonalizable</strong>.
+            </li>
+          </ul>
+          <p><strong>Respuesta (a):</strong> $A$ es diagonalizable para todo $c\neq 3$.</p>
+
+          <p><strong>Caso $c=0$:</strong> autovalores $\lambda_1=0$ ($m_\lambda=2$) y $\lambda_2=3$ ($m_\lambda=1$).</p>
+          <p>$S_0$: $x+y+2z=0\Rightarrow x=-y-2z$:
+          $$S_0=\operatorname{gen}\left\{\begin{pmatrix}-1\\1\\0\end{pmatrix},\begin{pmatrix}-2\\0\\1\end{pmatrix}\right\}$$
+          <p>$S_3$: $x+y+2z=3x$... resolviendo $A-3I$ con $c=0$:</p>
+          $$(A-3I)v=0\Rightarrow \begin{pmatrix}-2&1&2\\2&-2&4\\0&0&-3\end{pmatrix}v=0\Rightarrow z=0,\,-2x+y=0\Rightarrow y=2x$$
+          $$S_3=\operatorname{gen}\left\{\begin{pmatrix}1\\2\\0\end{pmatrix}\right\}$$
+          <p><strong>Matrices:</strong></p>
+          $$P=\begin{pmatrix}-1&-2&1\\1&0&2\\0&1&0\end{pmatrix},\quad D=\begin{pmatrix}0&0&0\\0&0&0\\0&0&3\end{pmatrix}$$
+        </div>
+      </details>
+    </div>
+
+    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+  </section>
+
+</div>
+
+<!-- ===================== SCRIPT GLOBAL ===================== -->
+<script>
+  function toggleAllDetails(open) {
+    document.querySelectorAll('details.solution').forEach(d => d.open = open);
+  }
+</script>
+</body>
+</html>

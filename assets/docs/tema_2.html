@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Espacios Vectoriales, Subespacios e Interpretación Geométrica</title>
+
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '\\(', right: '\\)', display: false}
+      ],
+      throwOnError: false
+    });"></script>
+
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-light: #eff6ff;
+      --primary-border: #3b82f6;
+      --secondary: #0f766e;
+      --secondary-light: #f0fdfa;
+      --secondary-border: #14b8a6;
+      --accent: #b45309;
+      --accent-light: #fffbeb;
+      --accent-border: #f59e0b;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    * { box-sizing: border-box; scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
+
+    /* Header */
+    header.doc-header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: white;
+      padding: 2.5rem 2rem;
+      border-radius: 16px;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.25);
+    }
+
+    header.doc-header h1 {
+      margin: 0 0 0.75rem 0;
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .meta-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      padding-top: 0.85rem;
+      margin-top: 0.85rem;
+    }
+
+    .meta-bar span strong { color: #ffffff; }
+
+
+
+    /* Controls Bar */
+    .controls-bar { display: flex; justify-content: flex-end; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+
+    .btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+
+    .btn:hover { background: var(--primary-light); border-color: var(--primary-border); color: var(--primary); }
+
+    /* Cards & Sections */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    h2.module-title {
+      color: var(--primary);
+      font-size: 1.6rem;
+      margin-top: 0;
+      padding-bottom: 0.6rem;
+      border-bottom: 2px solid var(--primary-light);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      background: var(--primary);
+      color: white;
+      font-size: 0.8rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    h3.section-title { color: #0f172a; font-size: 1.25rem; margin-top: 1.8rem; margin-bottom: 0.75rem; }
+    h4.sub-title { color: #334155; font-size: 1.05rem; margin-top: 1.2rem; margin-bottom: 0.5rem; }
+
+    /* Tables */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1.2rem 0;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.95rem; background: var(--surface); }
+
+    th {
+      background-color: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+      text-align: left;
+      padding: 0.8rem 1rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background-color: #f8fafc; }
+
+    table a { color: var(--primary); text-decoration: none; font-weight: 600; }
+    table a:hover { text-decoration: underline; }
+
+    /* Callout Boxes */
+    .callout { border-left: 4px solid; border-radius: 0 10px 10px 0; padding: 1.1rem 1.35rem; margin: 1.25rem 0; }
+    .callout-def { background-color: var(--primary-light); border-color: var(--primary-border); }
+    .callout-thm { background-color: var(--secondary-light); border-color: var(--secondary-border); }
+    .callout-note { background-color: var(--accent-light); border-color: var(--accent-border); }
+
+    .callout-title {
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 1rem;
+    }
+
+    .callout-def .callout-title { color: var(--primary); }
+    .callout-thm .callout-title { color: var(--secondary); }
+    .callout-note .callout-title { color: var(--accent); }
+
+    /* Examples & Collapsible Details */
+    .example-box {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1.2rem 1.4rem;
+      margin: 1.35rem 0;
+    }
+
+    .example-header {
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 0.6rem;
+      font-size: 1.03rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    details.solution {
+      margin-top: 0.9rem;
+      background: var(--surface);
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    details.solution summary {
+      padding: 0.65rem 1rem;
+      font-weight: 600;
+      color: var(--primary);
+      cursor: pointer;
+      background: #f1f5f9;
+      user-select: none;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.15s ease;
+    }
+
+    details.solution summary::-webkit-details-marker { display: none; }
+
+    details.solution summary::before {
+      content: "▶";
+      font-size: 0.75rem;
+      transition: transform 0.2s ease;
+      display: inline-block;
+    }
+
+    details.solution[open] summary::before { transform: rotate(90deg); }
+    details.solution summary:hover { background: #e2e8f0; }
+
+    .solution-content { padding: 1.1rem 1.25rem; border-top: 1px solid #e2e8f0; }
+
+    /* Diagram Containers */
+    .diagram-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      margin: 1.25rem 0;
+      padding: 1rem;
+      background: #ffffff;
+      border: 1px dashed #cbd5e1;
+      border-radius: 10px;
+    }
+
+    .diagram-caption {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+      font-weight: 600;
+    }
+
+/* ---- 1) SVG: ocupa el ancho disponible con un tope reducido ---- */
+svg.fig {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  max-width: min(100%, 432px);   /* antes 720 px → −40 % */
+  height: auto;
+}
+svg.fig.sm   { max-width: min(100%, 240px); }   /* antes 400 px */
+svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
+
+/* ---- 2) Wrappers: los <div> dentro de .diagram-container ---- */
+.diagram-container > div {
+  flex: 1 1 192px;   /* antes 320 px → −40 % */
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* ---- 3) Contenedor: alinea arriba para que las captions queden parejas ---- */
+.diagram-container {
+  align-items: flex-start;
+}
+
+    /* Back to top link */
+    .back-top { text-align: right; margin-top: 1.5rem; padding-top: 0.75rem; border-top: 1px solid var(--border); }
+    .back-top a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; font-weight: 600; }
+    .back-top a:hover { color: var(--primary); }
+
+    /* ===== AJUSTES RESPONSIVE ===== */
+    @media (max-width: 640px) {
+      body { font-size: 0.96rem; line-height: 1.6; }
+      .container { padding: 0.9rem 0.85rem 3.5rem; }
+
+      header.doc-header { padding: 1.4rem 1.15rem; border-radius: 12px; margin-bottom: 1.25rem; }
+      header.doc-header h1 { font-size: 1.45rem; line-height: 1.25; }
+      header.doc-header p { font-size: 0.95rem !important; }
+
+      .meta-bar { flex-direction: column; gap: 0.35rem; font-size: 0.85rem; }
+
+      .controls-bar { flex-direction: column; gap: 0.5rem; margin-bottom: 1.1rem; }
+      .controls-bar .btn { width: 100%; text-align: center; padding: 0.65rem 0.85rem; }
+
+      .card { padding: 1.15rem 1rem; border-radius: 12px; margin-bottom: 1.25rem; }
+
+      h2.module-title { font-size: 1.22rem; flex-wrap: wrap; gap: 0.45rem; line-height: 1.3; }
+      h3.section-title { font-size: 1.1rem; margin-top: 1.4rem; }
+
+      .example-box { padding: 0.95rem 1rem; margin: 1rem 0; }
+      .callout { padding: 0.9rem 1rem; margin: 1rem 0; }
+
+      th, td { padding: 0.55rem 0.65rem; font-size: 0.86rem; }
+
+      .katex-display { overflow-x: auto; overflow-y: hidden; padding: 0.35rem 0; max-width: 100%; }
+      .katex-display > .katex { font-size: 0.95em; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ====== MARCADORES GLOBALES PARA LAS FLECHAS DE LOS DIAGRAMAS ====== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <marker id="ah-blue" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12"
+            markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="ah-red" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12"
+            markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="ah-green" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12"
+            markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#16a34a"/>
+    </marker>
+    <marker id="ah-purple" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12"
+            markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#7c3aed"/>
+    </marker>
+    <marker id="ah-orange" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12"
+            markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#ea580c"/>
+    </marker>
+    <marker id="ah-gray" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12"
+            markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#94a3b8"/>
+    </marker>
+    <marker id="ah-darkgray" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12"
+            markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#475569"/>
+    </marker>
+  </defs>
+</svg>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header class="doc-header" id="inicio">
+    <h1>🧮 Espacios Vectoriales, Subespacios e Interpretación Geométrica</h1>
+    <p style="margin: 0; color: #e2e8f0; font-size: 1.05rem;">
+      Apuntes completos de cuerpos y escalares, definición axiomática de espacio vectorial, teoremas de
+      caracterización de subespacios, y una lectura visual de vectores, bases, determinantes, combinaciones
+      lineales y espacios generados.
+    </p>
+    <div class="meta-bar">
+      <span><strong>Autor:</strong> Diego Linares</span>
+      <span>•</span>
+      <span><strong>Área:</strong> Álgebra Lineal</span>
+      <span>•</span>
+      <span><strong>Nivel:</strong> Universitario</span>
+    </div>
+  </header>
+
+  <!-- CONTROLES GLOBALES -->
+  <div class="controls-bar">
+    <button class="btn" onclick="toggleAllDetails(true)">📂 Expandir todas las soluciones</button>
+    <button class="btn" onclick="toggleAllDetails(false)">📁 Contraer todas las soluciones</button>
+  </div>
+
+  <!-- MAPA DE CONTENIDOS -->
+  <section class="card" id="mapa-de-contenidos">
+    <h2 class="module-title">📑 Mapa de Contenidos</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 80px;">Módulo</th>
+            <th style="width: 260px;">Tema Principal</th>
+            <th>Subtemas Clave</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge">01</span></td>
+            <td><a href="#mod-1">Conceptos Algebraicos Previos</a></td>
+            <td>
+              <a href="#sec-1-1">1.1 Cuerpo o campo ($F$)</a> •
+              <a href="#sec-1-2">1.2 Vector y escalares</a>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="badge">02</span></td>
+            <td><a href="#mod-2">Espacios Vectoriales</a></td>
+            <td>
+              <a href="#sec-2-1">2.1 Definición formal</a> •
+              <a href="#sec-2-2">2.2 Los ocho axiomas</a> •
+              <a href="#sec-2-3">2.3 El espacio $\mathbb{R}^2$</a> •
+              <a href="#sec-2-4">2.4 El espacio $M_{n \times n}(\mathbb{R})$</a>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="badge">03</span></td>
+            <td><a href="#mod-3">Subespacio Vectorial</a></td>
+            <td>
+              <a href="#sec-3-1">3.1 Definición</a> •
+              <a href="#sec-3-2">3.2 Tests del subespacio</a> •
+              <a href="#sec-3-3">3.3 Ejemplos y contraejemplo</a>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="badge">04</span></td>
+            <td><a href="#mod-4">Interpretación Geométrica</a></td>
+            <td>
+              <a href="#sec-4-1">4.1 Vectores, magnitud y ortogonalidad</a> •
+              <a href="#sec-4-2">4.2 Escalamiento</a> •
+              <a href="#sec-4-3">4.3 Subespacios en el plano y el espacio</a> •
+              <a href="#sec-4-4">4.4 Matrices y determinante</a> •
+              <a href="#sec-4-5">4.5 Bases e independencia</a> •
+              <a href="#sec-4-6">4.6 Suma y combinaciones lineales</a> •
+              <a href="#sec-4-7">4.7 Del retículo al plano continuo</a> •
+              <a href="#sec-4-8">4.8 El span</a> •
+              <a href="#sec-4-9">4.9 Los escenarios $\mathbb{R}$, $\mathbb{R}^2$, $\mathbb{R}^3$</a> •
+              <a href="#sec-4-10">4.10 Cambio de base</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- MÓDULO 1: CONCEPTOS ALGEBRAICOS PREVIOS -->
+  <!-- ===================================================================== -->
+  <section class="card" id="mod-1">
+    <h2 class="module-title"><span class="badge">MÓDULO 01</span> Conceptos Algebraicos Previos</h2>
+
+    <p>Antes de introducir la definición formal de un espacio vectorial, es útil repasar brevemente qué es un
+      <strong>cuerpo</strong>, ya que será de donde extraeremos nuestros escalares.</p>
+
+    <h3 class="section-title" id="sec-1-1">1.1 Cuerpo o Campo ($F$)</h3>
+
+    <div class="callout callout-def">
+      <div class="callout-title">📌 Definición: Cuerpo</div>
+      <p style="margin:0;">Un <strong>cuerpo</strong> $F$ es un conjunto de elementos (que usualmente pensamos como
+        “números”) en el que podemos realizar las cuatro operaciones aritméticas básicas: sumar, restar,
+        multiplicar y dividir (excepto por cero), y donde el resultado de estas operaciones nunca se sale de $F$.</p>
+    </div>
+
+    <p>Específicamente, para que un conjunto sea un cuerpo bajo la suma $(+)$ y la multiplicación $(\cdot)$,
+      debe cumplir con reglas clásicas para cualesquiera $a, b, c \in F$:</p>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>Propiedad</th><th>Suma $(+)$</th><th>Multiplicación $(\cdot)$</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Conmutatividad</strong></td><td>$a + b = b + a$</td><td>$a \cdot b = b \cdot a$</td></tr>
+          <tr><td><strong>Asociatividad</strong></td><td>$(a+b)+c = a+(b+c)$</td><td>$(a \cdot b)\cdot c = a \cdot (b \cdot c)$</td></tr>
+          <tr><td><strong>Neutros</strong></td><td>$a + 0 = a$</td><td>$a \cdot 1 = a$</td></tr>
+          <tr><td><strong>Inversos</strong></td><td>$a + (-a) = 0$</td><td>$a \cdot a^{-1} = 1$ &nbsp;($a \neq 0$)</td></tr>
+          <tr><td><strong>Distributividad</strong></td><td colspan="2">$a \cdot (b + c) = (a \cdot b) + (a \cdot c)$</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 1.1: Campos y contraejemplos</div>
+      <ul style="margin:0.3rem 0 0 0;">
+        <li><strong>Ejemplos clásicos (los que usaremos):</strong> el conjunto de los números reales $\mathbb{R}$,
+          los números racionales $\mathbb{Q}$ y los números complejos $\mathbb{C}$ son campos.</li>
+        <li><strong>Contraejemplo:</strong> los números enteros $\mathbb{Z}$ <strong>no</strong> forman un campo.
+          Aunque podemos sumar, restar y multiplicar enteros, la división falla: el inverso multiplicativo de $2$
+          es $1/2$, el cual es racional, no entero.</li>
+      </ul>
+    </div>
+
+    <h3 class="section-title" id="sec-1-2">1.2 Vector y Escalares</h3>
+
+    <div class="callout callout-def">
+      <div class="callout-title">📌 Definición: Vector</div>
+      <p style="margin:0;">Un <strong>vector</strong> es un elemento de un conjunto $V$ llamado espacio vectorial,
+        el cual suele representarse mediante letras minúsculas ($u, v, w \in V$).</p>
+    </div>
+
+    <p>La característica fundamental de un vector no es su forma geométrica aislada, sino su comportamiento bajo
+      las operaciones definidas por un <strong>cuerpo</strong> $F$. En esta relación, los elementos del cuerpo $F$
+      reciben el nombre de <strong>escalares</strong>, los cuales actúan sobre los vectores mediante la multiplicación
+      escalar ($\alpha \cdot v$), permitiendo estirar, contraer o invertir la dirección de estos, garantizando que el
+      resultado de cualquier <strong>combinación lineal</strong> siga perteneciendo al conjunto $V$.</p>
+
+    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- MÓDULO 2: ESPACIOS VECTORIALES -->
+  <!-- ===================================================================== -->
+  <section class="card" id="mod-2">
+    <h2 class="module-title"><span class="badge">MÓDULO 02</span> Espacios Vectoriales</h2>
+
+    <p>El concepto de espacio vectorial es uno de los pilares del álgebra lineal abstracta. Permite generalizar las
+      operaciones de suma y multiplicación por un escalar que ya conocemos en los vectores geométricos de
+      $\mathbb{R}^2$ o $\mathbb{R}^3$, aplicándolas a objetos de naturaleza muy distinta como funciones, matrices o
+      polinomios.</p>
+
+    <h3 class="section-title" id="sec-2-1">2.1 Definición Formal</h3>
+
+    <div class="callout callout-def">
+      <div class="callout-title">📌 Definición: Espacio Vectorial</div>
+      <p>Un <strong>espacio vectorial</strong> sobre un campo $F$ es un conjunto no vacío $V$ cuyos elementos llamamos
+        <strong>vectores</strong>, dotado de dos operaciones fundamentales que no se salen del conjunto
+        (propiedad de cerradura):</p>
+      <ul style="margin: 0.5rem 0 0 0;">
+        <li><strong>Suma de vectores:</strong> a cada par de vectores $u, v \in V$ se le asigna un único vector
+          $u + v \in V$.</li>
+        <li><strong>Multiplicación por un escalar:</strong> a cada número $\alpha \in F$ y a cada vector $v \in V$
+          se le asigna un único vector $\alpha \cdot v \in V$.</li>
+      </ul>
+    </div>
+
+    <h3 class="section-title" id="sec-2-2">2.2 Los Ocho Axiomas</h3>
+
+    <p>Para que $V$ sea formalmente un espacio vectorial, estas operaciones deben satisfacer los siguientes
+      8 axiomas para todos los vectores $u, v, w \in V$ y todos los escalares $\alpha, \beta \in F$:</p>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th style="width:70px;">Axioma</th><th style="width:230px;">Propiedad</th><th>Expresión</th></tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="3" style="background:#f1f5f9; font-weight:700; color:#0f172a;">Axiomas de la suma</td></tr>
+          <tr><td><strong>(A1)</strong></td><td>Conmutatividad</td><td>$u + v = v + u$</td></tr>
+          <tr><td><strong>(A2)</strong></td><td>Asociatividad</td><td>$(u + v) + w = u + (v + w)$</td></tr>
+          <tr><td><strong>(A3)</strong></td><td>Elemento neutro</td><td>Existe un vector $\mathbf{0} \in V$ tal que $v + \mathbf{0} = v$</td></tr>
+          <tr><td><strong>(A4)</strong></td><td>Elemento opuesto</td><td>Para cada $v \in V$, existe $-v \in V$ tal que $v + (-v) = \mathbf{0}$</td></tr>
+          <tr><td colspan="3" style="background:#f1f5f9; font-weight:700; color:#0f172a;">Axiomas de la multiplicación por un escalar</td></tr>
+          <tr><td><strong>(A5)</strong></td><td>Distributividad del escalar</td><td>$\alpha \cdot (u + v) = (\alpha \cdot u) + (\alpha \cdot v)$</td></tr>
+          <tr><td><strong>(A6)</strong></td><td>Distributividad del vector</td><td>$(\alpha + \beta) \cdot v = (\alpha \cdot v) + (\beta \cdot v)$</td></tr>
+          <tr><td><strong>(A7)</strong></td><td>Asociatividad escalar</td><td>$\alpha \cdot (\beta \cdot v) = (\alpha \cdot \beta) \cdot v$</td></tr>
+          <tr><td><strong>(A8)</strong></td><td>Identidad escalar</td><td>$1 \cdot v = v$, donde $1$ es el neutro multiplicativo de $F$</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="section-title" id="sec-2-3">2.3 Ejemplo Completo: El Espacio Vectorial $\mathbb{R}^2$</h3>
+
+    <p>Como se introdujo anteriormente, el ejemplo básico más importante de espacio vectorial es el espacio vectorial
+      real $\mathbb{R}^2 = (\mathbb{R}^2, +, \cdot)$. Para entenderlo, definamos los tres elementos de esta tríada:</p>
+
+    <ol>
+      <li><strong>El conjunto $\mathbb{R}^2$:</strong> sus elementos son pares ordenados de números reales. Si
+        $u \in \mathbb{R}^2$, se escribe como $u = (u_1, u_2)$, donde cada componente $u_i \in \mathbb{R}$.</li>
+      <li><strong>Suma de vectores ($+$):</strong> se define operando componente a componente. Si
+        $u = (u_1, u_2)$ y $v = (v_1, v_2)$, entonces
+        $$u + v = (u_1 + v_1,\; u_2 + v_2)$$</li>
+      <li><strong>Multiplicación por un escalar ($\cdot$):</strong> si $\alpha \in \mathbb{R}$ es un escalar,
+        multiplica a cada componente del vector de forma individual:
+        $$\alpha \cdot u = (\alpha u_1,\; \alpha u_2)$$</li>
+    </ol>
+
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 2.1: Demostración de los 8 axiomas en $\mathbb{R}^2$</div>
+      <p>Verifique que las operaciones recién definidas cumplen los 8 axiomas.</p>
+      <details class="solution">
+        <summary>🔍 Ver demostración paso a paso</summary>
+        <div class="solution-content">
+          <p>La clave de esta demostración es observar que <strong>todas las propiedades se heredan directamente de
+            la aritmética de los números reales</strong>. Sean los vectores
+            $u = (u_1, u_2)$, $v = (v_1, v_2)$, $w = (w_1, w_2) \in \mathbb{R}^2$ y los escalares
+            $\alpha, \beta \in \mathbb{R}$.</p>
+
+          <h4 class="sub-title">Axiomas de la suma</h4>
+
+          <p><strong>(A1) Conmutatividad:</strong></p>
+          $$\begin{aligned}
+            u + v &= (u_1 + v_1,\; u_2 + v_2) && \text{(Definición de suma en } \mathbb{R}^2\text{)} \\
+            &= (v_1 + u_1,\; v_2 + u_2) && \text{(Conmutatividad en } \mathbb{R}\text{)} \\
+            &= v + u && \text{(Definición de suma en } \mathbb{R}^2\text{)}
+          \end{aligned}$$
+
+          <p><strong>(A2) Asociatividad:</strong></p>
+          $$\begin{aligned}
+            (u + v) + w &= \big((u_1 + v_1) + w_1,\; (u_2 + v_2) + w_2\big) && \text{(Definición de suma)} \\
+            &= \big(u_1 + (v_1 + w_1),\; u_2 + (v_2 + w_2)\big) && \text{(Asociatividad en } \mathbb{R}\text{)} \\
+            &= u + (v + w) && \text{(Definición de suma)}
+          \end{aligned}$$
+
+          <p><strong>(A3) Elemento neutro:</strong> sea el vector nulo $\mathbf{0} = (0, 0)$.</p>
+          $$\begin{aligned}
+            u + \mathbf{0} &= (u_1 + 0,\; u_2 + 0) && \text{(Definición de suma)} \\
+            &= (u_1, u_2) && \text{(Neutro aditivo en } \mathbb{R}\text{)} \\
+            &= u && \text{(Definición de } u\text{)}
+          \end{aligned}$$
+
+          <p><strong>(A4) Elemento opuesto:</strong> para cada $u$, existe su negativo $-u = (-u_1, -u_2)$.</p>
+          $$\begin{aligned}
+            u + (-u) &= \big(u_1 + (-u_1),\; u_2 + (-u_2)\big) && \text{(Definición de suma)} \\
+            &= (0, 0) && \text{(Opuesto aditivo en } \mathbb{R}\text{)} \\
+            &= \mathbf{0} && \text{(Definición del vector nulo)}
+          \end{aligned}$$
+
+          <h4 class="sub-title">Axiomas de la multiplicación escalar</h4>
+
+          <p><strong>(A5) Distributividad del escalar:</strong></p>
+          $$\begin{aligned}
+            \alpha(u + v) &= \alpha(u_1 + v_1,\; u_2 + v_2) && \text{(Definición de suma)} \\
+            &= \big(\alpha(u_1 + v_1),\; \alpha(u_2 + v_2)\big) && \text{(Multiplicación escalar)} \\
+            &= (\alpha u_1 + \alpha v_1,\; \alpha u_2 + \alpha v_2) && \text{(Distributividad en } \mathbb{R}\text{)} \\
+            &= (\alpha u_1, \alpha u_2) + (\alpha v_1, \alpha v_2) && \text{(Definición de suma)} \\
+            &= \alpha u + \alpha v && \text{(Multiplicación escalar)}
+          \end{aligned}$$
+
+          <p><strong>(A6) Distributividad del vector:</strong></p>
+          $$\begin{aligned}
+            (\alpha + \beta)u &= \big((\alpha + \beta)u_1,\; (\alpha + \beta)u_2\big) && \text{(Multiplicación escalar)} \\
+            &= (\alpha u_1 + \beta u_1,\; \alpha u_2 + \beta u_2) && \text{(Distributividad en } \mathbb{R}\text{)} \\
+            &= (\alpha u_1, \alpha u_2) + (\beta u_1, \beta u_2) && \text{(Definición de suma)} \\
+            &= \alpha u + \beta u && \text{(Multiplicación escalar)}
+          \end{aligned}$$
+
+          <p><strong>(A7) Asociatividad escalar:</strong></p>
+          $$\begin{aligned}
+            \alpha(\beta u) &= \alpha(\beta u_1,\; \beta u_2) && \text{(Multiplicación escalar)} \\
+            &= \big(\alpha(\beta u_1),\; \alpha(\beta u_2)\big) && \text{(Multiplicación escalar)} \\
+            &= \big((\alpha\beta)u_1,\; (\alpha\beta)u_2\big) && \text{(Asociatividad en } \mathbb{R}\text{)} \\
+            &= (\alpha\beta)u && \text{(Multiplicación escalar)}
+          \end{aligned}$$
+
+          <p><strong>(A8) Identidad escalar:</strong></p>
+          $$\begin{aligned}
+            1 \cdot u &= (1 \cdot u_1,\; 1 \cdot u_2) && \text{(Multiplicación escalar)} \\
+            &= (u_1, u_2) && \text{(Neutro multiplicativo en } \mathbb{R}\text{)} \\
+            &= u && \text{(Definición de } u\text{)}
+          \end{aligned}$$
+
+          <p style="margin-bottom:0;">Puesto que la suma y la multiplicación por un escalar producen resultados que
+            siguen siendo pares de números reales y se cumplen satisfactoriamente los 8 axiomas, queda demostrado que
+            $\mathbb{R}^2$ es un espacio vectorial.</p>
+        </div>
+      </details>
+    </div>
+
+    <h3 class="section-title" id="sec-2-4">2.4 Ejemplo Completo: El Espacio Vectorial $M_{n \times n}(\mathbb{R})$</h3>
+
+    <p>El conjunto de matrices de tamaño $n \times n$ con entradas en los números reales $\mathbb{R}$ forma un espacio
+      vectorial bajo las siguientes definiciones:</p>
+
+    <ol>
+      <li><strong>Suma de matrices:</strong> si $A, B \in M_{n \times n}(\mathbb{R})$ con elementos genéricos
+        $a_{ij}$ y $b_{ij}$, su suma se define como $A+B = a_{ij} + b_{ij}$.</li>
+      <li><strong>Multiplicación por un escalar:</strong> si $\alpha \in \mathbb{R}$ y $A \in M_{n \times n}(\mathbb{R})$
+        con elemento $a_{ij}$, el producto se define como $\alpha A = \alpha a_{ij}$.</li>
+    </ol>
+
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 2.2: Verificación axiomática para matrices</div>
+      <p>Demuestre que $(M_{n \times n}(\mathbb{R}), +, \cdot)$ es un espacio vectorial.</p>
+      <details class="solution">
+        <summary>🔍 Ver demostración</summary>
+        <div class="solution-content">
+          <h4 class="sub-title">Axiomas de la suma</h4>
+
+          <p><strong>(A1) Conmutatividad:</strong></p>
+          $$\begin{aligned}
+            A+B &= a_{ij} + b_{ij} && \text{(Definición de } A \text{ y } B\text{)} \\
+            &= b_{ij} + a_{ij} && \text{(Conmutatividad en } \mathbb{R}\text{)} \\
+            &= B+A && \text{(Definición de } A \text{ y } B\text{)}
+          \end{aligned}$$
+
+          <p><strong>(A2) Asociatividad:</strong> sean $A, B, C \in M_{n \times n}(\mathbb{R})$.</p>
+          $$\begin{aligned}
+            (A+B)+C &= (a_{ij}+b_{ij})+c_{ij} && \text{(Definición de } A, B, C\text{)} \\
+            &= a_{ij}+(b_{ij}+c_{ij}) && \text{(Asociatividad en } \mathbb{R}\text{)} \\
+            &= A+(B+C) && \text{(Definición de } A, B, C\text{)}
+          \end{aligned}$$
+
+          <p><strong>(A3) Elemento neutro:</strong> sea la matriz cero $\mathbf{0}$ (cuyas entradas son $0 \in \mathbb{R}$).</p>
+          $$\begin{aligned}
+            A+\mathbf{0} &= a_{ij} + 0 && \text{(Definición de } A \text{ y } \mathbf{0}\text{)} \\
+            &= a_{ij} && \text{(Neutro aditivo en } \mathbb{R}\text{)} \\
+            &= A && \text{(Definición de } A\text{)}
+          \end{aligned}$$
+
+          <p><strong>(A4) Elemento opuesto:</strong> para cada matriz $A$, existe su opuesta $-A$ con entradas $-a_{ij}$.</p>
+          $$\begin{aligned}
+            A + (-A) &= a_{ij} + (-a_{ij}) && \text{(Definición de } A \text{ y } -A\text{)} \\
+            &= 0 && \text{(Opuesto aditivo en } \mathbb{R}\text{)} \\
+            &= \mathbf{0} && \text{(Definición de la matriz cero)}
+          \end{aligned}$$
+
+          <h4 class="sub-title">Axiomas de la multiplicación escalar</h4>
+
+          <p><strong>(A5) Distributividad del escalar:</strong></p>
+          $$\begin{aligned}
+            \alpha(A+B) &= \alpha(a_{ij}+b_{ij}) && \text{(Definición de } A \text{ y } B\text{)} \\
+            &= \alpha a_{ij} + \alpha b_{ij} && \text{(Distributividad en } \mathbb{R}\text{)} \\
+            &= \alpha A + \alpha B && \text{(Definición de } A \text{ y } B\text{)}
+          \end{aligned}$$
+
+          <p><strong>(A6) Distributividad del vector:</strong></p>
+          $$\begin{aligned}
+            (\alpha+\beta)A &= (\alpha+\beta)a_{ij} && \text{(Definición de } A\text{)} \\
+            &= \alpha a_{ij} + \beta a_{ij} && \text{(Distributividad en } \mathbb{R}\text{)} \\
+            &= \alpha A + \beta A && \text{(Definición de } A\text{)}
+          \end{aligned}$$
+
+          <p><strong>(A7) Asociatividad escalar:</strong></p>
+          $$\begin{aligned}
+            \alpha(\beta A) &= \alpha(\beta a_{ij}) && \text{(Definición de } A\text{)} \\
+            &= (\alpha\beta)a_{ij} && \text{(Asociatividad en } \mathbb{R}\text{)} \\
+            &= (\alpha\beta)A && \text{(Definición de } A\text{)}
+          \end{aligned}$$
+
+          <p><strong>(A8) Identidad escalar:</strong></p>
+          $$\begin{aligned}
+            1 \cdot A &= 1 \cdot a_{ij} && \text{(Definición de } A\text{)} \\
+            &= a_{ij} && \text{(Neutro multiplicativo en } \mathbb{R}\text{)} \\
+            &= A && \text{(Definición de } A\text{)}
+          \end{aligned}$$
+
+          <p style="margin-bottom:0;">Como todas las igualdades se sostienen por las propiedades de los números reales,
+            concluimos que las matrices forman un espacio vectorial sobre $\mathbb{R}$.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- MÓDULO 3: SUBESPACIO VECTORIAL -->
+  <!-- ===================================================================== -->
+  <section class="card" id="mod-3">
+    <h2 class="module-title"><span class="badge">MÓDULO 03</span> Subespacio Vectorial</h2>
+
+    <p>Ya vimos cómo construir espacios más grandes combinando otros independientes. Ahora estudiaremos el caso
+      contrario: identificar estructuras que ya viven dentro de un espacio mayor.</p>
+
+    <h3 class="section-title" id="sec-3-1">3.1 Definición</h3>
+
+    <div class="callout callout-def">
+      <div class="callout-title">📌 Definición: Subespacio Vectorial</div>
+      <p style="margin:0;">Sea $V$ un espacio vectorial sobre un campo $F$. Un subconjunto $S \subseteq V$ es un
+        <strong>subespacio vectorial</strong> de $V$ si $S$ es, en sí mismo, un espacio vectorial sobre $F$ operando
+        exactamente bajo las mismas reglas de suma y multiplicación escalar definidas en $V$.</p>
+    </div>
+
+    <p>Para denotar que $S$ es un subespacio vectorial de $V$, utilizamos el símbolo de desigualdad: $S \leq V$.
+      Además, por comodidad, muchas veces omitiremos la palabra <em>vectorial</em> y diremos simplemente
+      <em>subespacio</em>.</p>
+
+    <p>Demostrar los 8 axiomas cada vez que evaluamos un subconjunto es tedioso e innecesario. Dado que los vectores
+      de $S$ ya son vectores de $V$, propiedades como la conmutatividad o la asociatividad se <strong>heredan</strong>
+      automáticamente. El único peligro real al restringirnos a un subconjunto es perder la propiedad de cerradura
+      (que al sumar o multiplicar nos salgamos de $S$) o perder el vector nulo.</p>
+
+    <p>Para evitarnos comprobar todo, utilizamos los siguientes teoremas que reducen el trabajo a lo estrictamente
+      necesario.</p>
+
+    <h3 class="section-title" id="sec-3-2">3.2 Tests del Subespacio</h3>
+
+    <div class="callout callout-thm">
+      <div class="callout-title">📐 Teorema: Test del Subespacio 1</div>
+      <p style="margin-top:0;">Un subconjunto $S \subseteq V$ es un subespacio vectorial ($S \leq V$) si y solo si
+        satisface las siguientes tres condiciones:</p>
+      <ol style="margin:0;">
+        <li>$\mathbf{0} \in S$.</li>
+        <li>Para cualesquiera vectores $u, v \in S$, su suma también pertenece al subconjunto ($u + v \in S$).</li>
+        <li>Para cualquier vector $v \in S$ y cualquier escalar $\alpha \in F$, su producto también pertenece al
+          subconjunto ($\alpha \cdot v \in S$).</li>
+      </ol>
+    </div>
+
+    <div class="callout callout-thm">
+      <div class="callout-title">📐 Teorema: Test del Subespacio 2</div>
+      <p style="margin-top:0;">Si sabemos de antemano que el subconjunto no está vacío (es decir, $S \neq \emptyset$,
+        usualmente comprobando rápido que $\mathbf{0} \in S$), podemos comprimir la suma y la multiplicación escalar
+        en una sola condición combinada.</p>
+      <p style="margin-bottom:0;">$S$ es un subespacio vectorial de $V$ si y solo si toda combinación lineal de dos de
+        sus elementos permanece en el conjunto. Es decir, para cualesquiera escalares $\alpha, \beta \in F$ y vectores
+        $u, w \in S$:
+        $$\alpha \cdot u + \beta \cdot w \in S$$</p>
+    </div>
+
+    <h3 class="section-title" id="sec-3-3">3.3 Ejemplos y Contraejemplo</h3>
+
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 3.1: Subespacio con una coordenada nula en $\mathbb{R}^3$</div>
+      <p>Considere el conjunto $S = \{(x_1, x_2, x_3) \in \mathbb{R}^3 : x_3 = 0\}$. Verifique si $S$ es un subespacio
+        vectorial de $\mathbb{R}^3$.</p>
+      <details class="solution">
+        <summary>🔍 Ver demostración (ambos criterios)</summary>
+        <div class="solution-content">
+          <h4 class="sub-title">Test del Subespacio (Forma 1)</h4>
+          <ul>
+            <li><strong>Condición 1:</strong> el vector $\mathbf{0} = (0,0,0) \in S$ porque su tercera coordenada es
+              cero ($0 = 0$).</li>
+            <li><strong>Condición 2:</strong> sean $v = (v_1, v_2, 0)$ y $w = (w_1, w_2, 0)$ dos vectores en $S$.
+              Evaluamos su suma:
+              $$\begin{aligned}
+                v + w &= (v_1, v_2, 0) + (w_1, w_2, 0) && \text{(Definición de } v \text{ y } w\text{)} \\
+                &= (v_1 + w_1,\; v_2 + w_2,\; 0 + 0) && \text{(Suma en } \mathbb{R}^3\text{)} \\
+                &= (v_1 + w_1,\; v_2 + w_2,\; 0) && \text{(Operación en } \mathbb{R}\text{)}
+              \end{aligned}$$
+              Como la tercera coordenada del resultado sigue siendo cero, $v + w \in S$.</li>
+            <li><strong>Condición 3:</strong> sea $v = (v_1, v_2, 0) \in S$ y $\alpha \in \mathbb{R}$. Evaluamos el
+              producto escalar:
+              $$\begin{aligned}
+                \alpha v &= \alpha(v_1, v_2, 0) && \text{(Definición de } v\text{)} \\
+                &= (\alpha v_1,\; \alpha v_2,\; \alpha \cdot 0) && \text{(Multiplicación escalar)} \\
+                &= (\alpha v_1,\; \alpha v_2,\; 0) && \text{(Operación en } \mathbb{R}\text{)}
+              \end{aligned}$$
+              Puesto que la tercera coordenada es cero, $\alpha v \in S$.</li>
+          </ul>
+
+          <h4 class="sub-title">Test del Subespacio (Forma 2)</h4>
+          <p>Sabemos que $S \neq \emptyset$ porque $(0,0,0) \in S$. Sean $v = (v_1, v_2, 0)$ y $w = (w_1, w_2, 0)$ en
+            $S$, y sean $\alpha, \beta \in \mathbb{R}$. Evaluamos la combinación lineal:</p>
+          $$\begin{aligned}
+            \alpha v + \beta w &= \alpha(v_1, v_2, 0) + \beta(w_1, w_2, 0) && \text{(Definición)} \\
+            &= (\alpha v_1, \alpha v_2, 0) + (\beta w_1, \beta w_2, 0) && \text{(Multiplicación escalar)} \\
+            &= (\alpha v_1 + \beta w_1,\; \alpha v_2 + \beta w_2,\; 0) && \text{(Suma en } \mathbb{R}^3\text{)}
+          \end{aligned}$$
+          <p style="margin-bottom:0;">Como la tercera coordenada de la combinación lineal resultante es exactamente $0$,
+            se cumple que $\alpha v + \beta w \in S$. Por lo tanto, $S$ es un subespacio.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 3.2: Subespacio definido por una ecuación lineal en $\mathbb{R}^3$</div>
+      <p>Considere el conjunto $S = \{(x_1, x_2, x_3) \in \mathbb{R}^3 : x_1 + x_2 - 2x_3 = 0\}$. Verifique si $S$ es
+        un subespacio vectorial de $\mathbb{R}^3$.</p>
+      <details class="solution">
+        <summary>🔍 Ver demostración (ambos criterios)</summary>
+        <div class="solution-content">
+          <h4 class="sub-title">Test del Subespacio (Forma 1)</h4>
+          <ul>
+            <li><strong>Condición 1:</strong> $\mathbf{0} = (0,0,0) \in S$ porque satisface la ecuación:
+              $0 + 0 - 2(0) = 0$.</li>
+            <li><strong>Condición 2:</strong> sean $v = (v_1, v_2, v_3)$ y $w = (w_1, w_2, w_3)$ en $S$. Sabemos por
+              hipótesis que $v_1 + v_2 - 2v_3 = 0$ y $w_1 + w_2 - 2w_3 = 0$. Sumamos ambas ecuaciones miembro a miembro:
+              $$\begin{aligned}
+                (v_1 + v_2 - 2v_3) + (w_1 + w_2 - 2w_3) &= 0 + 0 && \text{(Suma de las hipótesis)} \\
+                (v_1+w_1) + (v_2+w_2) - 2(v_3+w_3) &= 0 && \text{(Agrupación en } \mathbb{R}\text{)}
+              \end{aligned}$$
+              Como el vector suma $v+w = (v_1+w_1,\; v_2+w_2,\; v_3+w_3)$ satisface la ecuación, $v + w \in S$.</li>
+            <li><strong>Condición 3:</strong> para $v \in S$ y $\alpha \in \mathbb{R}$, sabemos que
+              $v_1 + v_2 - 2v_3 = 0$. Multiplicamos ambos lados por el escalar $\alpha$:
+              $$\begin{aligned}
+                \alpha(v_1 + v_2 - 2v_3) &= \alpha(0) && \text{(Multiplicación en ambos lados)} \\
+                (\alpha v_1) + (\alpha v_2) - 2(\alpha v_3) &= 0 && \text{(Distributividad en } \mathbb{R}\text{)}
+              \end{aligned}$$
+              Como $\alpha v = (\alpha v_1, \alpha v_2, \alpha v_3)$ satisface la ecuación, $\alpha v \in S$.</li>
+          </ul>
+
+          <h4 class="sub-title">Test del Subespacio (Forma 2)</h4>
+          <p>Como $\mathbf{0} \in S$, el conjunto no es vacío. Tomamos $v, w \in S$ y los escalares
+            $\alpha, \beta \in \mathbb{R}$. Multiplicamos la ecuación de $v$ por $\alpha$, la de $w$ por $\beta$, y
+            sumamos ambas igualdades miembro a miembro:</p>
+          $$\begin{aligned}
+            \alpha(v_1 + v_2 - 2v_3) + \beta(w_1 + w_2 - 2w_3) &= \alpha(0) + \beta(0) && \text{(Combinación lineal)} \\
+            (\alpha v_1 + \beta w_1) + (\alpha v_2 + \beta w_2) - 2(\alpha v_3 + \beta w_3) &= 0 && \text{(Agrupación)}
+          \end{aligned}$$
+          <p style="margin-bottom:0;">Como la combinación lineal
+            $\alpha v + \beta w = (\alpha v_1 + \beta w_1,\; \alpha v_2 + \beta w_2,\; \alpha v_3 + \beta w_3)$
+            satisface la condición del conjunto al agrupar sus términos, concluimos que $\alpha v + \beta w \in S$.
+            Por lo tanto, $S$ es un subespacio.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="example-box">
+      <div class="example-header">🧩 Ejemplo 3.3: Contraejemplo — condición de subespacio no satisfecha</div>
+      <p>Sea $V = \mathcal{M}_{2 \times 2}(\mathbb{R})$ el espacio de las matrices cuadradas de $2 \times 2$.
+        Determine si el conjunto $H$ de todas las matrices con determinante igual a $1$ es un subespacio de $V$:</p>
+      $$H = \left\{ A \in \mathcal{M}_{2 \times 2}(\mathbb{R}) \ \big| \ \det(A) = 1 \right\}$$
+      <details class="solution">
+        <summary>🔍 Ver solución</summary>
+        <div class="solution-content">
+          <p>Para que $H$ sea considerado un subespacio vectorial de $V$, debe satisfacer, entre otras condiciones,
+            contener al elemento neutro del espacio y ser cerrado bajo la adición. Procedemos a verificar si estas
+            propiedades se cumplen.</p>
+
+          <p><strong>Inexistencia del elemento neutro:</strong> el elemento neutro del espacio $V$ es la matriz nula
+            $\mathbf{0} = \begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix}$. Evaluamos su determinante para verificar si
+            pertenece a $H$:</p>
+          $$\begin{aligned}
+            \det(\mathbf{0}) &= (0)(0) - (0)(0) && \text{(Definición de determinante)} \\
+            &= 0 && \text{(Operación en } \mathbb{R}\text{)}
+          \end{aligned}$$
+          <p style="margin-bottom:0;">Puesto que $0 \neq 1$, la matriz nula no pertenece al conjunto $H$. Esta única
+            inconsistencia es suficiente para determinar que el conjunto no forma un subespacio.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- MÓDULO 4: INTERPRETACIÓN GEOMÉTRICA -->
+  <!-- ===================================================================== -->
+  <section class="card" id="mod-4">
+    <h2 class="module-title"><span class="badge">MÓDULO 04</span> Interpretación Geométrica</h2>
+
+    <h3 class="section-title" id="sec-4-1">4.1 Vectores: Interpretación, Magnitud y Ortogonalidad</h3>
+
+    <p>Cuando hablamos de un <strong>vector en $\mathbb{R}^2$ o $\mathbb{R}^3$</strong>, podemos visualizarlo
+      geométricamente como un segmento de recta dirigido, es decir, una flecha que parte desde el origen —ya sea
+      $(0,0)$ o $(0,0,0)$— hasta un punto específico en el espacio. En esta representación, la longitud de la flecha
+      nos indica su magnitud, mientras que la dirección en la que apunta establece su orientación.</p>
+
+    <div class="diagram-container">
+      <svg class="fig" viewBox="0 0 280 210" role="img" aria-label="Vector en el plano partiendo del origen">
+        <line x1="30" y1="160" x2="262" y2="160" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+        <line x1="60" y1="196" x2="60" y2="26" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+        <text x="266" y="165" font-size="13" fill="#64748b">x</text>
+        <text x="54" y="20" font-size="13" fill="#64748b">y</text>
+        <line x1="60" y1="160" x2="170" y2="50" stroke="#2563eb" stroke-width="3" marker-end="url(#ah-blue)"/>
+        <circle cx="60" cy="160" r="3.5" fill="#1e293b"/>
+        <text x="30" y="178" font-size="11" fill="#475569">(0,0)</text>
+        <text x="180" y="46" font-size="15" fill="#2563eb" font-style="italic">v</text>
+      </svg>
+      <div class="diagram-caption">Un vector como flecha desde el origen</div>
+    </div>
+
+    <p>Dentro de este universo de flechas, un <strong>vector unitario</strong> tiene una característica especial: su
+      longitud o norma es exactamente igual a $1$. Si imaginamos esto en $\mathbb{R}^2$, todos los vectores unitarios
+      parten del origen y sus puntas tocan exactamente el borde de una circunferencia de radio $1$, conocida como la
+      circunferencia unitaria.</p>
+
+    <div class="diagram-container">
+      <svg class="fig" viewBox="0 0 260 220" role="img" aria-label="Vector unitario sobre la circunferencia unitaria">
+        <line x1="20" y1="110" x2="245" y2="110" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+        <line x1="130" y1="205" x2="130" y2="20" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+        <text x="248" y="115" font-size="13" fill="#64748b">x</text>
+        <text x="124" y="15" font-size="13" fill="#64748b">y</text>
+        <circle cx="130" cy="110" r="70" fill="none" stroke="#93c5fd" stroke-width="1.6" stroke-dasharray="6 5"/>
+        <line x1="130" y1="110" x2="179.5" y2="60.5" stroke="#2563eb" stroke-width="3" marker-end="url(#ah-blue)"/>
+        <circle cx="130" cy="110" r="3" fill="#1e293b"/>
+        <text x="185" y="56" font-size="15" fill="#2563eb" font-style="italic">u</text>
+        <text x="203" y="115" font-size="12" fill="#3b82f6">1</text>
+      </svg>
+      <div class="diagram-caption">La circunferencia unitaria: todos los vectores de norma $1$</div>
+    </div>
+
+    <h3 class="section-title" id="sec-4-2">4.2 Escalamiento y Subespacios de Dimensión 1</h3>
+
+    <p>Si decidimos multiplicar un vector por un número real (un escalar $c$), obtenemos un
+      <strong>vector escalado</strong>. Visualmente, esto implica estirar, comprimir o invertir la dirección de la
+      flecha original, pero siempre manteniéndola sobre la misma línea recta. Si $c > 1$, el vector se alarga; si está
+      entre $0$ y $1$, se encoge; y si $c$ es negativo, la flecha invierte su sentido.</p>
+
+    <div class="diagram-container">
+      <svg class="fig" viewBox="0 0 320 210" role="img" aria-label="Vector v y sus múltiplos escalares">
+        <line x1="10" y1="120" x2="305" y2="120" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+        <line x1="110" y1="196" x2="110" y2="22" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+        <text x="308" y="124" font-size="13" fill="#64748b">x</text>
+        <text x="104" y="17" font-size="13" fill="#64748b">y</text>
+
+        <line x1="110" y1="120" x2="150" y2="100" stroke="#16a34a" stroke-width="3" marker-end="url(#ah-green)"/>
+        <text x="155" y="107" font-size="14" fill="#16a34a" font-style="italic">v</text>
+
+        <line x1="110" y1="120" x2="230" y2="60" stroke="#2563eb" stroke-width="3" marker-end="url(#ah-blue)"/>
+        <text x="200" y="50" font-size="14" fill="#2563eb" font-style="italic">3v</text>
+
+        <line x1="110" y1="120" x2="30" y2="160" stroke="#dc2626" stroke-width="3" marker-end="url(#ah-red)"/>
+        <text x="18" y="180" font-size="14" fill="#dc2626" font-style="italic">−2v</text>
+      </svg>
+      <div class="diagram-caption">Escalar un vector: estirar, encoger e invertir</div>
+    </div>
+
+    <p>Esta idea de escalar nos lleva de forma natural a entender los <strong>subespacios de dimensión 1</strong>. Si
+      tomamos un vector que no sea nulo y lo multiplicamos por absolutamente todos los escalares posibles
+      ($c \in \mathbb{R}$), el rastro que dejan todos esos vectores escalados forma una recta infinita que atraviesa
+      el origen. Esta recta es, en esencia, el subespacio generado por ese vector, denotado como
+      $\operatorname{gen}\{\vec{v}\}$.</p>
+
+    <div class="diagram-container">
+      <svg class="fig" viewBox="0 0 320 210" role="img" aria-label="Recta generada por un vector">
+        <line x1="10" y1="120" x2="305" y2="120" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+        <line x1="110" y1="196" x2="110" y2="22" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+        <text x="308" y="124" font-size="13" fill="#64748b">x</text>
+        <text x="104" y="17" font-size="13" fill="#64748b">y</text>
+
+        <line x1="10" y1="170" x2="300" y2="25" stroke="#93c5fd" stroke-width="3"/>
+        <text x="235" y="30" font-size="13" fill="#1e293b">gen{<tspan font-style="italic">v</tspan>}</text>
+
+        <line x1="110" y1="120" x2="150" y2="100" stroke="#16a34a" stroke-width="3" marker-end="url(#ah-green)"/>
+        <text x="155" y="107" font-size="14" fill="#16a34a" font-style="italic">v</text>
+        <circle cx="110" cy="120" r="3" fill="#1e293b"/>
+      </svg>
+      <div class="diagram-caption">El subespacio $\operatorname{gen}\{\vec{v}\}$: una recta por el origen</div>
+    </div>
+
+    <h3 class="section-title" id="sec-4-3">4.3 El Espacio Vectorial y los Subespacios</h3>
+
+    <p>Ampliando un poco más el panorama, un <strong>subespacio vectorial</strong> es una porción del espacio total
+      que se comporta como un universo independiente, un espacio vectorial en sí mismo. Para que esto se cumpla
+      gráficamente, la regla de oro es que la figura siempre debe pasar por el origen (para asegurar que contiene al
+      vector nulo) y debe ser completamente “plana” o “recta”, sin curvas. Así, en $\mathbb{R}^2$, los subespacios
+      propios se limitan a ser rectas que pasan por el origen, mientras que en $\mathbb{R}^3$ pueden ser tanto rectas
+      como planos que atraviesan el origen.</p>
+
+    <div class="diagram-container">
+      <svg class="fig" viewBox="0 0 300 240" role="img" aria-label="Plano que pasa por el origen en el espacio tridimensional">
+        <line x1="140" y1="155" x2="285" y2="155" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+        <line x1="140" y1="155" x2="140" y2="28" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+        <line x1="140" y1="155" x2="50" y2="200" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+        <text x="288" y="160" font-size="12" fill="#64748b">y</text>
+        <text x="134" y="23" font-size="12" fill="#64748b">z</text>
+        <text x="32" y="212" font-size="12" fill="#64748b">x</text>
+
+        <polygon points="50,120 220,90 250,165 80,195" fill="#bfdbfe" fill-opacity="0.7"
+                 stroke="#60a5fa" stroke-width="2"/>
+        <text x="72" y="145" font-size="12" fill="#1e3a8a">Plano (subespacio en ℝ³)</text>
+
+        <circle cx="140" cy="155" r="3.5" fill="#1e293b"/>
+        <text x="147" y="170" font-size="11" fill="#475569">Origen</text>
+      </svg>
+      <div class="diagram-caption">Un subespacio propio de $\mathbb{R}^3$: un plano que contiene al origen</div>
+    </div>
+
+    <h3 class="section-title" id="sec-4-4">4.4 Matrices y la Interpretación del Determinante</h3>
+
+    <p>Al introducir las <strong>matrices</strong> en este contexto, estamos hablando realmente de transformaciones.
+      Una matriz actúa como una transformación lineal que deforma el espacio: puede estirarlo, rotarlo o reflejarlo,
+      pero siempre manteniendo las líneas de la cuadrícula paralelas y uniformemente espaciadas, sin mover el origen.
+      Si observamos las columnas de una matriz de $2 \times 2$, estas nos revelan exactamente dónde aterrizarán los
+      vectores de la base estándar, $\hat{\imath} = (1,0)$ y $\hat{\jmath} = (0,1)$, tras aplicar la transformación.</p>
+
+    <div class="diagram-container">
+      <svg class="fig" viewBox="0 0 300 210" role="img" aria-label="Columnas de una matriz como imágenes de los vectores base">
+        <line x1="25" y1="160" x2="285" y2="160" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+        <line x1="60" y1="200" x2="60" y2="20" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+        <text x="288" y="164" font-size="12" fill="#64748b">x</text>
+        <text x="54" y="16" font-size="12" fill="#64748b">y</text>
+
+        <line x1="60" y1="160" x2="110" y2="160" stroke="#64748b" stroke-width="2.5" marker-end="url(#ah-darkgray)"/>
+        <text x="86" y="176" font-size="12" fill="#334155" font-style="italic">î</text>
+        <line x1="60" y1="160" x2="60" y2="110" stroke="#64748b" stroke-width="2.5" marker-end="url(#ah-darkgray)"/>
+        <text x="44" y="140" font-size="12" fill="#334155" font-style="italic">ĵ</text>
+
+        <line x1="60" y1="160" x2="160" y2="135" stroke="#2563eb" stroke-width="3" marker-end="url(#ah-blue)"/>
+        <text x="150" y="156" font-size="11" fill="#1d4ed8">Col 1 (Aî)</text>
+
+        <line x1="60" y1="160" x2="110" y2="60" stroke="#dc2626" stroke-width="3" marker-end="url(#ah-red)"/>
+        <text x="78" y="52" font-size="11" fill="#b91c1c">Col 2 (Aĵ)</text>
+      </svg>
+      <div class="diagram-caption">Las columnas de $A$ indican el destino de $\hat{\imath}$ y $\hat{\jmath}$</div>
+    </div>
+
+    <p>Finalmente, esta capacidad de deformar el espacio nos permite darle una interpretación visual muy intuitiva al
+      <strong>determinante</strong>, el cual actúa como el factor de escala de dicha deformación. En $\mathbb{R}^2$, el
+      determinante equivale al área del paralelogramo que forman los vectores columna de la matriz, mientras que en
+      $\mathbb{R}^3$, mide el volumen del paralelepípedo (una especie de caja deformada) construido por sus tres
+      columnas. Si alguna vez el determinante es $0$, significa que la transformación aplastó el espacio hacia una
+      dimensión inferior —el área o volumen desapareció—, colapsando todo en una línea, un plano o incluso un solo
+      punto.</p>
+
+    <div class="diagram-container">
+      <svg class="fig" viewBox="0 0 320 230" role="img" aria-label="El determinante como área del paralelogramo">
+        <line x1="20" y1="180" x2="305" y2="180" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+        <line x1="60" y1="215" x2="60" y2="15" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+        <text x="308" y="184" font-size="12" fill="#64748b">x</text>
+        <text x="54" y="12" font-size="12" fill="#64748b">y</text>
+
+        <polygon points="60,180 110,180 110,130 60,130" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="5 4"/>
+        <text x="18" y="108" font-size="10" fill="#64748b">Área = 1</text>
+
+        <polygon points="60,180 210,130 260,30 110,80" fill="#fdba74" fill-opacity="0.65"
+                 stroke="#ea580c" stroke-width="2"/>
+        <text x="118" y="128" font-size="12" fill="#7c2d12">Área = |det(A)|</text>
+
+        <line x1="60" y1="180" x2="210" y2="130" stroke="#2563eb" stroke-width="3" marker-end="url(#ah-blue)"/>
+        <text x="150" y="152" font-size="11" fill="#1d4ed8">Columna 1</text>
+        <line x1="60" y1="180" x2="110" y2="80" stroke="#dc2626" stroke-width="3" marker-end="url(#ah-red)"/>
+        <text x="72" y="72" font-size="11" fill="#b91c1c">Columna 2</text>
+      </svg>
+      <div class="diagram-caption">El determinante como factor de escala del área</div>
+    </div>
+
+    <h3 class="section-title" id="sec-4-5">4.5 Bases, Independencia y Planos Generados</h3>
+
+    <p>Para ubicarnos en el espacio, necesitamos un sistema de referencia, lo cual logramos a través de una
+      <strong>base vectorial</strong>. Piensa en una base como el conjunto de “pasos fundamentales” que te permiten
+      construir y llegar a cualquier punto del espacio mediante combinaciones de ellos. Aunque estamos acostumbrados a
+      medir todo usando la base estándar (nuestra típica cuadrícula recta), podemos perfectamente elegir una
+      <strong>base distinta</strong>. Al realizar una comparación entre dos bases distintas, lo que estamos haciendo
+      gráficamente es cambiar nuestra cuadrícula de referencia por una nueva, cuyos ejes podrían estar inclinados o
+      tener escalas diferentes.</p>
+
+    <div class="diagram-container">
+      <svg class="fig" viewBox="0 0 570 280" role="img" aria-label="Comparación entre base estándar y base alternativa">
+        <!-- ===== Base estándar ===== -->
+        <g>
+          <g stroke="#e2e8f0" stroke-width="1">
+            <line x1="20" y1="30" x2="20" y2="240"/>
+            <line x1="60" y1="30" x2="60" y2="240"/>
+            <line x1="100" y1="30" x2="100" y2="240"/>
+            <line x1="140" y1="30" x2="140" y2="240"/>
+            <line x1="180" y1="30" x2="180" y2="240"/>
+            <line x1="220" y1="30" x2="220" y2="240"/>
+            <line x1="260" y1="30" x2="260" y2="240"/>
+            <line x1="20" y1="30" x2="260" y2="30"/>
+            <line x1="20" y1="70" x2="260" y2="70"/>
+            <line x1="20" y1="110" x2="260" y2="110"/>
+            <line x1="20" y1="150" x2="260" y2="150"/>
+            <line x1="20" y1="190" x2="260" y2="190"/>
+            <line x1="20" y1="230" x2="260" y2="230"/>
+          </g>
+          <line x1="20" y1="150" x2="265" y2="150" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+          <line x1="140" y1="245" x2="140" y2="25" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+
+          <line x1="140" y1="150" x2="180" y2="150" stroke="#475569" stroke-width="2.5" marker-end="url(#ah-darkgray)"/>
+          <line x1="140" y1="150" x2="140" y2="110" stroke="#475569" stroke-width="2.5" marker-end="url(#ah-darkgray)"/>
+          <text x="186" y="156" font-size="12" fill="#334155" font-style="italic">î</text>
+          <text x="124" y="104" font-size="12" fill="#334155" font-style="italic">ĵ</text>
+
+          <text x="140" y="268" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="600">Base estándar</text>
+        </g>
+
+        <!-- ===== Base alternativa ===== -->
+        <g>
+          <g stroke="#ddd6fe" stroke-width="1">
+            <line x1="312.5" y1="37.5" x2="457.5" y2="82.5"/>
+            <line x1="337.5" y1="82.5" x2="472.5" y2="127.5"/>
+            <line x1="352.5" y1="127.5" x2="487.5" y2="172.5"/>
+            <line x1="367.5" y1="172.5" x2="502.5" y2="217.5"/>
+            <line x1="382.5" y1="217.5" x2="517.5" y2="262.5"/>
+            <line x1="307.5" y1="52.5" x2="352.5" y2="187.5"/>
+            <line x1="352.5" y1="67.5" x2="397.5" y2="202.5"/>
+            <line x1="397.5" y1="82.5" x2="442.5" y2="217.5"/>
+            <line x1="442.5" y1="97.5" x2="487.5" y2="232.5"/>
+            <line x1="487.5" y1="112.5" x2="532.5" y2="247.5"/>
+          </g>
+          <line x1="310" y1="150" x2="555" y2="150" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+          <line x1="420" y1="250" x2="420" y2="25" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+
+          <line x1="420" y1="150" x2="465" y2="135" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#ah-purple)"/>
+          <line x1="420" y1="150" x2="435" y2="105" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#ah-purple)"/>
+          <text x="470" y="142" font-size="12" fill="#5b21b6" font-style="italic">v₁</text>
+          <text x="440" y="98" font-size="12" fill="#5b21b6" font-style="italic">v₂</text>
+
+          <text x="420" y="268" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="600">Base alternativa</text>
+        </g>
+      </svg>
+      <div class="diagram-caption">Dos bases distintas: el mismo plano, distinta cuadrícula de referencia</div>
+    </div>
+
+    <p>Cuando tomamos dos vectores sueltos en el espacio $\mathbb{R}^3$, podemos preguntarnos qué lugares logramos
+      alcanzar si los sumamos y escalamos en todas las proporciones posibles. El resultado de estas infinitas
+      combinaciones forma el <strong>plano generado</strong> por ellos. Gráficamente, es como si esos dos vectores
+      fueran las varillas guía con las que tensamos y construimos una superficie plana e infinita que atraviesa
+      obligatoriamente el origen.</p>
+
+    <div class="diagram-container">
+      <svg class="fig" viewBox="0 0 300 250" role="img" aria-label="Plano generado por dos vectores en el espacio">
+        <line x1="150" y1="155" x2="290" y2="155" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+        <line x1="150" y1="155" x2="150" y2="28" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+        <line x1="150" y1="155" x2="60" y2="200" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+        <text x="292" y="160" font-size="12" fill="#64748b">y</text>
+        <text x="144" y="23" font-size="12" fill="#64748b">z</text>
+        <text x="42" y="212" font-size="12" fill="#64748b">x</text>
+
+        <polygon points="50,125 240,105 275,185 85,205" fill="#a5f3fc" fill-opacity="0.7"
+                 stroke="#22d3ee" stroke-width="2"/>
+
+        <line x1="150" y1="155" x2="210" y2="135" stroke="#2563eb" stroke-width="3" marker-end="url(#ah-blue)"/>
+        <text x="212" y="152" font-size="14" fill="#2563eb" font-style="italic">u</text>
+        <line x1="150" y1="155" x2="130" y2="107" stroke="#1e40af" stroke-width="3" marker-end="url(#ah-blue)"/>
+        <text x="112" y="102" font-size="14" fill="#1e40af" font-style="italic">v</text>
+        <circle cx="150" cy="155" r="3" fill="#1e293b"/>
+
+        <text x="150" y="238" font-size="12" fill="#0e7490" text-anchor="middle">Plano generado</text>
+      </svg>
+      <div class="diagram-caption">Dos vectores independientes generan un plano en $\mathbb{R}^3$</div>
+    </div>
+
+    <p>Ahora bien, para que esos dos vectores realmente logren construir un plano, deben aportar direcciones
+      completamente distintas. Si uno de ellos es simplemente la versión estirada, comprimida o invertida del otro,
+      decimos que son <strong>vectores linealmente dependientes</strong>, ya que ambos yacen atrapados sobre una misma
+      línea infinita. En cambio, si aportan información direccional distinta, son
+      <strong>vectores linealmente independientes</strong>.</p>
+
+    <p>Una manera muy visual de saberlo es observando el ángulo que se forma entre ellos: si el ángulo es de $0^\circ$
+      o $180^\circ$, son dependientes; pero si notamos que el ángulo es superior a cero (y diferente de un ángulo
+      llano), entonces podemos asegurar que son linealmente independientes. Existe además un caso especial de
+      independencia, el escenario ideal: si el ángulo entre ellos es exactamente de noventa grados ($90^\circ$), los
+      vectores son linealmente independientes y también <strong>ortogonales</strong> o
+      <strong>perpendiculares</strong>.</p>
+
+    <div class="diagram-container">
+      <svg class="fig" viewBox="0 0 660 230" role="img" aria-label="Vectores dependientes, independientes y ortogonales">
+        <!-- Dependientes -->
+        <g>
+          <line x1="20" y1="185" x2="190" y2="100" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="6 5"/>
+          <line x1="110" y1="150" x2="190" y2="110" stroke="#dc2626" stroke-width="3" marker-end="url(#ah-red)"/>
+          <line x1="110" y1="150" x2="150" y2="130" stroke="#991b1b" stroke-width="3" marker-end="url(#ah-red)"/>
+          <text x="196" y="106" font-size="13" fill="#b91c1c" font-style="italic">v</text>
+          <text x="132" y="122" font-size="13" fill="#991b1b" font-style="italic">u</text>
+          <circle cx="110" cy="150" r="3" fill="#1e293b"/>
+          <text x="110" y="212" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="600">Linealmente dependientes</text>
+          <text x="110" y="226" font-size="10" fill="#64748b" text-anchor="middle">Ángulo = 0°, misma recta</text>
+        </g>
+
+        <!-- Independientes -->
+        <g>
+          <line x1="330" y1="150" x2="430" y2="150" stroke="#2563eb" stroke-width="3" marker-end="url(#ah-blue)"/>
+          <line x1="330" y1="150" x2="384" y2="82" stroke="#16a34a" stroke-width="3" marker-end="url(#ah-green)"/>
+          <path d="M 365 150 A 35 35 0 0 0 351.9 122.7" fill="none" stroke="#64748b" stroke-width="1.6"/>
+          <text x="368" y="136" font-size="12" fill="#475569" font-style="italic">α</text>
+          <text x="434" y="155" font-size="13" fill="#1d4ed8" font-style="italic">v</text>
+          <text x="388" y="76" font-size="13" fill="#15803d" font-style="italic">u</text>
+          <circle cx="330" cy="150" r="3" fill="#1e293b"/>
+          <text x="330" y="212" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="600">Linealmente independientes</text>
+          <text x="330" y="226" font-size="10" fill="#64748b" text-anchor="middle">α &gt; 0°, direcciones distintas</text>
+        </g>
+
+        <!-- Ortogonales -->
+        <g>
+          <line x1="550" y1="150" x2="640" y2="150" stroke="#2563eb" stroke-width="3" marker-end="url(#ah-blue)"/>
+          <line x1="550" y1="150" x2="550" y2="60" stroke="#ea580c" stroke-width="3" marker-end="url(#ah-orange)"/>
+          <polyline points="572,150 572,128 550,128" fill="none" stroke="#ea580c" stroke-width="1.8"/>
+          <text x="644" y="155" font-size="13" fill="#1d4ed8" font-style="italic">v</text>
+          <text x="542" y="52" font-size="13" fill="#c2410c" font-style="italic">u</text>
+          <circle cx="550" cy="150" r="3" fill="#1e293b"/>
+          <text x="550" y="212" font-size="12" fill="#0f172a" text-anchor="middle" font-weight="600">Ortogonales</text>
+          <text x="550" y="226" font-size="10" fill="#64748b" text-anchor="middle">Ángulo = 90°, caso especial l.i.</text>
+        </g>
+      </svg>
+      <div class="diagram-caption">Dependencia, independencia y ortogonalidad</div>
+    </div>
+
+    <h3 class="section-title" id="sec-4-6">4.6 Suma de Vectores y Combinaciones Lineales</h3>
+
+    <p>Para entender cómo interactúan los vectores a gran escala, primero debemos dar un paso atrás y observar la
+      operación más básica: la <strong>suma de vectores</strong>. Gráficamente, si tienes dos vectores, sumarlos es el
+      equivalente geométrico a encadenar movimientos. Es como caminar primero a lo largo de un vector y, justo desde la
+      punta donde terminas, dibujar el segundo vector para seguir caminando (conocido como el método de “cabeza con
+      cola”). Alternativamente, si ambos parten del origen, la suma es exactamente la diagonal principal del
+      paralelogramo que se forma entre ellos.</p>
+
+    <div class="diagram-container">
+      <svg class="fig" viewBox="0 0 340 220" role="img" aria-label="Suma de vectores mediante la regla del paralelogramo">
+        <line x1="25" y1="170" x2="330" y2="170" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+        <line x1="60" y1="205" x2="60" y2="20" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+        <text x="333" y="174" font-size="12" fill="#64748b">x</text>
+        <text x="54" y="16" font-size="12" fill="#64748b">y</text>
+
+        <line x1="60" y1="170" x2="160" y2="145" stroke="#2563eb" stroke-width="3" marker-end="url(#ah-blue)"/>
+        <text x="163" y="164" font-size="14" fill="#2563eb" font-style="italic">u</text>
+        <line x1="60" y1="170" x2="110" y2="70" stroke="#dc2626" stroke-width="3" marker-end="url(#ah-red)"/>
+        <text x="90" y="62" font-size="14" fill="#dc2626" font-style="italic">v</text>
+
+        <line x1="110" y1="70" x2="210" y2="45" stroke="#93c5fd" stroke-width="2" stroke-dasharray="6 5"/>
+        <line x1="160" y1="145" x2="210" y2="45" stroke="#fca5a5" stroke-width="2" stroke-dasharray="6 5"/>
+
+        <line x1="60" y1="170" x2="210" y2="45" stroke="#7c3aed" stroke-width="3" marker-end="url(#ah-purple)"/>
+        <text x="214" y="42" font-size="14" fill="#6d28d9" font-style="italic">u + v</text>
+        <circle cx="60" cy="170" r="3" fill="#1e293b"/>
+      </svg>
+      <div class="diagram-caption">Regla del paralelogramo para la suma de vectores</div>
+    </div>
+
+    <p>Ahora, si unimos esta capacidad de sumar vectores con la idea de estirarlos o encogerlos (que vimos en el
+      escalamiento), damos vida a una <strong>combinación lineal</strong>. Hacer una combinación lineal significa
+      simplemente elegir un grupo de vectores, multiplicar cada uno por un número real (un escalar) de nuestra
+      elección, y finalmente sumar todos los resultados. Es la receta definitiva para movernos por el espacio usando
+      nuestras flechas base.</p>
+
+    <div class="diagram-container">
+      <svg class="fig" viewBox="0 0 380 250" role="img" aria-label="Combinación lineal 2u menos v">
+        <line x1="30" y1="140" x2="360" y2="140" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+        <line x1="120" y1="235" x2="120" y2="25" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+        <text x="362" y="145" font-size="12" fill="#64748b">x</text>
+        <text x="114" y="20" font-size="12" fill="#64748b">y</text>
+
+        <line x1="120" y1="140" x2="195" y2="115" stroke="#93c5fd" stroke-width="2" marker-end="url(#ah-blue)"/>
+        <text x="176" y="134" font-size="12" fill="#3b82f6" font-style="italic">u</text>
+        <line x1="120" y1="140" x2="170" y2="65" stroke="#fca5a5" stroke-width="2" marker-end="url(#ah-red)"/>
+        <text x="140" y="72" font-size="12" fill="#dc2626" font-style="italic">v</text>
+
+        <line x1="120" y1="140" x2="270" y2="90" stroke="#1d4ed8" stroke-width="3" marker-end="url(#ah-blue)"/>
+        <text x="248" y="108" font-size="13" fill="#1d4ed8" font-style="italic">2u</text>
+        <line x1="120" y1="140" x2="70" y2="215" stroke="#991b1b" stroke-width="3" marker-end="url(#ah-red)"/>
+        <text x="44" y="212" font-size="13" fill="#991b1b" font-style="italic">−v</text>
+
+        <line x1="270" y1="90" x2="220" y2="165" stroke="#1e40af" stroke-width="2" stroke-dasharray="6 5"/>
+        <line x1="70" y1="215" x2="220" y2="165" stroke="#b91c1c" stroke-width="2" stroke-dasharray="6 5"/>
+
+        <line x1="120" y1="140" x2="220" y2="165" stroke="#7c3aed" stroke-width="3" marker-end="url(#ah-purple)"/>
+        <text x="222" y="184" font-size="13" fill="#6d28d9" font-style="italic">2u − v</text>
+        <circle cx="120" cy="140" r="3" fill="#1e293b"/>
+      </svg>
+      <div class="diagram-caption">La combinación lineal $2\vec{u} - \vec{v}$</div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <h3 class="section-title" id="sec-4-7">4.7 Del Retículo al Plano Infinito: la Naturaleza del Subespacio</h3>
+
+    <p>Todo lo anterior nos lleva a comprender la verdadera naturaleza de los <strong>subespacios
+      vectoriales</strong>. Cuando tomamos dos vectores linealmente independientes y calculamos <em>todas</em>
+      sus combinaciones lineales posibles, estamos generando un subespacio.</p>
+
+    <p>Es tentador pensar que al combinar dos vectores solo podemos dibujar una <strong>cuadrícula discreta</strong>,
+      como un tablero de ajedrez donde solo damos saltos enteros (por ejemplo $1\vec{u} + 2\vec{v}$ o
+      $3\vec{u} - 1\vec{v}$). Si los escalares solo pudieran ser números enteros, el resultado sería efectivamente
+      una malla de puntos separados.</p>
+
+    <p>Sin embargo, en el álgebra lineal multiplicamos por números reales ($c_1, c_2 \in \mathbb{R}$). Esto
+      significa que podemos usar decimales infinitamente pequeños y continuos (como $0.001$, $\pi$ o
+      $\sqrt{2}$). Gracias a esta continuidad, las combinaciones lineales rellenan absolutamente todos los huecos
+      microscópicos entre las líneas de esa cuadrícula imaginaria. Al expandirse sin límite hacia todas las
+      direcciones posibles, los dos vectores terminan tejiendo un <strong>plano infinito</strong>, sólido y
+      continuo, que al pasar por el origen cumple con la definición exacta de un subespacio de dos dimensiones.</p>
+
+    <div class="diagram-container">
+      <div>
+        <svg class="fig" viewBox="0 0 220 200" role="img" aria-label="Cuadrícula discreta con escalares enteros">
+          <g fill="#94a3b8">
+            <circle cx="50"  cy="172" r="2.2"/>
+            <circle cx="60"  cy="137" r="2.2"/>
+            <circle cx="70"  cy="102" r="2.2"/>
+            <circle cx="80"  cy="67"  r="2.2"/>
+            <circle cx="85"  cy="165" r="2.2"/>
+            <circle cx="95"  cy="130" r="2.2"/>
+            <circle cx="105" cy="95"  r="2.2"/>
+            <circle cx="115" cy="60"  r="2.2"/>
+            <circle cx="120" cy="158" r="2.2"/>
+            <circle cx="130" cy="123" r="2.2"/>
+            <circle cx="140" cy="88"  r="2.2"/>
+            <circle cx="150" cy="53"  r="2.2"/>
+            <circle cx="155" cy="151" r="2.2"/>
+            <circle cx="165" cy="116" r="2.2"/>
+            <circle cx="175" cy="81"  r="2.2"/>
+            <circle cx="185" cy="46"  r="2.2"/>
+          </g>
+          <line x1="95" y1="130" x2="130" y2="123" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ah-blue)"/>
+          <text x="132" y="120" font-size="12" fill="#2563eb" font-style="italic">u</text>
+          <line x1="95" y1="130" x2="105" y2="95" stroke="#dc2626" stroke-width="2.5" marker-end="url(#ah-red)"/>
+          <text x="91" y="90" font-size="12" fill="#dc2626" font-style="italic">v</text>
+          <circle cx="95" cy="130" r="2.5" fill="#1e293b"/>
+        </svg>
+        <div class="diagram-caption">Escalares enteros: cuadrícula con huecos</div>
+      </div>
+      <div>
+        <svg class="fig" viewBox="0 0 220 200" role="img" aria-label="Plano continuo con escalares reales">
+          <polygon points="20,185 210,160 215,15 25,40" fill="#a5f3fc" fill-opacity="0.6"
+                   stroke="#22d3ee" stroke-width="1.8"/>
+          <line x1="40" y1="150" x2="195" y2="130" stroke="#67e8f9" stroke-width="1" opacity="0.7"/>
+          <line x1="55" y1="70"  x2="200" y2="50"  stroke="#67e8f9" stroke-width="1" opacity="0.7"/>
+          <line x1="95" y1="130" x2="130" y2="123" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ah-blue)"/>
+          <text x="132" y="120" font-size="12" fill="#2563eb" font-style="italic">u</text>
+          <line x1="95" y1="130" x2="105" y2="95" stroke="#dc2626" stroke-width="2.5" marker-end="url(#ah-red)"/>
+          <text x="91" y="90" font-size="12" fill="#dc2626" font-style="italic">v</text>
+          <circle cx="95" cy="130" r="2.5" fill="#1e293b"/>
+        </svg>
+        <div class="diagram-caption">Escalares reales: <strong>plano infinito</strong></div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 4.8  EL ESPACIO GENERADO (SPAN)                               -->
+    <!-- ============================================================ -->
+    <h3 class="section-title" id="sec-4-8">4.8 El Alcance Total: el Espacio Generado (<em>Span</em>)</h3>
+
+    <p>Ya vimos que combinar dos vectores independientes crea una superficie continua, pero ¿qué significa
+      gráficamente tomar absolutamente todo el <strong>conjunto de todas las combinaciones lineales
+      posibles</strong>? A esta colección infinita de puntos a los que podemos viajar la llamamos el
+      <strong>espacio generado</strong> (o <em>span</em>).</p>
+
+    <p>Si nuestros dos vectores “viven” en un mundo bidimensional, al sumar y escalar $\vec{u}$ y $\vec{v}$
+      con cualquier número real, literalmente logramos barrer y colorear todo el lienzo. Gráficamente, el
+      espacio generado por dos vectores linealmente independientes en $\mathbb{R}^2$ es el <strong>plano
+      completo de $\mathbb{R}^2$</strong>: no hay una sola esquina o coordenada en la pantalla a la que no
+      podamos llegar ajustando las proporciones adecuadas de nuestras dos flechas.</p>
+
+    <div class="diagram-container">
+      <div>
+        <svg class="fig" viewBox="0 0 260 200" role="img" aria-label="Todo R² es alcanzable">
+          <rect x="10" y="10" width="240" height="180" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"
+                stroke-dasharray="4 3" opacity="0.6"/>
+          <line x1="10" y1="100" x2="250" y2="100" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
+          <line x1="130" y1="190" x2="130" y2="10"  stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
+          <text x="248" y="114" font-size="11" fill="#64748b">x</text>
+          <text x="122" y="15"  font-size="11" fill="#64748b">y</text>
+
+          <line x1="130" y1="100" x2="180" y2="85" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ah-blue)"/>
+          <text x="182" y="82" font-size="13" fill="#2563eb" font-style="italic">u</text>
+          <line x1="130" y1="100" x2="110" y2="45" stroke="#dc2626" stroke-width="2.5" marker-end="url(#ah-red)"/>
+          <text x="100" y="40" font-size="13" fill="#dc2626" font-style="italic">v</text>
+
+          <circle cx="200" cy="40" r="3" fill="#0f172a"/>
+          <text x="205" y="38" font-size="10" fill="#0f172a">(x, y)</text>
+          <circle cx="130" cy="100" r="2.5" fill="#1e293b"/>
+        </svg>
+        <div class="diagram-caption">Todo $\mathbb{R}^2$ es alcanzable</div>
+      </div>
+      <div>
+        <svg class="fig" viewBox="0 0 280 220" role="img" aria-label="Plano en R³ con punto inalcanzable">
+          <line x1="140" y1="130" x2="270" y2="130" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
+          <line x1="140" y1="130" x2="140" y2="15"  stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
+          <line x1="140" y1="130" x2="45"  y2="190" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
+          <text x="272" y="135" font-size="11" fill="#64748b">y</text>
+          <text x="132" y="12"  font-size="11" fill="#64748b">z</text>
+          <text x="32"  y="198" font-size="11" fill="#64748b">x</text>
+
+          <polygon points="30,90 220,65 250,165 60,190" fill="#e9d5ff" fill-opacity="0.7"
+                   stroke="#a855f7" stroke-width="1.8"/>
+          <text x="118" y="132" font-size="10" fill="#6b21a8">Plano generado</text>
+
+          <line x1="140" y1="130" x2="190" y2="115" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ah-blue)"/>
+          <text x="192" y="112" font-size="12" fill="#2563eb" font-style="italic">u</text>
+          <line x1="140" y1="130" x2="125" y2="75" stroke="#dc2626" stroke-width="2.5" marker-end="url(#ah-red)"/>
+          <text x="112" y="70" font-size="12" fill="#dc2626" font-style="italic">v</text>
+          <circle cx="140" cy="130" r="2.5" fill="#1e293b"/>
+
+          <circle cx="180" cy="30" r="3" fill="#dc2626"/>
+          <text x="186" y="28" font-size="9" fill="#dc2626">inalcanzable</text>
+          <line x1="180" y1="30" x2="180" y2="100" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3 2"/>
+          <circle cx="180" cy="100" r="2" fill="#7c3aed"/>
+        </svg>
+        <div class="diagram-caption">Plano en $\mathbb{R}^3$: no todo es alcanzable</div>
+      </div>
+    </div>
+
+    <p>Pero la historia cambia drásticamente si tomamos esos mismos dos vectores y los llevamos a un mundo
+      tridimensional. Si calculamos el <strong>conjunto de todas sus combinaciones posibles en
+      $\mathbb{R}^3$</strong>, descubriremos que ya no podemos llenar todo el espacio.</p>
+
+    <p>Por más que los estiremos, los invirtamos o los sumemos infinitamente, ambos vectores y sus
+      combinaciones están “atrapados” juntos sobre la misma hoja plana. Gráficamente, generan un <strong>plano
+      bidimensional incrustado dentro del espacio 3D</strong>. Podemos viajar libremente hacia cualquier
+      dirección sobre esa superficie inclinada, pero al carecer de un tercer vector independiente, es
+      matemáticamente imposible “despegar” de esa hoja para alcanzar el resto del volumen del espacio.</p>
+
+    <!-- ============================================================ -->
+    <!-- 4.9  LOS ESCENARIOS: ℝ, ℝ² Y ℝ³                               -->
+    <!-- ============================================================ -->
+    <h3 class="section-title" id="sec-4-9">4.9 Los Escenarios: Interpretación de $\mathbb{R}$, $\mathbb{R}^2$ y $\mathbb{R}^3$</h3>
+
+    <p>Antes de construir vectores complejos, combinarlos o generar planos, es fundamental que entendamos los
+      “escenarios” donde ocurren todas estas interacciones geométricas. En matemáticas, clasificamos estos
+      espacios basándonos en su <strong>dimensión</strong>, que gráficamente equivale al número exacto de
+      direcciones independientes (vectores base) que necesitamos, así como al volumen o superficie geométrica
+      pura que definen en su forma más básica.</p>
+
+    <ul>
+      <li>Si hablamos simplemente de <strong>$\mathbb{R}$</strong>, nos estamos refiriendo a la clásica
+        <strong>recta numérica</strong>. Es un universo muy restringido de <strong>dimensión 1</strong>, donde
+        un solo vector base construye todo el espacio sobre una longitud lineal.</li>
+      <li>Al agregar un segundo eje perpendicular, damos el salto a <strong>$\mathbb{R}^2$</strong>, el
+        <strong>plano cartesiano</strong>. Aquí entramos a un mundo de <strong>dimensión 2</strong>, donde
+        requerimos de dos vectores base independientes para cubrir una superficie plana, delimitando un área
+        cuadrada elemental.</li>
+      <li>Finalmente, si añadimos el concepto de profundidad, construimos <strong>$\mathbb{R}^3$</strong>,
+        nuestro <strong>espacio tridimensional</strong> cotidiano. Con una <strong>dimensión 3</strong>,
+        necesitamos tres vectores base fundamentales para que el espacio gane volumen y se forme un cubo o
+        paralelepípedo geométrico elemental.</li>
+    </ul>
+
+    <div class="diagram-container">
+      <div>
+        <svg class="fig sm" viewBox="0 0 180 140" role="img" aria-label="R: espacio de dimensión 1">
+          <line x1="10" y1="70" x2="170" y2="70" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
+          <text x="172" y="74" font-size="10" fill="#64748b">x</text>
+          <circle cx="90" cy="70" r="2" fill="#1e293b"/>
+          <text x="86" y="84" font-size="9" fill="#64748b">0</text>
+          <line x1="90" y1="70" x2="130" y2="70" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ah-blue)"/>
+          <text x="132" y="66" font-size="11" fill="#2563eb" font-style="italic">î</text>
+          <text x="90" y="115" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="600">ℝ</text>
+          <text x="90" y="130" font-size="9" fill="#64748b" text-anchor="middle">Dimensión 1: Segmento</text>
+        </svg>
+      </div>
+      <div>
+        <svg class="fig sm" viewBox="0 0 180 180" role="img" aria-label="R²: espacio de dimensión 2">
+          <line x1="10" y1="110" x2="170" y2="110" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
+          <line x1="50" y1="170" x2="50" y2="15"   stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
+          <text x="170" y="122" font-size="10" fill="#64748b">x</text>
+          <text x="42" y="15"   font-size="10" fill="#64748b">y</text>
+          <circle cx="50" cy="110" r="2" fill="#1e293b"/>
+          <rect x="50" y="60" width="50" height="50" fill="#fee2e2" stroke="#f87171" stroke-width="1.2" stroke-dasharray="3 2"/>
+          <line x1="50" y1="110" x2="100" y2="110" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ah-blue)"/>
+          <text x="102" y="107" font-size="10" fill="#2563eb" font-style="italic">î</text>
+          <line x1="50" y1="110" x2="50" y2="60" stroke="#dc2626" stroke-width="2.5" marker-end="url(#ah-red)"/>
+          <text x="42" y="55" font-size="10" fill="#dc2626" font-style="italic">ĵ</text>
+          <text x="90" y="150" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="600">ℝ²</text>
+          <text x="90" y="165" font-size="9" fill="#64748b" text-anchor="middle">Dimensión 2: Área</text>
+        </svg>
+      </div>
+      <div>
+        <svg class="fig sm" viewBox="0 0 200 200" role="img" aria-label="R³: espacio de dimensión 3">
+          <line x1="90" y1="130" x2="190" y2="130" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
+          <line x1="90" y1="130" x2="90" y2="15"   stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
+          <line x1="90" y1="130" x2="15" y2="180"  stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
+          <text x="192" y="135" font-size="10" fill="#64748b">y</text>
+          <text x="82"  y="12"  font-size="10" fill="#64748b">z</text>
+          <text x="8"   y="190" font-size="10" fill="#64748b">x</text>
+          <circle cx="90" cy="130" r="2" fill="#1e293b"/>
+          <polygon points="90,130 140,130 140,80 90,80" fill="#dcfce7" stroke="#22c55e" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.7"/>
+          <polygon points="90,80 140,80 130,70 80,70"   fill="#bbf7d0" stroke="#22c55e" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.7"/>
+          <polygon points="90,130 90,80 80,70 70,120"   fill="#bbf7d0" stroke="#22c55e" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.5"/>
+          <line x1="90" y1="130" x2="140" y2="130" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ah-blue)"/>
+          <text x="142" y="128" font-size="10" fill="#2563eb" font-style="italic">ĵ</text>
+          <line x1="90" y1="130" x2="90" y2="80" stroke="#dc2626" stroke-width="2.5" marker-end="url(#ah-red)"/>
+          <text x="82" y="76" font-size="10" fill="#dc2626" font-style="italic">k̂</text>
+          <line x1="90" y1="130" x2="70" y2="120" stroke="#16a34a" stroke-width="2.5" marker-end="url(#ah-green)"/>
+          <text x="60" y="118" font-size="10" fill="#16a34a" font-style="italic">î</text>
+          <text x="100" y="180" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="600">ℝ³</text>
+          <text x="100" y="195" font-size="9" fill="#64748b" text-anchor="middle">Dimensión 3: Volumen</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 4.10  CAMBIO DE BASE                                           -->
+    <!-- ============================================================ -->
+    <h3 class="section-title" id="sec-4-10">4.10 Interpretación de dos Bases y Cambio de Base</h3>
+
+    <p>Cualquier espacio vectorial, como el plano $\mathbb{R}^2$, no está atado a la cuadrícula rectangular
+      habitual. Si elegimos dos pares diferentes de vectores linealmente independientes, obtenemos dos bases
+      alternativas, digamos $B = \{\mathbf{b}_1, \mathbf{b}_2\}$ y $C = \{\mathbf{c}_1, \mathbf{c}_2\}$,
+      ninguna de las cuales necesita coincidir con los ejes estándar.</p>
+
+    <p>Piensa en estas dos bases como dos sistemas de coordenadas oblicuos o “mapas con cuadrículas
+      inclinadas”. El punto o vector físico $\mathbf{w}$ en el espacio es único, pero sus “instrucciones de
+      navegación” (los vectores de coordenadas $[\mathbf{w}]_B$ y $[\mathbf{w}]_C$) se expresan en términos de
+      diferentes pasos a lo largo de los ejes de cada base.</p>
+
+    <p>La <strong>matriz de cambio de base</strong> de $C$ a $B$ ($P_{C \to B}$) actúa como el traductor directo
+      entre estas dos representaciones generales:</p>
+    <ul>
+      <li><strong>Su función geométrica:</strong> toma las coordenadas de un vector escritas en términos de la
+        base $C$ y las transforma en las coordenadas equivalentes que corresponden a la base $B$.</li>
+      <li><strong>Construcción y Operación:</strong> la matriz $P_{C \to B}$ se construye colocando en sus
+        columnas las coordenadas de los vectores de $C$ expresados en la base $B$, de modo que:
+        \[
+          [\mathbf{w}]_B = P_{C \to B} [\mathbf{w}]_C
+        \]</li>
+    </ul>
+
+    <div class="diagram-container">
+      <div>
+        <svg class="fig" viewBox="0 0 260 240" role="img" aria-label="Base alternativa B">
+          <line x1="10" y1="130" x2="250" y2="130" stroke="#e2e8f0" stroke-width="1"/>
+          <line x1="100" y1="230" x2="100" y2="15" stroke="#e2e8f0" stroke-width="1"/>
+          <circle cx="100" cy="130" r="2" fill="#1e293b"/>
+
+          <line x1="100" y1="130" x2="140" y2="110" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ah-blue)"/>
+          <text x="143" y="108" font-size="12" fill="#2563eb" font-style="italic">b₁</text>
+          <line x1="100" y1="130" x2="120" y2="90" stroke="#dc2626" stroke-width="2.5" marker-end="url(#ah-red)"/>
+          <text x="122" y="86" font-size="12" fill="#dc2626" font-style="italic">b₂</text>
+
+          <line x1="100" y1="130" x2="160" y2="70" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#ah-purple)"/>
+          <text x="163" y="68" font-size="14" fill="#7c3aed" font-style="italic">w</text>
+
+          <line x1="140" y1="110" x2="160" y2="70" stroke="#7c3aed" stroke-width="1" stroke-dasharray="3 2"/>
+          <line x1="120" y1="90"  x2="160" y2="70" stroke="#7c3aed" stroke-width="1" stroke-dasharray="3 2"/>
+
+          <text x="130" y="235" font-size="11" fill="#0f172a" text-anchor="middle">
+            <tspan font-weight="700">Base B</tspan>
+          </text>
+          <text x="130" y="252" font-size="10" fill="#475569" text-anchor="middle">[w]_B = (1, 1)</text>
+        </svg>
+      </div>
+      <div>
+        <svg class="fig" viewBox="0 0 260 240" role="img" aria-label="Base alternativa C">
+          <line x1="10" y1="130" x2="250" y2="130" stroke="#e2e8f0" stroke-width="1"/>
+          <line x1="100" y1="230" x2="100" y2="15" stroke="#e2e8f0" stroke-width="1"/>
+          <circle cx="100" cy="130" r="2" fill="#1e293b"/>
+
+          <line x1="100" y1="130" x2="150" y2="125" stroke="#16a34a" stroke-width="2.5" marker-end="url(#ah-green)"/>
+          <text x="153" y="122" font-size="12" fill="#16a34a" font-style="italic">c₁</text>
+          <line x1="100" y1="130" x2="60" y2="80" stroke="#ea580c" stroke-width="2.5" marker-end="url(#ah-orange)"/>
+          <text x="46" y="76" font-size="12" fill="#ea580c" font-style="italic">c₂</text>
+
+          <line x1="100" y1="130" x2="160" y2="70" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#ah-purple)"/>
+          <text x="163" y="68" font-size="14" fill="#7c3aed" font-style="italic">w</text>
+
+          <line x1="200" y1="120" x2="160" y2="70" stroke="#7c3aed" stroke-width="1" stroke-dasharray="3 2"/>
+          <line x1="60"  y1="80"  x2="160" y2="70" stroke="#7c3aed" stroke-width="1" stroke-dasharray="3 2"/>
+          <line x1="150" y1="125" x2="200" y2="120" stroke="#16a34a" stroke-width="1" stroke-dasharray="3 2"/>
+
+          <text x="130" y="235" font-size="11" fill="#0f172a" text-anchor="middle">
+            <tspan font-weight="700">Base C</tspan>
+          </text>
+          <text x="130" y="252" font-size="10" fill="#475569" text-anchor="middle">[w]_C = (2, 1)</text>
+        </svg>
+      </div>
+    </div>
+
+    <p>Es una observación geométrica fundamental notar que cualquier par de bases en $\mathbb{R}^2$ genera
+      exactamente el mismo espacio vectorial. Ninguna base otorga acceso a regiones del plano que otra no pueda
+      describir. Surge entonces una interrogante natural: <em>¿cuál es el propósito de realizar un cambio de
+      coordenadas si el espacio subyacente permanece inalterado?</em></p>
+
+    <p>La justificación principal radica en la <strong>perspectiva analítica</strong> y la <strong>conveniencia
+      computacional</strong>. El cambio de base no altera el espacio físico, sino que proporciona un marco de
+      referencia diseñado para simplificar drásticamente los cálculos y elucidar la acción de las
+      transformaciones sobre los vectores.</p>
+
+    <h4 class="sub-title">4.10.1 Simplificación de Transformaciones Lineales (Diagonalización)</h4>
+
+    <p>Considérese una transformación lineal representada por una matriz $A$, cuya acción geométrica altera los
+      vectores mediante rotaciones y escalamientos en distintas direcciones. En la base canónica (los ejes
+      estándar $x$ e $y$), las entradas de dicha matriz pueden no revelar su comportamiento geométrico
+      subyacente. Por ejemplo:</p>
+
+    \[
+      A = \begin{pmatrix} 4 & -2 \\ 1 & 1 \end{pmatrix}
+    \]
+
+    <p>Calcular potencias elevadas de esta matriz, como $A^{100}$, resulta en un proceso computacionalmente
+      arduo. Sin embargo, es posible determinar una base intrínseca al problema —conocida como
+      <strong>base de autovectores</strong> o <em>eigenvectores</em>— cuyos ejes se alineen de manera natural
+      con las direcciones de estiramiento y compresión de la transformación.</p>
+
+    <p>Al ejecutar un cambio hacia esta nueva base, la matriz original $A$ adopta una forma diagonal $D$
+      matemáticamente más tratable:</p>
+
+    \[
+      D = \begin{pmatrix} 3 & 0 \\ 0 & 2 \end{pmatrix}
+    \]
+
+    <p>En este nuevo sistema de coordenadas, la acción de la transformación se desacopla: la matriz simplemente
+      escala el primer componente por un factor de $3$ y el segundo por un factor de $2$. En consecuencia,
+      calcular $D^{100}$ es una operación trivial que consiste en elevar únicamente las entradas de la diagonal
+      principal.</p>
+
+    \[
+      D^{100} = \begin{pmatrix} 3^{100} & 0 \\ 0 & 2^{100} \end{pmatrix}
+    \]
+
+    <p>Bajo este contexto, la matriz de cambio de base actúa como un operador de traducción: proyecta un
+      problema complejo hacia un marco de referencia donde su resolución es directa, permitiendo posteriormente
+      mapear la solución de regreso al sistema de coordenadas original mediante:</p>
+
+    \[
+      A^{100} = P \, D^{100} \, P^{-1}
+    \]
+
+    <div class="callout callout-note">
+      <div class="callout-title">💡 Idea clave</div>
+      <p style="margin:0;">Cambiar de base no cambia el vector (ni la transformación), solo cambia el
+        <em>idioma</em> con el que lo describimos. Elegir el idioma correcto puede convertir un cálculo
+        intratable en uno trivial.</p>
+    </div>
+
+    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+  </section>
+
+  <!-- (Aquí continúa tu HTML existente si quedaba algo: footer, scripts de toggle, etc.) -->

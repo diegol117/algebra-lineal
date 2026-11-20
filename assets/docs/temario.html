@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temario de la Asignatura</title>
+  
+  <!-- Fuentes de Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      
+      /* NUEVO COLOR PRINCIPAL (Cian) */
+      --primary: #00baeb; 
+      /* Fondo sutil para la etiqueta numérica (mismo color pero con opacidad) */
+      --primary-light: rgba(0, 186, 235, 0.1); 
+      
+      --border: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 4rem 1.5rem;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    /* Encabezado */
+    .header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .header h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.75rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.03em;
+    }
+
+    .header p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-weight: 500;
+    }
+
+    /* Contenedor de los Temas */
+    .syllabus-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    /* Tarjeta del Tema */
+    .module {
+      background-color: var(--surface);
+      border: 1px solid #f1f5f9;
+      border-radius: 12px;
+      padding: 2rem;
+      position: relative;
+      box-shadow: 0 2px 12px -4px rgba(0, 0, 0, 0.04);
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    /* Barra de gradiente que aparece al hacer hover (usando tus colores) */
+    .module::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(0,186,235,1) 0%, rgba(0,186,235,0.3) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .module:hover {
+      box-shadow: 0 8px 25px -5px rgba(0, 186, 235, 0.15); /* Sombra con tinte cian */
+      border-color: #e0f2fe;
+      transform: translateX(4px); /* Se desplaza sutilmente a la derecha */
+    }
+
+    .module:hover::before {
+      opacity: 1; /* Muestra la barra de gradiente */
+    }
+
+    /* Cabecera de la tarjeta (Número + Título) */
+    .module-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 1rem;
+    }
+
+    /* Número estilizado */
+    .module-number {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #0096c0; /* Un tono ligeramente más oscuro para que sea legible sobre el fondo claro */
+      background-color: var(--primary-light);
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    /* Título del Tema */
+    .module h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--text-main);
+      letter-spacing: -0.01em;
+    }
+
+    /* Lista de subtemas */
+    .subtopics {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .subtopics li {
+      position: relative;
+      padding-left: 1.75rem;
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    /* Ícono de check minimalista */
+    .subtopics li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 6px;
+      width: 14px;
+      height: 14px;
+      /* Check en color gris azulado por defecto */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: stroke 0.3s ease;
+    }
+
+    .module:hover .subtopics li::before {
+      /* Check en color Cian al pasar el mouse */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300baeb' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+    }
+
+    /* Adaptación para móviles */
+    @media (max-width: 600px) {
+      body { padding: 2.5rem 1rem; }
+      .header h1 { font-size: 2rem; }
+      .module { padding: 1.5rem; }
+      .module:hover { transform: none; } /* Evita saltos en móvil */
+      .module-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+      .module h2 { font-size: 1.2rem; }
+      .subtopics li { font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <header class="header">
+      <h1>Contenido Curricular</h1>
+      <p>Álgebra Lineal y Sucesiones</p>
+    </header>
+
+    <div class="syllabus-list">
+
+      <!-- MÓDULO 1 -->
+      <div class="module">
+        <div class="module-header">
+          <span class="module-number">01</span>
+          <h2>Matrices, Determinantes y Sistemas</h2>
+        </div>
+        <ul class="subtopics">
+          <li>Matrices: suma y producto, tipos (traspuesta, inversa, elementales).</li>
+          <li>Operaciones elementales por filas y matrices escalonadas.</li>
+          <li>Determinantes y sus propiedades fundamentales.</li>
+          <li>Sistemas de ecuaciones lineales y eliminación de Gauss-Jordan.</li>
+          <li>Consistencia, inconsistencia y sistemas homogéneos.</li>
+        </ul>
+      </div>
+
+      <!-- MÓDULO 2 -->
+      <div class="module">
+        <div class="module-header">
+          <span class="module-number">02</span>
+          <h2>Espacios Vectoriales</h2>
+        </div>
+        <ul class="subtopics">
+          <li>Definición de espacio vectorial y subespacio.</li>
+          <li>Dependencia e independencia lineal.</li>
+          <li>Espacio generado, bases y dimensión.</li>
+          <li>Núcleo, imagen, nulidad y rango de una matriz.</li>
+          <li>Cambio de base y bases ortonormales.</li>
+          <li>Proyecciones ortogonales en \(\mathbb{R}^n\).</li>
+        </ul>
+      </div>
+
+      <!-- MÓDULO 3 -->
+      <div class="module">
+        <div class="module-header">
+          <span class="module-number">03</span>
+          <h2>Transformaciones Lineales</h2>
+        </div>
+        <ul class="subtopics">
+          <li>Definición y propiedades de las transformaciones lineales.</li>
+          <li>Álgebra de las transformaciones lineales.</li>
+          <li>Representación matricial de una transformación lineal.</li>
+          <li>Rango y nulidad de una transformación lineal.</li>
+        </ul>
+      </div>
+
+      <!-- MÓDULO 4 -->
+      <div class="module">
+        <div class="module-header">
+          <span class="module-number">04</span>
+          <h2>Autovalores y Autovectores</h2>
+        </div>
+        <ul class="subtopics">
+          <li>Cálculo y propiedades de autovalores y autovectores.</li>
+          <li>Matrices semejantes y diagonalización.</li>
+          <li>Matrices simétricas y su diagonalización ortogonal.</li>
+        </ul>
+      </div>
+
+      <!-- MÓDULO 5 -->
+      <div class="module">
+        <div class="module-header">
+          <span class="module-number">05</span>
+          <h2>Sucesiones y Series</h2>
+        </div>
+        <ul class="subtopics">
+          <li>Sucesiones, monotonía y acotación.</li>
+          <li>Límites de sucesiones.</li>
+          <li>Series infinitas: propiedades, telescópicas y geométricas.</li>
+          <li>Criterios de convergencia: comparación, razón, raíz e integral.</li>
+          <li>Series alternantes y convergencia absoluta.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

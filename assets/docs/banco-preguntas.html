@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banco de Preguntas - Álgebra Lineal y Sucesiones</title>
+
+  <!-- KaTeX para fórmulas matemáticas -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '\\(', right: '\\)', display: false}
+      ],
+      throwOnError: false
+    });"></script>
+
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --primary: #1e3a8a;
+      --primary-light: #eff6ff;
+      --border: #e2e8f0;
+      --accent: #0f766e;
+      --accent-light: #f0fdfa;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 5rem;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: white;
+      padding: 2.5rem 2rem;
+      border-radius: 16px;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.25);
+    }
+
+    h1 { margin: 0 0 0.5rem 0; font-size: 2rem; }
+    header p { margin: 0; color: #cbd5e1; font-size: 1.05rem; }
+
+    .module-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      color: var(--primary);
+      font-size: 1.4rem;
+      border-bottom: 2px solid var(--primary-light);
+      padding-bottom: 0.5rem;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .week-badge {
+      background: var(--primary);
+      color: white;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    .question {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px dashed var(--border);
+    }
+    .question:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    .question-text {
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+
+    .q-number {
+      font-weight: 700;
+      color: var(--primary);
+      margin-right: 0.5rem;
+    }
+
+    details {
+      background: #fafafa;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    summary {
+      padding: 0.6rem 1rem;
+      font-weight: 600;
+      color: var(--accent);
+      cursor: pointer;
+      background: var(--accent-light);
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.2s;
+      font-size: 0.9rem;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+    summary::before { content: "▶"; font-size: 0.7rem; transition: transform 0.2s; }
+    details[open] summary::before { transform: rotate(90deg); }
+    summary:hover { background: #ccfbf1; }
+
+    .solution-content {
+      padding: 1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+
+    .katex-display { margin: 1rem 0; overflow-x: auto; overflow-y: hidden; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>📚 Banco de Preguntas de Práctica</h1>
+    <p>50 ejercicios propuestos basados en el cronograma oficial de la materia (Álgebra Lineal y Sucesiones).</p>
+  </header>
+
+  <!-- BLOQUE 1 -->
+  <div class="module-card">
+    <h2><span class="week-badge">Tema 1</span> Matrices, Determinantes y Sistemas</h2>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">1.</span> Sean \(A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}\) y \(B = \begin{pmatrix} -1 & 0 \\ 2 & 1 \end{pmatrix}\). Calcule \(A^t B - 2I_2\).</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          \(A^t = \begin{pmatrix} 1 & 3 \\ 2 & 4 \end{pmatrix}\). \(A^t B = \begin{pmatrix} 1( -1) + 3(2) & 1(0) + 3(1) \\ 2(-1) + 4(2) & 2(0) + 4(1) \end{pmatrix} = \begin{pmatrix} 5 & 3 \\ 6 & 4 \end{pmatrix}\). Restando \(2I_2\): \(\begin{pmatrix} 3 & 3 \\ 6 & 2 \end{pmatrix}\).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">2.</span> Halle la inversa de la matriz \(C = \begin{pmatrix} 2 & 1 \\ 5 & 3 \end{pmatrix}\) si existe.</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          \(\det(C) = 6 - 5 = 1 \neq 0\). Por lo tanto, \(C^{-1} = \frac{1}{1} \begin{pmatrix} 3 & -1 \\ -5 & 2 \end{pmatrix} = \begin{pmatrix} 3 & -1 \\ -5 & 2 \end{pmatrix}\).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">3.</span> Calcule el determinante de la matriz \(D = \begin{pmatrix} 1 & 2 & 3 \\ 0 & 4 & 5 \\ 0 & 0 & 6 \end{pmatrix}\).</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Al ser una matriz triangular superior, el determinante es el producto de los elementos de su diagonal principal: \(1 \cdot 4 \cdot 6 = 24\).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">4.</span> Determine el valor de \(k\) para que el sistema \(\begin{cases} kx + y = 2 \\ x + ky = 2 \end{cases}\) tenga infinitas soluciones.</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          El determinante de los coeficientes es \(k^2 - 1\). Para infinitas soluciones necesitamos \(\det = 0 \Rightarrow k = \pm 1\). Si \(k=1\), las ecuaciones son idénticas (\(x+y=2\)). Si \(k=-1\), el sistema es inconsistente (\(-x+y=2\) y \(x-y=2\)). Por lo tanto, \(k=1\).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">5.</span> Resuelva el sistema de ecuaciones usando eliminación de Gauss-Jordan: \(\begin{cases} x + 2y - z = 3 \\ 2x + 3y + z = 7 \\ 3x - y - 2z = 4 \end{cases}\)</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Al escalonar la matriz aumentada se llega a: \(\begin{pmatrix} 1 & 0 & 5 & 5 \\ 0 & 1 & -3 & -1 \\ 0 & 0 & 0 & 0 \end{pmatrix}\). Hay una variable libre (\(z\)). Solución: \(x = 5 - 5z\), \(y = -1 + 3z\), \(z \in \mathbb{R}\).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">6.</span> Demuestre que si \(A\) es una matriz cuadrada tal que \(A^2 - 3A + I = 0\), entonces \(A^{-1} = 3I - A\).</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Multiplicando por \(A^{-1}\): \(A - 3I + A^{-1} = 0 \Rightarrow A^{-1} = 3I - A\).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">7.</span> ¿Cuál es el rango de la matriz \(E = \begin{pmatrix} 1 & 2 & 3 \\ 2 & 4 & 6 \\ 1 & 1 & 1 \end{pmatrix}\)?</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          La fila 2 es el doble de la fila 1. Al eliminarla, quedan dos filas linealmente independientes: \((1, 2, 3)\) y \((1, 1, 1)\). El rango es 2.
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">8.</span> Encuentre el determinante de \(A = \begin{pmatrix} 1 & 0 & 2 \\ 2 & -1 & 3 \\ 4 & 1 & 0 \end{pmatrix}\) por cofactores en la primera fila.</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          \(\det(A) = 1\begin{vmatrix} -1 & 3 \\ 1 & 0 \end{vmatrix} - 0 + 2\begin{vmatrix} 2 & -1 \\ 4 & 1 \end{vmatrix} = 1(0 - 3) + 2(2 - (-4)) = -3 + 12 = 9\).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">9.</span> ¿Es posible que un sistema homogéneo de 3 ecuaciones con 4 incógnitas tenga solución única? Justifique.</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          No. Un sistema homogéneo siempre tiene al menos la solución trivial. Como hay más incógnitas que ecuaciones (4 > 3), habrá al menos una variable libre, por lo que siempre tendrá infinitas soluciones.
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">10.</span> Sean \(A\) y \(B\) matrices \(n \times n\). Si \(\det(A) = 3\) y \(\det(B) = -2\), calcule \(\det((AB^t)^{-1})\).</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          \(\det((AB^t)^{-1}) = \frac{1}{\det(AB^t)} = \frac{1}{\det(A)\det(B^t)} = \frac{1}{\det(A)\det(B)} = \frac{1}{3 \cdot (-2)} = -\frac{1}{6}\).
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- BLOQUE 2 -->
+  <div class="module-card">
+    <h2><span class="week-badge">Tema 2</span> Espacios Vectoriales</h2>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">11.</span> Determine si el conjunto \(S = \{(x,y,z) \in \mathbb{R}^3 \mid x + 2y - z = 0\}\) es un subespacio vectorial de \(\mathbb{R}^3\).</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Sí lo es. Contiene al vector nulo \((0,0,0)\). Si tomamos dos vectores en \(S\), su suma cumple la condición: \((x_1+x_2) + 2(y_1+y_2) - (z_1+z_2) = (x_1+2y_1-z_1) + (x_2+2y_2-z_2) = 0+0=0\). También es cerrado bajo multiplicación escalar.
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">12.</span> ¿Son los vectores \(v_1 = (1, 2, 3)\), \(v_2 = (0, 1, 2)\) y \(v_3 = (1, 3, 5)\) linealmente independientes en \(\mathbb{R}^3\)?</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          No. Note que \(v_3 = v_1 + v_2\). Al formar la matriz con estos vectores como columnas y calcular su determinante, obtenemos 0. Por lo tanto, son linealmente dependientes.
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">13.</span> Encuentre una base y la dimensión para el espacio nulo de la matriz \(A = \begin{pmatrix} 1 & 2 & 1 \\ 2 & 4 & 2 \end{pmatrix}\).</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Al escalonar, la segunda fila se anula. La ecuación es \(x + 2y + z = 0 \Rightarrow x = -2y - z\). Los vectores de la base son \(v_1 = (-2, 1, 0)\) y \(v_2 = (-1, 0, 1)\). La dimensión (nulidad) es 2.
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">14.</span> Sea \(W = \text{gen}\{(1, 0, 1), (0, 1, 1)\}\). ¿Pertenece el vector \(v = (2, 3, 5)\) al subespacio \(W\)?</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Debemos ver si existen escalares \(\alpha, \beta\) tales que \(\alpha(1,0,1) + \beta(0,1,1) = (2,3,5)\). Esto da el sistema: \(\alpha=2\), \(\beta=3\), \(\alpha+\beta=5\). Como \(2+3=5\), sí pertenece.
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">15.</span> Dada la base \(B = \{(1,1), (1,-1)\}\) de \(\mathbb{R}^2\), encuentre las coordenadas del vector \(v = (3, 1)\) respecto a esta base.</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Planteamos \(c_1(1,1) + c_2(1,-1) = (3,1)\). El sistema es \(c_1+c_2=3\) y \(c_1-c_2=1\). Sumando: \(2c_1=4 \Rightarrow c_1=2\). Luego \(c_2=1\). Coordenadas: \([v]_B = (2, 1)^t\).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">16.</span> Si una matriz \(A\) de tamaño \(5 \times 7\) tiene rango 4, ¿cuál es la dimensión de su espacio nulo?</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Por el Teorema del Rango-Nulidad: \(\text{rango}(A) + \text{nulidad}(A) = \text{número de columnas}\). Entonces \(4 + \text{nulidad} = 7 \Rightarrow \text{nulidad} = 3\).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">17.</span> Determine la matriz de cambio de base de la base canónica a la base \(B = \{(2,1), (-1,3)\}\) en \(\mathbb{R}^2\).</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          La matriz de cambio de base de la canónica a \(B\) es simplemente la inversa de la matriz que tiene como columnas los vectores de \(B\). \(P_{B \leftarrow C} = \begin{pmatrix} 2 & -1 \\ 1 & 3 \end{pmatrix}^{-1} = \frac{1}{7} \begin{pmatrix} 3 & 1 \\ -1 & 2 \end{pmatrix}\).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">18.</span> Aplique el proceso de Gram-Schmidt para ortogonalizar los vectores \(u_1 = (1, 1)\) y \(u_2 = (1, 0)\) en \(\mathbb{R}^2\).</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          \(v_1 = u_1 = (1, 1)\). \(v_2 = u_2 - \frac{u_2 \cdot v_1}{v_1 \cdot v_1}v_1 = (1,0) - \frac{1}{2}(1,1) = (1/2, -1/2)\). Los vectores ortogonales son \((1,1)\) y \((1,-1)\) (escalando el segundo por 2).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">19.</span> ¿Qué es el complemento ortogonal \(W^\perp\) del subespacio \(W = \text{gen}\{(1, 2, 0)\}\) en \(\mathbb{R}^3\)?</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Es el conjunto de vectores \((x,y,z)\) tal que \(x + 2y = 0\). Es decir, el plano \(x + 2y = 0\), que tiene como base, por ejemplo, \(\{(2, -1, 0), (0, 0, 1)\}\).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">20.</span> Si \(V\) tiene dimensión 4 y \(W\) es un subespacio de \(V\) con dimensión 3, ¿qué dimensión tiene \(W^\perp\)?</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Por el teorema de la dimensión para complementos ortogonales: \(\dim(W) + \dim(W^\perp) = \dim(V)\). \(3 + \dim(W^\perp) = 4 \Rightarrow \dim(W^\perp) = 1\).
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- BLOQUE 3 -->
+  <div class="module-card">
+    <h2><span class="week-badge">Tema 3</span> Transformaciones Lineales</h2>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">21.</span> Determine si la transformación \(T: \mathbb{R}^2 \to \mathbb{R}^2\), \(T(x,y) = (x+1, y)\) es lineal.</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          No es lineal porque no manda al vector cero al vector cero: \(T(0,0) = (1,0) \neq (0,0)\). (Falla la propiedad de la suma y el escalar).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">22.</span> Encuentre la matriz asociada a la transformación lineal \(T: \mathbb{R}^2 \to \mathbb{R}^3\) definida por \(T(x,y) = (x, x+y, y)\) respecto a las bases canónicas.</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Evaluamos en la base canónica de \(\mathbb{R}^2\):
+          \(T(1,0) = (1, 1, 0)\) y \(T(0,1) = (0, 1, 1)\). La matriz es \(A = \begin{pmatrix} 1 & 0 \\ 1 & 1 \\ 0 & 1 \end{pmatrix}\).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">23.</span> Halle el núcleo (kernel) de la transformación \(T: \mathbb{R}^3 \to \mathbb{R}^2\), \(T(x,y,z) = (x-y, y-z)\).</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Igualamos a cero: \(x-y=0 \Rightarrow x=y\) y \(y-z=0 \Rightarrow y=z\). Por tanto, \(x=y=z\). El núcleo es \(\text{gen}\{(1, 1, 1)\}\). Dimensión 1.
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">24.</span> Si \(T: \mathbb{R}^4 \to \mathbb{R}^3\) es una transformación lineal con núcleo de dimensión 2, ¿cuál es el rango de \(T\)?</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Por el teorema de la dimensión (Rango-Nulidad para transformaciones): \(\dim(\text{Nu}(T)) + \text{rango}(T) = \dim(\text{Dominio})\). \(2 + \text{rango}(T) = 4 \Rightarrow \text{rango}(T) = 2\).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">25.</span> Sea \(T: \mathbb{R}^2 \to \mathbb{R}^2\) una rotación de \(90^\circ\) en sentido antihorario. ¿Cuál es su matriz asociada?</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          La matriz de rotación en \(\mathbb{R}^2\) para un ángulo \(\theta\) es \(\begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}\). Para \(\theta = 90^\circ\): \(\begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}\).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">26.</span> Sea \(T: P_2 \to P_2\) la derivada, \(T(p(x)) = p'(x)\). ¿Cuál es el núcleo de \(T\)?</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          El núcleo son los polinomios cuya derivada es cero. Es decir, los polinomios constantes. \(\text{Nu}(T) = \text{gen}\{1\}\). Dimensión 1.
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">27.</span> Verifique si la transformación \(T(x,y) = (2x, 3y)\) es invertible y, de serlo, halle su inversa.</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Su matriz es \(\begin{pmatrix} 2 & 0 \\ 0 & 3 \end{pmatrix}\), cuyo determinante es 6 ≠ 0. Es invertible. Su inversa es \(T^{-1}(u,v) = (u/2, v/3)\).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">28.</span> Sean \(T(x,y) = (x-y, x)\) y \(S(x,y) = (x+2y, y)\). Calcule la composición \((T \circ S)(x,y)\).</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          \((T \circ S)(x,y) = T(S(x,y)) = T(x+2y, y) = ((x+2y)-y, x+2y) = (x+y, x+2y)\).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">29.</span> ¿Cuál es el rango de la transformación lineal \(T: \mathbb{R}^3 \to \mathbb{R}^3\) dada por \(T(x,y,z) = (x, y, 0)\) (proyección sobre el plano \(xy\))?</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          La imagen son todos los vectores de la forma \((x,y,0)\), que es el plano \(xy\). Su dimensión es 2. Por lo tanto, el rango es 2.
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">30.</span> Demuestre que si \(T: V \to W\) es una transformación lineal, entonces \(T(\vec{0}_V) = \vec{0}_W\).</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          \(T(\vec{0}) = T(0 \cdot \vec{0}) = 0 \cdot T(\vec{0}) = \vec{0}\).
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- BLOQUE 4 -->
+  <div class="module-card">
+    <h2><span class="week-badge">Tema 4</span> Autovalores y Autovectores</h2>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">31.</span> Encuentre los autovalores de la matriz \(A = \begin{pmatrix} 3 & 1 \\ 0 & 2 \end{pmatrix}\).</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Al ser triangular superior, los autovalores son los elementos de la diagonal: \(\lambda_1 = 3\) y \(\lambda_2 = 2\).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">32.</span> Halle los autovectores asociados a la matriz del ejercicio anterior.</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Para \(\lambda=3\): \((A-3I)v = 0 \Rightarrow \begin{pmatrix} 0 & 1 \\ 0 & -1 \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} = 0 \Rightarrow y=0\). Vector: \((1,0)^t\).
+          Para \(\lambda=2\): \(\begin{pmatrix} 1 & 1 \\ 0 & 0 \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} = 0 \Rightarrow x+y=0\). Vector: \((1,-1)^t\).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">33.</span> Calcule el polinomio característico de \(A = \begin{pmatrix} 2 & -1 \\ 1 & 4 \end{pmatrix}\).</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          \(\det(A - \lambda I) = \begin{vmatrix} 2-\lambda & -1 \\ 1 & 4-\lambda \end{vmatrix} = (2-\lambda)(4-\lambda) - (-1)(1) = \lambda^2 - 6\lambda + 9\).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">34.</span> ¿Es diagonalizable la matriz del ejercicio 33?</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          El polinomio característico es \((\lambda - 3)^2\). El único autovalor es \(\lambda=3\) con multiplicidad algebraica 2. Calculando el espacio propio para \(\lambda=3\): \(\begin{pmatrix} -1 & -1 \\ 1 & 1 \end{pmatrix}\), la dimensión es 1. Como la multiplicidad geométrica (1) es menor que la algebraica (2), **no es diagonalizable**.
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">35.</span> Si una matriz \(3 \times 3\) tiene autovalores \(2, 2, 5\), ¿cuál es su determinante y su traza?</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          El determinante es el producto de los autovalores: \(2 \cdot 2 \cdot 5 = 20\). La traza es la suma: \(2 + 2 + 5 = 9\).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">36.</span> Sea \(A = \begin{pmatrix} 1 & 2 \\ 2 & 1 \end{pmatrix}\). Encuentre una matriz \(P\) que diagonalice a \(A\).</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Autovalores: \(\det(A-\lambda I) = (1-\lambda)^2 - 4 = 0 \Rightarrow \lambda^2 - 2\lambda - 3 = 0 \Rightarrow \lambda=3, \lambda=-1\).
+          Autovectores: Para 3: \((1, 1)^t\); para -1: \((1, -1)^t\). La matriz \(P = \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}\).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">37.</span> ¿Qué significa que dos matrices \(A\) y \(B\) sean semejantes?</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Significa que existe una matriz invertible \(P\) tal que \(B = P^{-1}AP\). Las matrices semejantes representan la misma transformación lineal en bases diferentes y comparten autovalores, determinante y traza.
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">38.</span> Determine si la matriz \(A = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}\) es diagonalizable sobre los reales.</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          No. Sus autovalores son \(\pm i\) (raíces de \(\lambda^2 + 1 = 0\)). Al no tener autovalores reales, no puede ser diagonalizable sobre \(\mathbb{R}\).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">39.</span> Si \(A\) es una matriz simétrica \(2 \times 2\) con autovalores 2 y 4, ¿sus autovectores son ortogonales?</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Sí. Un teorema fundamental del álgebra lineal establece que los autovectores asociados a autovalores distintos de una matriz simétrica real son siempre ortogonales.
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">40.</span> Calcule \(A^3\) si \(A\) es diagonalizable como \(A = PDP^{-1}\) con \(D = \text{diag}(1, 2)\) y \(P = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}\).</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Si \(P=I\), \(A=D\). Entonces \(A^3 = D^3 = \begin{pmatrix} 1^3 & 0 \\ 0 & 2^3 \end{pmatrix} = \begin{pmatrix} 1 & 0 \\ 0 & 8 \end{pmatrix}\).
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- BLOQUE 5 -->
+  <div class="module-card">
+    <h2><span class="week-badge">Tema 5</span> Sucesiones y Series</h2>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">41.</span> Determine si la sucesión \(a_n = \frac{3n^2 + 2n}{n^2 - 1}\) converge o diverge, y calcule su límite.</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Dividiendo numerador y denominador por \(n^2\): \(\lim_{n \to \infty} \frac{3 + 2/n}{1 - 1/n^2} = \frac{3+0}{1-0} = 3\). La sucesión converge a 3.
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">42.</span> Analice la monotonía y acotación de la sucesión \(a_n = \frac{1}{n}\).</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Es estrictamente decreciente porque \(a_{n+1} = \frac{1}{n+1} < \frac{1}{n} = a_n\). Está acotada inferiormente por 0 y superiormente por 1 (para \(n \ge 1\)). Por el teorema de Weierstrass, converge (a 0).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">43.</span> Halle la suma de la serie telescópica \(\sum_{n=1}^{\infty} \left( \frac{1}{n} - \frac{1}{n+1} \right)\).</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Escribiendo los primeros términos: \((1 - 1/2) + (1/2 - 1/3) + (1/3 - 1/4) + \dots\). Todos los términos intermedios se cancelan. La suma parcial \(S_n = 1 - \frac{1}{n+1}\). Tomando el límite, \(S = 1\).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">44.</span> Determine si la serie geométrica \(\sum_{n=0}^{\infty} \left(\frac{2}{3}\right)^n\) converge y halle su suma.</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Es una serie geométrica con razón \(r = 2/3\). Como \(|r| < 1\), converge. Su suma es \(S = \frac{a}{1-r} = \frac{1}{1 - 2/3} = 3\).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">45.</span> Use el criterio del cociente (D'Alembert) para determinar la convergencia de \(\sum_{n=1}^{\infty} \frac{n!}{3^n}\).</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          \(\lim_{n \to \infty} \left| \frac{a_{n+1}}{a_n} \right| = \lim_{n \to \infty} \frac{(n+1)!/3^{n+1}}{n!/3^n} = \lim_{n \to \infty} \frac{n+1}{3} = \infty > 1\). Por el criterio del cociente, la serie diverge.
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">46.</span> Aplique el criterio de la raíz (Cauchy) a la serie \(\sum_{n=1}^{\infty} \left( \frac{3n}{n+2} \right)^n\).</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          \(\lim_{n \to \infty} \sqrt[n]{|a_n|} = \lim_{n \to \infty} \frac{3n}{n+2} = 3 > 1\). Por el criterio de la raíz, la serie diverge.
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">47.</span> Determine la convergencia de la serie \(\sum_{n=1}^{\infty} \frac{1}{n^2 + 1}\) usando el criterio de comparación.</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Para \(n \ge 1\), \(n^2 + 1 > n^2\), por lo que \(\frac{1}{n^2 + 1} < \frac{1}{n^2}\). Como \(\sum \frac{1}{n^2}\) es una serie p con \(p=2 > 1\) (convergente), por el criterio de comparación directa, la serie original converge.
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">48.</span> Use el criterio de la integral para determinar si \(\sum_{n=1}^{\infty} \frac{1}{n \ln n}\) converge o diverge. (Asuma \(n \ge 2\)).</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Evaluamos \(\int_{2}^{\infty} \frac{1}{x \ln x} dx\). Sea \(u = \ln x\), \(du = 1/x dx\). La integral se vuelve \(\int \frac{1}{u} du = \ln|\ln x|\). Evaluando en \(\infty\), el límite es \(\infty\). La integral diverge, por lo que la serie también diverge.
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">49.</span> Analice la convergencia de la serie alternante \(\sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n}\).</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Cumple el criterio de Leibniz: \(b_n = \frac{1}{n}\) es decreciente y \(\lim_{n \to \infty} b_n = 0\). Por lo tanto, la serie converge (esta es la serie armónica alternante, converge a \(\ln 2\)).
+        </div>
+      </details>
+    </div>
+
+    <div class="question">
+      <div class="question-text"><span class="q-number">50.</span> ¿La serie del ejercicio 49 converge de forma absoluta o condicional?</div>
+      <details>
+        <summary>Ver Solución</summary>
+        <div class="solution-content">
+          Evaluamos la serie de valores absolutos: \(\sum_{n=1}^{\infty} \left| \frac{(-1)^{n+1}}{n} \right| = \sum_{n=1}^{\infty} \frac{1}{n}\). Esta es la serie armónica, que **diverge**. Por lo tanto, la serie original converge **condicionalmente**.
+        </div>
+      </details>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transformaciones Lineales</title>
+
+  <!-- KaTeX para renderizado matemático -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '\\(', right: '\\)', display: false}
+      ],
+      throwOnError: false
+    });"></script>
+
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-light: #eff6ff;
+      --primary-border: #3b82f6;
+      --secondary: #0f766e;
+      --secondary-light: #f0fdfa;
+      --secondary-border: #14b8a6;
+      --accent: #b45309;
+      --accent-light: #fffbeb;
+      --accent-border: #f59e0b;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 5rem;
+    }
+
+    /* Header */
+    header.doc-header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: white;
+      padding: 2.5rem 2rem;
+      border-radius: 16px;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.25);
+    }
+
+    header.doc-header h1 {
+      margin: 0 0 0.75rem 0;
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .meta-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      padding-top: 0.85rem;
+      margin-top: 0.85rem;
+    }
+
+    .meta-bar span strong {
+      color: #ffffff;
+    }
+
+    /* Controls Bar */
+    .controls-bar {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+
+    .btn:hover {
+      background: var(--primary-light);
+      border-color: var(--primary-border);
+      color: var(--primary);
+    }
+
+    /* Cards & Sections */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    h2.module-title {
+      color: var(--primary);
+      font-size: 1.6rem;
+      margin-top: 0;
+      padding-bottom: 0.6rem;
+      border-bottom: 2px solid var(--primary-light);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .badge {
+      background: var(--primary);
+      color: white;
+      font-size: 0.8rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    h3.section-title {
+      color: #0f172a;
+      font-size: 1.25rem;
+      margin-top: 1.8rem;
+      margin-bottom: 0.75rem;
+    }
+
+    h4.sub-title {
+      color: #334155;
+      font-size: 1.05rem;
+      margin-top: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Tables */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1.2rem 0;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      background: var(--surface);
+    }
+
+    th {
+      background-color: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+      text-align: left;
+      padding: 0.8rem 1rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background-color: #f8fafc;
+    }
+
+    table a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    table a:hover {
+      text-decoration: underline;
+    }
+
+    /* Callout Boxes */
+    .callout {
+      border-left: 4px solid;
+      border-radius: 0 10px 10px 0;
+      padding: 1.1rem 1.35rem;
+      margin: 1.25rem 0;
+    }
+
+    .callout-def {
+      background-color: var(--primary-light);
+      border-color: var(--primary-border);
+    }
+
+    .callout-thm {
+      background-color: var(--secondary-light);
+      border-color: var(--secondary-border);
+    }
+
+    .callout-note {
+      background-color: var(--accent-light);
+      border-color: var(--accent-border);
+    }
+
+    .callout-title {
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 1rem;
+    }
+
+    .callout-def .callout-title {
+      color: var(--primary);
+    }
+
+    .callout-thm .callout-title {
+      color: var(--secondary);
+    }
+
+    .callout-note .callout-title {
+      color: var(--accent);
+    }
+
+    .callout ol,
+    .callout ul {
+      margin: 0.5rem 0 0 0;
+      padding-left: 1.4rem;
+    }
+
+    .callout ol li,
+    .callout ul li {
+      margin-bottom: 0.35rem;
+    }
+
+    /* Examples & Collapsible Details */
+    .example-box {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1.2rem 1.4rem;
+      margin: 1.35rem 0;
+    }
+
+    .example-header {
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 0.6rem;
+      font-size: 1.03rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    details.solution {
+      margin-top: 0.9rem;
+      background: var(--surface);
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    details.solution summary {
+      padding: 0.65rem 1rem;
+      font-weight: 600;
+      color: var(--primary);
+      cursor: pointer;
+      background: #f1f5f9;
+      user-select: none;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.15s ease;
+    }
+
+    details.solution summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.solution summary::before {
+      content: "▶";
+      font-size: 0.75rem;
+      transition: transform 0.2s ease;
+      display: inline-block;
+    }
+
+    details.solution[open] summary::before {
+      transform: rotate(90deg);
+    }
+
+    details.solution summary:hover {
+      background: #e2e8f0;
+    }
+
+    .solution-content {
+      padding: 1.1rem 1.25rem;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .solution-content ol,
+    .solution-content ul {
+      padding-left: 1.4rem;
+    }
+
+    .solution-content li {
+      margin-bottom: 0.4rem;
+    }
+
+    /* Diagram Containers */
+    .diagram-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      margin: 1.25rem 0;
+      padding: 1rem;
+      background: #ffffff;
+      border: 1px dashed #cbd5e1;
+      border-radius: 10px;
+    }
+
+    .diagram-caption {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+      font-weight: 600;
+    }
+
+    /* Back to top link */
+    .back-top {
+      text-align: right;
+      margin-top: 1.5rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .back-top a {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .back-top a:hover {
+      color: var(--primary);
+    }
+
+    /* Proposed exercises (no solution) */
+    .proposed {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #f59e0b;
+      border-radius: 0 10px 10px 0;
+      padding: 1rem 1.25rem;
+      margin: 1.2rem 0;
+    }
+
+    .proposed-title {
+      font-weight: 700;
+      color: #92400e;
+      margin-bottom: 0.4rem;
+    }
+
+    /* ===== AJUSTES RESPONSIVE PARA CELULARES ===== */
+    @media (max-width: 640px) {
+      body {
+        font-size: 0.96rem;
+        line-height: 1.6;
+      }
+
+      .container {
+        padding: 0.9rem 0.85rem 3.5rem;
+      }
+
+      header.doc-header {
+        padding: 1.4rem 1.15rem;
+        border-radius: 12px;
+        margin-bottom: 1.25rem;
+      }
+
+      header.doc-header h1 {
+        font-size: 1.45rem;
+        line-height: 1.25;
+      }
+
+      header.doc-header p {
+        font-size: 0.95rem !important;
+      }
+
+      .meta-bar {
+        flex-direction: column;
+        gap: 0.35rem;
+        font-size: 0.85rem;
+      }
+
+      .controls-bar {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 1.1rem;
+      }
+
+      .controls-bar .btn {
+        width: 100%;
+        text-align: center;
+        padding: 0.65rem 0.85rem;
+      }
+
+      .card {
+        padding: 1.15rem 1rem;
+        border-radius: 12px;
+        margin-bottom: 1.25rem;
+      }
+
+      h2.module-title {
+        font-size: 1.22rem;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+        line-height: 1.3;
+      }
+
+      h3.section-title {
+        font-size: 1.1rem;
+        margin-top: 1.4rem;
+      }
+
+      .example-box {
+        padding: 0.95rem 1rem;
+        margin: 1rem 0;
+      }
+
+      .callout {
+        padding: 0.9rem 1rem;
+        margin: 1rem 0;
+      }
+
+      /* Tablas más compactas y fáciles de desplazar en horizontal */
+      th,
+      td {
+        padding: 0.55rem 0.65rem;
+        font-size: 0.86rem;
+      }
+
+      /* Evitar que fórmulas matemáticas largas desborden la pantalla */
+      .katex-display {
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 0.35rem 0;
+        max-width: 100%;
+      }
+
+      .katex-display>.katex {
+        font-size: 0.95em;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <header class="doc-header" id="inicio">
+      <h1>🧮 Transformaciones Lineales</h1>
+      <p style="margin: 0; color: #e2e8f0; font-size: 1.05rem;">
+        Definición formal, interpretación geométrica, propiedades básicas, subespacios asociados (núcleo e imagen),
+        teorema de las dimensiones, transformadas de una base, y transformaciones entre espacios vectoriales,
+        polinomiales y matriciales, con ejemplos y ejercicios del taller.
+      </p>
+      <div class="meta-bar">
+        <span><strong>Tema:</strong> Transformaciones Lineales</span>
+        <span>•</span>
+        <span><strong>Área:</strong> Álgebra Lineal</span>
+        <span>•</span>
+        <span><strong>Nivel:</strong> Universitario</span>
+      </div>
+    </header>
+
+    <!-- CONTROLES GLOBALES -->
+    <div class="controls-bar">
+      <button class="btn" onclick="toggleAllDetails(true)">📂 Expandir todas las soluciones</button>
+      <button class="btn" onclick="toggleAllDetails(false)">📁 Contraer todas las soluciones</button>
+    </div>
+
+    <!-- MAPA DE CONTENIDOS -->
+    <section class="card" id="mapa-de-contenidos">
+      <h2 class="module-title">📑 Mapa de Contenidos</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 80px;">Módulo</th>
+              <th style="width: 240px;">Tema Principal</th>
+              <th>Subtemas Clave</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="badge">01</span></td>
+              <td><a href="#mod-1">Definición</a></td>
+              <td>
+                <a href="#sec-1-1">1.1 Definición formal</a> •
+                <a href="#sec-1-2">1.2 Esquema de interpretación</a> •
+                <a href="#sec-1-3">1.3 Propiedades básicas</a>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="badge">02</span></td>
+              <td><a href="#mod-2">Características</a></td>
+              <td>
+                <a href="#sec-2-1">2.1 Forma general de una función lineal</a> •
+                <a href="#sec-2-2">2.2 Elementos permitidos y no permitidos</a>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="badge">03</span></td>
+              <td><a href="#mod-3">Ejemplos y Demostraciones</a></td>
+              <td>
+                <a href="#sec-3-1">3.1 Primer ejemplo de transformación lineal</a> •
+                <a href="#sec-3-2">3.2 Demostraciones de linealidad</a> •
+                <a href="#sec-3-3">3.3 Inspección visual de candidatas</a> •
+                <a href="#sec-3-4">3.4 Evaluación con la propiedad del cero</a>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="badge">04</span></td>
+              <td><a href="#mod-4">Subespacios Asociados</a></td>
+              <td>
+                <a href="#sec-4-1">4.1 Núcleo e imagen: definiciones y teorema de las dimensiones</a> •
+                <a href="#sec-4-2">4.2 Ejemplos de núcleo, imagen y dimensiones</a> •
+                <a href="#sec-4-3">4.3 Los transformados de una base generan la imagen</a>
+                <a href="#sec-4-4">4.4 Ejemplos de aplicación</a> •
+                <a href="#sec-4-5">4.5 Ejercicios propuestos del taller</a>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="badge">05</span></td>
+              <td><a href="#mod-5">Transformaciones entre Espacios Vectoriales, Polinomiales y Matriciales</a></td>
+              <td>
+                <a href="#sec-5-1">5.1 Espacios de entrada y salida</a> •
+                <a href="#sec-5-2">5.2 Ejemplos de combinaciones lineales</a> •
+                <a href="#sec-5-3">5.3 Núcleo e imagen en espacios polinomiales y matriciales</a>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="badge">06</span></td>
+              <td><a href="#mod-6">Ejercicios del Taller</a></td>
+              <td>
+                <a href="#sec-6-1">6.1 Estudio de la linealidad</a> •
+                <a href="#sec-6-2">6.2 Núcleo e imagen de transformaciones lineales</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- MÓDULO 1: DEFINICIÓN -->
+    <!-- ===================================================================== -->
+    <section class="card" id="mod-1">
+      <h2 class="module-title"><span class="badge">MÓDULO 01</span> Definición</h2>
+
+      <h3 class="section-title" id="sec-1-1">1.1 Definición formal</h3>
+      <p>En primer lugar, una transformación lineal es una función. Por ser función, tiene su dominio y su codominio,
+        con la particularidad de que éstos son espacios vectoriales. Tenemos dos espacios vectoriales $V$ y $W$, y una
+        función que va de $V$ a $W$. O sea, una regla de asignación que transforma vectores de $V$ en vectores de $W$.
+        Pero no toda función que transforme vectores de $V$ en vectores de $W$ es una transformación lineal. Debe
+        cumplir ciertas condiciones:</p>
+
+      <div class="callout callout-def">
+        <div class="callout-title">📌 Definición: Transformación Lineal</div>
+        <p style="margin:0;">$T: V \to W$ es una transformación lineal si y sólo si para todo $u, v \in V$ y $\alpha \in
+          \mathbb{R}$:</p>
+        <ol>
+          <li>$T(\mathbf{u} + \mathbf{v}) = T(\mathbf{u}) + T(\mathbf{v})$</li>
+          <li>$T(\alpha \cdot \mathbf{v}) = \alpha \cdot T(\mathbf{v})$</li>
+        </ol>
+      </div>
+
+      <h3 class="section-title" id="sec-1-2">1.2 Esquema de interpretación</h3>
+      <p>Para visualizar estas dos condiciones, resulta muy útil representar geométricamente cómo opera esta función. El
+        siguiente esquema ilustra cómo una transformación lineal preserva la estructura algebraica entre ambos espacios
+        vectoriales. En esencia, demuestra que operar con los vectores en el dominio $V$ (sumarlos o multiplicarlos por
+        un escalar) y luego aplicar la función, produce exactamente el mismo resultado que transformar los vectores
+        primero y realizar las operaciones en el codominio $W$.</p>
+
+      <div class="diagram-container" style="display:block; padding: 0.5rem;">
+        <svg viewBox="0 0 1000 640" xmlns="http://www.w3.org/2000/svg"
+          style="width:100%;height:auto;font-family:'Segoe UI',system-ui,sans-serif;">
+          <defs>
+            <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M0,0 L10,5 L0,10 Z" fill="#1d4ed8" />
+            </marker>
+            <marker id="ah-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M0,0 L10,5 L0,10 Z" fill="#6b7280" />
+            </marker>
+            <marker id="ah-dark" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M0,0 L10,5 L0,10 Z" fill="#4b5563" />
+            </marker>
+            <marker id="ah-mag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M0,0 L10,5 L0,10 Z" fill="#be185d" />
+            </marker>
+          </defs>
+
+          <!-- Cajas de los espacios vectoriales -->
+          <rect x="30" y="100" width="370" height="480" rx="18" fill="#eff6ff" stroke="#1d4ed8" stroke-width="3" />
+          <rect x="600" y="100" width="370" height="480" rx="18" fill="#ecfeff" stroke="#0891b2" stroke-width="3" />
+
+          <text x="215" y="86" text-anchor="middle" font-size="17" font-weight="700" fill="#1e40af">DOMINIO (V)</text>
+          <text x="785" y="86" text-anchor="middle" font-size="17" font-weight="700" fill="#0e7490">CODOMINIO (W)</text>
+
+          <!-- Flecha superior: transformación lineal -->
+          <path d="M405 62 Q500 26 595 62" fill="none" stroke="#1d4ed8" stroke-width="3.5" marker-end="url(#ah-blue)" />
+          <text x="500" y="20" text-anchor="middle" font-size="16" font-weight="700" fill="#1e293b">Transformación
+            Lineal (T)</text>
+
+          <!-- ============ PROPIEDAD 1: ADITIVIDAD ============ -->
+          <text x="50" y="145" font-size="16" font-weight="700" fill="#0f172a">1. Aditividad</text>
+
+          <!-- Dominio -->
+          <circle cx="170" cy="205" r="5" fill="#1e293b" />
+          <text x="155" y="211" text-anchor="end" font-size="15" font-style="italic"
+            font-family="Georgia,'Times New Roman',serif" fill="#1e293b">u</text>
+
+          <circle cx="170" cy="340" r="5" fill="#1e293b" />
+          <text x="155" y="346" text-anchor="end" font-size="15" font-style="italic"
+            font-family="Georgia,'Times New Roman',serif" fill="#1e293b">v</text>
+
+          <circle cx="265" cy="272" r="5" fill="#1e293b" />
+          <text x="280" y="300" text-anchor="start" font-size="15" font-style="italic"
+            font-family="Georgia,'Times New Roman',serif" fill="#1e293b">u + v</text>
+
+          <line x1="170" y1="205" x2="265" y2="272" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 4"
+            marker-end="url(#ah-gray)" />
+          <line x1="170" y1="340" x2="265" y2="272" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 4"
+            marker-end="url(#ah-gray)" />
+
+          <!-- Codominio -->
+          <circle cx="700" cy="205" r="5" fill="#1e293b" />
+          <text x="716" y="211" text-anchor="start" font-size="15" font-style="italic"
+            font-family="Georgia,'Times New Roman',serif" fill="#1e293b">T(u)</text>
+
+          <circle cx="700" cy="340" r="5" fill="#1e293b" />
+          <text x="716" y="346" text-anchor="start" font-size="15" font-style="italic"
+            font-family="Georgia,'Times New Roman',serif" fill="#1e293b">T(v)</text>
+
+          <circle cx="770" cy="272" r="5" fill="#1e293b" />
+          <text x="786" y="278" text-anchor="start" font-size="13" font-style="italic"
+            font-family="Georgia,'Times New Roman',serif" fill="#1e293b">T(u + v) = T(u) + T(v)</text>
+
+          <line x1="700" y1="205" x2="770" y2="272" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 4"
+            marker-end="url(#ah-gray)" />
+          <line x1="700" y1="340" x2="770" y2="272" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 4"
+            marker-end="url(#ah-gray)" />
+
+          <!-- Flechas de mapeo de la propiedad 1 -->
+          <line x1="170" y1="205" x2="694" y2="205" stroke="#4b5563" stroke-width="2" marker-end="url(#ah-dark)" />
+          <line x1="170" y1="340" x2="694" y2="340" stroke="#4b5563" stroke-width="2" marker-end="url(#ah-dark)" />
+          <line x1="265" y1="272" x2="764" y2="272" stroke="#be185d" stroke-width="3.5" marker-end="url(#ah-mag)" />
+          <text x="515" y="260" text-anchor="middle" font-size="14" font-weight="700" fill="#9d174d"
+            paint-order="stroke" stroke="#ffffff" stroke-width="5" stroke-linejoin="round">Mapeo</text>
+
+          <!-- ============ PROPIEDAD 2: MULTIPLICACIÓN POR ESCALAR ============ -->
+          <text x="50" y="425" font-size="14" font-weight="700" fill="#0f172a">2. Multiplicación por Escalar</text>
+
+          <circle cx="330" cy="500" r="5" fill="#1e293b" />
+          <text x="330" y="532" text-anchor="middle" font-size="15" font-style="italic"
+            font-family="Georgia,'Times New Roman',serif" fill="#1e293b">α · v</text>
+
+          <line x1="170" y1="340" x2="330" y2="500" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 4"
+            marker-end="url(#ah-gray)" />
+
+          <circle cx="760" cy="500" r="5" fill="#1e293b" />
+          <text x="776" y="506" text-anchor="start" font-size="13" font-style="italic"
+            font-family="Georgia,'Times New Roman',serif" fill="#1e293b">T(α · v) = α · T(v)</text>
+
+          <line x1="700" y1="340" x2="760" y2="500" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 4"
+            marker-end="url(#ah-gray)" />
+
+          <line x1="330" y1="500" x2="754" y2="500" stroke="#be185d" stroke-width="3.5" marker-end="url(#ah-mag)" />
+          <text x="545" y="488" text-anchor="middle" font-size="14" font-weight="700" fill="#9d174d"
+            paint-order="stroke" stroke="#ffffff" stroke-width="5" stroke-linejoin="round">Conserva escala</text>
+        </svg>
+        <p class="diagram-caption">Figura. Esquema de interpretación geométrica de una transformación lineal.</p>
+      </div>
+
+      <p>Al obligar a la función a conservar estas operaciones básicas, se deduce lógicamente que también debe conservar
+        otros elementos clave del espacio vectorial, como el origen (vector nulo), la simetría (si el escalar es $\alpha
+        = -1$) y estructuras más complejas como la combinación lineal compuesta por múltiples vectores.</p>
+
+      <p>Estas deducciones naturales se formalizan en las siguientes propiedades básicas:</p>
+
+      <h3 class="section-title" id="sec-1-3">1.3 Propiedades básicas</h3>
+      <div class="callout callout-thm">
+        <div class="callout-title">📐 Teorema: Propiedades de las transformaciones lineales</div>
+        <p style="margin:0;">Sea $T: V \to W$ una transformación lineal entre los espacios vectoriales $V$ y $W$.
+          Entonces se verifican las siguientes propiedades:</p>
+        <ol>
+          <li>
+            <strong>Imagen del vector nulo.</strong> La imagen del vector nulo del dominio $\mathbf{0}_V$ es el vector
+            nulo del codominio $\mathbf{0}_W$:
+            $$T(\mathbf{0}_V) = \mathbf{0}_W$$
+          </li>
+          <li>
+            <strong>Imagen del vector opuesto.</strong> La imagen del vector $-\mathbf{v}$ es igual al opuesto de la
+            imagen de $\mathbf{v}$:
+            $$T(-\mathbf{v}) = -T(\mathbf{v})$$
+          </li>
+          <li>
+            <strong>Conservación de combinaciones lineales.</strong> Si consideramos $r$ vectores $\mathbf{v}_1,
+            \mathbf{v}_2, \dots, \mathbf{v}_r \in V$ y escalares $\alpha_i \in \mathbb{R}$, resulta:
+            $$T(\alpha_1 \mathbf{v}_1 + \alpha_2 \mathbf{v}_2 + \dots + \alpha_r \mathbf{v}_r) = \alpha_1
+            T(\mathbf{v}_1) + \alpha_2 T(\mathbf{v}_2) + \dots + \alpha_r T(\mathbf{v}_r)$$
+            Es decir que una transformación lineal «transporta» combinaciones lineales de $V$ a $W$, conservando los
+            escalares.
+          </li>
+        </ol>
+      </div>
+
+      <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- MÓDULO 2: CARACTERÍSTICAS -->
+    <!-- ===================================================================== -->
+    <section class="card" id="mod-2">
+      <h2 class="module-title"><span class="badge">MÓDULO 02</span> Características</h2>
+
+      <h3 class="section-title" id="sec-2-1">2.1 Forma general de una función lineal</h3>
+      <p>Para reconocer una transformación lineal a simple vista, es fundamental comprender su forma general. Una
+        <strong>función lineal</strong> $T: \mathbb{R}^n \to \mathbb{R}^m$ se define como aquella donde cada componente
+        del vector resultante es estrictamente una combinación lineal pura de las variables del dominio:</p>
+
+      $$
+      T\begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{pmatrix} =
+      \begin{pmatrix}
+      a_{11}x_1 + a_{12}x_2 + \dots + a_{1n}x_n \\
+      a_{21}x_1 + a_{22}x_2 + \dots + a_{2n}x_n \\
+      \vdots \\
+      a_{m1}x_1 + a_{m2}x_2 + \dots + a_{mn}x_n
+      \end{pmatrix}
+      $$
+
+      <p>Donde los coeficientes $a_{ij}$ son números reales.</p>
+
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 2.1: Ejemplo válido de transformación lineal</div>
+        <p>Proporcione un ejemplo válido de transformación lineal.</p>
+        <details class="solution">
+          <summary>🔍 Ver solución</summary>
+          <div class="solution-content">
+            <p>Sea $T: \mathbb{R}^3 \to \mathbb{R}^2$ definida por:</p>
+            $$
+            T\begin{pmatrix} x \\ y \\ z \end{pmatrix} =
+            \begin{pmatrix} 2x - y + 4z \\ 5y - z \end{pmatrix}
+            $$
+          </div>
+        </details>
+      </div>
+
+      <p>Como se observa, todas las variables están elevadas a la primera potencia y solo interactúan mediante sumas,
+        restas y multiplicación por escalares reales.</p>
+
+      <p>A continuación, se detallan los elementos permitidos y no permitidos en las componentes resultantes de
+        cualquier candidata a transformación lineal:</p>
+
+      <h3 class="section-title" id="sec-2-2">2.2 Elementos permitidos y no permitidos</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 55%;">Característica de la componente</th>
+              <th>Ejemplo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="group-yes" style="background:#ecfdf5;">
+              <td colspan="2" style="font-weight:700;color:#065f46;">✅ Lo que SÍ pueden tener (mantiene la linealidad)
+              </td>
+            </tr>
+            <tr>
+              <td>Variables de grado 1</td>
+              <td>$x, \; y, \; z$</td>
+            </tr>
+            <tr>
+              <td>Coeficientes escalares reales</td>
+              <td>$3x, \; -\frac{1}{2}y, \; \sqrt{2}z$</td>
+            </tr>
+            <tr>
+              <td>Sumas y restas</td>
+              <td>$3x - 2y + z$</td>
+            </tr>
+            <tr>
+              <td>El valor cero</td>
+              <td>$0$</td>
+            </tr>
+            <tr class="group-no" style="background:#fef2f2;">
+              <td colspan="2" style="font-weight:700;color:#991b1b;">❌ Lo que NO pueden tener (rompe la linealidad)</td>
+            </tr>
+            <tr>
+              <td>Términos independientes</td>
+              <td>$x + 3$</td>
+            </tr>
+            <tr>
+              <td>Multiplicación o división entre variables</td>
+              <td>$x \cdot y, \; \dfrac{x}{z}$</td>
+            </tr>
+            <tr>
+              <td>Potencias distintas de 1 o raíces de variables</td>
+              <td>$x^2, \; y^3, \; \sqrt{z}$</td>
+            </tr>
+            <tr>
+              <td>Funciones trascendentes o no lineales</td>
+              <td>$\sin(x), \; e^z, \; \ln(x), \; |x|$</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- MÓDULO 3: EJEMPLOS Y DEMOSTRACIONES -->
+    <!-- ===================================================================== -->
+    <section class="card" id="mod-3">
+      <h2 class="module-title"><span class="badge">MÓDULO 03</span> Ejemplos y Demostraciones</h2>
+
+      <h3 class="section-title" id="sec-3-1">3.1 Primer ejemplo de transformación lineal</h3>
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 3.1: Demostración de linealidad ($\mathbb{R}^3 \to \mathbb{R}^3$)</div>
+        <p>Sea la transformación lineal $T: \mathbb{R}^3 \to \mathbb{R}^3$ definida por:</p>
+        $$T\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} x + 2y - z \\ y + z \\ x + 3y \end{pmatrix}$$
+        <p>Demuestre que $T$ es una transformación lineal.</p>
+        <details class="solution">
+          <summary>🔍 Ver demostración</summary>
+          <div class="solution-content">
+            <p>Para demostrar que $T$ es una transformación lineal, debemos probar que cumple con las propiedades de
+              aditividad y homogeneidad. Sean $\mathbf{u} = \begin{pmatrix} x_1 \\ y_1 \\ z_1 \end{pmatrix}$ y
+              $\mathbf{v} = \begin{pmatrix} x_2 \\ y_2 \\ z_2 \end{pmatrix}$ vectores en $\mathbb{R}^3$, y sea $\alpha
+              \in \mathbb{R}$ un escalar.</p>
+
+            <p><strong><em>1. Aditividad:</em></strong></p>
+            $$T(\mathbf{u} + \mathbf{v}) = T\begin{pmatrix} x_1 + x_2 \\ y_1 + y_2 \\ z_1 + z_2 \end{pmatrix} =
+            \begin{pmatrix} (x_1 + x_2) + 2(y_1 + y_2) - (z_1 + z_2) \\ (y_1 + y_2) + (z_1 + z_2) \\ (x_1 + x_2) + 3(y_1
+            + y_2) \end{pmatrix}$$
+            <p>Reordenando los términos algebraicamente:</p>
+            $$T(\mathbf{u} + \mathbf{v}) = \begin{pmatrix} (x_1 + 2y_1 - z_1) + (x_2 + 2y_2 - z_2) \\ (y_1 + z_1) + (y_2
+            + z_2) \\ (x_1 + 3y_1) + (x_2 + 3y_2) \end{pmatrix}$$
+            <p>Separando en dos vectores:</p>
+            $$T(\mathbf{u} + \mathbf{v}) = \begin{pmatrix} x_1 + 2y_1 - z_1 \\ y_1 + z_1 \\ x_1 + 3y_1 \end{pmatrix} +
+            \begin{pmatrix} x_2 + 2y_2 - z_2 \\ y_2 + z_2 \\ x_2 + 3y_2 \end{pmatrix} = T(\mathbf{u}) + T(\mathbf{v})$$
+
+            <p><strong><em>2. Producto por escalar:</em></strong></p>
+            $$T(\alpha\mathbf{u}) = T\begin{pmatrix} \alpha x_1 \\ \alpha y_1 \\ \alpha z_1 \end{pmatrix} =
+            \begin{pmatrix} (\alpha x_1) + 2(\alpha y_1) - (\alpha z_1) \\ (\alpha y_1) + (\alpha z_1) \\ (\alpha x_1) +
+            3(\alpha y_1) \end{pmatrix}$$
+            <p>Extrayendo el factor común $\alpha$:</p>
+            $$T(\alpha\mathbf{u}) = \begin{pmatrix} \alpha(x_1 + 2y_1 - z_1) \\ \alpha(y_1 + z_1) \\ \alpha(x_1 + 3y_1)
+            \end{pmatrix} = \alpha \begin{pmatrix} x_1 + 2y_1 - z_1 \\ y_1 + z_1 \\ x_1 + 3y_1 \end{pmatrix} = \alpha
+            T(\mathbf{u})$$
+
+            <p>Como se cumplen ambas propiedades, concluimos que $T$ es una transformación lineal.</p>
+          </div>
+        </details>
+      </div>
+
+      <h3 class="section-title" id="sec-3-2">3.2 Demostraciones de linealidad</h3>
+
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 3.2: Demostración rigurosa ($\mathbb{R}^3 \to \mathbb{R}^2$)</div>
+        <p>Sea la función $T: \mathbb{R}^3 \to \mathbb{R}^2$ definida por:</p>
+        $$T\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} x - y + 2z \\ 2x + y - z \end{pmatrix}$$
+        <p>Demuestre rigurosamente que $T$ es una transformación lineal.</p>
+        <details class="solution">
+          <summary>🔍 Ver demostración</summary>
+          <div class="solution-content">
+            <p>Sean $\mathbf{u} = \begin{pmatrix} x_1 \\ y_1 \\ z_1 \end{pmatrix}$ y $\mathbf{v} = \begin{pmatrix} x_2
+              \\ y_2 \\ z_2 \end{pmatrix}$ vectores genéricos de $\mathbb{R}^3$, y $\alpha$ un escalar real. Evaluamos
+              las dos condiciones fundamentales.</p>
+
+            <p><strong><em>1. Conservación de la suma:</em></strong></p>
+            <p>Evaluamos $T(\mathbf{u} + \mathbf{v})$:</p>
+            $$T\begin{pmatrix} x_1 + x_2 \\ y_1 + y_2 \\ z_1 + z_2 \end{pmatrix} = \begin{pmatrix} (x_1 + x_2) - (y_1 +
+            y_2) + 2(z_1 + z_2) \\ 2(x_1 + x_2) + (y_1 + y_2) - (z_1 + z_2) \end{pmatrix}$$
+            <p>Aplicamos la propiedad distributiva y reordenamos los elementos para agrupar los subíndices $1$ y $2$:
+            </p>
+            $$T(\mathbf{u} + \mathbf{v}) = \begin{pmatrix} (x_1 - y_1 + 2z_1) + (x_2 - y_2 + 2z_2) \\ (2x_1 + y_1 - z_1)
+            + (2x_2 + y_2 - z_2) \end{pmatrix}$$
+            $$T(\mathbf{u} + \mathbf{v}) = \begin{pmatrix} x_1 - y_1 + 2z_1 \\ 2x_1 + y_1 - z_1 \end{pmatrix} +
+            \begin{pmatrix} x_2 - y_2 + 2z_2 \\ 2x_2 + y_2 - z_2 \end{pmatrix} = T(\mathbf{u}) + T(\mathbf{v})$$
+
+            <p><strong><em>2. Conservación del producto por un escalar:</em></strong></p>
+            <p>Evaluamos $T(\alpha\mathbf{u})$:</p>
+            $$T\begin{pmatrix} \alpha x_1 \\ \alpha y_1 \\ \alpha z_1 \end{pmatrix} = \begin{pmatrix} (\alpha x_1) -
+            (\alpha y_1) + 2(\alpha z_1) \\ 2(\alpha x_1) + (\alpha y_1) - (\alpha z_1) \end{pmatrix}$$
+            <p>Factorizamos $\alpha$ de cada componente del vector de llegada:</p>
+            $$T(\alpha\mathbf{u}) = \begin{pmatrix} \alpha(x_1 - y_1 + 2z_1) \\ \alpha(2x_1 + y_1 - z_1) \end{pmatrix} =
+            \alpha \begin{pmatrix} x_1 - y_1 + 2z_1 \\ 2x_1 + y_1 - z_1 \end{pmatrix} = \alpha T(\mathbf{u})$$
+
+            <p>Queda rigurosamente demostrado que $T$ es lineal.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 3.3: Comprobación analítica de linealidad</div>
+        <p>Consideremos la transformación lineal $T: \mathbb{R}^3 \to \mathbb{R}^2$ definida por la siguiente regla de
+          correspondencia para cualquier vector $\mathbf{u} = (x_1, x_2, x_3)^T$:</p>
+        $$T\begin{pmatrix} x_1 \\ x_2 \\ x_3 \end{pmatrix} = \begin{pmatrix} x_1 - x_2 \\ x_1 + x_3 \end{pmatrix}$$
+        <p>Compruebe analíticamente su linealidad.</p>
+        <details class="solution">
+          <summary>🔍 Ver comprobación</summary>
+          <div class="solution-content">
+            <p>Para verificar la linealidad, definimos $\mathbf{u} = \begin{pmatrix} a_1 \\ a_2 \\ a_3 \end{pmatrix}$ y
+              $\mathbf{v} = \begin{pmatrix} b_1 \\ b_2 \\ b_3 \end{pmatrix}$ en $\mathbb{R}^3$, y $\alpha \in
+              \mathbb{R}$.</p>
+
+            <p><strong><em>1. Suma vectorial:</em></strong></p>
+            $$T(\mathbf{u} + \mathbf{v}) = T\begin{pmatrix} a_1 + b_1 \\ a_2 + b_2 \\ a_3 + b_3 \end{pmatrix} =
+            \begin{pmatrix} (a_1 + b_1) - (a_2 + b_2) \\ (a_1 + b_1) + (a_3 + b_3) \end{pmatrix}$$
+            <p>Agrupando las componentes de $\mathbf{u}$ y $\mathbf{v}$:</p>
+            $$T(\mathbf{u} + \mathbf{v}) = \begin{pmatrix} (a_1 - a_2) + (b_1 - b_2) \\ (a_1 + a_3) + (b_1 + b_3)
+            \end{pmatrix} = \begin{pmatrix} a_1 - a_2 \\ a_1 + a_3 \end{pmatrix} + \begin{pmatrix} b_1 - b_2 \\ b_1 +
+            b_3 \end{pmatrix} = T(\mathbf{u}) + T(\mathbf{v})$$
+
+            <p><strong><em>2. Multiplicación escalar:</em></strong></p>
+            $$T(\alpha\mathbf{u}) = T\begin{pmatrix} \alpha a_1 \\ \alpha a_2 \\ \alpha a_3 \end{pmatrix} =
+            \begin{pmatrix} (\alpha a_1) - (\alpha a_2) \\ (\alpha a_1) + (\alpha a_3) \end{pmatrix}$$
+            <p>Factorizando $\alpha$:</p>
+            $$T(\alpha\mathbf{u}) = \begin{pmatrix} \alpha(a_1 - a_2) \\ \alpha(a_1 + a_3) \end{pmatrix} = \alpha
+            \begin{pmatrix} a_1 - a_2 \\ a_1 + a_3 \end{pmatrix} = \alpha T(\mathbf{u})$$
+
+            <p>Por lo tanto, la función conserva las combinaciones lineales y es una transformación lineal.</p>
+          </div>
+        </details>
+      </div>
+
+      <h3 class="section-title" id="sec-3-3">3.3 Inspección visual de candidatas</h3>
+
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 3.4: ¿Cuáles son candidatas a transformación lineal?</div>
+        <p>A partir de la inspección visual de las reglas de correspondencia, determine cuáles de las siguientes
+          funciones son posibles candidatas a ser transformaciones lineales y cuáles se descartan a simple vista:</p>
+        <ol type="a">
+          <li>$T: \mathbb{R}^3 \to \mathbb{R}^2$ definida por $T\begin{pmatrix} x \\ y \\ z \end{pmatrix} =
+            \begin{pmatrix} x^2 + y \\ y - z \end{pmatrix}$</li>
+          <li>$T: \mathbb{R}^3 \to \mathbb{R}^3$ definida por $T\begin{pmatrix} x \\ y \\ z \end{pmatrix} =
+            \begin{pmatrix} x^2 \\ y - z \\ z^2 \end{pmatrix}$</li>
+          <li>$T: \mathbb{R}^3 \to \mathbb{R}^4$ definida por $T\begin{pmatrix} x \\ y \\ z \end{pmatrix} =
+            \begin{pmatrix} x - y \\ 2y \\ -2z \\ z - x \end{pmatrix}$</li>
+          <li>$T: \mathbb{R}^4 \to \mathbb{R}^2$ definida por $T\begin{pmatrix} x \\ y \\ z \\ w \end{pmatrix} =
+            \begin{pmatrix} xy \\ zw \end{pmatrix}$</li>
+        </ol>
+        <details class="solution">
+          <summary>🔍 Ver solución</summary>
+          <div class="solution-content">
+            <p>Para que una función sea candidata a transformación lineal, cada una de sus componentes en el espacio de
+              llegada debe ser exclusivamente una combinación lineal de las variables de entrada (términos de primer
+              grado, sin productos entre variables ni potencias distintas de 1).</p>
+            <ul>
+              <li><strong>a) Se descarta:</strong> La primera componente contiene el término $x^2$ (potencia de grado
+                2).</li>
+              <li><strong>b) Se descarta:</strong> La primera y tercera componentes contienen potencias cuadráticas
+                ($x^2$ y $z^2$).</li>
+              <li><strong>c) Es la única candidata válida:</strong> Todas sus componentes son sumas, restas o
+                multiplicaciones por escalares de las variables de entrada elevadas a la primera potencia ($x, y, z$).
+              </li>
+              <li><strong>d) Se descarta:</strong> Ambas componentes consisten en el producto de dos variables ($xy$ y
+                $zw$), lo cual no es una operación lineal.</li>
+            </ul>
+            <p>Por lo tanto, la única función que es una transformación lineal es la del inciso <strong>c)</strong>.</p>
+          </div>
+        </details>
+      </div>
+
+      <h3 class="section-title" id="sec-3-4">3.4 Evaluación con la propiedad del cero</h3>
+
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 3.5: Propiedad del cero, candidatas y demostración</div>
+        <p>En las siguientes funciones evalúe usando la propiedad del cero, determine luego cuáles son posibles
+          candidatas a transformaciones lineales y cuáles no. Luego de establecer las candidatas, demuestre cuáles
+          efectivamente son Transformaciones Lineales (TL):</p>
+        <ol>
+          <li>$T\begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} x + y \\ x + w \end{pmatrix}$</li>
+          <li>$T\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} x + \sqrt{y} \\ x + 5 \\ y + 1
+            \end{pmatrix}$</li>
+          <li>$T\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} x \\ y + z \\ 5x + 10^2y + 2z \end{pmatrix}$
+          </li>
+          <li>$T\begin{pmatrix} x \\ y \end{pmatrix} = x \cdot y$</li>
+          <li>$T\begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} x \\ y \\ 0 \end{pmatrix}$</li>
+        </ol>
+
+        <details class="solution">
+          <summary>🔍 Ver solución completa</summary>
+          <div class="solution-content">
+
+            <h4 class="sub-title">Parte 1: Evaluación usando la propiedad del cero ($T(\vec{0}_V) = \vec{0}_W$)</h4>
+            <ul>
+              <li>
+                <strong>1. Se descarta:</strong> Evaluando en el vector nulo:
+                $T\begin{pmatrix} 0 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 + 0 \\ 0 + w \end{pmatrix} = \begin{pmatrix}
+                0 \\ w \end{pmatrix}$.
+                Como asume un $w \neq 0$, entonces $T(\vec{0}) \neq \vec{0}$.
+              </li>
+              <li>
+                <strong>2. Se descarta:</strong> Evaluando en el vector nulo:
+                $T\begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 + \sqrt{0} \\ 0 + 5 \\ 0 + 1
+                \end{pmatrix} = \begin{pmatrix} 0 \\ 5 \\ 1 \end{pmatrix} \neq \vec{0}_W$.
+                No cumple la propiedad.
+              </li>
+              <li>
+                <strong>3. Es candidata:</strong> Evaluando en el vector nulo:
+                $T\begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 + 0 \\ 5(0) + 100(0) + 2(0)
+                \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix} = \vec{0}_W$.
+              </li>
+              <li>
+                <strong>4. Es candidata:</strong> Evaluando en el vector nulo:
+                $T\begin{pmatrix} 0 \\ 0 \end{pmatrix} = 0 \cdot 0 = 0 = \vec{0}_W$.
+              </li>
+              <li>
+                <strong>5. Es candidata:</strong> Evaluando en el vector nulo:
+                $T\begin{pmatrix} 0 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix} = \vec{0}_W$.
+              </li>
+            </ul>
+
+            <h4 class="sub-title">Parte 2: Demostración formal de las candidatas</h4>
+
+            <p><strong>Candidata 3:</strong> $T(x,y,z) = (x,\; y+z,\; 5x+100y+2z)^T$</p>
+            <p>Sea $\vec{u} = (x_1, y_1, z_1)^T$, $\vec{v} = (x_2, y_2, z_2)^T$ y $\alpha \in \mathbb{R}$.</p>
+            <p><em>Aditividad:</em> $T(\vec{u} + \vec{v}) = T(\vec{u}) + T(\vec{v})$</p>
+            $$
+            T\begin{pmatrix} x_1 + x_2 \\ y_1 + y_2 \\ z_1 + z_2 \end{pmatrix}
+            = \begin{pmatrix} x_1 + x_2 \\ (y_1 + y_2) + (z_1 + z_2) \\ 5(x_1 + x_2) + 100(y_1 + y_2) + 2(z_1 + z_2)
+            \end{pmatrix}
+            $$
+            <p>Separando la matriz en la suma de dos vectores obtenemos:</p>
+            $$
+            \begin{pmatrix} x_1 \\ y_1 + z_1 \\ 5x_1 + 100y_1 + 2z_1 \end{pmatrix}
+            + \begin{pmatrix} x_2 \\ y_2 + z_2 \\ 5x_2 + 100y_2 + 2z_2 \end{pmatrix}
+            = T(\vec{u}) + T(\vec{v})
+            $$
+            <p><em>Homogeneidad:</em> $T(\alpha\vec{u}) = \alpha T(\vec{u})$</p>
+            $$
+            T\begin{pmatrix} \alpha x_1 \\ \alpha y_1 \\ \alpha z_1 \end{pmatrix}
+            = \begin{pmatrix} \alpha x_1 \\ \alpha y_1 + \alpha z_1 \\ 5(\alpha x_1) + 100(\alpha y_1) + 2(\alpha z_1)
+            \end{pmatrix}
+            = \alpha \begin{pmatrix} x_1 \\ y_1 + z_1 \\ 5x_1 + 100y_1 + 2z_1 \end{pmatrix}
+            = \alpha T(\vec{u})
+            $$
+            <p>Como cumple ambas propiedades, <strong>efectivamente es una Transformación Lineal.</strong></p>
+
+            <hr style="border:none;border-top:1px solid #e2e8f0;margin:1.2rem 0;">
+
+            <p><strong>Candidata 4:</strong> $T(x,y) = x \cdot y$</p>
+            <p>Sea $\vec{u} = (x, y)^T$ y $\alpha \in \mathbb{R}$.</p>
+            <p><em>Homogeneidad:</em> $T(\alpha\vec{u}) = \alpha T(\vec{u})$</p>
+            $$
+            T(\alpha\vec{u}) = T\begin{pmatrix} \alpha x \\ \alpha y \end{pmatrix} = (\alpha x)(\alpha y) = \alpha^2
+            (xy)
+            $$
+            <p>Sabiendo que $\alpha T(\vec{u}) = \alpha (xy)$, observamos que $\alpha^2 (xy) \neq \alpha (xy)$ para
+              cualquier escalar $\alpha$ distinto de 0 o 1. Por lo tanto, no se cumple la homogeneidad. <strong>No es
+                una Transformación Lineal.</strong></p>
+
+            <hr style="border:none;border-top:1px solid #e2e8f0;margin:1.2rem 0;">
+
+            <p><strong>Candidata 5:</strong> $T(x,y) = (x,\; y,\; 0)^T$</p>
+            <p>Sea $\vec{u} = (x_1, y_1)^T$, $\vec{v} = (x_2, y_2)^T$ y $\alpha \in \mathbb{R}$.</p>
+            <p><em>Aditividad:</em></p>
+            $$
+            T\begin{pmatrix} x_1 + x_2 \\ y_1 + y_2 \end{pmatrix}
+            = \begin{pmatrix} x_1 + x_2 \\ y_1 + y_2 \\ 0 \end{pmatrix}
+            = \begin{pmatrix} x_1 \\ y_1 \\ 0 \end{pmatrix} + \begin{pmatrix} x_2 \\ y_2 \\ 0 \end{pmatrix}
+            = T(\vec{u}) + T(\vec{v})
+            $$
+            <p><em>Homogeneidad:</em></p>
+            $$
+            T\begin{pmatrix} \alpha x_1 \\ \alpha y_1 \end{pmatrix}
+            = \begin{pmatrix} \alpha x_1 \\ \alpha y_1 \\ 0 \end{pmatrix}
+            = \alpha \begin{pmatrix} x_1 \\ y_1 \\ 0 \end{pmatrix}
+            = \alpha T(\vec{u})
+            $$
+            <p>Como cumple ambas propiedades, <strong>efectivamente es una Transformación Lineal.</strong></p>
+
+          </div>
+        </details>
+      </div>
+
+      <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- MÓDULO 4: SUBESPACIOS ASOCIADOS (NÚCLEO E IMAGEN) -->
+    <!-- ===================================================================== -->
+    <section class="card" id="mod-4">
+      <h2 class="module-title"><span class="badge">MÓDULO 04</span> Subespacios Asociados a Transformaciones Lineales
+      </h2>
+
+      <h3 class="section-title" id="sec-4-1">4.1 Núcleo e imagen: definiciones y teorema de las dimensiones</h3>
+      <p>A continuación, se introducen dos subespacios fundamentales asociados a toda transformación lineal: el núcleo
+        (o kernel) y la imagen. Mientras que el núcleo mide cuánta información «se pierde» o se colapsa al aplicar la
+        transformación, la imagen describe exactamente qué porción del espacio de llegada es alcanzada por el mapeo.</p>
+
+      <div class="callout callout-def">
+        <div class="callout-title">📌 Definición: Núcleo e Imagen</div>
+        <p style="margin:0;">Sea $T: V \to W$ una transformación lineal entre dos espacios vectoriales.</p>
+        <ol>
+          <li>
+            Llamamos <strong>núcleo</strong> de $T$ al conjunto de vectores del dominio cuya imagen por $T$ es el vector
+            nulo $\mathbf{0}_W$:
+            $$\text{Nu}(T) = \{\mathbf{v} \in V \mid T(\mathbf{v}) = \mathbf{0}_W\}$$
+            El núcleo de una transformación lineal es un <strong>subespacio de $V$</strong>.
+          </li>
+          <li>
+            Llamamos <strong>imagen</strong> de $T$ al conjunto de vectores de $W$ que son imagen de algún vector de
+            $V$:
+            $$\text{Im}(T) = \{\mathbf{w} \in W \mid \mathbf{w} = T(\mathbf{v}), \, \mathbf{v} \in V\}$$
+            La imagen es un <strong>subespacio de $W$</strong>.
+          </li>
+        </ol>
+        <p style="margin:0.4rem 0 0 0; font-size:0.92rem; color:#475569;">Nota: en algunos textos el núcleo se denota
+          como $\ker(T)$ o $Nu(T)$; ambas notaciones son equivalentes.</p>
+      </div>
+
+      <p>Estos subespacios no solo describen el comportamiento cualitativo de la transformación, sino que guardan una
+        profunda relación cuantitativa. A la dimensión del núcleo se le conoce comúnmente como la <em>nulidad</em> de
+        $T$, y a la dimensión de la imagen se le llama el <em>rango</em> de $T$.</p>
+
+      <div class="callout callout-thm">
+        <div class="callout-title">📐 Teorema de las dimensiones</div>
+        <p style="margin:0;">Sea $T: V \to W$ una transformación lineal. Si $\dim(V) = n$ (finita) entonces:</p>
+        $$\dim(V) = \dim(\text{Nu}(T)) + \dim(\text{Im}(T))$$
+      </div>
+
+      <p><strong>Interpretación geométrica:</strong> Gráficamente, la acción de la transformación lineal $T$ puede
+        visualizarse como un proceso donde todo el núcleo $\text{Nu}(T)$ —junto con el vector nulo $\mathbf{0}_V$—
+        colapsa en un único punto: el vector nulo $\mathbf{0}_W$ del codominio. Por su parte, el resto del dominio es
+        proyectado dentro del subespacio $\text{Im}(T)$. El siguiente diagrama ilustra esta dinámica:</p>
+
+      <div class="diagram-container" style="display:block; padding:0.5rem;">
+        <svg viewBox="0 0 900 540" xmlns="http://www.w3.org/2000/svg"
+          style="width:100%;height:auto;max-width:780px;display:block;margin:0 auto;font-family:'Segoe UI',system-ui,sans-serif;">
+          <defs>
+            <marker id="ar-gray1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0,0 L10,5 L0,10 Z" fill="#64748b" />
+            </marker>
+            <marker id="ar-blue1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+              <path d="M0,0 L10,5 L0,10 Z" fill="#1d4ed8" />
+            </marker>
+          </defs>
+
+          <!-- Dominio V -->
+          <rect x="30" y="70" width="360" height="400" rx="15" fill="#eff6ff" stroke="#1d4ed8" stroke-width="3" />
+          <text x="210" y="55" text-anchor="middle" font-size="16" font-weight="700" fill="#1e40af">ESPACIO DOMINIO
+            (V)</text>
+
+          <!-- Núcleo -->
+          <circle cx="150" cy="230" r="95" fill="rgba(251,146,60,0.35)" stroke="#ea580c" stroke-width="3" />
+          <text x="150" y="148" text-anchor="middle" font-size="14" font-weight="700" fill="#9a3412">NÚCLEO</text>
+          <text x="150" y="165" text-anchor="middle" font-size="13" fill="#9a3412">Nu(T)</text>
+
+          <!-- Puntos en V -->
+          <circle cx="150" cy="240" r="4" fill="white" stroke="black" stroke-width="1.5" />
+          <text x="135" y="238" text-anchor="end" font-size="13">0_V</text>
+          <circle cx="120" cy="275" r="4" fill="white" stroke="black" stroke-width="1.5" />
+          <text x="103" y="280" text-anchor="end" font-size="13">v₁</text>
+          <circle cx="180" cy="255" r="4" fill="white" stroke="black" stroke-width="1.5" />
+          <text x="197" y="260" font-size="13">v₂</text>
+          <circle cx="90" cy="380" r="4" fill="white" stroke="black" stroke-width="1.5" />
+          <text x="73" y="385" text-anchor="end" font-size="13">v₃</text>
+          <circle cx="220" cy="400" r="4" fill="white" stroke="black" stroke-width="1.5" />
+          <text x="237" y="405" font-size="13">v₄</text>
+
+          <!-- Codominio W -->
+          <rect x="520" y="70" width="350" height="400" rx="15" fill="#ecfeff" stroke="#0891b2" stroke-width="3" />
+          <text x="695" y="55" text-anchor="middle" font-size="16" font-weight="700" fill="#0e7490">ESPACIO CODOMINIO
+            (W)</text>
+
+          <!-- Imagen -->
+          <circle cx="695" cy="230" r="105" fill="rgba(134,239,172,0.4)" stroke="#16a34a" stroke-width="3" />
+          <text x="695" y="148" text-anchor="middle" font-size="14" font-weight="700" fill="#166534">IMAGEN</text>
+          <text x="695" y="165" text-anchor="middle" font-size="13" fill="#166534">Im(T)</text>
+
+          <!-- Puntos en W -->
+          <circle cx="695" cy="245" r="4" fill="white" stroke="black" stroke-width="1.5" />
+          <text x="695" y="270" text-anchor="middle" font-size="13">0_W</text>
+          <circle cx="615" cy="290" r="4" fill="white" stroke="black" stroke-width="1.5" />
+          <text x="598" y="295" text-anchor="end" font-size="13">T(v₄)</text>
+          <circle cx="730" cy="320" r="4" fill="white" stroke="black" stroke-width="1.5" />
+          <text x="747" y="325" font-size="13">T(v₃)</text>
+
+          <!-- Flechas de mapeo -->
+          <line x1="120" y1="275" x2="687" y2="245" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar-gray1)" />
+          <line x1="180" y1="255" x2="690" y2="245" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar-gray1)" />
+          <line x1="150" y1="240" x2="693" y2="245" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar-gray1)" />
+          <line x1="220" y1="400" x2="618" y2="290" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar-gray1)" />
+          <line x1="90" y1="380" x2="725" y2="318" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar-gray1)" />
+
+          <!-- Flecha superior transformación -->
+          <path d="M 400 45 Q 505 25 610 45" fill="none" stroke="#1d4ed8" stroke-width="3"
+            marker-end="url(#ar-blue1)" />
+          <text x="505" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="#1e293b">Transformación
+            Lineal (T)</text>
+        </svg>
+        <p class="diagram-caption">Figura. Colapso del núcleo en el vector nulo y proyección del resto del dominio en la
+          imagen.</p>
+      </div>
+
+      <p>De este modo, el teorema de las dimensiones cobra un sentido intuitivo claro: la dimensión total del espacio de
+        salida $V$ se reparte exactamente entre los grados de libertad que se anulan ($\dim(\text{Nu}(T))$) y los grados
+        de libertad que logran sobrevivir en el espacio de llegada ($\dim(\text{Im}(T))$).</p>
+
+      <h3 class="section-title" id="sec-4-2">4.2 Ejemplos de núcleo, imagen y dimensiones</h3>
+
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 4.1: Núcleo e imagen ($\mathbb{R}^3 \to \mathbb{R}^3$)</div>
+        <p>Dada la siguiente transformación lineal:</p>
+        $$T: \mathbb{R}^3 \to \mathbb{R}^3, \quad T\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} x \\ y \\
+        x - z \end{pmatrix}$$
+        <p>Buscar el núcleo, la imagen, y determinar sus dimensiones.</p>
+        <details class="solution">
+          <summary>🔍 Ver solución</summary>
+          <div class="solution-content">
+            <p><strong><em>1. Núcleo de la transformación ($Nu(T)$):</em></strong></p>
+            <p>Igualamos la transformación al vector nulo para encontrar los elementos del núcleo:</p>
+            $$\begin{pmatrix} x \\ y \\ x - z \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix}$$
+            <p>De manera directa obtenemos el sistema:</p>
+            \begin{align*}
+            x &= 0 \\
+            y &= 0 \\
+            x - z &= 0 \implies 0 - z = 0 \implies z = 0
+            \end{align*}
+            <p>Como el único vector que satisface el sistema es el vector nulo $\vec{0}$, no existen variables libres.
+              Por lo tanto, $Nu(T) = \left\{ \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix} \right\}$. Al estar formado solo
+              por el vector nulo, no tiene base ($B_{Nu(T)} = \emptyset$) y su dimensión es $\dim(Nu(T)) = 0$.</p>
+
+            <p><strong><em>2. Imagen de la transformación ($\operatorname{Im}(T)$):</em></strong></p>
+            <p>Para hallar la imagen, separamos las variables de la transformación mediante combinación lineal:</p>
+            $$T\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} x \\ 0 \\ x \end{pmatrix} + \begin{pmatrix} 0
+            \\ y \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ -z \end{pmatrix} = x\begin{pmatrix} 1 \\ 0 \\ 1
+            \end{pmatrix} + y\begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} + z\begin{pmatrix} 0 \\ 0 \\ -1 \end{pmatrix}$$
+            <p>Estos tres vectores generan la imagen y son linealmente independientes (lo cual se corrobora por el
+              teorema de las dimensiones, ya que $\dim(V) = \dim(Nu) + \dim(Im) \implies 3 = 0 + 3$). La base de la
+              imagen es $B_{\operatorname{Im}(T)} = \left\{ \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix}, \begin{pmatrix} 0
+              \\ 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 0 \\ -1 \end{pmatrix} \right\}$ y su dimensión es
+              $\dim(\operatorname{Im}(T)) = 3$.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 4.2: Núcleo e imagen ($\mathbb{R}^3 \to \mathbb{R}^4$)</div>
+        <p>Dada la siguiente transformación lineal:</p>
+        $$T: \mathbb{R}^3 \to \mathbb{R}^4, \quad T\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 2x \\ -y
+        \\ 3z \\ x + y \end{pmatrix}$$
+        <p>Buscar el núcleo, la imagen, y determinar sus dimensiones.</p>
+        <details class="solution">
+          <summary>🔍 Ver solución</summary>
+          <div class="solution-content">
+            <p><strong><em>1. Núcleo de la transformación ($Nu(T)$):</em></strong></p>
+            <p>Igualamos la transformación al vector nulo de $\mathbb{R}^4$:</p>
+            $$\begin{pmatrix} 2x \\ -y \\ 3z \\ x + y \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 0 \\ 0 \end{pmatrix}$$
+            <p>El despeje es inmediato a partir de las tres primeras componentes:</p>
+            \begin{align*}
+            2x &= 0 \implies x = 0 \\
+            -y &= 0 \implies y = 0 \\
+            3z &= 0 \implies z = 0
+            \end{align*}
+            <p>(La cuarta ecuación, $x+y=0$, es redundante y se cumple con $0+0=0$). Nuevamente, no hay variables
+              libres. $Nu(T) = \{\vec{0}\}$, carece de base ($B_{Nu(T)} = \emptyset$) y $\dim(Nu(T)) = 0$.</p>
+
+            <p><strong><em>2. Imagen de la transformación ($\operatorname{Im}(T)$):</em></strong></p>
+            <p>Separamos las variables del vector genérico resultante:</p>
+            $$T\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 2x \\ 0 \\ 0 \\ x \end{pmatrix} +
+            \begin{pmatrix} 0 \\ -y \\ 0 \\ y \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 3z \\ 0 \end{pmatrix} =
+            x\begin{pmatrix} 2 \\ 0 \\ 0 \\ 1 \end{pmatrix} + y\begin{pmatrix} 0 \\ -1 \\ 0 \\ 1 \end{pmatrix} +
+            z\begin{pmatrix} 0 \\ 0 \\ 3 \\ 0 \end{pmatrix}$$
+            <p>Dado que $\dim(V)=3$ y $\dim(Nu)=0$, los tres vectores son linealmente independientes y forman la base:
+              $B_{\operatorname{Im}(T)} = \left\{ \begin{pmatrix} 2 \\ 0 \\ 0 \\ 1 \end{pmatrix}, \begin{pmatrix} 0 \\
+              -1 \\ 0 \\ 1 \end{pmatrix}, \begin{pmatrix} 0 \\ 0 \\ 3 \\ 0 \end{pmatrix} \right\}$. La dimensión de la
+              imagen es $\dim(\operatorname{Im}(T)) = 3$.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="proposed">
+        <div class="proposed-title">✏️ Ejercicio propuesto 4.3: Núcleo, imagen y dimensiones</div>
+        <p>Para cada una de las siguientes transformaciones lineales, determine el núcleo, la imagen y las dimensiones
+          de ambos subespacios:</p>
+        <ol type="a">
+          <li>$T: \mathbb{R}^4 \to \mathbb{R}^4, \quad T\begin{pmatrix} x \\ y \\ z \\ w \end{pmatrix} = \begin{pmatrix}
+            x \\ 2y \\ z - w \\ 0 \end{pmatrix}$</li>
+          <li>$T: \mathbb{R}^3 \to \mathbb{R}^3, \quad T\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} x -
+            y \\ 0 \\ 0 \end{pmatrix}$</li>
+          <li>$T: \mathbb{R}^4 \to \mathbb{R}^4, \quad T\begin{pmatrix} x \\ y \\ z \\ w \end{pmatrix} = \begin{pmatrix}
+            x \\ y + z \\ z \\ -w \end{pmatrix}$</li>
+        </ol>
+      </div>
+
+      <h3 class="section-title" id="sec-4-3">4.3 Los transformados de una base generan la imagen</h3>
+      <p>Una de las propiedades fundamentales de las transformaciones lineales es que su comportamiento global queda
+        completamente determinado por su acción sobre los elementos de una base. Esta conexión nos permite caracterizar
+        el subespacio de llegada que conforma la imagen de una manera directa y algebraica, tal como lo establece el
+        siguiente resultado:</p>
+
+      <div class="callout callout-thm">
+        <div class="callout-title">📐 Teorema: Los transformados de una base generan la imagen</div>
+        <p style="margin:0;">Sea $T: V \to W$ una transformación lineal y sea $B = \{\mathbf{v}_1, \mathbf{v}_2, \dots,
+          \mathbf{v}_n\}$ una base del dominio $V$.</p>
+        <p style="margin:0.4rem 0 0 0;">Entonces, el conjunto formado por las imágenes de los vectores de la base genera
+          la imagen de la transformación lineal:</p>
+        $$Im(T) = \text{gen}\{T(\mathbf{v}_1), T(\mathbf{v}_2), \dots, T(\mathbf{v}_n)\}$$
+      </div>
+
+      <p>Esto significa que <strong>los transformados de la base</strong> son un conjunto de generadores para $Im(T)$,
+        pero <strong>no garantizan ser una base de $Im(T)$</strong> porque podrían no ser linealmente independientes.
+      </p>
+
+      <p>En consecuencia, aunque este conjunto nos asegura la cobertura de toda la imagen, para hallar una base
+        propiamente dicha a menudo se requiere un paso adicional de análisis. Esto se logra estudiando la independencia
+        lineal del conjunto de vectores transformados —por ejemplo, mediante operaciones elementales en una matriz— para
+        descartar aquellos que resulten redundantes, lo que además nos proporciona de manera directa la dimensión de la
+        imagen (el rango de la transformación).</p>
+
+      <div class="diagram-container" style="display:block; padding:0.5rem;">
+        <svg viewBox="0 0 900 540" xmlns="http://www.w3.org/2000/svg"
+          style="width:100%;height:auto;max-width:780px;display:block;margin:0 auto;font-family:'Segoe UI',system-ui,sans-serif;">
+          <defs>
+            <marker id="ar-gray2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0,0 L10,5 L0,10 Z" fill="#64748b" />
+            </marker>
+            <marker id="ar-blue2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+              <path d="M0,0 L10,5 L0,10 Z" fill="#1d4ed8" />
+            </marker>
+          </defs>
+
+          <!-- Dominio V -->
+          <rect x="30" y="70" width="360" height="400" rx="15" fill="#eff6ff" stroke="#1d4ed8" stroke-width="3" />
+          <text x="210" y="55" text-anchor="middle" font-size="16" font-weight="700" fill="#1e40af">ESPACIO DOMINIO
+            (V)</text>
+
+          <!-- Núcleo -->
+          <circle cx="150" cy="230" r="95" fill="rgba(251,146,60,0.35)" stroke="#ea580c" stroke-width="3" />
+          <text x="150" y="148" text-anchor="middle" font-size="14" font-weight="700" fill="#9a3412">NÚCLEO</text>
+          <text x="150" y="165" text-anchor="middle" font-size="13" fill="#9a3412">Nu(T)</text>
+
+          <!-- Base (elipse morada) -->
+          <!-- Base (elipse morada) -->
+          <ellipse cx="150" cy="310" rx="120" ry="120" fill="rgba(168,85,247,0.2)" stroke="#7c3aed"
+            stroke-width="2.5" />
+          <text x="285" y="235" font-size="13" font-weight="700" fill="#6b21a8">BASE (B)</text>
+
+          <!-- Puntos en V -->
+          <circle cx="150" cy="240" r="4" fill="white" stroke="black" stroke-width="1.5" />
+          <text x="135" y="238" text-anchor="end" font-size="13">0_V</text>
+          <circle cx="120" cy="275" r="4" fill="white" stroke="black" stroke-width="1.5" />
+          <text x="103" y="280" text-anchor="end" font-size="13">v₁</text>
+          <circle cx="180" cy="255" r="4" fill="white" stroke="black" stroke-width="1.5" />
+          <text x="197" y="260" font-size="13">v₂</text>
+          <circle cx="90" cy="380" r="4" fill="white" stroke="black" stroke-width="1.5" />
+          <text x="73" y="385" text-anchor="end" font-size="13">v₃</text>
+          <circle cx="220" cy="400" r="4" fill="white" stroke="black" stroke-width="1.5" />
+          <text x="237" y="405" font-size="13">v₄</text>
+
+          <!-- Codominio W -->
+          <rect x="520" y="70" width="350" height="400" rx="15" fill="#ecfeff" stroke="#0891b2" stroke-width="3" />
+          <text x="695" y="55" text-anchor="middle" font-size="16" font-weight="700" fill="#0e7490">ESPACIO CODOMINIO
+            (W)</text>
+
+          <!-- Imagen -->
+          <circle cx="695" cy="230" r="105" fill="rgba(134,239,172,0.4)" stroke="#16a34a" stroke-width="3" />
+          <text x="695" y="148" text-anchor="middle" font-size="14" font-weight="700" fill="#166534">IMAGEN</text>
+          <text x="695" y="165" text-anchor="middle" font-size="13" fill="#166534">Im(T)</text>
+
+          <!-- Puntos en W -->
+          <circle cx="695" cy="245" r="4" fill="white" stroke="black" stroke-width="1.5" />
+          <text x="695" y="270" text-anchor="middle" font-size="13">0_W</text>
+          <circle cx="615" cy="290" r="4" fill="white" stroke="black" stroke-width="1.5" />
+          <text x="598" y="295" text-anchor="end" font-size="13">T(v₄)</text>
+          <circle cx="730" cy="320" r="4" fill="white" stroke="black" stroke-width="1.5" />
+          <text x="747" y="325" font-size="13">T(v₃)</text>
+
+          <!-- Flechas de mapeo (v₁, v₂ y 0_V colapsan en 0_W; v₃ y v₄ generan la imagen) -->
+          <line x1="120" y1="275" x2="687" y2="245" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar-gray2)" />
+          <line x1="180" y1="255" x2="690" y2="245" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar-gray2)" />
+          <line x1="150" y1="240" x2="693" y2="245" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar-gray2)" />
+          <line x1="220" y1="400" x2="618" y2="290" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar-gray2)" />
+          <line x1="90" y1="380" x2="725" y2="318" stroke="#64748b" stroke-width="1.5" marker-end="url(#ar-gray2)" />
+
+          <!-- Flecha superior transformación -->
+          <path d="M 400 45 Q 505 25 610 45" fill="none" stroke="#1d4ed8" stroke-width="3"
+            marker-end="url(#ar-blue2)" />
+          <text x="505" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="#1e293b">Transformación
+            Lineal (T)</text>
+        </svg>
+        <p class="diagram-caption">Figura. Los transformados de una base generan la imagen, aunque pueden no ser una
+          base de ella.</p>
+      </div>
+
+      <p>Note que aunque la base $B$ tiene cuatro vectores, dos de ellos mapean al vector nulo de $W$ y los otros dos
+        conforman una base de la imagen de la transformación. Esto comprueba que todos los vectores de la base $B$
+        transformados <strong>no garantizan ser una base de $Im(T)$</strong>, sino solo un conjunto de ellos.</p>
+
+      <h3 class="section-title" id="sec-4-4">4.4 Ejemplos de aplicación del teorema de los transformados de una base
+      </h3>
+
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 4.3: Aplicación del teorema de los transformados de una base</div>
+        <p>Dada la transformación lineal $T: \mathbb{R}^3 \to \mathbb{R}^2$ definida por:</p>
+        $$T\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} x + y \\ 2x + 2y \end{pmatrix}$$
+        <p>Utilizando el teorema de los transformados de una base, halle un conjunto generador para la imagen de $T$,
+          extraiga una base y determine su dimensión.</p>
+        <details class="solution">
+          <summary>🔍 Ver solución</summary>
+          <div class="solution-content">
+            <p>El teorema establece que si aplicamos la transformación lineal a los vectores de una base del dominio,
+              obtendremos un conjunto de generadores de la imagen.</p>
+
+            <p><strong><em>1. Elección de la base del dominio:</em></strong></p>
+            <p>Para simplificar los cálculos, elegimos la base canónica del espacio de partida $\mathbb{R}^3$:</p>
+            $$B_{\mathbb{R}^3} = \left\{ \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \\ 0
+            \end{pmatrix}, \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} \right\}$$
+
+            <p><strong><em>2. Cálculo de los transformados:</em></strong></p>
+            <p>Evaluamos la transformación $T$ en cada uno de los vectores de esta base:</p>
+            $$T\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} = \begin{pmatrix} 1 + 0 \\ 2(1) + 2(0) \end{pmatrix} =
+            \begin{pmatrix} 1 \\ 2 \end{pmatrix}$$
+            $$T\begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 + 1 \\ 2(0) + 2(1) \end{pmatrix} =
+            \begin{pmatrix} 1 \\ 2 \end{pmatrix}$$
+            $$T\begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 0 + 0 \\ 2(0) + 2(0) \end{pmatrix} =
+            \begin{pmatrix} 0 \\ 0 \end{pmatrix}$$
+
+            <p><strong><em>3. Conjunto generador de la imagen:</em></strong></p>
+            <p>Agrupando los vectores resultantes, formamos el conjunto que genera a la imagen de $T$:</p>
+            $$\operatorname{Im}(T) = \operatorname{gen} \left\{ \begin{pmatrix} 1 \\ 2 \end{pmatrix}, \begin{pmatrix} 1
+            \\ 2 \end{pmatrix}, \begin{pmatrix} 0 \\ 0 \end{pmatrix} \right\}$$
+
+            <p><strong><em>4. Extracción de la base de la imagen:</em></strong></p>
+            <p>Como indica la teoría, este conjunto generador no constituye necesariamente una base, ya que posee
+              vectores linealmente dependientes. Para depurarlo y hallar la base real:</p>
+            <ul>
+              <li>Descartamos el vector nulo $\begin{pmatrix} 0 \\ 0 \end{pmatrix}$ (todo conjunto que contenga al
+                vector nulo es linealmente dependiente).</li>
+              <li>Descartamos uno de los vectores $\begin{pmatrix} 1 \\ 2 \end{pmatrix}$ porque está repetido.</li>
+            </ul>
+            <p>Nos queda un único vector no nulo, el cual conforma un conjunto linealmente independiente.</p>
+
+            <ul>
+              <li><strong>Base de la imagen:</strong> $B_{\operatorname{Im}(T)} = \left\{ \begin{pmatrix} 1 \\ 2
+                \end{pmatrix} \right\}$</li>
+              <li><strong>Dimensión de la imagen (Rango):</strong> $\dim(\operatorname{Im}(T)) = 1$</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+
+      <h3 class="section-title" id="sec-4-5">4.5 Ejercicios propuestos del taller</h3>
+
+      <div class="proposed">
+        <div class="proposed-title">✏️ Ejercicio propuesto 4.4: Transformados de una base en distintas transformaciones
+        </div>
+        <p>Utilizando el teorema de los transformados de una base, halle un conjunto generador para la imagen de $T$,
+          extraiga una base y determine su dimensión para cada una de las siguientes transformaciones lineales,
+          considerando la base $B$ del dominio indicada a la derecha de cada regla de correspondencia:</p>
+        <ol type="a">
+          <li>
+            $T: \mathbb{R}^2 \to \mathbb{R}^3, \quad T\begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} x - y \\ 2x
+            \\ y - x \end{pmatrix}, \qquad B = \left\{ \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1
+            \end{pmatrix} \right\}$
+          </li>
+          <li>
+            $T: \mathbb{R}^2 \to \mathbb{R}^2, \quad T\begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} x - y \\
+            -2x + 2y \end{pmatrix}, \qquad B = \left\{ \begin{pmatrix} 1 \\ 1 \end{pmatrix}, \begin{pmatrix} 1 \\ -1
+            \end{pmatrix} \right\}$
+          </li>
+          <li>
+            $T: \mathbb{R}^3 \to \mathbb{R}^3, \quad T\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} x + z
+            \\ y \\ x + y + z \end{pmatrix}, \qquad B = \left\{ \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix},
+            \begin{pmatrix} 0 \\ 1 \\ 1 \end{pmatrix}, \begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix} \right\}$
+          </li>
+        </ol>
+      </div>
+
+      <div class="proposed">
+        <div class="proposed-title">✏️ Ejercicio propuesto 4.5: Validez de un conjunto para aplicar el teorema</div>
+        <p>Dada la transformación lineal $T: \mathbb{R}^3 \to \mathbb{R}^2$ definida por:</p>
+        $$T\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} x - y \\ z \end{pmatrix}$$
+        <p>Se propone utilizar el siguiente conjunto de vectores $S$ para hallar la base de la imagen aplicando el
+          teorema de los transformados:</p>
+        $$S = \left\{ \begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix},
+        \begin{pmatrix} 1 \\ 2 \\ 0 \end{pmatrix} \right\}$$
+        <p>Determine si es posible utilizar este conjunto directamente para hallar la base de la imagen. En caso
+          negativo, justifique por qué, explique qué se debe hacer y halle correctamente la base y dimensión de la
+          imagen.</p>
+        <details class="solution">
+          <summary>🔍 Ver solución</summary>
+          <div class="solution-content">
+            <p><strong><em>1. ¿Es $S$ una base de $\mathbb{R}^3$?</em></strong></p>
+            <p>El teorema exige que el conjunto de vectores sobre el que se aplica la transformación sea una
+              <strong>base del dominio</strong>. Verificamos la independencia lineal de los vectores de $S$:</p>
+            $$S = \left\{ \begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix},
+            \begin{pmatrix} 1 \\ 2 \\ 0 \end{pmatrix} \right\}$$
+            <p>Observe que la tercera componente de los tres vectores es $0$. Esto significa que todos los vectores de
+              $S$ pertenecen al plano $z = 0$ (un subespacio propio de $\mathbb{R}^3$). Por lo tanto, $S$ no puede
+              generar todo $\mathbb{R}^3$ y sus vectores son linealmente dependientes.</p>
+            <p>En efecto: $\begin{pmatrix} 1 \\ 2 \\ 0 \end{pmatrix} = \begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix} +
+              \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}$, así que el tercer vector es combinación lineal de los dos
+              primeros.</p>
+
+            <p><strong><em>2. Justificación:</em></strong></p>
+            <p>No es posible utilizar $S$ directamente, porque $S$ <strong>no es una base de $\mathbb{R}^3$</strong>:
+              sus elementos son linealmente dependientes y no generan el dominio completo. Aplicar el teorema sobre un
+              conjunto que no es base no garantiza que se genere toda la imagen de $T$.</p>
+
+            <p><strong><em>3. ¿Qué se debe hacer?</em></strong></p>
+            <p>Es necesario <strong>completar $S$ hasta obtener una base de $\mathbb{R}^3$</strong>. Un vector que no
+              pertenece al plano $z = 0$, por ejemplo $(0,0,1)^T$, permite extender el conjunto a una base:</p>
+            $$B' = \left\{ \begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix},
+            \begin{pmatrix} 1 \\ 2 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} \right\} \text{? (aún
+            no, porque los tres primeros ya son dependientes)}$$
+            <p>Más correctamente, se toma un subconjunto maximal linealmente independiente de $S$ (por ejemplo, los dos
+              primeros vectores) y se completa con vectores de la base canónica hasta tener tres vectores
+              independientes:</p>
+            $$B' = \left\{ \begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix},
+            \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} \right\}$$
+
+            <p><strong><em>4. Aplicación del teorema con la base corregida:</em></strong></p>
+            <p>Evaluamos $T$ en cada vector de $B'$:</p>
+            $$T\begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 1 - 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 0
+            \\ 0 \end{pmatrix}$$
+            $$T\begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 - 1 \\ 0 \end{pmatrix} = \begin{pmatrix} -1
+            \\ 0 \end{pmatrix}$$
+            $$T\begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 0 - 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 0
+            \\ 1 \end{pmatrix}$$
+
+            <p>Conjunto generador de la imagen:</p>
+            $$\operatorname{Im}(T) = \operatorname{gen} \left\{ \begin{pmatrix} 0 \\ 0 \end{pmatrix}, \begin{pmatrix} -1
+            \\ 0 \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \end{pmatrix} \right\}$$
+
+            <p><strong><em>5. Base y dimensión:</em></strong></p>
+            <p>Descartando el vector nulo y verificando la independencia lineal de los dos vectores restantes:</p>
+            <ul>
+              <li><strong>Base de la imagen:</strong> $B_{\operatorname{Im}(T)} = \left\{ \begin{pmatrix} -1 \\ 0
+                \end{pmatrix}, \begin{pmatrix} 0 \\ 1 \end{pmatrix} \right\}$</li>
+              <li><strong>Dimensión de la imagen (Rango):</strong> $\dim(\operatorname{Im}(T)) = 2$</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+
+      <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+
+
+
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- MÓDULO 5: TRANSFORMACIONES ENTRE ESPACIOS VECTORIALES, POLINOMIALES Y MATRICIALES -->
+    <!-- ===================================================================== -->
+    <section class="card" id="mod-5">
+      <h2 class="module-title"><span class="badge">MÓDULO 05</span> Transformaciones entre Espacios Vectoriales,
+        Polinomiales y Matriciales</h2>
+
+      <h3 class="section-title" id="sec-5-1">5.1 Espacios de entrada y salida</h3>
+      <p>Hasta ahora hemos trabajado con transformaciones lineales entre espacios euclídeos $\mathbb{R}^n$ y
+        $\mathbb{R}^m$. Sin embargo, la definición de transformación lineal no se restringe a estos espacios: cualquier
+        par de espacios vectoriales sobre el mismo cuerpo (en nuestro caso $\mathbb{R}$) puede ser dominio y codominio
+        de una transformación lineal. Esto incluye los <strong>espacios polinomiales</strong> $\mathcal{P}_n$
+        (polinomios de grado menor o igual a $n$) y los <strong>espacios matriciales</strong> $M_{m\times
+        n}(\mathbb{R})$.</p>
+
+      <div class="callout callout-def">
+        <div class="callout-title">📌 Recordatorio: Espacios vectoriales no euclídeos</div>
+        <ul>
+          <li><strong>Espacio polinomial</strong> $\mathcal{P}_n = \{a_0 + a_1 x + \dots + a_n x^n \mid a_i \in
+            \mathbb{R}\}$, con $\dim(\mathcal{P}_n) = n+1$. Su base canónica es $\{1, x, x^2, \dots, x^n\}$.</li>
+          <li><strong>Espacio matricial</strong> $M_{m\times n}(\mathbb{R})$: matrices $m \times n$ con entradas reales;
+            su dimensión es $mn$. Base canónica: las matrices $E_{ij}$ con un $1$ en la posición $(i,j)$ y $0$ en el
+            resto.</li>
+        </ul>
+      </div>
+
+      <p>En estos contextos, la regla de correspondencia $T(\mathbf{v})$ puede involucrar operaciones propias del
+        espacio —suma de polinomios, producto por escalares, transpuesta de matrices, traza, etc.—, siempre que respete
+        las dos condiciones de linealidad. Resulta particularmente útil recordar que <strong>una transformación lineal
+          queda completamente determinada por su acción sobre una base</strong>; por lo tanto, basta definir $T$ sobre
+        los elementos de la base canónica del espacio de partida.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Espacio</th>
+              <th>Elemento genérico</th>
+              <th>Dimensión</th>
+              <th>Base canónica</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>$\mathbb{R}^n$</td>
+              <td>$\mathbf{v} = (v_1, \dots, v_n)$</td>
+              <td>$n$</td>
+              <td>$\{\mathbf{e}_1, \dots, \mathbf{e}_n\}$</td>
+            </tr>
+            <tr>
+              <td>$\mathcal{P}_n$</td>
+              <td>$p(x) = a_0 + a_1 x + \dots + a_n x^n$</td>
+              <td>$n+1$</td>
+              <td>$\{1, x, \dots, x^n\}$</td>
+            </tr>
+            <tr>
+              <td>$M_{m\times n}$</td>
+              <td>$A = (a_{ij})$</td>
+              <td>$mn$</td>
+              <td>$\{E_{ij}\}_{i,j}$</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="section-title" id="sec-5-2">5.2 Ejemplos de combinaciones lineales</h3>
+
+      <p>Los siguientes ejemplos muestran cómo una regla de correspondencia entre espacios no euclídeos puede ser
+        lineal. El criterio de inspección es el mismo: cada componente del resultado debe ser una combinación lineal de
+        los datos de entrada.</p>
+
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 5.1: Multiplicación por $x$ en $\mathcal{P}_2$</div>
+        <p>Sea $T: \mathcal{P}_2 \to \mathcal{P}_3$ definida por $T(p(x)) = x \cdot p(x)$. Verifique que $T$ es lineal.
+        </p>
+        <details class="solution">
+          <summary>🔍 Ver solución</summary>
+          <div class="solution-content">
+            <p>Dados $p(x), q(x) \in \mathcal{P}_2$ y $\alpha \in \mathbb{R}$:</p>
+            <p><em>Aditividad:</em></p>
+            $$T(p + q) = x \cdot (p(x) + q(x)) = x\,p(x) + x\,q(x) = T(p) + T(q)$$
+            <p><em>Homogeneidad:</em></p>
+            $$T(\alpha p) = x \cdot (\alpha\, p(x)) = \alpha\, x\, p(x) = \alpha\, T(p)$$
+            <p>Por lo tanto, $T$ es una transformación lineal.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 5.2: Traza de una matriz</div>
+        <p>Sea $T: M_{2\times 2}(\mathbb{R}) \to \mathbb{R}$ definida por $T(A) = \operatorname{tr}(A) = a_{11} +
+          a_{22}$. Verifique su linealidad.</p>
+        <details class="solution">
+          <summary>🔍 Ver solución</summary>
+          <div class="solution-content">
+            <p>Sean $A, B \in M_{2\times 2}$ y $\alpha \in \mathbb{R}$:</p>
+            <p><em>Aditividad:</em> $\operatorname{tr}(A+B) = (a_{11}+b_{11}) + (a_{22}+b_{22}) = \operatorname{tr}(A) +
+              \operatorname{tr}(B)$.</p>
+            <p><em>Homogeneidad:</em> $\operatorname{tr}(\alpha A) = \alpha a_{11} + \alpha a_{22} =
+              \alpha\,\operatorname{tr}(A)$.</p>
+            <p>Así, $T$ es lineal.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 5.3: Transpuesta de una matriz</div>
+        <p>Sea $T: M_{2\times 2}(\mathbb{R}) \to M_{2\times 2}(\mathbb{R})$ definida por $T(A) = A^T$. Verifique su
+          linealidad.</p>
+        <details class="solution">
+          <summary>🔍 Ver solución</summary>
+          <div class="solution-content">
+            <p>Recordemos que la transpuesta cumple $(A+B)^T = A^T + B^T$ y $(\alpha A)^T = \alpha A^T$. Por lo tanto:
+            </p>
+            $$T(A+B) = (A+B)^T = A^T + B^T = T(A) + T(B)$$
+            $$T(\alpha A) = (\alpha A)^T = \alpha A^T = \alpha T(A)$$
+            <p>$T$ es lineal.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 5.4: Evaluación en un punto</div>
+        <p>Sea $T: \mathcal{P}_2 \to \mathbb{R}^2$ definida por $T(p(x)) = (p(0), p(1))$. Verifique su linealidad.</p>
+        <details class="solution">
+          <summary>🔍 Ver solución</summary>
+          <div class="solution-content">
+            <p>Para $p, q \in \mathcal{P}_2$ y $\alpha \in \mathbb{R}$, la evaluación en un punto es lineal:</p>
+            $$T(p+q) = ((p+q)(0), (p+q)(1)) = (p(0)+q(0),\, p(1)+q(1)) = T(p) + T(q)$$
+            $$T(\alpha p) = ((\alpha p)(0), (\alpha p)(1)) = (\alpha p(0),\, \alpha p(1)) = \alpha T(p)$$
+            <p>$T$ es lineal.</p>
+          </div>
+        </details>
+      </div>
+
+      <h3 class="section-title" id="sec-5-3">5.3 Núcleo e imagen en espacios polinomiales y matriciales</h3>
+
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 5.5: Núcleo e imagen en $\mathcal{P}_2$</div>
+        <p>Sea $T: \mathcal{P}_2 \to \mathcal{P}_2$ definida por $T(a + bx + cx^2) = (a + b) + (b + c)x + (a + c)x^2$.
+          Encuentre núcleo, imagen y dimensiones.</p>
+        <details class="solution">
+          <summary>🔍 Ver solución</summary>
+          <div class="solution-content">
+            <p><strong><em>1. Núcleo:</em></strong> Igualamos $T(p) = 0$:</p>
+            $$\begin{cases} a + b = 0 \\ b + c = 0 \\ a + c = 0 \end{cases} \implies a = -b,\; c = -b,\; a + c = -2b = 0
+            \implies b = 0$$
+            <p>Por tanto $a = b = c = 0$, y $\operatorname{Nu}(T) = \{0\}$, $\dim(\operatorname{Nu}(T)) = 0$.</p>
+            <p><strong><em>2. Imagen:</em></strong> Reescribimos:</p>
+            $$T(a + bx + cx^2) = a(1 + x^2) + b(1 + x) + c(x + x^2)$$
+            <p>Los vectores $\{1+x^2,\; 1+x,\; x+x^2\}$ generan $\operatorname{Im}(T)$. Como $\dim(\mathcal{P}_2) = 3$ y
+              $\dim(\operatorname{Nu}(T)) = 0$, son linealmente independientes (rango $= 3$) y $\operatorname{Im}(T) =
+              \mathcal{P}_2$.</p>
+            <ul>
+              <li><strong>Base de la imagen:</strong> $\{1+x^2,\; 1+x,\; x+x^2\}$</li>
+              <li><strong>$\dim(\operatorname{Im}(T)) = 3$</strong>, $\dim(\operatorname{Nu}(T)) = 0$</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 5.6: Núcleo e imagen con la transpuesta</div>
+        <p>Sea $T: M_{2\times 2}(\mathbb{R}) \to M_{2\times 2}(\mathbb{R})$ con $T(A) = A - A^T$. Encuentre núcleo,
+          imagen y dimensiones.</p>
+        <details class="solution">
+          <summary>🔍 Ver solución</summary>
+          <div class="solution-content">
+            <p><strong><em>1. Núcleo:</em></strong> $A - A^T = 0 \iff A = A^T$. El núcleo está formado por todas las
+              matrices simétricas:</p>
+            $$\operatorname{Nu}(T) = \left\{ \begin{pmatrix} a & b \\ b & d \end{pmatrix} \;\middle|\; a,b,d \in
+            \mathbb{R} \right\}$$
+            <p>Una base es $\left\{ \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}, \begin{pmatrix} 0 & 1 \\ 1 & 0
+              \end{pmatrix}, \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix} \right\}$, y $\dim(\operatorname{Nu}(T)) = 3$.
+            </p>
+            <p><strong><em>2. Imagen:</em></strong> La imagen está formada por las matrices antisimétricas, pues $A -
+              A^T$ siempre es antisimétrica:</p>
+            $$\operatorname{Im}(T) = \left\{ \begin{pmatrix} 0 & c \\ -c & 0 \end{pmatrix} \;\middle|\; c \in \mathbb{R}
+            \right\}$$
+            <p>Base: $\left\{ \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} \right\}$, y $\dim(\operatorname{Im}(T)) =
+              1$.</p>
+            <p><strong>Verificación del teorema de las dimensiones:</strong> $\dim(M_{2\times 2}) = 4 = 3 + 1$. ✔</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- MÓDULO 6: EJERCICIOS DEL TALLER -->
+    <!-- ===================================================================== -->
+    <section class="card" id="mod-6">
+      <h2 class="module-title"><span class="badge">MÓDULO 06</span> Ejercicios del Taller</h2>
+
+      <h3 class="section-title" id="sec-6-1">6.1 Estudio de la linealidad</h3>
+
+      <div class="proposed">
+        <div class="proposed-title">✏️ Ejercicio 6.1: ¿Cuáles funciones son transformaciones lineales?</div>
+        <p>Determine, justificando brevemente, cuáles de las siguientes funciones son transformaciones lineales. En caso
+          negativo, exhiba un contraejemplo:</p>
+        <ol type="a">
+          <li>$T: \mathbb{R}^2 \to \mathbb{R}^2$, $T(x,y) = (2x,\; y - x)$</li>
+          <li>$T: \mathbb{R}^2 \to \mathbb{R}$, $T(x,y) = x^2 + y^2$</li>
+          <li>$T: \mathcal{P}_1 \to \mathcal{P}_2$, $T(a + bx) = a + bx + (a+b)x^2$</li>
+          <li>$T: M_{2\times 2} \to M_{2\times 2}$, $T(A) = A^2$</li>
+          <li>$T: \mathcal{P}_2 \to \mathbb{R}$, $T(p) = p'(0) + p(1)$</li>
+        </ol>
+        <details class="solution">
+          <summary>🔍 Ver solución</summary>
+          <div class="solution-content">
+            <ul>
+              <li><strong>a) Es lineal:</strong> cada componente es combinación lineal de $x, y$.</li>
+              <li><strong>b) No es lineal:</strong> $T(2x, 2y) = 4x^2 + 4y^2 \neq 2(x^2 + y^2) = 2T(x,y)$.</li>
+              <li><strong>c) Es lineal:</strong> es una combinación lineal de los coeficientes $a, b$.</li>
+              <li><strong>d) No es lineal:</strong> $(A+B)^2 = A^2 + AB + BA + B^2 \neq A^2 + B^2$ en general (el
+                producto de matrices no es lineal).</li>
+              <li><strong>e) Es lineal:</strong> tanto la derivada evaluada en un punto como la evaluación en un punto
+                son operaciones lineales.</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+
+      <h3 class="section-title" id="sec-6-2">6.2 Núcleo e imagen de transformaciones lineales</h3>
+
+      <div class="proposed">
+        <div class="proposed-title">✏️ Ejercicio 6.2: Núcleo, imagen y dimensiones (varios espacios)</div>
+        <p>Para cada una de las transformaciones lineales, calcule el núcleo, la imagen y las dimensiones
+          correspondientes. Verifique el teorema de las dimensiones:</p>
+        <ol type="a">
+          <li>$T: \mathbb{R}^3 \to \mathbb{R}^3$, $T(x,y,z) = (x - y,\; y - z,\; x - z)$</li>
+          <li>$T: \mathcal{P}_2 \to \mathbb{R}^2$, $T(a + bx + cx^2) = (a + b,\; b + c)$</li>
+          <li>$T: M_{2\times 2} \to M_{2\times 2}$, $T(A) = A + A^T$</li>
+        </ol>
+        <details class="solution">
+          <summary>🔍 Ver solución</summary>
+          <div class="solution-content">
+            <p><strong>a)</strong> Núcleo: $x = y = z$, por tanto $\operatorname{Nu}(T) =
+              \operatorname{gen}\{(1,1,1)\}$, $\dim = 1$. La imagen tiene dimensión $3 - 1 = 2$ y está generada por
+              $\{(1,0,1),\,(-1,1,0)\}$.</p>
+            <p><strong>b)</strong> Núcleo: $a + b = 0$, $b + c = 0 \implies a = -b,\; c = -b$, por lo que los polinomios
+              son $p(x) = b(-1 + x - x^2)$. Núcleo generado por $-1 + x - x^2$, $\dim = 1$. Imagen: $\dim = 3 - 1 = 2$,
+              es todo $\mathbb{R}^2$ (rango máximo). Base: $\{(1,0), (0,1)\}$.</p>
+            <p><strong>c)</strong> Núcleo: $A + A^T = 0 \iff A^T = -A$, matrices antisimétricas. $\dim = 1$ (generada
+              por $\begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$). Imagen: matrices simétricas, $\dim = 3$.
+              Verificación: $\dim(M_{2\times 2}) = 4 = 1 + 3$. ✔</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="proposed">
+        <div class="proposed-title">✏️ Ejercicio 6.3: Rango y nulidad de una matriz asociada</div>
+        <p>Determine el rango y la nulidad de la transformación lineal $T: \mathbb{R}^4 \to \mathbb{R}^3$ cuya matriz
+          asociada (respecto a las bases canónicas) es:</p>
+        $$A = \begin{pmatrix} 1 & 2 & -1 & 0 \\ 2 & 4 & -2 & 1 \\ 1 & 2 & 1 & 1 \end{pmatrix}$$
+        <details class="solution">
+          <summary>🔍 Ver solución</summary>
+          <div class="solution-content">
+            <p>Escalonamos $A$:</p>
+            $$A \sim \begin{pmatrix} 1 & 2 & -1 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 2 & 1 \end{pmatrix} \sim \begin{pmatrix}
+            1 & 2 & -1 & 0 \\ 0 & 0 & 2 & 1 \\ 0 & 0 & 0 & 1 \end{pmatrix}$$
+            <p>Hay $3$ pivotes, por lo que el rango es $\operatorname{rango}(T) = \dim(\operatorname{Im}(T)) = 3$. Por
+              el teorema de las dimensiones: nulidad $= 4 - 3 = 1$.</p>
+            <p><strong>Núcleo:</strong> resolviendo $A\mathbf{x} = 0$ se obtiene $x_4 = 0$, $x_3 = 0$, $x_1 + 2x_2 = 0
+              \implies \mathbf{x} = t(-2, 1, 0, 0)$. Entonces $\operatorname{Nu}(T) = \operatorname{gen}\{(-2,1,0,0)\}$,
+              $\dim = 1$. ✔</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+    </section>
