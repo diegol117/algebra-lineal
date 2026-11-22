@@ -7,16 +7,16 @@
   <title>Álgebra de Matrices</title>
 
   <!-- KaTeX -->
-  <link rel="stylesheet" href="https,//cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <script defer src="https,//cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https,//cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
-      delimiters, [
-        {left, '$$', right, '$$', display, true},
-        {left, '$', right, '$', display, false},
-        {left, '\\[', right, '\\]', display, true},
-        {left, '\\(', right, '\\)', display, false}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '\\(', right: '\\)', display: false}
       ],
-      throwOnError, false
+      throwOnError: false
     });"></script>
 
   <!-- Estilos externos -->
@@ -29,15 +29,15 @@
     <!-- HEADER -->
     <header class="doc-header" id="inicio">
       <h1>🧮 Álgebra de Matrices</h1>
-      <p style="margin, 0; color, #e2e8f0; font-size, 1.05rem;">
+      <p style="margin: 0; color: #e2e8f0; font-size: 1.05rem;">
         Apuntes completos sobre operaciones matriciales, propiedades algebraicas, determinantes, operaciones
         elementales, eliminación gaussiana y resolución de sistemas de ecuaciones lineales.
       </p>
       <!-- Se eliminaron las viñetas bullet de la cabecera y se añadió margen para separación -->
       <div class="meta-bar">
-        <span><strong>Autor,</strong> Diego Linares</span>
-        <span style="margin-left, 20px;"><strong>Área,</strong> Álgebra Lineal y Cálculo III</span>
-        <span style="margin-left, 20px;"><strong>Nivel,</strong> Universitario</span>
+        <span><strong>Autor:</strong> Diego Linares</span>
+        <span style="margin-left: 20px;"><strong>Área:</strong> Álgebra Lineal y Cálculo III</span>
+        <span style="margin-left: 20px;"><strong>Nivel:</strong> Universitario</span>
       </div>
     </header>
 
@@ -54,18 +54,18 @@
         <table>
           <thead>
             <tr>
-              <th style="width, 80px;">Módulo</th>
-              <th style="width, 280px;">Tema Principal</th>
+              <th style="width: 80px;">Módulo</th>
+              <th style="width: 280px;">Tema Principal</th>
               <th>Subtemas Clave</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td><span class="badge">01</span></td>
-              <td><a href="#mod-1">Álgebra de Matrices, Operaciones Básicas</a></td>
+              <td><a href="#mod-1">Álgebra de Matrices: Operaciones Básicas</a></td>
               <td>
-                <div style="margin-bottom, 4px;"><a href="#sec-1-1">1.1 Igualdad de matrices</a></div>
-                <div style="margin-bottom, 4px;"><a href="#sec-1-2">1.2 Suma y resta</a></div>
+                <div style="margin-bottom: 4px;"><a href="#sec-1-1">1.1 Igualdad de matrices</a></div>
+                <div style="margin-bottom: 4px;"><a href="#sec-1-2">1.2 Suma y resta</a></div>
                 <div><a href="#sec-1-3">1.3 Producto por escalar</a></div>
               </td>
             </tr>
@@ -73,8 +73,8 @@
               <td><span class="badge">02</span></td>
               <td><a href="#mod-2">Producto, Potencias y Traspuesta</a></td>
               <td>
-                <div style="margin-bottom, 4px;"><a href="#sec-2-1">2.1 Producto de matrices</a></div>
-                <div style="margin-bottom, 4px;"><a href="#sec-2-2">2.2 Potencias de matrices</a></div>
+                <div style="margin-bottom: 4px;"><a href="#sec-2-1">2.1 Producto de matrices</a></div>
+                <div style="margin-bottom: 4px;"><a href="#sec-2-2">2.2 Potencias de matrices</a></div>
                 <div><a href="#sec-2-3">2.3 Trasposición</a></div>
               </td>
             </tr>
@@ -82,9 +82,9 @@
               <td><span class="badge">04</span></td>
               <td><a href="#mod-4">Determinantes</a></td>
               <td>
-                <div style="margin-bottom, 4px;"><a href="#sec-4-1">4.1 Definición e invertibilidad</a></div>
-                <div style="margin-bottom, 4px;"><a href="#sec-4-2">4.2 Expansión de Laplace</a></div>
-                <div style="margin-bottom, 4px;"><a href="#sec-4-3">4.3 Casos 2×2, 3×3 y 4×4</a></div>
+                <div style="margin-bottom: 4px;"><a href="#sec-4-1">4.1 Definición e invertibilidad</a></div>
+                <div style="margin-bottom: 4px;"><a href="#sec-4-2">4.2 Expansión de Laplace</a></div>
+                <div style="margin-bottom: 4px;"><a href="#sec-4-3">4.3 Casos 2×2, 3×3 y 4×4</a></div>
                 <div><a href="#sec-4-4">4.4 Propiedades de los determinantes</a></div>
               </td>
             </tr>
@@ -92,8 +92,8 @@
               <td><span class="badge">05</span></td>
               <td><a href="#mod-5">Operaciones Elementales y Eliminación</a></td>
               <td>
-                <div style="margin-bottom, 4px;"><a href="#sec-5-1">5.1 Operaciones elementales</a></div>
-                <div style="margin-bottom, 4px;"><a href="#sec-5-2">5.2 Eliminación Gaussiana</a></div>
+                <div style="margin-bottom: 4px;"><a href="#sec-5-1">5.1 Operaciones elementales</a></div>
+                <div style="margin-bottom: 4px;"><a href="#sec-5-2">5.2 Eliminación Gaussiana</a></div>
                 <div><a href="#sec-5-3">5.3 Eliminación Gauss-Jordan</a></div>
               </td>
             </tr>
@@ -101,8 +101,8 @@
               <td><span class="badge">06</span></td>
               <td><a href="#mod-6">Sistemas de Ecuaciones Lineales</a></td>
               <td>
-                <div style="margin-bottom, 4px;"><a href="#sec-6-1">6.1 Representación matricial</a></div>
-                <div style="margin-bottom, 4px;"><a href="#sec-6-2">6.2 Criterios de consistencia</a></div>
+                <div style="margin-bottom: 4px;"><a href="#sec-6-1">6.1 Representación matricial</a></div>
+                <div style="margin-bottom: 4px;"><a href="#sec-6-2">6.2 Criterios de consistencia</a></div>
                 <div><a href="#sec-6-3">6.3 Métodos de resolución</a></div>
               </td>
             </tr>
@@ -121,11 +121,11 @@
     <!-- MÓDULO 1 -->
     <!-- ===================================================================== -->
     <section class="card" id="mod-1">
-      <h2 class="module-title"><span class="badge">MÓDULO 01</span> Álgebra de Matrices, Operaciones Básicas</h2>
+      <h2 class="module-title"><span class="badge">MÓDULO 01</span> Álgebra de Matrices: Operaciones Básicas</h2>
 
       <p>Para operar con matrices y establecer comparaciones, es fundamental conocer las condiciones estructurales y las
         reglas que rigen cada operación. A continuación se describen los conceptos fundamentales para matrices de mismas
-        dimensiones, la <strong>igualdad</strong> requiere que los elementos coincidan posición a posición; la
+        dimensiones: la <strong>igualdad</strong> requiere que los elementos coincidan posición a posición; la
         <strong>suma y resta</strong> se realizan entrada por entrada; y el <strong>producto por escalar</strong>
         multiplica cada elemento por un número real \(k\).
       </p>
@@ -157,8 +157,8 @@
 
       <h3 class="section-title" id="sec-1-1">1.1 Igualdad de Matrices</h3>
       <div class="callout callout-def">
-        <p style="margin,0;"><strong>📌 Definición 1.1.1.</strong> Dos matrices $A$ y $B$ del mismo orden $m \times n$
-          son iguales si y solo si todos sus elementos correspondientes coinciden,</p>
+        <p style="margin:0;"><strong>📌 Definición 1.1.1.</strong> Dos matrices $A$ y $B$ del mismo orden $m \times n$
+          son iguales si y solo si todos sus elementos correspondientes coinciden:</p>
         $$A = B \Leftrightarrow a_{ij} = b_{ij} \quad \forall i, j$$
       </div>
 
@@ -173,14 +173,14 @@
           <summary>🔍 Ver solución</summary>
           <div class="solution-content">
             <p>Como ambas matrices comparten el mismo orden $(2 \times 2)$, igualamos algebraicamente cada elemento de
-              $M$ con su homólogo exacto en $N$ $(m_{ij} = n_{ij})$,</p>
+              $M$ con su homólogo exacto en $N$ $(m_{ij} = n_{ij})$:</p>
             <ul>
-              <li><strong>Posición (1,1),</strong> $x + 1 = 5 \Rightarrow x = 4$</li>
-              <li><strong>Posición (1,2),</strong> $2y = -4 \Rightarrow y = -2$</li>
-              <li><strong>Posición (2,1),</strong> $z - 3 = 0 \Rightarrow z = 3$</li>
-              <li><strong>Posición (2,2),</strong> $w = 7$</li>
+              <li><strong>Posición (1,1):</strong> $x + 1 = 5 \Rightarrow x = 4$</li>
+              <li><strong>Posición (1,2):</strong> $2y = -4 \Rightarrow y = -2$</li>
+              <li><strong>Posición (2,1):</strong> $z - 3 = 0 \Rightarrow z = 3$</li>
+              <li><strong>Posición (2,2):</strong> $w = 7$</li>
             </ul>
-            <p>Las condiciones necesarias y suficientes para que se cumpla $M = N$ son, $x = 4$, $y = -2$, $z = 3$ y $w
+            <p>Las condiciones necesarias y suficientes para que se cumpla $M = N$ son: $x = 4$, $y = -2$, $z = 3$ y $w
               = 7$.</p>
           </div>
         </details>
@@ -191,7 +191,7 @@
         realiza entrada por entrada.</p>
 
       <div class="example-box">
-        <p><strong>🧩 Ejemplo 1.2.1.</strong> Dadas las matrices $A$ y $B$ de orden $2 \times 2$, calcule $A + B$,</p>
+        <p><strong>🧩 Ejemplo 1.2.1.</strong> Dadas las matrices $A$ y $B$ de orden $2 \times 2$, calcule $A + B$:</p>
         $$\begin{aligned}
         A &= \begin{pmatrix} 2 & -1 \\ 4 & 0 \end{pmatrix} \\[4pt]
         B &= \begin{pmatrix} 3 & 5 \\ -2 & 1 \end{pmatrix}
@@ -208,7 +208,7 @@
       </div>
 
       <div class="example-box">
-        <p><strong>🧩 Ejemplo 1.2.2.</strong> Dadas $A$ y $B$ de orden $2 \times 2$, determine $A - B$,</p>
+        <p><strong>🧩 Ejemplo 1.2.2.</strong> Dadas $A$ y $B$ de orden $2 \times 2$, determine $A - B$:</p>
         $$\begin{aligned}
         A &= \begin{pmatrix} 2 & -1 \\ 4 & 0 \end{pmatrix} \\[4pt]
         B &= \begin{pmatrix} 3 & 5 \\ -2 & 1 \end{pmatrix}
@@ -216,9 +216,9 @@
         <details class="solution">
           <summary>🔍 Ver solución</summary>
           <div class="solution-content">
-            <p>La resta se define como $A + (-1)\cdot B$. Primero calculamos el opuesto de $B$,</p>
+            <p>La resta se define como $A + (-1)\cdot B$. Primero calculamos el opuesto de $B$:</p>
             $$-B = \begin{pmatrix} -3 & -5 \\ 2 & -1 \end{pmatrix}$$
-            <p>Luego sumamos,</p>
+            <p>Luego sumamos:</p>
             $$\begin{aligned}
             A - B &= \begin{pmatrix} 2 + (-3) & -1 + (-5) \\ 4 + 2 & 0 + (-1) \end{pmatrix} \\[4pt]
             &= \begin{pmatrix} -1 & -6 \\ 6 & -1 \end{pmatrix}
@@ -228,7 +228,7 @@
       </div>
 
       <div class="example-box">
-        <p><strong>🧩 Ejemplo 1.2.3.</strong> Consideremos las matrices,</p>
+        <p><strong>🧩 Ejemplo 1.2.3.</strong> Consideremos las matrices:</p>
         $$\begin{aligned}
         C &= \begin{pmatrix} 1 & 2 \end{pmatrix} \\[4pt]
         D &= \begin{pmatrix} 3 \\ 4 \end{pmatrix}
@@ -238,7 +238,7 @@
           <summary>🔍 Ver solución</summary>
           <div class="solution-content">
             <p>La matriz $C$ tiene orden $1 \times 2$ y $D$ tiene orden $2 \times 1$. La suma $C + D$ <strong>no está
-                definida</strong>, la suma matricial requiere que las matrices tengan la misma dimensión. El elemento
+                definida</strong>: la suma matricial requiere que las matrices tengan la misma dimensión. El elemento
               $c_{1,2} = 2$ no tiene pareja en $D$. Por lo tanto, $C$ y $D$ no son conformables para la suma.</p>
           </div>
         </details>
@@ -246,14 +246,14 @@
 
       <h3 class="section-title" id="sec-1-3">1.3 Producto por Escalar</h3>
       <div class="callout callout-def">
-        <p style="margin,0;"><strong>📌 Definición 1.3.1.</strong> Al multiplicar una matriz $A$ por un escalar $k \in
-          \mathbb{R}$, cada elemento de $A$ se multiplica por $k$,</p>
+        <p style="margin:0;"><strong>📌 Definición 1.3.1.</strong> Al multiplicar una matriz $A$ por un escalar $k \in
+          \mathbb{R}$, cada elemento de $A$ se multiplica por $k$:</p>
         $$k \cdot A = (k \cdot a_{ij})$$
       </div>
 
       <div class="example-box">
         <p><strong>🧩 Ejemplo 1.3.1.</strong> Calcule el resultado de multiplicar la siguiente matriz por el escalar
-          $3$,</p>
+          $3$:</p>
         $$3 \cdot \begin{pmatrix} 1 & -2 \\ 4 & 5 \end{pmatrix}$$
         <details class="solution">
           <summary>🔍 Ver solución</summary>
@@ -277,25 +277,25 @@
       <h2 class="module-title"><span class="badge">MÓDULO 02</span> Producto, Potencias y Traspuesta</h2>
 
       <h3 class="section-title" id="sec-2-1">2.1 Producto de Matrices</h3>
-      <p>A diferencia de la suma o el escalamiento, el producto de matrices representa una transformación más compleja,
+      <p>A diferencia de la suma o el escalamiento, el producto de matrices representa una transformación más compleja:
         permite componer linealmente los datos contenidos en dos matrices.</p>
 
       <div class="callout callout-def">
-        <p style="margin,0;"><strong>📌 Definición 2.1.1.</strong> Dadas $A_{m \times n}$ y $B_{n \times p}$, su
+        <p style="margin:0;"><strong>📌 Definición 2.1.1.</strong> Dadas $A_{m \times n}$ y $B_{n \times p}$, su
           producto $C = AB$ es una matriz $C_{m \times p}$ donde cada elemento se calcula como el producto escalar entre
-          la fila $i$ de $A$ y la columna $j$ de $B$,</p>
+          la fila $i$ de $A$ y la columna $j$ de $B$:</p>
         $$\begin{aligned}
         c_{ij} &= \sum_{k=1}^{n} a_{ik}b_{kj} \\[4pt]
         &= a_{i1}b_{1j} + a_{i2}b_{2j} + \dots + a_{in}b_{nj}
         \end{aligned}$$
       </div>
 
-      <p><strong>Compatibilidad multiplicativa,</strong> la operación solo es posible si el número de columnas de $A$
+      <p><strong>Compatibilidad multiplicativa:</strong> la operación solo es posible si el número de columnas de $A$
         coincide con el número de filas de $B$.</p>
 
       <div class="example-box">
         <p><strong>🧩 Ejemplo 2.1.1.</strong> Dadas la matriz fila $A$ de orden $1 \times 3$ y la matriz columna $B$ de
-          orden $3 \times 1$,</p>
+          orden $3 \times 1$:</p>
         $$\begin{aligned}
         A &= \begin{pmatrix} 1 & 2 & 3 \end{pmatrix} \\[4pt]
         B &= \begin{pmatrix} 4 \\ 5 \\ 6 \end{pmatrix}
@@ -305,7 +305,7 @@
           <summary>🔍 Ver solución</summary>
           <div class="solution-content">
             <p>El producto está definido $(3$ columnas de $A$ = $3$ filas de $B)$ y resulta una matriz $1 \times 1$, es
-              decir, un escalar,</p>
+              decir, un escalar:</p>
             $$\begin{aligned}
             A \cdot B &= \begin{pmatrix} 1 & 2 & 3 \end{pmatrix} \begin{pmatrix} 4 \\ 5 \\ 6 \end{pmatrix} \\[4pt]
             &= (1 \cdot 4) + (2 \cdot 5) + (3 \cdot 6) \\[4pt]
@@ -319,10 +319,10 @@
 
       <h3 class="section-title" id="sec-2-2">2.2 Potencia de Matrices</h3>
       <div class="callout callout-def">
-        <p style="margin,0;"><strong>📌 Definición 2.2.1.</strong> Sea $A$ una matriz cuadrada de orden $n$. Para
-          cualquier entero positivo $k$,</p>
+        <p style="margin:0;"><strong>📌 Definición 2.2.1.</strong> Sea $A$ una matriz cuadrada de orden $n$. Para
+          cualquier entero positivo $k$:</p>
         $$A^k = \underbrace{A \cdot A \cdot \dots \cdot A}_{k \text{ veces}}$$
-        <p style="margin,0.5rem 0 0 0;">Por convención, si $A$ es no nula, $A^0 = I_n$ (matriz identidad de orden $n)$.
+        <p style="margin:0.5rem 0 0 0;">Por convención, si $A$ es no nula, $A^0 = I_n$ (matriz identidad de orden $n)$.
         </p>
       </div>
 
@@ -344,19 +344,19 @@
 
       <h3 class="section-title" id="sec-2-3">2.3 Trasposición</h3>
       <div class="callout callout-def">
-        <p style="margin,0;"><strong>📌 Definición 2.3.1.</strong> La traspuesta de $A$, denotada $A^T$, se obtiene al
+        <p style="margin:0;"><strong>📌 Definición 2.3.1.</strong> La traspuesta de $A$, denotada $A^T$, se obtiene al
           intercambiar filas por columnas. Si $A$ es de orden $m \times n$, entonces $A^T$ es de orden $n \times m$, y
           sus elementos cumplen $(A^T)_{ij} = a_{ji}$.
         </p>
       </div>
       <div class="example-box">
         <p><strong>🧩 Ejemplo 2.3.1.</strong> Halle la matriz traspuesta $(A^T)$ de la siguiente matriz $A$ de orden $2
-          \times 3$,</p>
+          \times 3$:</p>
         $$A = \begin{pmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{pmatrix}$$
         <details class="solution">
           <summary>🔍 Ver solución</summary>
           <div class="solution-content">
-            <p>Reescribimos secuencialmente cada fila de $A$ como columna,</p>
+            <p>Reescribimos secuencialmente cada fila de $A$ como columna:</p>
             <ul>
               <li>La <strong>primera fila</strong> $(1, 2, 3)$ se convierte en la <strong>primera columna</strong> de
                 $A^T$.</li>
@@ -380,29 +380,29 @@
 
       <h3 class="section-title" id="sec-4-1">4.1 Definición e Invertibilidad</h3>
       <div class="callout callout-def">
-        <p style="margin,0;"><strong>📌 Definición 4.1.1.</strong> El <strong>determinante</strong> es una función
+        <p style="margin:0;"><strong>📌 Definición 4.1.1.</strong> El <strong>determinante</strong> es una función
           escalar asignada exclusivamente a matrices cuadradas. Se denota $\det(A)$ o $|A|$, y contiene información
           sobre la naturaleza del sistema de ecuaciones asociado.</p>
       </div>
 
       <div class="callout callout-thm">
-        <p style="margin,0;"><strong>📐 Teorema 4.1.1.</strong> Una matriz cuadrada es <strong>invertible</strong> si y
-          solo si su determinante es distinto de cero,</p>
+        <p style="margin:0;"><strong>📐 Teorema 4.1.1.</strong> Una matriz cuadrada es <strong>invertible</strong> si y
+          solo si su determinante es distinto de cero:</p>
         $$A \text{ es invertible} \Leftrightarrow \det(A) \neq 0$$
-        <p style="margin,0.5rem 0 0 0;">Si $\det(A) = 0$, la matriz es <strong>singular</strong> (no invertible) y sus
+        <p style="margin:0.5rem 0 0 0;">Si $\det(A) = 0$, la matriz es <strong>singular</strong> (no invertible) y sus
           filas/columnas son linealmente dependientes.</p>
       </div>
 
       <h3 class="section-title" id="sec-4-2">4.2 Expansión de Laplace</h3>
       <div class="callout callout-thm">
-        <p style="margin,0;"><strong>📐 Teorema 4.2.1.</strong> Sea $A_{n \times n}$. Su determinante se calcula como,
+        <p style="margin:0;"><strong>📐 Teorema 4.2.1.</strong> Sea $A_{n \times n}$. Su determinante se calcula como:
         </p>
         $$\det(A) = \sum_{j=1}^n a_{ij} (-1)^{i+j} \det(M_{ij})$$
-        <p style="margin,0.5rem 0 0 0;">Donde $(-1)^{i+j}$ es el signo alternado $(+$ si $i+j$ par, $-$ si impar), y
+        <p style="margin:0.5rem 0 0 0;">Donde $(-1)^{i+j}$ es el signo alternado $(+$ si $i+j$ par, $-$ si impar), y
           $M_{ij}$ es la submatriz de orden $(n-1) \times (n-1)$ obtenida al eliminar la fila $i$ y la columna $j$.</p>
       </div>
 
-      <p>El procedimiento consiste en,</p>
+      <p>El procedimiento consiste en:</p>
       <ol>
         <li>Elegir una fila (o columna) cualquiera.</li>
         <li>Por cada elemento, determinar el signo según la suma $i+j$.</li>
@@ -412,7 +412,7 @@
       </ol>
 
       <h4 class="sub-title">Determinante de una matriz $2 \times 2$</h4>
-      <p>Para $A = \begin{pmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{pmatrix}$, desarrollando por la primera fila,
+      <p>Para $A = \begin{pmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{pmatrix}$, desarrollando por la primera fila:
       </p>
       $$\begin{aligned}
       \det(A) &= a_{11}(+1)\det(M_{11}) + a_{12}(-1)\det(M_{12}) \\[4pt]
@@ -421,7 +421,7 @@
 
       <h4 class="sub-title">Determinante de una matriz $3 \times 3$</h4>
       <p>Para $A = \begin{pmatrix} a_{11} & a_{12} & a_{13} \\ a_{21} & a_{22} & a_{23} \\ a_{31} & a_{32} & a_{33}
-        \end{pmatrix}$, con signos $(+,-,+)$ en la primera fila,</p>
+        \end{pmatrix}$, con signos $(+,-,+)$ en la primera fila:</p>
       $$\det(A) = a_{11}\det(M_{11}) - a_{12}\det(M_{12}) + a_{13}\det(M_{13})$$
       $$\begin{aligned}
       \det(A) &= a_{11}(a_{22}a_{33} - a_{23}a_{32}) \\[4pt]
@@ -431,29 +431,29 @@
 
       <h3 class="section-title" id="sec-4-3">4.3 Ejemplo — Determinante $4 \times 4$ por Laplace</h3>
       <div class="example-box">
-        <p><strong>🧩 Ejemplo 4.3.1.</strong> Considérese la siguiente matriz $A$ de orden $4 \times 4$,</p>
+        <p><strong>🧩 Ejemplo 4.3.1.</strong> Considérese la siguiente matriz $A$ de orden $4 \times 4$:</p>
         $$A = \begin{pmatrix} 2 & 0 & 1 & 0 \\ 0 & 3 & 0 & 4 \\ -1 & 0 & 0 & 5 \\ 0 & 2 & 0 & 0 \end{pmatrix}$$
         <p>Calcule el valor de su determinante aplicando el desarrollo por cofactores.</p>
         <details class="solution">
           <summary>🔍 Ver solución</summary>
           <div class="solution-content">
-            <p>Aplicamos el desarrollo a lo largo de la primera fila con signos alternados $(+,-,+,-)$,</p>
+            <p>Aplicamos el desarrollo a lo largo de la primera fila con signos alternados $(+,-,+,-)$:</p>
             $$\begin{aligned}
             \det(A) &= 2\det(M_{11}) - 0\det(M_{12}) \\[4pt]
             &\quad + 1\det(M_{13}) - 0\det(M_{14})
             \end{aligned}$$
-            <p><strong>Menor $M_{11}$</strong> (eliminando fila 1 y columna 1),</p>
+            <p><strong>Menor $M_{11}$</strong> (eliminando fila 1 y columna 1):</p>
             $$M_{11} = \begin{pmatrix} 3 & 0 & 4 \\ 0 & 0 & 5 \\ 2 & 0 & 0 \end{pmatrix}$$
             <p>Su segunda columna es nula, por lo que $\det(M_{11}) = 0$.</p>
-            <p><strong>Menor $M_{13}$</strong> (eliminando fila 1 y columna 3),</p>
+            <p><strong>Menor $M_{13}$</strong> (eliminando fila 1 y columna 3):</p>
             $$M_{13} = \begin{pmatrix} 0 & 3 & 4 \\ -1 & 0 & 5 \\ 0 & 2 & 0 \end{pmatrix}$$
-            <p>Desarrollando por la primera columna,</p>
+            <p>Desarrollando por la primera columna:</p>
             $$\begin{aligned}
             \det(M_{13}) &= -(-1)\cdot\det\begin{pmatrix} 3 & 4 \\ 2 & 0 \end{pmatrix} \\[4pt]
             &= (+1)(3 \cdot 0 - 4 \cdot 2) \\[4pt]
             &= -8
             \end{aligned}$$
-            <p>Por lo tanto,</p>
+            <p>Por lo tanto:</p>
             $$\begin{aligned}
             \det(A) &= 2(0) + 1(-8) \\[4pt]
             &= \mathbf{-8}
@@ -474,24 +474,24 @@
 
       <h3 class="section-title" id="sec-5-1">5.1 Operaciones Elementales</h3>
       <div class="callout callout-def">
-        <p style="margin,0;"><strong>📌 Definición 5.1.1.</strong> Transformaciones básicas que permiten modificar las
-          filas de una matriz sin alterar su información esencial,</p>
-        <ol style="margin,0.5rem 0 0 0;">
-          <li><strong>Intercambio.</strong> Permutar la posición de dos filas, $F_i \leftrightarrow F_j$.</li>
-          <li><strong>Escalamiento.</strong> Multiplicar todos los elementos de una fila por un escalar no nulo, $F_i
+        <p style="margin:0;"><strong>📌 Definición 5.1.1.</strong> Transformaciones básicas que permiten modificar las
+          filas de una matriz sin alterar su información esencial:</p>
+        <ol style="margin:0.5rem 0 0 0;">
+          <li><strong>Intercambio.</strong> Permutar la posición de dos filas: $F_i \leftrightarrow F_j$.</li>
+          <li><strong>Escalamiento.</strong> Multiplicar todos los elementos de una fila por un escalar no nulo: $F_i
             \leftarrow kF_i \;(k \neq 0)$.</li>
-          <li><strong>Sustitución.</strong> Reemplazar una fila por ella misma más un múltiplo de otra, $F_i \leftarrow
+          <li><strong>Sustitución.</strong> Reemplazar una fila por ella misma más un múltiplo de otra: $F_i \leftarrow
             F_i + kF_j$.</li>
         </ol>
       </div>
 
       <h4 class="sub-title">Matrices Elementales y Equivalencia por Filas</h4>
-      <p>Cada operación elemental aplicada sobre la matriz identidad define una <strong>matriz elemental</strong>,</p>
+      <p>Cada operación elemental aplicada sobre la matriz identidad define una <strong>matriz elemental</strong>:</p>
       $$I_n \xrightarrow{\text{1 op.}} E_1$$
       <p>Cada matriz elemental $E_i$ puede revertirse a la identidad con otra operación elemental del mismo tipo. Si se
         aplican varias operaciones sucesivas, se define la <strong>matriz de transformación</strong> $E$ como el
         producto
-        de las matrices elementales asociadas,</p>
+        de las matrices elementales asociadas:</p>
       $$I_n \xrightarrow{op_1} E_1 \xrightarrow{op_2} E_2 \longrightarrow \dots \longrightarrow E_{k-1}
       \xrightarrow{op_k}
       E$$
@@ -500,7 +500,7 @@
 
       <div class="example-box">
         <p><strong>🧩 Ejemplo 5.1.1.</strong> Dada $I_3$, halle las matrices elementales resultantes al aplicar las
-          siguientes operaciones,</p>
+          siguientes operaciones:</p>
         <ul>
           <li>Multiplicar la segunda fila por $5$ $(F_2 \leftarrow 5F_2)$.</li>
           <li>Multiplicar la primera fila por $-3$ y sumarla a la tercera $(F_3 \leftarrow F_3 - 3F_1)$.</li>
@@ -510,13 +510,13 @@
           <summary>🔍 Ver solución</summary>
           <div class="solution-content">
             <ul>
-              <li><strong>$F_2 \leftarrow 5F_2$,</strong>
+              <li><strong>$F_2 \leftarrow 5F_2$:</strong>
                 $$\begin{pmatrix} 1 & 0 & 0 \\ 0 & 5 & 0 \\ 0 & 0 & 1 \end{pmatrix}$$
               </li>
-              <li><strong>$F_3 \leftarrow F_3 - 3F_1$,</strong>
+              <li><strong>$F_3 \leftarrow F_3 - 3F_1$:</strong>
                 $$\begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ -3 & 0 & 1 \end{pmatrix}$$
               </li>
-              <li><strong>$F_2 \leftrightarrow F_3$,</strong>
+              <li><strong>$F_2 \leftrightarrow F_3$:</strong>
                 $$\begin{pmatrix} 1 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1 & 0 \end{pmatrix}$$
               </li>
             </ul>
@@ -526,11 +526,11 @@
 
       <h3 class="section-title" id="sec-5-2">5.2 Eliminación Gaussiana</h3>
       <p>El objetivo es obtener la <strong>forma escalonada</strong> de una matriz. El primer elemento no nulo de cada
-        fila se denomina <strong>elemento pivote</strong>. Una matriz está en forma escalonada si,</p>
+        fila se denomina <strong>elemento pivote</strong>. Una matriz está en forma escalonada si:</p>
       <ol>
         <li>Si el pivote es cero, se intercambia la fila con una inferior que tenga elemento no nulo en esa columna.
         </li>
-        <li>Todos los elementos por debajo de un pivote se anulan usando,
+        <li>Todos los elementos por debajo de un pivote se anulan usando:
           $$F_i \leftarrow F_i - \left(\frac{b}{\text{pivote}}\right) F_{\text{pivote}}$$
           donde $b$ es el elemento a anular.
         </li>
@@ -539,7 +539,7 @@
       </ol>
 
       <p>Al concatenar $A$ con $I$ y aplicar operaciones por fila, se obtienen simultáneamente la forma escalonada $U$ y
-        la matriz de transformación $E$,</p>
+        la matriz de transformación $E$:</p>
       $$[A \mid I] \xrightarrow{\text{operaciones}} [U \mid E]$$
       <p>Estas matrices cumplen la relación $EA = U$.</p>
 
@@ -587,33 +587,33 @@
 
       <h3 class="section-title" id="sec-5-3">5.3 Eliminación de Gauss-Jordan</h3>
       <p>Continuando el proceso sobre la forma escalonada se llega a la <strong>forma escalonada reducida por
-          filas</strong>. Requisitos adicionales,</p>
+          filas</strong>. Requisitos adicionales:</p>
       <ol start="5">
-        <li>Cada pivote debe ser igual a $1$, $F_{\text{pivote}} \leftarrow \left(\frac{1}{\text{pivote}}\right)
+        <li>Cada pivote debe ser igual a $1$: $F_{\text{pivote}} \leftarrow \left(\frac{1}{\text{pivote}}\right)
           F_{\text{pivote}}$.</li>
-        <li>Los elementos tanto por encima como por debajo de cada pivote deben ser cero, $F_i \leftarrow F_i - c \cdot
+        <li>Los elementos tanto por encima como por debajo de cada pivote deben ser cero: $F_i \leftarrow F_i - c \cdot
           F_{\text{pivote}}$.</li>
       </ol>
 
       <div class="callout callout-thm">
-        <p style="margin,0;"><strong>📐 Teorema 5.3.1.</strong> Si $A$ es cuadrada de orden $n$ y al aplicar
+        <p style="margin:0;"><strong>📐 Teorema 5.3.1.</strong> Si $A$ es cuadrada de orden $n$ y al aplicar
           Gauss-Jordan
           se obtienen $n$ pivotes, entonces $A \sim I_n$. La matriz de transformación $E$ resultante es la inversa de
-          $A$,
+          $A$:
         </p>
         $$[A \mid I_n] \xrightarrow{\text{operaciones}} [I_n \mid A^{-1}]$$
-        <p style="margin,0.5rem 0 0 0;">En tal caso $A^{-1}A = AA^{-1} = I_n$ y $A$ se denomina
+        <p style="margin:0.5rem 0 0 0;">En tal caso $A^{-1}A = AA^{-1} = I_n$ y $A$ se denomina
           <strong>invertible</strong> o <strong>no singular</strong>.
         </p>
       </div>
 
-      <p><strong>Propiedades de la forma reducida,</strong></p>
+      <p><strong>Propiedades de la forma reducida:</strong></p>
       <ul>
         <li>La forma escalonada reducida por filas es <strong>única</strong>.</li>
         <li>El número de pivotes en la forma escalonada define el <strong>rango</strong> de la matriz, denotado
           $\text{rango}(A)$ o $\text{ran}(A)$.</li>
-        <li>Para $A$ de orden $n$, $U_{red} = I_n \Leftrightarrow \text{rango}(A) = n$ (rango máximo, $n$ pivotes).</li>
-        <li>Si $A$ no es inversible, $U_{red} \neq I_n$, $\text{rango}(A) < n$ y tiene menos de $n$ pivotes.</li>
+        <li>Para $A$ de orden $n$: $U_{red} = I_n \Leftrightarrow \text{rango}(A) = n$ (rango máximo, $n$ pivotes).</li>
+        <li>Si $A$ no es inversible: $U_{red} \neq I_n$, $\text{rango}(A) < n$ y tiene menos de $n$ pivotes.</li>
       </ul>
 
       <div class="example-box">
@@ -634,7 +634,7 @@
       </div>
 
       <div class="example-box">
-        <p><strong>🧩 Ejemplo 5.3.2.</strong> Identifique y justifique las estructuras de las siguientes matrices,</p>
+        <p><strong>🧩 Ejemplo 5.3.2.</strong> Identifique y justifique las estructuras de las siguientes matrices:</p>
         $$\begin{aligned}
         A &= \begin{pmatrix} 2 & 3 & 2 & 1 \\ 0 & 0 & 5 & 4 \\ 0 & 0 & 0 & 0 \end{pmatrix} \\[6pt]
         B &= \begin{pmatrix} 1 & 2 & 0 & 1 \\ 0 & 0 & 1 & 3 \\ 0 & 0 & 0 & 0 \end{pmatrix} \\[6pt]
@@ -644,7 +644,7 @@
           <summary>🔍 Ver solución</summary>
           <div class="solution-content">
             <p>
-              <strong>Primero,</strong><br>
+              <strong>Primero:</strong><br>
               La matriz <em>A</em> (orden 3 &times; 4) tiene pivotes en <em>a</em><sub>11</sub> = 2 y
               <em>a</em><sub>23</sub> = 5, con la fila 3 nula al final y ceros debajo de cada pivote.
               Está en forma escalonada, pero no en forma reducida porque el pivote 5 &ne; 1 y hay un 2
@@ -652,14 +652,14 @@
             </p>
 
             <p>
-              <strong>Luego,</strong><br>
+              <strong>Luego:</strong><br>
               La matriz <em>B</em> (orden 3 &times; 4) tiene pivotes unitarios
               <em>b</em><sub>11</sub> = 1 y <em>b</em><sub>23</sub> = 1, con ceros debajo y encima de los
               pivotes correspondientes y la fila nula al final. Está en forma escalonada reducida por filas.
             </p>
 
             <p>
-              <strong>Finalmente,</strong><br>
+              <strong>Finalmente:</strong><br>
               La matriz <em>C</em> (orden 2 &times; 3) tiene el primer pivote de la fila 1 en la columna 2 y
               el de la fila 2 en la columna 1, es decir, a la izquierda del pivote superior. Esto viola la
               condición de escalonamiento, por lo que <em>C</em> no está en forma escalonada; se corregiría
@@ -684,15 +684,15 @@
         sistemas mediante matrices para facilitar su análisis y resolución.</p>
 
       <div class="callout callout-def">
-        <div class="callout-title">📌 Definición, Sistema de ecuaciones</div>
-        <p style="margin,0;">Un sistema de $m$ ecuaciones lineales con $n$ incógnitas se expresa formalmente como,</p>
+        <div class="callout-title">📌 Definición: Sistema de ecuaciones</div>
+        <p style="margin:0;">Un sistema de $m$ ecuaciones lineales con $n$ incógnitas se expresa formalmente como:</p>
         $$\begin{align*}
         a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n &= b_1 \\
         a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n &= b_2 \\
         \vdots \hspace{2cm} \vdots \hspace{2cm} \vdots & \\
         a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n &= b_m
         \end{align*}$$
-        <p style="margin,0.5rem 0 0 0;">El cual puede separarse en un producto matricial de la siguiente manera,</p>
+        <p style="margin:0.5rem 0 0 0;">El cual puede separarse en un producto matricial de la siguiente manera:</p>
         $$\begin{pmatrix}
         a_{11} & a_{12} & \dots & a_{1n} \\
         a_{21} & a_{22} & \dots & a_{2n} \\
@@ -702,9 +702,9 @@
         \begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{pmatrix}
         =
         \begin{pmatrix} b_1 \\ b_2 \\ \vdots \\ b_m \end{pmatrix}$$
-        <p style="margin,0.5rem 0 0 0;">Este sistema puede condensarse en la forma matricial <strong>$Ax = b$</strong>,
-          donde,</p>
-        <ul style="margin,0.5rem 0 0 0;">
+        <p style="margin:0.5rem 0 0 0;">Este sistema puede condensarse en la forma matricial <strong>$Ax = b$</strong>,
+          donde:</p>
+        <ul style="margin:0.5rem 0 0 0;">
           <li>$A \in \mathbb{R}^{m \times n}$ es la <strong>matriz de coeficientes</strong>.</li>
           <li>$x \in \mathbb{R}^{n \times 1}$ es el <strong>vector columna de incógnitas</strong> $(x_1, x_2, \dots,
             x_n)^T$.</li>
@@ -715,7 +715,7 @@
       </div>
 
       <p>A partir de esto, definimos la <strong>matriz ampliada</strong> del sistema, denotada como $A^*$ o $[A|b]$,
-        agregando el vector de términos independientes como una última columna separada por una barra vertical,</p>
+        agregando el vector de términos independientes como una última columna separada por una barra vertical:</p>
       $$A^* = \left[
       \begin{array}{cccc|c}
       a_{11} & a_{12} & \dots & a_{1n} & b_1 \\
@@ -735,16 +735,16 @@
 
       <div class="callout callout-thm">
         <div class="callout-title">📐 Clasificación mediante determinante</div>
-        <ul style="margin,0;">
+        <ul style="margin:0;">
           <li>Si $\det(A) \neq 0$, la matriz es invertible y el sistema es <strong>Consistente Determinado</strong>,
             garantizando una solución única.</li>
           <li>Si $\det(A) = 0$, la matriz es <strong>singular</strong> y el sistema no posee solución única. Puede
-            ocurrir,
-            <ol style="margin,0.4rem 0 0 0;">
-              <li>Si durante la reducción se obtiene una fila $[0 \dots 0 \mid c]$ con $c \neq 0$, contradicción $0 =
+            ocurrir:
+            <ol style="margin:0.4rem 0 0 0;">
+              <li>Si durante la reducción se obtiene una fila $[0 \dots 0 \mid c]$ con $c \neq 0$: contradicción $0 =
                 c$.
                 Sistema <strong>Inconsistente</strong> (sin solución).</li>
-              <li>Si la reducción produce una fila $[0 \dots 0 \mid 0]$, sistema <strong>Consistente
+              <li>Si la reducción produce una fila $[0 \dots 0 \mid 0]$: sistema <strong>Consistente
                   Indeterminado</strong> con variables libres (infinitas soluciones).</li>
             </ol>
           </li>
@@ -753,11 +753,11 @@
 
       <h4 class="sub-title">Clasificación mediante el Análisis de Rangos</h4>
       <div class="callout callout-thm">
-        <div class="callout-title">📐 Teorema, Clasificación de un SEL</div>
-        <p style="margin,0;">Dado un sistema con $n$ incógnitas, analizamos el rango de $A$ y de la matriz ampliada
-          $A^*$,
+        <div class="callout-title">📐 Teorema: Clasificación de un SEL</div>
+        <p style="margin:0;">Dado un sistema con $n$ incógnitas, analizamos el rango de $A$ y de la matriz ampliada
+          $A^*$:
         </p>
-        <div class="table-wrapper" style="margin,0.8rem 0 0 0;">
+        <div class="table-wrapper" style="margin:0.8rem 0 0 0;">
           <table>
             <thead>
               <tr>
@@ -775,7 +775,7 @@
               <tr>
                 <td>Compatible indeterminado</td>
                 <td>$\operatorname{rg} A^{*} = \operatorname{rg} A < n$</td>
-                <td>Infinitas (parámetros libres, $n-\operatorname{rg} A)$</td>
+                <td>Infinitas (parámetros libres: $n-\operatorname{rg} A)$</td>
               </tr>
               <tr>
                 <td>Incompatible</td>
@@ -789,14 +789,14 @@
 
       <h4 class="sub-title">Sistemas Homogéneos y Estructura de la Solución General</h4>
       <div class="callout callout-def">
-        <div class="callout-title">📌 Definición, Sistema Homogéneo</div>
-        <p style="margin,0;">El sistema $Ax=0$ se denomina <strong>Homogéneo</strong> y es <strong>siempre
+        <div class="callout-title">📌 Definición: Sistema Homogéneo</div>
+        <p style="margin:0;">El sistema $Ax=0$ se denomina <strong>Homogéneo</strong> y es <strong>siempre
             consistente</strong> (el vector nulo $\vec{x}=\vec{0}$ siempre es solución).</p>
       </div>
 
       <div class="callout callout-thm">
-        <div class="callout-title">📐 Teorema, Solución general</div>
-        <p style="margin,0;">Sea un sistema $A\vec{x}=\vec{b}$ compatible con una solución particular $\vec{p}$.
+        <div class="callout-title">📐 Teorema: Solución general</div>
+        <p style="margin:0;">Sea un sistema $A\vec{x}=\vec{b}$ compatible con una solución particular $\vec{p}$.
           Entonces
           la solución general de $A\vec{x}=\vec{b}$ es
           $$\vec{x} = \vec{p} + \vec{x}_h$$
@@ -811,7 +811,7 @@
 
       <div class="callout callout-def">
         <div class="callout-title">📌 Eliminación de Gauss</div>
-        <p style="margin,0;">Consiste en aplicar operaciones elementales en la matriz aumentada $[A|b]$ para llevarla a
+        <p style="margin:0;">Consiste en aplicar operaciones elementales en la matriz aumentada $[A|b]$ para llevarla a
           una <strong>forma escalonada por filas</strong>. Una vez obtenida, el sistema se resuelve mediante una
           <strong>sustitución regresiva</strong>.
         </p>
@@ -819,21 +819,21 @@
 
       <div class="callout callout-def">
         <div class="callout-title">📌 Eliminación de Gauss-Jordan</div>
-        <p style="margin,0;">Es una extensión del método anterior que continúa el proceso operando tanto debajo como por
+        <p style="margin:0;">Es una extensión del método anterior que continúa el proceso operando tanto debajo como por
           encima de los pivotes hasta obtener la <strong>forma escalonada reducida por filas</strong>. Permite leer las
           soluciones directamente.</p>
       </div>
 
       <div class="example-box">
-        <div class="example-header">🧩 Ejemplo 6.1,</div>
-        <p>Dado el siguiente sistema de 3 ecuaciones con 3 incógnitas,</p>
+        <div class="example-header">🧩 Ejemplo 6.1:</div>
+        <p>Dado el siguiente sistema de 3 ecuaciones con 3 incógnitas:</p>
         $$\begin{align*}
         x + y - z &= 1 \\
         -2x - y + z &= 2 \\
         3x &= 3
         \end{align*}$$
         <p>Determine su representación matricial $Ax=b$, construya la matriz aumentada $[A|b]$ y analice el tipo de
-          sistema bajo dos escenarios,</p>
+          sistema bajo dos escenarios:</p>
         <ul>
           <li><strong>A)</strong> $b = (1, 2, 3)^T$</li>
           <li><strong>B)</strong> $b = (1, 2, 5)^T$</li>
@@ -841,20 +841,20 @@
         <details class="solution">
           <summary>🔍 Ver solución</summary>
           <div class="solution-content">
-            <p><strong>Representación matricial,</strong></p>
+            <p><strong>Representación matricial:</strong></p>
             $$\begin{pmatrix} 1 & 1 & -1 \\ -2 & -1 & 1 \\ 3 & 0 & 0 \end{pmatrix}
             \begin{pmatrix} x \\ y \\ z \end{pmatrix} =
             \begin{pmatrix} 1 \\ 2 \\ 3 \end{pmatrix}$$
-            <p><strong>Determinante de $A$,</strong></p>
+            <p><strong>Determinante de $A$:</strong></p>
             $$\det(A) = 1(0) - 1(-3) - 1(3) = 0$$
-            <p>El sistema no tendrá solución única. Construimos la matriz aumentada,</p>
+            <p>El sistema no tendrá solución única. Construimos la matriz aumentada:</p>
             $$[A|b] = \left[ \begin{array}{ccc|c}
             1 & 1 & -1 & 1 \\
             -2 & -1 & 1 & 2 \\
             3 & 0 & 0 & 3
             \end{array} \right]$$
 
-            <p><strong>Escenario A, $b = (1,2,3)^T$ — Inconsistente</strong></p>
+            <p><strong>Escenario A: $b = (1,2,3)^T$ — Inconsistente</strong></p>
             $$\left[ \begin{array}{ccc|c}
             1 & 1 & -1 & 1 \\
             -2 & -1 & 1 & 2 \\
@@ -875,7 +875,7 @@
             <p>La última fila representa \(0x + 0y + 0z = 12\), es decir, \(0 = 12\). Es una <strong>contradicción
                 matemática</strong>. El sistema es <strong>Inconsistente</strong> (no tiene solución).</p>
 
-            <p><strong>Escenario B, $b = (1,2,5)^T$ — Inconsistente</strong></p>
+            <p><strong>Escenario B: $b = (1,2,5)^T$ — Inconsistente</strong></p>
             $$\left[ \begin{array}{ccc|c}
             1 & 1 & -1 & 1 \\
             -2 & -1 & 1 & 2 \\
@@ -900,8 +900,8 @@
       </div>
 
       <div class="example-box">
-        <div class="example-header">🧩 Ejemplo 6.2,</div>
-        <p>Dado el siguiente sistema de ecuaciones,</p>
+        <div class="example-header">🧩 Ejemplo 6.2:</div>
+        <p>Dado el siguiente sistema de ecuaciones:</p>
         $$\begin{align*}
         x + y + z &= 6 \\
         2x - y + 3z &= 9 \\
@@ -913,7 +913,7 @@
         <details class="solution">
           <summary>🔍 Ver solución</summary>
           <div class="solution-content">
-            <p><strong>Fase 1, Eliminación de Gauss (forma escalonada)</strong></p>
+            <p><strong>Fase 1: Eliminación de Gauss (forma escalonada)</strong></p>
             $$\left[ \begin{array}{ccc|c}
             1 & 1 & 1 & 6 \\
             2 & -1 & 3 & 9 \\
@@ -931,14 +931,14 @@
             0 & -3 & 1 & -3 \\
             0 & 0 & 1 & 3
             \end{array} \right]$$
-            <p>Por sustitución hacia atrás,</p>
+            <p>Por sustitución hacia atrás:</p>
             $$\begin{align*}
             z = 3 &\Rightarrow z = 3 \\
             -3y + z = -3 \Rightarrow -3y + 3 = -3 &\Rightarrow y = 2 \\
             x + y + z = 6 \Rightarrow x + 2 + 3 = 6 &\Rightarrow x = 1
             \end{align*}$$
 
-            <p><strong>Fase 2, Gauss-Jordan (forma escalonada reducida)</strong></p>
+            <p><strong>Fase 2: Gauss-Jordan (forma escalonada reducida)</strong></p>
             $$\left[ \begin{array}{ccc|c}
             1 & 1 & 1 & 6 \\
             0 & -3 & 1 & -3 \\
@@ -963,7 +963,7 @@
             0 & 0 & 1 & 3
             \end{array} \right]$$
             <p>La matriz está en <strong>forma escalonada reducida por filas</strong>. El vector solución se lee
-              directamente,</p>
+              directamente:</p>
             $$x = 1, \quad y = 2, \quad z = 3$$
             <p>Es un <strong>Sistema Consistente Determinado</strong>.</p>
           </div>
@@ -978,8 +978,8 @@
     <!-- ===================================================================== -->
     <section class="card" id="bibliografia">
       <h2 class="module-title">📚 Bibliografía</h2>
-      <ul style="line-height,1.9;">
-        <li>Anton, H., &amp; Rorres, C. <em>Elementary Linear Algebra, Applications Version</em>. Wiley.</li>
+      <ul style="line-height:1.9;">
+        <li>Anton, H., &amp; Rorres, C. <em>Elementary Linear Algebra: Applications Version</em>. Wiley.</li>
         <li>Strang, G. <em>Linear Algebra and Its Applications</em>. Cengage Learning.</li>
         <li>Lay, D. C., Lay, S. R., &amp; McDonald, J. J. <em>Linear Algebra and Its Applications</em>. Pearson.</li>
         <li>Grossman, S. I. <em>Álgebra Lineal</em>. McGraw-Hill.</li>
@@ -989,8 +989,8 @@
       <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
     </section>
 
-    <footer style="text-align,center; color,var(--text-muted); font-size,0.88rem; margin-top,2rem;">
-      <p>Apuntes de Cálculo III — Autor, Diego Linares<br>
+    <footer style="text-align:center; color:var(--text-muted); font-size:0.88rem; margin-top:2rem;">
+      <p>Apuntes de Cálculo III — Autor: Diego Linares<br>
         Documento generado como material de estudio universitario.</p>
     </footer>
 
