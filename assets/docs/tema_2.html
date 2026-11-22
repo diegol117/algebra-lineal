@@ -134,7 +134,6 @@
               <a href="#sec-4-7">4.7 Del retículo al plano continuo</a><br>
               <a href="#sec-4-8">4.8 El span</a><br>
               <a href="#sec-4-9">4.9 Los escenarios $\mathbb{R}$, $\mathbb{R}^2$, $\mathbb{R}^3$</a><br>
-              <a href="#sec-4-10">4.10 Cambio de base</a>
             </td>
           </tr>
         </tbody>
@@ -1273,136 +1272,7 @@
     <!-- ============================================================ -->
     <!-- 4.10  CAMBIO DE BASE                                           -->
     <!-- ============================================================ -->
-    <h3 class="section-title" id="sec-4-10">4.10 Interpretación de dos Bases y Cambio de Base</h3>
 
-    <p>Cualquier espacio vectorial, como el plano $\mathbb{R}^2$, no está atado a la cuadrícula rectangular
-      habitual. Si elegimos dos pares diferentes de vectores linealmente independientes, obtenemos dos bases
-      alternativas, digamos $B = \{\mathbf{b}_1, \mathbf{b}_2\}$ y $C = \{\mathbf{c}_1, \mathbf{c}_2\}$,
-      ninguna de las cuales necesita coincidir con los ejes estándar.</p>
-
-    <p>Piensa en estas dos bases como dos sistemas de coordenadas oblicuos o “mapas con cuadrículas
-      inclinadas”. El punto o vector físico $\mathbf{w}$ en el espacio es único, pero sus “instrucciones de
-      navegación” (los vectores de coordenadas $[\mathbf{w}]_B$ y $[\mathbf{w}]_C$) se expresan en términos de
-      diferentes pasos a lo largo de los ejes de cada base.</p>
-
-    <p>La <strong>matriz de cambio de base</strong> de $C$ a $B$ ($P_{C \to B}$) actúa como el traductor directo
-      entre estas dos representaciones generales:</p>
-    <ul>
-      <li><strong>Su función geométrica:</strong> toma las coordenadas de un vector escritas en términos de la
-        base $C$ y las transforma en las coordenadas equivalentes que corresponden a la base $B$.</li>
-      <li><strong>Construcción y Operación:</strong> la matriz $P_{C \to B}$ se construye colocando en sus
-        columnas las coordenadas de los vectores de $C$ expresados en la base $B$, de modo que:
-        \[
-          [\mathbf{w}]_B = P_{C \to B} [\mathbf{w}]_C
-        \]</li>
-    </ul>
-
-    <div class="diagram-container">
-      <div>
-        <svg class="fig" viewBox="0 0 260 240" role="img" aria-label="Base alternativa B">
-          <line x1="10" y1="130" x2="250" y2="130" stroke="#e2e8f0" stroke-width="1"/>
-          <line x1="100" y1="230" x2="100" y2="15" stroke="#e2e8f0" stroke-width="1"/>
-          <circle cx="100" cy="130" r="2" fill="#1e293b"/>
-
-          <line x1="100" y1="130" x2="140" y2="110" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ah-blue)"/>
-          <text x="143" y="108" font-size="12" fill="#2563eb" font-style="italic">b₁</text>
-          <line x1="100" y1="130" x2="120" y2="90" stroke="#dc2626" stroke-width="2.5" marker-end="url(#ah-red)"/>
-          <text x="122" y="86" font-size="12" fill="#dc2626" font-style="italic">b₂</text>
-
-          <line x1="100" y1="130" x2="160" y2="70" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#ah-purple)"/>
-          <text x="163" y="68" font-size="14" fill="#7c3aed" font-style="italic">w</text>
-
-          <line x1="140" y1="110" x2="160" y2="70" stroke="#7c3aed" stroke-width="1" stroke-dasharray="3 2"/>
-          <line x1="120" y1="90"  x2="160" y2="70" stroke="#7c3aed" stroke-width="1" stroke-dasharray="3 2"/>
-
-          <text x="130" y="235" font-size="11" fill="#0f172a" text-anchor="middle">
-            <tspan font-weight="700">Base B</tspan>
-          </text>
-          <text x="130" y="252" font-size="10" fill="#475569" text-anchor="middle">[w]_B = (1, 1)</text>
-        </svg>
-      </div>
-      <div>
-        <svg class="fig" viewBox="0 0 260 240" role="img" aria-label="Base alternativa C">
-          <line x1="10" y1="130" x2="250" y2="130" stroke="#e2e8f0" stroke-width="1"/>
-          <line x1="100" y1="230" x2="100" y2="15" stroke="#e2e8f0" stroke-width="1"/>
-          <circle cx="100" cy="130" r="2" fill="#1e293b"/>
-
-          <line x1="100" y1="130" x2="150" y2="125" stroke="#16a34a" stroke-width="2.5" marker-end="url(#ah-green)"/>
-          <text x="153" y="122" font-size="12" fill="#16a34a" font-style="italic">c₁</text>
-          <line x1="100" y1="130" x2="60" y2="80" stroke="#ea580c" stroke-width="2.5" marker-end="url(#ah-orange)"/>
-          <text x="46" y="76" font-size="12" fill="#ea580c" font-style="italic">c₂</text>
-
-          <line x1="100" y1="130" x2="160" y2="70" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#ah-purple)"/>
-          <text x="163" y="68" font-size="14" fill="#7c3aed" font-style="italic">w</text>
-
-          <line x1="200" y1="120" x2="160" y2="70" stroke="#7c3aed" stroke-width="1" stroke-dasharray="3 2"/>
-          <line x1="60"  y1="80"  x2="160" y2="70" stroke="#7c3aed" stroke-width="1" stroke-dasharray="3 2"/>
-          <line x1="150" y1="125" x2="200" y2="120" stroke="#16a34a" stroke-width="1" stroke-dasharray="3 2"/>
-
-          <text x="130" y="235" font-size="11" fill="#0f172a" text-anchor="middle">
-            <tspan font-weight="700">Base C</tspan>
-          </text>
-          <text x="130" y="252" font-size="10" fill="#475569" text-anchor="middle">[w]_C = (2, 1)</text>
-        </svg>
-      </div>
-    </div>
-
-    <p>Es una observación geométrica fundamental notar que cualquier par de bases en $\mathbb{R}^2$ genera
-      exactamente el mismo espacio vectorial. Ninguna base otorga acceso a regiones del plano que otra no pueda
-      describir. Surge entonces una interrogante natural: <em>¿cuál es el propósito de realizar un cambio de
-      coordenadas si el espacio subyacente permanece inalterado?</em></p>
-
-    <p>La justificación principal radica en la <strong>perspectiva analítica</strong> y la <strong>conveniencia
-      computacional</strong>. El cambio de base no altera el espacio físico, sino que proporciona un marco de
-      referencia diseñado para simplificar drásticamente los cálculos y elucidar la acción de las
-      transformaciones sobre los vectores.</p>
-
-    <h4 class="sub-title">4.10.1 Simplificación de Transformaciones Lineales (Diagonalización)</h4>
-
-    <p>Considérese una transformación lineal representada por una matriz $A$, cuya acción geométrica altera los
-      vectores mediante rotaciones y escalamientos en distintas direcciones. En la base canónica (los ejes
-      estándar $x$ e $y$), las entradas de dicha matriz pueden no revelar su comportamiento geométrico
-      subyacente. Por ejemplo:</p>
-
-    \[
-      A = \begin{pmatrix} 4 & -2 \\ 1 & 1 \end{pmatrix}
-    \]
-
-    <p>Calcular potencias elevadas de esta matriz, como $A^{100}$, resulta en un proceso computacionalmente
-      arduo. Sin embargo, es posible determinar una base intrínseca al problema —conocida como
-      <strong>base de autovectores</strong> o <em>eigenvectores</em>— cuyos ejes se alineen de manera natural
-      con las direcciones de estiramiento y compresión de la transformación.</p>
-
-    <p>Al ejecutar un cambio hacia esta nueva base, la matriz original $A$ adopta una forma diagonal $D$
-      matemáticamente más tratable:</p>
-
-    \[
-      D = \begin{pmatrix} 3 & 0 \\ 0 & 2 \end{pmatrix}
-    \]
-
-    <p>En este nuevo sistema de coordenadas, la acción de la transformación se desacopla: la matriz simplemente
-      escala el primer componente por un factor de $3$ y el segundo por un factor de $2$. En consecuencia,
-      calcular $D^{100}$ es una operación trivial que consiste en elevar únicamente las entradas de la diagonal
-      principal.</p>
-
-    \[
-      D^{100} = \begin{pmatrix} 3^{100} & 0 \\ 0 & 2^{100} \end{pmatrix}
-    \]
-
-    <p>Bajo este contexto, la matriz de cambio de base actúa como un operador de traducción: proyecta un
-      problema complejo hacia un marco de referencia donde su resolución es directa, permitiendo posteriormente
-      mapear la solución de regreso al sistema de coordenadas original mediante:</p>
-
-    \[
-      A^{100} = P \, D^{100} \, P^{-1}
-    \]
-
-    <div class="callout callout-note">
-      <div class="callout-title">💡 Idea clave</div>
-      <p style="margin:0;">Cambiar de base no cambia el vector (ni la transformación), solo cambia el
-        <em>idioma</em> con el que lo describimos. Elegir el idioma correcto puede convertir un cálculo
-        intratable en uno trivial.</p>
-    </div>
 
     <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
   </section>

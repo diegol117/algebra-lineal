@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +9,7 @@
   <!-- KaTeX -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
-    onload="renderMathInElement(document.body, {
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
       delimiters: [
         {left: '$$', right: '$$', display: true},
         {left: '$', right: '$', display: false},
@@ -38,7 +38,10 @@
       --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
     }
 
-    * { box-sizing: border-box; scroll-behavior: smooth; }
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
 
     body {
       font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
@@ -49,7 +52,11 @@
       padding: 0;
     }
 
-    .container { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 5rem;
+    }
 
     header.doc-header {
       background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
@@ -73,14 +80,22 @@
       gap: 1rem;
       font-size: 0.92rem;
       color: #cbd5e1;
-      border-top: 1px solid rgba(255,255,255,0.15);
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
       padding-top: 0.85rem;
       margin-top: 0.85rem;
     }
 
-    .meta-bar span strong { color: #ffffff; }
+    .meta-bar span strong {
+      color: #ffffff;
+    }
 
-    .controls-bar { display: flex; justify-content: flex-end; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .controls-bar {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
 
     .btn {
       background: var(--surface);
@@ -92,10 +107,14 @@
       font-weight: 600;
       cursor: pointer;
       transition: all 0.15s ease;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     }
 
-    .btn:hover { background: var(--primary-light); border-color: var(--primary-border); color: var(--primary); }
+    .btn:hover {
+      background: var(--primary-light);
+      border-color: var(--primary-border);
+      color: var(--primary);
+    }
 
     .card {
       background: var(--surface);
@@ -129,31 +148,53 @@
       white-space: nowrap;
     }
 
-    h3.section-title { color: #0f172a; font-size: 1.25rem; margin-top: 1.8rem; margin-bottom: 0.75rem; }
-    h4.sub-title { color: #334155; font-size: 1.05rem; margin-top: 1.2rem; margin-bottom: 0.5rem; }
+    h3.section-title {
+      color: #0f172a;
+      font-size: 1.25rem;
+      margin-top: 1.8rem;
+      margin-bottom: 0.75rem;
+    }
 
-/* ---- 1) SVG: ocupa el ancho disponible con un tope reducido ---- */
-svg.fig {
-  display: block;
-  margin: 0 auto;
-  width: 100%;
-  max-width: min(100%, 432px);   /* antes 720 px → −40 % */
-  height: auto;
-}
-svg.fig.sm   { max-width: min(100%, 240px); }   /* antes 400 px */
-svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
+    h4.sub-title {
+      color: #334155;
+      font-size: 1.05rem;
+      margin-top: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
 
-/* ---- 2) Wrappers: los <div> dentro de .diagram-container ---- */
-.diagram-container > div {
-  flex: 1 1 192px;   /* antes 320 px → −40 % */
-  min-width: 0;
-  max-width: 100%;
-}
+    /* ---- 1) SVG: ocupa el ancho disponible con un tope reducido ---- */
+    svg.fig {
+      display: block;
+      margin: 0 auto;
+      width: 100%;
+      max-width: min(100%, 432px);
+      /* antes 720 px → −40 % */
+      height: auto;
+    }
 
-/* ---- 3) Contenedor: alinea arriba para que las captions queden parejas ---- */
-.diagram-container {
-  align-items: flex-start;
-}
+    svg.fig.sm {
+      max-width: min(100%, 240px);
+    }
+
+    /* antes 400 px */
+    svg.fig.wide {
+      max-width: min(100%, 540px);
+    }
+
+    /* antes 900 px */
+
+    /* ---- 2) Wrappers: los <div> dentro de .diagram-container ---- */
+    .diagram-container>div {
+      flex: 1 1 192px;
+      /* antes 320 px → −40 % */
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    /* ---- 3) Contenedor: alinea arriba para que las captions queden parejas ---- */
+    .diagram-container {
+      align-items: flex-start;
+    }
 
     .table-wrapper {
       overflow-x: auto;
@@ -162,7 +203,12 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       border: 1px solid var(--border);
     }
 
-    table { width: 100%; border-collapse: collapse; font-size: 0.95rem; background: var(--surface); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      background: var(--surface);
+    }
 
     th {
       background-color: #f1f5f9;
@@ -173,17 +219,51 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       border-bottom: 2px solid var(--border);
     }
 
-    td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background-color: #f8fafc; }
+    td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
 
-    table a { color: var(--primary); text-decoration: none; font-weight: 600; }
-    table a:hover { text-decoration: underline; }
+    tr:last-child td {
+      border-bottom: none;
+    }
 
-    .callout { border-left: 4px solid; border-radius: 0 10px 10px 0; padding: 1.1rem 1.35rem; margin: 1.25rem 0; }
-    .callout-def { background-color: var(--primary-light); border-color: var(--primary-border); }
-    .callout-thm { background-color: var(--secondary-light); border-color: var(--secondary-border); }
-    .callout-note { background-color: var(--accent-light); border-color: var(--accent-border); }
+    tr:hover td {
+      background-color: #f8fafc;
+    }
+
+    table a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    table a:hover {
+      text-decoration: underline;
+    }
+
+    .callout {
+      border-left: 4px solid;
+      border-radius: 0 10px 10px 0;
+      padding: 1.1rem 1.35rem;
+      margin: 1.25rem 0;
+    }
+
+    .callout-def {
+      background-color: var(--primary-light);
+      border-color: var(--primary-border);
+    }
+
+    .callout-thm {
+      background-color: var(--secondary-light);
+      border-color: var(--secondary-border);
+    }
+
+    .callout-note {
+      background-color: var(--accent-light);
+      border-color: var(--accent-border);
+    }
 
     .callout-title {
       font-weight: 700;
@@ -194,9 +274,17 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       font-size: 1rem;
     }
 
-    .callout-def .callout-title { color: var(--primary); }
-    .callout-thm .callout-title { color: var(--secondary); }
-    .callout-note .callout-title { color: var(--accent); }
+    .callout-def .callout-title {
+      color: var(--primary);
+    }
+
+    .callout-thm .callout-title {
+      color: var(--secondary);
+    }
+
+    .callout-note .callout-title {
+      color: var(--accent);
+    }
 
     .example-box {
       background: #fafafa;
@@ -238,7 +326,9 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       transition: background 0.15s ease;
     }
 
-    details.solution summary::-webkit-details-marker { display: none; }
+    details.solution summary::-webkit-details-marker {
+      display: none;
+    }
 
     details.solution summary::before {
       content: "▶";
@@ -247,10 +337,18 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       display: inline-block;
     }
 
-    details.solution[open] summary::before { transform: rotate(90deg); }
-    details.solution summary:hover { background: #e2e8f0; }
+    details.solution[open] summary::before {
+      transform: rotate(90deg);
+    }
 
-    .solution-content { padding: 1.1rem 1.25rem; border-top: 1px solid #e2e8f0; }
+    details.solution summary:hover {
+      background: #e2e8f0;
+    }
+
+    .solution-content {
+      padding: 1.1rem 1.25rem;
+      border-top: 1px solid #e2e8f0;
+    }
 
     .diagram-container {
       display: flex;
@@ -274,1008 +372,1320 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
     }
 
     /* === Gráficas reducidas (−40 %) y variantes === */
-    svg.fig      { display: block; margin: 0 auto; max-width: min(100%, 400px); height: auto; }
-    svg.fig.sm   { max-width: min(100%, 280px); }
-    svg.fig.wide { max-width: min(100%, 540px); }
+    svg.fig {
+      display: block;
+      margin: 0 auto;
+      max-width: min(100%, 400px);
+      height: auto;
+    }
 
-    .back-top { text-align: right; margin-top: 1.5rem; padding-top: 0.75rem; border-top: 1px solid var(--border); }
-    .back-top a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; font-weight: 600; }
-    .back-top a:hover { color: var(--primary); }
+    svg.fig.sm {
+      max-width: min(100%, 280px);
+    }
+
+    svg.fig.wide {
+      max-width: min(100%, 540px);
+    }
+
+    .back-top {
+      text-align: right;
+      margin-top: 1.5rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .back-top a {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .back-top a:hover {
+      color: var(--primary);
+    }
 
     @media (max-width: 640px) {
-      body { font-size: 0.96rem; line-height: 1.6; }
-      .container { padding: 0.9rem 0.85rem 3.5rem; }
+      body {
+        font-size: 0.96rem;
+        line-height: 1.6;
+      }
 
-      header.doc-header { padding: 1.4rem 1.15rem; border-radius: 12px; margin-bottom: 1.25rem; }
-      header.doc-header h1 { font-size: 1.45rem; line-height: 1.25; }
-      header.doc-header p { font-size: 0.95rem !important; }
+      .container {
+        padding: 0.9rem 0.85rem 3.5rem;
+      }
 
-      .meta-bar { flex-direction: column; gap: 0.35rem; font-size: 0.85rem; }
+      header.doc-header {
+        padding: 1.4rem 1.15rem;
+        border-radius: 12px;
+        margin-bottom: 1.25rem;
+      }
 
-      .controls-bar { flex-direction: column; gap: 0.5rem; margin-bottom: 1.1rem; }
-      .controls-bar .btn { width: 100%; text-align: center; padding: 0.65rem 0.85rem; }
+      header.doc-header h1 {
+        font-size: 1.45rem;
+        line-height: 1.25;
+      }
 
-      .card { padding: 1.15rem 1rem; border-radius: 12px; margin-bottom: 1.25rem; }
+      header.doc-header p {
+        font-size: 0.95rem !important;
+      }
 
-      h2.module-title { font-size: 1.22rem; flex-wrap: wrap; gap: 0.45rem; line-height: 1.3; }
-      h3.section-title { font-size: 1.1rem; margin-top: 1.4rem; }
+      .meta-bar {
+        flex-direction: column;
+        gap: 0.35rem;
+        font-size: 0.85rem;
+      }
 
-      .example-box { padding: 0.95rem 1rem; margin: 1rem 0; }
-      .callout { padding: 0.9rem 1rem; margin: 1rem 0; }
+      .controls-bar {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 1.1rem;
+      }
 
-      th, td { padding: 0.55rem 0.65rem; font-size: 0.86rem; }
+      .controls-bar .btn {
+        width: 100%;
+        text-align: center;
+        padding: 0.65rem 0.85rem;
+      }
 
-      .katex-display { overflow-x: auto; overflow-y: hidden; padding: 0.35rem 0; max-width: 100%; }
-      .katex-display > .katex { font-size: 0.95em; }
+      .card {
+        padding: 1.15rem 1rem;
+        border-radius: 12px;
+        margin-bottom: 1.25rem;
+      }
+
+      h2.module-title {
+        font-size: 1.22rem;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+        line-height: 1.3;
+      }
+
+      h3.section-title {
+        font-size: 1.1rem;
+        margin-top: 1.4rem;
+      }
+
+      .example-box {
+        padding: 0.95rem 1rem;
+        margin: 1rem 0;
+      }
+
+      .callout {
+        padding: 0.9rem 1rem;
+        margin: 1rem 0;
+      }
+
+      th,
+      td {
+        padding: 0.55rem 0.65rem;
+        font-size: 0.86rem;
+      }
+
+      .katex-display {
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 0.35rem 0;
+        max-width: 100%;
+      }
+
+      .katex-display>.katex {
+        font-size: 0.95em;
+      }
     }
   </style>
 </head>
+
 <body>
 
-<!-- Marcadores SVG compartidos -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <defs>
-    <marker id="ah-blue" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12"
-            markerUnits="userSpaceOnUse" orient="auto-start-reverse">
-      <path d="M0,0 L12,6 L0,12 Z" fill="#2563eb"/>
-    </marker>
-    <marker id="ah-red" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12"
-            markerUnits="userSpaceOnUse" orient="auto-start-reverse">
-      <path d="M0,0 L12,6 L0,12 Z" fill="#dc2626"/>
-    </marker>
-    <marker id="ah-green" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12"
-            markerUnits="userSpaceOnUse" orient="auto-start-reverse">
-      <path d="M0,0 L12,6 L0,12 Z" fill="#16a34a"/>
-    </marker>
-    <marker id="ah-purple" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12"
-            markerUnits="userSpaceOnUse" orient="auto-start-reverse">
-      <path d="M0,0 L12,6 L0,12 Z" fill="#7c3aed"/>
-    </marker>
-    <marker id="ah-orange" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12"
-            markerUnits="userSpaceOnUse" orient="auto-start-reverse">
-      <path d="M0,0 L12,6 L0,12 Z" fill="#ea580c"/>
-    </marker>
-    <marker id="ah-gray" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12"
-            markerUnits="userSpaceOnUse" orient="auto-start-reverse">
-      <path d="M0,0 L12,6 L0,12 Z" fill="#94a3b8"/>
-    </marker>
-    <marker id="ah-darkgray" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12"
-            markerUnits="userSpaceOnUse" orient="auto-start-reverse">
-      <path d="M0,0 L12,6 L0,12 Z" fill="#475569"/>
-    </marker>
-  </defs>
-</svg>
+  <!-- Marcadores SVG compartidos -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <marker id="ah-blue" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12"
+        markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+        <path d="M0,0 L12,6 L0,12 Z" fill="#2563eb" />
+      </marker>
+      <marker id="ah-red" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12"
+        markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+        <path d="M0,0 L12,6 L0,12 Z" fill="#dc2626" />
+      </marker>
+      <marker id="ah-green" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12"
+        markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+        <path d="M0,0 L12,6 L0,12 Z" fill="#16a34a" />
+      </marker>
+      <marker id="ah-purple" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12"
+        markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+        <path d="M0,0 L12,6 L0,12 Z" fill="#7c3aed" />
+      </marker>
+      <marker id="ah-orange" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12"
+        markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+        <path d="M0,0 L12,6 L0,12 Z" fill="#ea580c" />
+      </marker>
+      <marker id="ah-gray" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12"
+        markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+        <path d="M0,0 L12,6 L0,12 Z" fill="#94a3b8" />
+      </marker>
+      <marker id="ah-darkgray" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12"
+        markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+        <path d="M0,0 L12,6 L0,12 Z" fill="#475569" />
+      </marker>
+    </defs>
+  </svg>
 
-<div class="container">
+  <div class="container">
 
-  <!-- ================================ HEADER ================================ -->
-  <header class="doc-header" id="inicio">
-    <h1>🧮 Combinación Lineal, Subespacios, Intersección y Cambio de Base</h1>
-    <p style="margin: 0; color: #e2e8f0; font-size: 1.05rem;">
-      Combinación lineal, dependencia e independencia, base y dimensión; representaciones conjuntista,
-      cartesiana y paramétrica; intersección, suma directa y subespacio complementario; coordenadas relativas
-      y matriz de cambio de base.
-    </p>
-    <div class="meta-bar">
-      <span><strong>Área:</strong> Álgebra Lineal</span>
-      <span>•</span>
-      <span><strong>Nivel:</strong> Universitario</span>
+    <!-- ================================ HEADER ================================ -->
+    <header class="doc-header" id="inicio">
+      <h1>🧮 Combinación Lineal, Subespacios, Intersección y Cambio de Base</h1>
+      <p style="margin: 0; color: #e2e8f0; font-size: 1.05rem;">
+        Combinación lineal, dependencia e independencia, base y dimensión; representaciones conjuntista,
+        cartesiana y paramétrica; intersección, suma directa y subespacio complementario; coordenadas relativas
+        y matriz de cambio de base.
+      </p>
+      <div class="meta-bar">
+        <span><strong>Área:</strong> Álgebra Lineal</span>
+        <span>•</span>
+        <span><strong>Nivel:</strong> Universitario</span>
+      </div>
+    </header>
+
+    <div class="controls-bar">
+      <button class="btn" onclick="toggleAllDetails(true)">📂 Expandir todas las soluciones</button>
+      <button class="btn" onclick="toggleAllDetails(false)">📁 Contraer todas las soluciones</button>
     </div>
-  </header>
 
-  <div class="controls-bar">
-    <button class="btn" onclick="toggleAllDetails(true)">📂 Expandir todas las soluciones</button>
-    <button class="btn" onclick="toggleAllDetails(false)">📁 Contraer todas las soluciones</button>
-  </div>
+    <!-- ============================ MAPA ============================ -->
+    <section class="card" id="mapa-de-contenidos">
+      <h2 class="module-title">📑 Mapa de Contenidos</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 80px;">Módulo</th>
+              <th style="width: 280px;">Tema Principal</th>
+              <th>Subtemas Clave</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="badge">01</span></td>
+              <td><a href="#mod-1">Combinación Lineal, Dependencia y Base</a></td>
+              <td>
+                <a href="#sec-1-1">1.1 Combinación lineal</a> •
+                <a href="#sec-1-2">1.2 Espacio generado</a> •
+                <a href="#sec-1-3">1.3 Dependencia e independencia</a> •
+                <a href="#sec-1-4">1.4 Base y dimensión</a> •
+                <a href="#sec-1-5">1.5 Base canónica de $\mathbb{R}^n$</a>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="badge">02</span></td>
+              <td><a href="#mod-2">Representaciones e Intersección de Subespacios</a></td>
+              <td>
+                <a href="#sec-2-1">2.1 Forma conjuntista</a> •
+                <a href="#sec-2-2">2.2 Forma cartesiana</a> •
+                <a href="#sec-2-3">2.3 Forma paramétrica</a> •
+                <a href="#sec-2-4">2.4 Intersección y suma</a> •
+                <a href="#sec-2-5">2.5 Subespacio complementario</a> •
+                <a href="#sec-2-6">2.6 Fórmula de Grassmann</a>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="badge">03</span></td>
+              <td><a href="#mod-3">Matriz de Cambio de Base</a></td>
+              <td>
+                <a href="#sec-3-1">3.1 Coordenadas relativas</a> •
+                <a href="#sec-3-2">3.2 Matriz de transición</a> •
+                <a href="#sec-3-3">3.3 Teorema de cambio de base</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-  <!-- ============================ MAPA ============================ -->
-  <section class="card" id="mapa-de-contenidos">
-    <h2 class="module-title">📑 Mapa de Contenidos</h2>
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 80px;">Módulo</th>
-            <th style="width: 280px;">Tema Principal</th>
-            <th>Subtemas Clave</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="badge">01</span></td>
-            <td><a href="#mod-1">Combinación Lineal, Dependencia y Base</a></td>
-            <td>
-              <a href="#sec-1-1">1.1 Combinación lineal</a> •
-              <a href="#sec-1-2">1.2 Espacio generado</a> •
-              <a href="#sec-1-3">1.3 Dependencia e independencia</a> •
-              <a href="#sec-1-4">1.4 Base y dimensión</a> •
-              <a href="#sec-1-5">1.5 Base canónica de $\mathbb{R}^n$</a>
-            </td>
-          </tr>
-          <tr>
-            <td><span class="badge">02</span></td>
-            <td><a href="#mod-2">Representaciones e Intersección de Subespacios</a></td>
-            <td>
-              <a href="#sec-2-1">2.1 Forma conjuntista</a> •
-              <a href="#sec-2-2">2.2 Forma cartesiana</a> •
-              <a href="#sec-2-3">2.3 Forma paramétrica</a> •
-              <a href="#sec-2-4">2.4 Intersección y suma</a> •
-              <a href="#sec-2-5">2.5 Subespacio complementario</a> •
-              <a href="#sec-2-6">2.6 Fórmula de Grassmann</a>
-            </td>
-          </tr>
-          <tr>
-            <td><span class="badge">03</span></td>
-            <td><a href="#mod-3">Matriz de Cambio de Base</a></td>
-            <td>
-              <a href="#sec-3-1">3.1 Coordenadas relativas</a> •
-              <a href="#sec-3-2">3.2 Matriz de transición</a> •
-              <a href="#sec-3-3">3.3 Teorema de cambio de base</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    <!-- ============================ MÓDULO 1 ============================ -->
+    <section class="card" id="mod-1">
+      <h2 class="module-title"><span class="badge">MÓDULO 01</span> Combinación Lineal, Dependencia y Base</h2>
 
-  <!-- ============================ MÓDULO 1 ============================ -->
-  <section class="card" id="mod-1">
-    <h2 class="module-title"><span class="badge">MÓDULO 01</span> Combinación Lineal, Dependencia y Base</h2>
+      <p>Para entender cómo se construyen y estructuran los espacios vectoriales, es fundamental analizar cómo
+        interactúan los vectores entre sí mediante las dos operaciones básicas: la suma y la multiplicación por un
+        escalar. Al combinar estas dos operaciones, obtenemos lo que se conoce como una <strong>combinación
+          lineal</strong>.</p>
 
-    <p>Para entender cómo se construyen y estructuran los espacios vectoriales, es fundamental analizar cómo
-      interactúan los vectores entre sí mediante las dos operaciones básicas: la suma y la multiplicación por un
-      escalar. Al combinar estas dos operaciones, obtenemos lo que se conoce como una <strong>combinación
-      lineal</strong>.</p>
+      <h3 class="section-title" id="sec-1-1">1.1 Combinación Lineal</h3>
 
-    <h3 class="section-title" id="sec-1-1">1.1 Combinación Lineal</h3>
-
-    <div class="callout callout-def">
-      <div class="callout-title">📌 Definición: Combinación lineal</div>
-      <p>Sean $\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_n$ vectores en un espacio vectorial $V$. Entonces
-        cualquier vector de la forma</p>
-      \[
+      <div class="callout callout-def">
+        <div class="callout-title">📌 Definición: Combinación lineal</div>
+        <p>Sean $\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_n$ vectores en un espacio vectorial $V$. Entonces
+          cualquier vector de la forma</p>
+        \[
         \mathbf{v} = a_1\mathbf{v}_1 + a_2\mathbf{v}_2 + \dots + a_n\mathbf{v}_n
-      \]
-      <p style="margin:0;">donde $a_1, a_2, \dots, a_n$ son escalares, se denomina una
-        <strong>combinación lineal</strong> de $\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_n$.</p>
-    </div>
+        \]
+        <p style="margin:0;">donde $a_1, a_2, \dots, a_n$ son escalares, se denomina una
+          <strong>combinación lineal</strong> de $\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_n$.
+        </p>
+      </div>
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 1.1: Combinación lineal en $\mathbb{R}^3$</div>
-      <p>En $\mathbb{R}^3$, el vector $\begin{pmatrix} -7 \\ 7 \\ 7 \end{pmatrix}$ es una combinación lineal de
-        $\begin{pmatrix} -1 \\ 2 \\ 4 \end{pmatrix}$ y $\begin{pmatrix} 5 \\ -3 \\ 1 \end{pmatrix}$, ya que es
-        posible encontrar escalares (en este caso $2$ y $-1$) que satisfacen:</p>
-      \[
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 1.1: Combinación lineal en $\mathbb{R}^3$</div>
+        <p>En $\mathbb{R}^3$, el vector $\begin{pmatrix} -7 \\ 7 \\ 7 \end{pmatrix}$ es una combinación lineal de
+          $\begin{pmatrix} -1 \\ 2 \\ 4 \end{pmatrix}$ y $\begin{pmatrix} 5 \\ -3 \\ 1 \end{pmatrix}$, ya que es
+          posible encontrar escalares (en este caso $2$ y $-1$) que satisfacen:</p>
+        \[
         \begin{pmatrix} -7 \\ 7 \\ 7 \end{pmatrix}
         = 2 \begin{pmatrix} -1 \\ 2 \\ 4 \end{pmatrix}
         - 1 \begin{pmatrix} 5 \\ -3 \\ 1 \end{pmatrix}
-      \]
-    </div>
+        \]
+      </div>
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 1.2: Combinación lineal en $P_2$</div>
-      <p>En el espacio $P_2$ (polinomios de grado $\le 2$), el polinomio $p(x) = 4x^2 - 3x + 5$ es simplemente
-        una combinación lineal de los monomios estándar $\{x^2, x, 1\}$ con escalares que coinciden con los
-        coeficientes: $a_1 = 4$, $a_2 = -3$, $a_3 = 5$.</p>
-    </div>
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 1.2: Combinación lineal en $P_2$</div>
+        <p>En el espacio $P_2$ (polinomios de grado $\le 2$), el polinomio $p(x) = 4x^2 - 3x + 5$ es simplemente
+          una combinación lineal de los monomios estándar $\{x^2, x, 1\}$ con escalares que coinciden con los
+          coeficientes: $a_1 = 4$, $a_2 = -3$, $a_3 = 5$.</p>
+      </div>
 
-    <h3 class="section-title" id="sec-1-2">1.2 Espacio Generado</h3>
+      <h3 class="section-title" id="sec-1-2">1.2 Espacio Generado</h3>
 
-    <div class="callout callout-def">
-      <div class="callout-title">📌 Definición: Espacio generado</div>
-      <p>El <strong>espacio generado</strong> se denota por $\operatorname{gen}$ y se define como</p>
-      \[
+      <div class="callout callout-def">
+        <div class="callout-title">📌 Definición: Espacio generado</div>
+        <p>El <strong>espacio generado</strong> se denota por $\operatorname{gen}$ y se define como</p>
+        \[
         \operatorname{gen}\{\mathbf{v}_1, \dots, \mathbf{v}_k\}
         = \{ \mathbf{v} : \mathbf{v} = a_1\mathbf{v}_1 + \dots + a_k\mathbf{v}_k \}
-      \]
-      <p style="margin:0;">donde $a_1, \dots, a_k$ son escalares arbitrarios.</p>
-    </div>
+        \]
+        <p style="margin:0;">donde $a_1, \dots, a_k$ son escalares arbitrarios.</p>
+      </div>
 
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Teorema</div>
-      <p style="margin:0;">El espacio generado por cualquier conjunto de vectores es siempre un
-        <strong>subespacio vectorial</strong>.</p>
-    </div>
+      <div class="callout callout-thm">
+        <div class="callout-title">📐 Teorema</div>
+        <p style="margin:0;">El espacio generado por cualquier conjunto de vectores es siempre un
+          <strong>subespacio vectorial</strong>.
+        </p>
+      </div>
 
-    <h3 class="section-title" id="sec-1-3">1.3 Dependencia e Independencia Lineal</h3>
+      <h3 class="section-title" id="sec-1-3">1.3 Dependencia e Independencia Lineal</h3>
 
-    <p>Un espacio vectorial contiene típicamente un número infinito de vectores, pero muchos problemas se pueden
-      analizar trabajando con un número finito de generadores. Los espacios con un número finito de generadores
-      se denominan <strong>espacios de dimensión finita</strong>.</p>
+      <p>Un espacio vectorial contiene típicamente un número infinito de vectores, pero muchos problemas se pueden
+        analizar trabajando con un número finito de generadores. Los espacios con un número finito de generadores
+        se denominan <strong>espacios de dimensión finita</strong>.</p>
 
-    <p>Sea $S = \{\vec{u}_1, \vec{u}_2, \dots, \vec{u}_m\} \subset \mathbb{R}^n$. Sus propiedades se determinan
-      analizando la <strong>matriz aumentada</strong> asociada:</p>
+      <p>Sea $S = \{\vec{u}_1, \vec{u}_2, \dots, \vec{u}_m\} \subset \mathbb{R}^n$. Sus propiedades se determinan
+        analizando la <strong>matriz aumentada</strong> asociada:</p>
 
-    <ul>
-      <li>$S$ es un <strong>conjunto generador</strong> de $\mathbb{R}^n$ si el sistema
-        $\left[ \vec{u}_1 \ \vec{u}_2 \ \cdots \ \vec{u}_m \mid \vec{u} \right]$ es <strong>consistente</strong>.</li>
-      <li>Al evaluar el caso homogéneo $\left[ \vec{u}_1 \ \cdots \ \vec{u}_m \mid \vec{0} \right]$:
-        <ul>
-          <li>si solo tiene la <strong>solución trivial</strong> $\Rightarrow$ es <strong>linealmente
-            independiente</strong> (LI);</li>
-          <li>si tiene <strong>soluciones no triviales</strong> $\Rightarrow$ es <strong>linealmente
-            dependiente</strong> (LD).</li>
-        </ul>
-      </li>
-      <li>Si el conjunto es generador y linealmente independiente, se dice que es una <strong>base</strong>.</li>
-    </ul>
-
-    <div class="callout callout-note">
-      <div class="callout-title">💡 Idea clave</div>
-      <p style="margin:0;">“Ser base” = “ser un conjunto generador minimal y sin redundancias”. Las coordenadas de
-        cualquier vector respecto a una base son <em>únicas</em>, y esta es la razón por la que las bases son la
-        herramienta central del álgebra lineal.</p>
-    </div>
-
-    <h4 class="sub-title">Tabla resumen: eliminación gaussiana y (in)dependencia</h4>
-
-    <p>Sea $A = [\vec{v}_1 \mid \vec{v}_2 \mid \dots \mid \vec{v}_p] \in \mathbb{R}^{n \times p}$ formada por
-      los $p$ vectores. Todo se reduce a analizar el sistema aumentado $[A \mid \overrightarrow{0}]$:</p>
-
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th>Propiedad / Concepto</th>
-            <th>$[A \mid \vec{0}]$ compatible indeterminado</th>
-            <th>$[A \mid \vec{0}]$ compatible determinado</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td><strong>Relación de vectores</strong></td>
-              <td>Linealmente dependientes</td>
-              <td>Linealmente independientes</td></tr>
-          <tr><td><strong>Rango</strong></td>
-              <td>$\operatorname{rg} < p$ (columnas no pivotales)</td>
-              <td>$\operatorname{rg} = p$ (todas pivotales)</td></tr>
-          <tr><td><strong>Combinación lineal</strong></td>
-              <td>Al menos un vector es combinación lineal del resto*</td>
-              <td>Ningún vector es combinación lineal del resto</td></tr>
-          <tr><td><strong>Vector nulo</strong></td>
-              <td>Puede contener al vector nulo</td>
-              <td>Jamás contiene al vector nulo</td></tr>
-          <tr><td><strong>Cantidad</strong></td>
-              <td>Inevitable si $p > n$</td>
-              <td>Solo posible si $p \le n$</td></tr>
-          <tr><td><strong>Adición / Sustracción</strong></td>
-              <td>Al añadir vectores sigue siendo dependiente</td>
-              <td>Todo subconjunto sigue siendo independiente</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: -0.5rem;">
-      * Las columnas no pivotales identifican qué vectores son combinación lineal de los correspondientes a las
-      columnas pivotales; los coeficientes se leen directamente de esa columna no pivotal.
-    </p>
-
-    <h3 class="section-title" id="sec-1-4">1.4 Base y Dimensión</h3>
-
-    <p>La <strong>dimensión</strong> de un espacio vectorial es el número de vectores de una base. Se cumple:</p>
-
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Teoremas sobre bases</div>
-      <ul style="margin:0;">
-        <li><em>De todo conjunto generador se puede extraer una base</em> (eliminando columnas no pivotales).</li>
-        <li><em>Toda base de un mismo espacio tiene la misma cantidad de elementos</em> (la dimensión).</li>
-        <li><em>Si $A_{n\times n}$ en $\mathbb{R}^n$ es inversible, sus columnas forman una base.</em></li>
+      <ul>
+        <li>$S$ es un <strong>conjunto generador</strong> de $\mathbb{R}^n$ si el sistema
+          $\left[ \vec{u}_1 \ \vec{u}_2 \ \cdots \ \vec{u}_m \mid \vec{u} \right]$ es <strong>consistente</strong>.</li>
+        <li>Al evaluar el caso homogéneo $\left[ \vec{u}_1 \ \cdots \ \vec{u}_m \mid \vec{0} \right]$:
+          <ul>
+            <li>si solo tiene la <strong>solución trivial</strong> $\Rightarrow$ es <strong>linealmente
+                independiente</strong> (LI);</li>
+            <li>si tiene <strong>soluciones no triviales</strong> $\Rightarrow$ es <strong>linealmente
+                dependiente</strong> (LD).</li>
+          </ul>
+        </li>
+        <li>Si el conjunto es generador y linealmente independiente, se dice que es una <strong>base</strong>.</li>
       </ul>
-    </div>
 
-    <p>Sea $S \subseteq \mathbb{R}^n$ un conjunto de $p$ vectores y $n = \dim \mathbb{R}^n$:</p>
+      <div class="callout callout-note">
+        <div class="callout-title">💡 Idea clave</div>
+        <p style="margin:0;">“Ser base” = “ser un conjunto generador minimal y sin redundancias”. Las coordenadas de
+          cualquier vector respecto a una base son <em>únicas</em>, y esta es la razón por la que las bases son la
+          herramienta central del álgebra lineal.</p>
+      </div>
 
-    \[
+      <h4 class="sub-title">Tabla resumen: eliminación gaussiana y (in)dependencia</h4>
+
+      <p>Sea $A = [\vec{v}_1 \mid \vec{v}_2 \mid \dots \mid \vec{v}_p] \in \mathbb{R}^{n \times p}$ formada por
+        los $p$ vectores. Todo se reduce a analizar el sistema aumentado $[A \mid \overrightarrow{0}]$:</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Propiedad / Concepto</th>
+              <th>$[A \mid \vec{0}]$ compatible indeterminado</th>
+              <th>$[A \mid \vec{0}]$ compatible determinado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Relación de vectores</strong></td>
+              <td>Linealmente dependientes</td>
+              <td>Linealmente independientes</td>
+            </tr>
+            <tr>
+              <td><strong>Rango</strong></td>
+              <td>$\operatorname{rg} < p$ (columnas no pivotales)</td>
+              <td>$\operatorname{rg} = p$ (todas pivotales)</td>
+            </tr>
+            <tr>
+              <td><strong>Combinación lineal</strong></td>
+              <td>Al menos un vector es combinación lineal del resto*</td>
+              <td>Ningún vector es combinación lineal del resto</td>
+            </tr>
+            <tr>
+              <td><strong>Vector nulo</strong></td>
+              <td>Puede contener al vector nulo</td>
+              <td>Jamás contiene al vector nulo</td>
+            </tr>
+            <tr>
+              <td><strong>Cantidad</strong></td>
+              <td>Inevitable si $p > n$</td>
+              <td>Solo posible si $p \le n$</td>
+            </tr>
+            <tr>
+              <td><strong>Adición / Sustracción</strong></td>
+              <td>Al añadir vectores sigue siendo dependiente</td>
+              <td>Todo subconjunto sigue siendo independiente</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: -0.5rem;">
+        * Las columnas no pivotales identifican qué vectores son combinación lineal de los correspondientes a las
+        columnas pivotales; los coeficientes se leen directamente de esa columna no pivotal.
+      </p>
+
+      <h3 class="section-title" id="sec-1-4">1.4 Base y Dimensión</h3>
+
+      <p>La <strong>dimensión</strong> de un espacio vectorial es el número de vectores de una base. Se cumple:</p>
+
+      <div class="callout callout-thm">
+        <div class="callout-title">📐 Teoremas sobre bases</div>
+        <ul style="margin:0;">
+          <li><em>De todo conjunto generador se puede extraer una base</em> (eliminando columnas no pivotales).</li>
+          <li><em>Toda base de un mismo espacio tiene la misma cantidad de elementos</em> (la dimensión).</li>
+          <li><em>Si $A_{n\times n}$ en $\mathbb{R}^n$ es inversible, sus columnas forman una base.</em></li>
+        </ul>
+      </div>
+
+      <p>Sea $S \subseteq \mathbb{R}^n$ un conjunto de $p$ vectores y $n = \dim \mathbb{R}^n$:</p>
+
+      \[
       \begin{cases}
-        \text{Si $S$ es LI} \;\Rightarrow\; p \le n: &
-          \begin{cases}
-            p = n, & \text{es automáticamente base.}\\
-            p < n, & \text{se amplía con $n-p$ vectores (base incompleta).}
-          \end{cases}\\[6pt]
-        \text{Si $S$ es generador} \;\Rightarrow\; p \ge n: &
-          \begin{cases}
-            p = n, & \text{es automáticamente base.}\\
-            p > n, & \text{se reduce descartando no pivotales.}
-          \end{cases}
-      \end{cases}
-    \]
+      \text{Si $S$ es LI} \;\Rightarrow\; p \le n: &
+      \begin{cases}
+      p = n, & \text{es automáticamente base.}\\
+      p < n, & \text{se amplía con $n-p$ vectores (base incompleta).} \end{cases}\\[6pt] \text{Si $S$ es generador}
+        \;\Rightarrow\; p \ge n: & \begin{cases} p=n, & \text{es automáticamente base.}\\ p> n, & \text{se reduce
+        descartando no pivotales.}
+        \end{cases}
+        \end{cases}
+        \]
 
-    <h3 class="section-title" id="sec-1-5">1.5 Base Canónica de $\mathbb{R}^n$</h3>
+        <h3 class="section-title" id="sec-1-5">1.5 Base Canónica de $\mathbb{R}^n$</h3>
 
-    <p>Un ejemplo natural de base es la matriz identidad $I_n$, cuyas columnas son los vectores</p>
+        <p>Un ejemplo natural de base es la matriz identidad $I_n$, cuyas columnas son los vectores</p>
 
-    \[
-      \vec{e}_1 = \begin{pmatrix} 1\\0\\\vdots\\0 \end{pmatrix}, \quad
-      \vec{e}_2 = \begin{pmatrix} 0\\1\\\vdots\\0 \end{pmatrix}, \quad \dots, \quad
-      \vec{e}_n = \begin{pmatrix} 0\\0\\\vdots\\1 \end{pmatrix}.
-    \]
+        \[
+        \vec{e}_1 = \begin{pmatrix} 1\\0\\\vdots\\0 \end{pmatrix}, \quad
+        \vec{e}_2 = \begin{pmatrix} 0\\1\\\vdots\\0 \end{pmatrix}, \quad \dots, \quad
+        \vec{e}_n = \begin{pmatrix} 0\\0\\\vdots\\1 \end{pmatrix}.
+        \]
 
-    <p>El conjunto $\{\vec{e}_1, \vec{e}_2, \dots, \vec{e}_n\}$ se denomina <strong>base estándar o
-      canónica</strong> de $\mathbb{R}^n$.</p>
+        <p>El conjunto $\{\vec{e}_1, \vec{e}_2, \dots, \vec{e}_n\}$ se denomina <strong>base estándar o
+            canónica</strong> de $\mathbb{R}^n$.</p>
 
-    <ul>
-      <li>$\{(1,0),(0,1)\}$ es la base canónica de $\mathbb{R}^2$.</li>
-      <li>$\{(1,0,0),(0,1,0),(0,0,1)\}$ es la base canónica de $\mathbb{R}^3$.</li>
-    </ul>
+        <ul>
+          <li>$\{(1,0),(0,1)\}$ es la base canónica de $\mathbb{R}^2$.</li>
+          <li>$\{(1,0,0),(0,1,0),(0,0,1)\}$ es la base canónica de $\mathbb{R}^3$.</li>
+        </ul>
 
-    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
-  </section>
+        <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+    </section>
 
-  <!-- ============================ MÓDULO 2 ============================ -->
-  <section class="card" id="mod-2">
-    <h2 class="module-title"><span class="badge">MÓDULO 02</span> Representaciones e Intersección de Subespacios</h2>
+    <!-- ============================ MÓDULO 2 ============================ -->
+    <section class="card" id="mod-2">
+      <h2 class="module-title"><span class="badge">MÓDULO 02</span> Representaciones e Intersección de Subespacios</h2>
 
-    <p>Un mismo subespacio vectorial puede describirse de <strong>tres maneras equivalentes</strong>. La elección
-      dependerá de la operación que necesitemos realizar.</p>
+      <p>Un mismo subespacio vectorial puede describirse de <strong>tres maneras equivalentes</strong>. La elección
+        dependerá de la operación que necesitemos realizar.</p>
 
-    <h3 class="section-title" id="sec-2-1">2.1 Forma Conjuntista (Espacio Generado)</h3>
+      <h3 class="section-title" id="sec-2-1">2.1 Forma Conjuntista (Espacio Generado)</h3>
 
-    <p>Define al subespacio como el conjunto de todas las combinaciones lineales de una familia finita de
-      vectores. Dado $S = \{\vec{v}_1, \dots, \vec{v}_k\}$ en un espacio $V$:</p>
+      <p>Define al subespacio como el conjunto de todas las combinaciones lineales de una familia finita de
+        vectores. Dado $S = \{\vec{v}_1, \dots, \vec{v}_k\}$ en un espacio $V$:</p>
 
-    \[
+      \[
       W = \operatorname{gen}\{\vec{v}_1, \dots, \vec{v}_k\} = \langle\vec{v}_1, \dots, \vec{v}_k\rangle
-    \]
+      \]
 
-    <p>Está íntimamente ligada a la forma paramétrica, pues hace explícitos los vectores que multiplican a los
-      parámetros libres.</p>
+      <p>Está íntimamente ligada a la forma paramétrica, pues hace explícitos los vectores que multiplican a los
+        parámetros libres.</p>
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 2.1: dos subespacios por generadores</div>
-      <p>En $\mathbb{R}^2$, un subespacio generado por un único vector no nulo:</p>
-      \[
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 2.1: dos subespacios por generadores</div>
+        <p>En $\mathbb{R}^2$, un subespacio generado por un único vector no nulo:</p>
+        \[
         W = \langle (1, 2) \rangle
-      \]
-      <p>Tiene dimensión 1 y representa una recta por el origen con vector director $(1,2)$.</p>
-      <p>En $\mathbb{R}^3$, dos vectores generadores dan un plano:</p>
-      \[
+        \]
+        <p>Tiene dimensión 1 y representa una recta por el origen con vector director $(1,2)$.</p>
+        <p>En $\mathbb{R}^3$, dos vectores generadores dan un plano:</p>
+        \[
         U = \langle (1, 1, 0), (0, 0, 1) \rangle
-      \]
-      <p>Sus dos columnas son pivotales, son LI, dimensión $2$. Geométricamente, $U$ es un plano por el origen.</p>
-    </div>
+        \]
+        <p>Sus dos columnas son pivotales, son LI, dimensión $2$. Geométricamente, $U$ es un plano por el origen.</p>
+      </div>
 
-    <h3 class="section-title" id="sec-2-2">2.2 Forma Cartesiana (Ecuaciones Implícitas)</h3>
+      <h3 class="section-title" id="sec-2-2">2.2 Forma Cartesiana (Ecuaciones Implícitas)</h3>
 
-    <p>Describe el subespacio mediante un sistema de ecuaciones lineales <strong>homogéneas</strong>. En
-      notación matricial, es el núcleo de una matriz: $A\vec{x} = \vec{0}$.</p>
+      <p>Describe el subespacio mediante un sistema de ecuaciones lineales <strong>homogéneas</strong>. En
+        notación matricial, es el núcleo de una matriz: $A\vec{x} = \vec{0}$.</p>
 
-    <p>Cada ecuación independiente actúa como una restricción que recorta un grado de libertad. El número
-      exacto de ecuaciones es:</p>
+      <p>Cada ecuación independiente actúa como una restricción que recorta un grado de libertad. El número
+        exacto de ecuaciones es:</p>
 
-    \[
+      \[
       \#\text{ecuaciones} = n - \dim W.
-    \]
+      \]
 
-    <p>La forma implícita es el filtro ideal para <em>comprobar</em> si un vector pertenece al subespacio:
-      basta sustituir sus componentes y verificar la igualdad.</p>
+      <p>La forma implícita es el filtro ideal para <em>comprobar</em> si un vector pertenece al subespacio:
+        basta sustituir sus componentes y verificar la igualdad.</p>
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 2.2: de conjuntista a cartesiana en el plano</div>
-      <p>Dado $W = \langle (1,2) \rangle$ en $\mathbb{R}^2$, $n=2$ y $\dim W=1$, luego
-        $\#\text{ecuaciones} = 2 - 1 = 1$. Al observar $(1,2)$, la relación es $y = 2x$, es decir
-        $2x - y = 0$. Por lo tanto</p>
-      \[
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 2.2: de conjuntista a cartesiana en el plano</div>
+        <p>Dado $W = \langle (1,2) \rangle$ en $\mathbb{R}^2$, $n=2$ y $\dim W=1$, luego
+          $\#\text{ecuaciones} = 2 - 1 = 1$. Al observar $(1,2)$, la relación es $y = 2x$, es decir
+          $2x - y = 0$. Por lo tanto</p>
+        \[
         W = \{(x,y) \in \mathbb{R}^2 \mid 2x - y = 0\}.
-      \]
-    </div>
+        \]
+      </div>
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 2.3: de conjuntista a cartesiana en $\mathbb{R}^3$</div>
-      <p>Para $U = \langle (1,1,0), (0,0,1) \rangle$, $\dim U = 2$ y $n = 3$, luego $\#\text{ecuaciones} = 1$.
-        Ambos generadores tienen la primera coordenada igual a la segunda, así que</p>
-      \[
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 2.3: de conjuntista a cartesiana en $\mathbb{R}^3$</div>
+        <p>Para $U = \langle (1,1,0), (0,0,1) \rangle$, $\dim U = 2$ y $n = 3$, luego $\#\text{ecuaciones} = 1$.
+          Ambos generadores tienen la primera coordenada igual a la segunda, así que</p>
+        \[
         U = \{(x,y,z) \in \mathbb{R}^3 \mid x - y = 0\}.
-      \]
-    </div>
+        \]
+      </div>
 
-    <h3 class="section-title" id="sec-2-3">2.3 Forma Paramétrica (Ecuación Vectorial)</h3>
+      <h3 class="section-title" id="sec-2-3">2.3 Forma Paramétrica (Ecuación Vectorial)</h3>
 
-    <p>Expresa cualquier vector del subespacio explícitamente en función de <strong>parámetros libres</strong>:</p>
+      <p>Expresa cualquier vector del subespacio explícitamente en función de <strong>parámetros libres</strong>:</p>
 
-    \[
+      \[
       \vec{x} = t_1\vec{v}_1 + t_2\vec{v}_2 + \dots + t_k\vec{v}_k, \quad t_i \in \mathbb{R}.
-    \]
+      \]
 
-    <p>A diferencia de la cartesiana (que restringe <em>desde fuera</em>), la paramétrica construye el
-      subespacio <em>desde dentro</em>: asignando valores reales a los $t_i$ se generan puntos concretos.</p>
+      <p>A diferencia de la cartesiana (que restringe <em>desde fuera</em>), la paramétrica construye el
+        subespacio <em>desde dentro</em>: asignando valores reales a los $t_i$ se generan puntos concretos.</p>
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 2.4: paramétrica de la recta $W = \langle (1,2)\rangle$</div>
-      <p>Un solo parámetro $t$:</p>
-      \[
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 2.4: paramétrica de la recta $W = \langle (1,2)\rangle$</div>
+        <p>Un solo parámetro $t$:</p>
+        \[
         (x,y) = t(1,2) \;\Longrightarrow\; x = t,\; y = 2t.
-      \]
-      <p>Eliminando $t$: $y = 2x \Rightarrow 2x - y = 0$ (misma ecuación implícita del ejemplo 2.2).</p>
-    </div>
+        \]
+        <p>Eliminando $t$: $y = 2x \Rightarrow 2x - y = 0$ (misma ecuación implícita del ejemplo 2.2).</p>
+      </div>
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 2.5: paramétrica del plano $U = \langle(1,1,0),(0,0,1)\rangle$</div>
-      <p>Dos parámetros $t_1, t_2$:</p>
-      \[
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 2.5: paramétrica del plano $U = \langle(1,1,0),(0,0,1)\rangle$</div>
+        <p>Dos parámetros $t_1, t_2$:</p>
+        \[
         (x,y,z) = t_1(1,1,0) + t_2(0,0,1) = (t_1, t_1, t_2).
-      \]
-      <p>Es decir $x = t_1$, $y = t_1$, $z = t_2$. Eliminando $t_1$ y $t_2$: $x - y = 0$ (misma cartesiana
-        del ejemplo 2.3).</p>
-    </div>
-
-    <h4 class="sub-title">Gráficas representativas</h4>
-
-    <div class="diagram-container">
-      <div>
-        <svg class="fig" viewBox="0 0 220 220" role="img" aria-label="Recta generada por (1,2) en R²">
-          <line x1="10" y1="130" x2="210" y2="130" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
-          <line x1="110" y1="210" x2="110" y2="10"  stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
-          <text x="206" y="126" font-size="11" fill="#64748b">x</text>
-          <text x="102" y="18"  font-size="11" fill="#64748b">y</text>
-
-          <line x1="45" y1="220" x2="180" y2="-30" stroke="#1d4ed8" stroke-width="2"/>
-          <line x1="110" y1="130" x2="130" y2="90" stroke="#dc2626" stroke-width="2.5" marker-end="url(#ah-red)"/>
-          <circle cx="110" cy="130" r="2.5" fill="#0f172a"/>
-          <text x="132" y="86" font-size="11" fill="#dc2626">(1, 2)</text>
-          <text x="155" y="45" font-size="10" fill="#1d4ed8" font-style="italic">2x − y = 0</text>
-        </svg>
-        <div class="diagram-caption">Recta $\langle(1,2)\rangle$ en $\mathbb{R}^2$</div>
+        \]
+        <p>Es decir $x = t_1$, $y = t_1$, $z = t_2$. Eliminando $t_1$ y $t_2$: $x - y = 0$ (misma cartesiana
+          del ejemplo 2.3).</p>
       </div>
 
-      <div>
-        <svg class="fig" viewBox="0 0 260 220" role="img" aria-label="Plano x=y en R³ generado por (1,1,0) y (0,0,1)">
-          <line x1="130" y1="130" x2="250" y2="130" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
-          <line x1="130" y1="130" x2="130" y2="15"  stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
-          <line x1="130" y1="130" x2="35"  y2="185" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
-          <text x="246" y="126" font-size="11" fill="#64748b">y</text>
-          <text x="122" y="18"  font-size="11" fill="#64748b">z</text>
-          <text x="25"  y="196" font-size="11" fill="#64748b">x</text>
+      <h4 class="sub-title">Gráficas representativas</h4>
 
-          <polygon points="80,160 190,110 210,80 100,130" fill="#a5f3fc" fill-opacity="0.65"
-                   stroke="#22d3ee" stroke-width="1.6"/>
-          <text x="120" y="128" font-size="10" fill="#0e7490">x − y = 0</text>
+      <div class="diagram-container">
+        <div>
+          <!-- ===================== FIGURA 2D ===================== -->
+          <svg class="fig" viewBox="0 0 320 300" role="img" aria-label="Recta generada por (1,2) en R²">
+            <defs>
+              <marker id="ar2-gray" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" refX="7" refY="3.5"
+                orient="auto-start-reverse">
+                <path d="M0,0 L7,3.5 L0,7 Z" fill="#94a3b8" />
+              </marker>
+              <marker id="ar2-blue" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" refX="7" refY="3.5"
+                orient="auto-start-reverse">
+                <path d="M0,0 L7,3.5 L0,7 Z" fill="#1d4ed8" />
+              </marker>
+              <marker id="ar2-red" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" refX="7" refY="3.5"
+                orient="auto">
+                <path d="M0,0 L7,3.5 L0,7 Z" fill="#dc2626" />
+              </marker>
+              <marker id="ar2-red-s" markerUnits="userSpaceOnUse" markerWidth="5" markerHeight="5" refX="4" refY="2.5"
+                orient="auto">
+                <path d="M0,0 L4,2.5 L0,5 Z" fill="#dc2626" />
+              </marker>
+              <marker id="ar2-dark-s" markerUnits="userSpaceOnUse" markerWidth="5" markerHeight="5" refX="4" refY="2.5"
+                orient="auto">
+                <path d="M0,0 L4,2.5 L0,5 Z" fill="#0f172a" />
+              </marker>
+            </defs>
 
-          <line x1="130" y1="130" x2="165" y2="115" stroke="#dc2626" stroke-width="2.5" marker-end="url(#ah-red)"/>
-          <text x="168" y="112" font-size="11" fill="#dc2626">(1,1,0)</text>
-          <line x1="130" y1="130" x2="130" y2="75" stroke="#16a34a" stroke-width="2.5" marker-end="url(#ah-green)"/>
-          <text x="132" y="72" font-size="11" fill="#16a34a">(0,0,1)</text>
-          <circle cx="130" cy="130" r="2.5" fill="#0f172a"/>
-        </svg>
-        <div class="diagram-caption">Plano $x-y=0$ en $\mathbb{R}^3$</div>
+            <!-- Cuadrícula -->
+            <g stroke="#e5e7eb" stroke-width="1">
+              <line x1="30" y1="30" x2="30" y2="270" />
+              <line x1="60" y1="30" x2="60" y2="270" />
+              <line x1="90" y1="30" x2="90" y2="270" />
+              <line x1="120" y1="30" x2="120" y2="270" />
+              <line x1="150" y1="30" x2="150" y2="270" />
+              <line x1="180" y1="30" x2="180" y2="270" />
+              <line x1="210" y1="30" x2="210" y2="270" />
+              <line x1="240" y1="30" x2="240" y2="270" />
+              <line x1="270" y1="30" x2="270" y2="270" />
+              <line x1="300" y1="30" x2="300" y2="270" />
+              <line x1="30" y1="30" x2="300" y2="30" />
+              <line x1="30" y1="60" x2="300" y2="60" />
+              <line x1="30" y1="90" x2="300" y2="90" />
+              <line x1="30" y1="120" x2="300" y2="120" />
+              <line x1="30" y1="150" x2="300" y2="150" />
+              <line x1="30" y1="180" x2="300" y2="180" />
+              <line x1="30" y1="210" x2="300" y2="210" />
+              <line x1="30" y1="240" x2="300" y2="240" />
+              <line x1="30" y1="270" x2="300" y2="270" />
+            </g>
+
+            <!-- Ejes con flecha en ambos extremos -->
+            <line x1="18" y1="180" x2="300" y2="180" stroke="#94a3b8" stroke-width="1.1" marker-start="url(#ar2-gray)"
+              marker-end="url(#ar2-gray)" />
+            <line x1="150" y1="292" x2="150" y2="18" stroke="#94a3b8" stroke-width="1.1" marker-start="url(#ar2-gray)"
+              marker-end="url(#ar2-gray)" />
+
+            <text x="306" y="175" font-size="12" font-style="italic" font-family="Georgia, 'Times New Roman', serif"
+              fill="#64748b">x</text>
+            <text x="150" y="12" font-size="12" font-style="italic" text-anchor="middle"
+              font-family="Georgia, 'Times New Roman', serif" fill="#64748b">y</text>
+
+            <!-- Recta 2x − y = 0 (pasa por el origen, flechas en ambos extremos) -->
+            <line x1="95" y1="290" x2="220" y2="40" stroke="#1d4ed8" stroke-width="2" marker-start="url(#ar2-blue)"
+              marker-end="url(#ar2-blue)" />
+            <text x="228" y="34" font-size="12.5" font-style="italic" font-family="Georgia, 'Times New Roman', serif"
+              fill="#1d4ed8">2x − y = 0</text>
+
+            <!-- Vector v = (1,2) -->
+            <line x1="150" y1="180" x2="192" y2="96" stroke="#dc2626" stroke-width="2.2" marker-end="url(#ar2-red)" />
+            <text x="174" y="145" font-size="12" font-style="italic" font-family="Georgia, 'Times New Roman', serif"
+              fill="#dc2626">v</text>
+            <line x1="173" y1="134" x2="180" y2="134" stroke="#dc2626" stroke-width="1" marker-end="url(#ar2-red-s)" />
+            <text x="183" y="145" font-size="12" font-style="italic" font-family="Georgia, 'Times New Roman', serif"
+              fill="#dc2626">= (1, 2)</text>
+
+            <!-- Origen y etiqueta 0⃗ -->
+            <circle cx="150" cy="180" r="3" fill="#0f172a" />
+            <text x="135" y="199" font-size="12" font-style="italic" font-family="Georgia, 'Times New Roman', serif"
+              fill="#0f172a">0</text>
+            <line x1="134" y1="188" x2="141" y2="188" stroke="#0f172a" stroke-width="1" marker-end="url(#ar2-dark-s)" />
+          </svg>
+          <div class="diagram-caption">Recta $\langle(1,2)\rangle$ en $\mathbb{R}^2$</div>
+        </div>
+
+        <div>
+          <!-- ===================== FIGURA 3D ===================== -->
+          <svg class="fig" viewBox="0 0 300 290" role="img" aria-label="Plano x=y en R³ generado por (1,1,0) y (0,0,1)">
+            <defs>
+              <marker id="ar3-gray" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" refX="7" refY="3.5"
+                orient="auto">
+                <path d="M0,0 L7,3.5 L0,7 Z" fill="#94a3b8" />
+              </marker>
+              <marker id="ar3-red" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" refX="7" refY="3.5"
+                orient="auto">
+                <path d="M0,0 L7,3.5 L0,7 Z" fill="#dc2626" />
+              </marker>
+              <marker id="ar3-green" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" refX="7" refY="3.5"
+                orient="auto">
+                <path d="M0,0 L7,3.5 L0,7 Z" fill="#16a34a" />
+              </marker>
+              <marker id="ar3-red-s" markerUnits="userSpaceOnUse" markerWidth="5" markerHeight="5" refX="4" refY="2.5"
+                orient="auto">
+                <path d="M0,0 L4,2.5 L0,5 Z" fill="#dc2626" />
+              </marker>
+              <marker id="ar3-green-s" markerUnits="userSpaceOnUse" markerWidth="5" markerHeight="5" refX="4" refY="2.5"
+                orient="auto">
+                <path d="M0,0 L4,2.5 L0,5 Z" fill="#16a34a" />
+              </marker>
+            </defs>
+
+            <!-- Ejes X (abajo-izq.), Y (derecha), Z (arriba) -->
+            <line x1="150" y1="268" x2="150" y2="34" stroke="#94a3b8" stroke-width="1.1" marker-end="url(#ar3-gray)" />
+            <line x1="150" y1="150" x2="58" y2="203" stroke="#94a3b8" stroke-width="1.1" marker-end="url(#ar3-gray)" />
+            <line x1="150" y1="150" x2="274" y2="161" stroke="#94a3b8" stroke-width="1.1" marker-end="url(#ar3-gray)" />
+
+            <text x="156" y="30" font-size="12" font-style="italic" font-family="Georgia, 'Times New Roman', serif"
+              fill="#64748b">Z</text>
+            <text x="44" y="218" font-size="12" font-style="italic" font-family="Georgia, 'Times New Roman', serif"
+              fill="#64748b">X</text>
+            <text x="278" y="176" font-size="12" font-style="italic" font-family="Georgia, 'Times New Roman', serif"
+              fill="#64748b">Y</text>
+
+            <!-- Plano x − y = 0 : vertical, generado por (1,1,0) y (0,0,1) -->
+            <polygon points="100,28 200,90 200,272 100,210" fill="#bae6fd" fill-opacity="0.5" stroke="#2563eb"
+              stroke-width="1.3" />
+            <text x="160" y="128" font-size="11" font-style="italic" font-family="Georgia, 'Times New Roman', serif"
+              fill="#2563eb">x − y = 0</text>
+
+            <!-- Vectores generadores -->
+            <line x1="150" y1="150" x2="194" y2="177" stroke="#dc2626" stroke-width="2.2" marker-end="url(#ar3-red)" />
+            <line x1="150" y1="150" x2="150" y2="95" stroke="#16a34a" stroke-width="2.2" marker-end="url(#ar3-green)" />
+            <circle cx="150" cy="150" r="3" fill="#0f172a" />
+
+            <!-- Etiqueta v₁ = (1,1,0) -->
+            <text x="199" y="189" font-size="11.5" font-style="italic" font-family="Georgia, 'Times New Roman', serif"
+              fill="#dc2626">v</text>
+            <line x1="198" y1="178" x2="205" y2="178" stroke="#dc2626" stroke-width="1" marker-end="url(#ar3-red-s)" />
+            <text x="206" y="192" font-size="8" font-style="italic" font-family="Georgia, 'Times New Roman', serif"
+              fill="#dc2626">1</text>
+            <text x="211" y="189" font-size="11.5" font-style="italic" font-family="Georgia, 'Times New Roman', serif"
+              fill="#dc2626">= (1, 1, 0)</text>
+
+            <!-- Etiqueta v₂ = (0,0,1) -->
+            <text x="155" y="93" font-size="11.5" font-style="italic" font-family="Georgia, 'Times New Roman', serif"
+              fill="#16a34a">v</text>
+            <line x1="154" y1="82" x2="161" y2="82" stroke="#16a34a" stroke-width="1" marker-end="url(#ar3-green-s)" />
+            <text x="162" y="96" font-size="8" font-style="italic" font-family="Georgia, 'Times New Roman', serif"
+              fill="#16a34a">2</text>
+            <text x="167" y="93" font-size="11.5" font-style="italic" font-family="Georgia, 'Times New Roman', serif"
+              fill="#16a34a">= (0, 0, 1)</text>
+          </svg>
+          <div class="diagram-caption">Plano $x-y=0$ en $\mathbb{R}^3$</div>
+        </div>
       </div>
-    </div>
+      <h3 class="section-title" id="sec-2-4">2.4 Intersección y Suma de Subespacios</h3>
 
-    <h3 class="section-title" id="sec-2-4">2.4 Intersección y Suma de Subespacios</h3>
+      <p>Sean $H$ y $F$ subespacios de $\mathbb{R}^n$.</p>
 
-    <p>Sean $H$ y $F$ subespacios de $\mathbb{R}^n$.</p>
-
-    <div class="callout callout-def">
-      <div class="callout-title">📌 Definición: intersección</div>
-      \[
+      <div class="callout callout-def">
+        <div class="callout-title">📌 Definición: intersección</div>
+        \[
         H \cap F = \{\vec{v} \in V \mid \vec{v} \in H \land \vec{v} \in F\}
-      \]
-    </div>
+        \]
+      </div>
 
-    <div class="callout callout-def">
-      <div class="callout-title">📌 Definición: suma normal</div>
-      \[
+      <div class="callout callout-def">
+        <div class="callout-title">📌 Definición: suma normal</div>
+        \[
         H + F = \{\vec{u} + \vec{w} \in \mathbb{R}^n \mid \vec{u} \in H \land \vec{w} \in F\}
-      \]
-    </div>
+        \]
+      </div>
 
-    <p>Operativamente, si $H = \operatorname{gen}(S_1)$ y $F = \operatorname{gen}(S_2)$:</p>
+      <p>Operativamente, si $H = \operatorname{gen}(S_1)$ y $F = \operatorname{gen}(S_2)$:</p>
 
-    \[
+      \[
       H + F = \operatorname{gen}(S_1 \cup S_2)
-    \]
+      \]
 
-    <p>La naturaleza de la suma se decide según la intersección:</p>
+      <p>La naturaleza de la suma se decide según la intersección:</p>
 
-    \[
+      \[
       \text{La suma es }
       \begin{cases}
-        \text{directa } (H \oplus F) & \iff H \cap F = \{\vec{0}\} \\
-        \text{normal } (H + F) & \iff H \cap F \neq \{\vec{0}\}
+      \text{directa } (H \oplus F) & \iff H \cap F = \{\vec{0}\} \\
+      \text{normal } (H + F) & \iff H \cap F \neq \{\vec{0}\}
       \end{cases}
-    \]
+      \]
 
-    <p>Y $F$ es un <strong>subespacio complementario</strong> de $H$ si su suma directa cubre todo el espacio:</p>
+      <p>Y $F$ es un <strong>subespacio complementario</strong> de $H$ si su suma directa cubre todo el espacio:</p>
 
-    \[
-      \mathbb{R}^n = H \oplus F
-    \]
-
-    <div class="callout callout-note">
-      <div class="callout-title">💡 Estrategia práctica</div>
-      <ul style="margin:0;">
-        <li>Para la <strong>intersección</strong>: conviene usar las <em>ecuaciones implícitas</em> de cada subespacio.</li>
-        <li>Para la <strong>suma</strong> o el <strong>complemento</strong>: conviene usar los
-          <em>conjuntos generadores</em>.</li>
-        <li>Si se quiere comprobar si una suma es directa, se puede usar el determinante de la matriz de
-          generadores de la unión (si es $\ne 0$, es directa).</li>
-      </ul>
-    </div>
-
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 2.6: generadores, intersección y suma en $\mathbb{R}^3$</div>
-      <p>En $\mathbb{R}^3$:</p>
       \[
+      \mathbb{R}^n = H \oplus F
+      \]
+
+      <div class="callout callout-note">
+        <div class="callout-title">💡 Estrategia práctica</div>
+        <ul style="margin:0;">
+          <li>Para la <strong>intersección</strong>: conviene usar las <em>ecuaciones implícitas</em> de cada
+            subespacio.</li>
+          <li>Para la <strong>suma</strong> o el <strong>complemento</strong>: conviene usar los
+            <em>conjuntos generadores</em>.
+          </li>
+          <li>Si se quiere comprobar si una suma es directa, se puede usar el determinante de la matriz de
+            generadores de la unión (si es $\ne 0$, es directa).</li>
+        </ul>
+      </div>
+
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 2.6: generadores, intersección y suma en $\mathbb{R}^3$</div>
+        <p>En $\mathbb{R}^3$:</p>
+        \[
         H_1 = \{(x,y,z) : x - y + 2z = 0\}, \qquad
         H_2 = \{(x,y,z) : 3x + y - z = 0\}
-      \]
-      <details class="solution">
-        <summary>🔍 Ver desarrollo completo</summary>
-        <div class="solution-content">
-          <p><strong>Generadores de $H_1$.</strong> Despejando $x = y - 2z$, se obtiene</p>
-          \[
+        \]
+        <details class="solution">
+          <summary>🔍 Ver desarrollo completo</summary>
+          <div class="solution-content">
+            <p><strong>Generadores de $H_1$.</strong> Despejando $x = y - 2z$, se obtiene</p>
+            \[
             (x,y,z) = y(1,1,0) + z(-2,0,1) \;\Rightarrow\; H_1 = \langle(1,1,0),(-2,0,1)\rangle.
-          \]
-          <p>Dos vectores no proporcionales $\Rightarrow$ LI, $\dim H_1 = 2$.</p>
+            \]
+            <p>Dos vectores no proporcionales $\Rightarrow$ LI, $\dim H_1 = 2$.</p>
 
-          <p><strong>Generadores de $H_2$.</strong> Despejando $z = 3x + y$,</p>
-          \[
+            <p><strong>Generadores de $H_2$.</strong> Despejando $z = 3x + y$,</p>
+            \[
             (x,y,z) = x(1,0,3) + y(0,1,1) \;\Rightarrow\; H_2 = \langle(1,0,3),(0,1,1)\rangle,
-          \]
-          <p>también con $\dim H_2 = 2$.</p>
+            \]
+            <p>también con $\dim H_2 = 2$.</p>
 
-          <p><strong>Intersección $H_1 \cap H_2$.</strong> Resolviendo el sistema despejando y sustituyendo:</p>
-          \[
+            <p><strong>Intersección $H_1 \cap H_2$.</strong> Resolviendo el sistema despejando y sustituyendo:</p>
+            \[
             y = x + 2z \;\Rightarrow\; 3x + (x+2z) - z = 0 \;\Rightarrow\; 4x + z = 0
-          \]
-          \[
+            \]
+            \[
             z = -4x,\quad y = x + 2(-4x) = -7x.
-          \]
-          <p>Por lo tanto,</p>
-          \[
+            \]
+            <p>Por lo tanto,</p>
+            \[
             (x,y,z) = x(1, -7, -4) \;\Rightarrow\; H_1 \cap H_2 = \langle(1,-7,-4)\rangle,
-          \]
-          <p>una recta (dimensión 1).</p>
+            \]
+            <p>una recta (dimensión 1).</p>
 
-          <p><strong>Suma.</strong> Unión de generadores:</p>
-          \[
+            <p><strong>Suma.</strong> Unión de generadores:</p>
+            \[
             H_1 + H_2 = \langle (1,1,0),(-2,0,1),(1,0,3),(0,1,1)\rangle.
-          \]
-        </div>
-      </details>
-    </div>
+            \]
+          </div>
+        </details>
+      </div>
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 2.7: intersección de dos subespacios dados por generadores</div>
-      <p>En $\mathbb{R}^3$:</p>
-      \[
-        U = \operatorname{gen}\left\{\begin{pmatrix}1\\0\\0\end{pmatrix},\begin{pmatrix}0\\1\\1\end{pmatrix}\right\},\quad
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 2.7: intersección de dos subespacios dados por generadores</div>
+        <p>En $\mathbb{R}^3$:</p>
+        \[
+        U =
+        \operatorname{gen}\left\{\begin{pmatrix}1\\0\\0\end{pmatrix},\begin{pmatrix}0\\1\\1\end{pmatrix}\right\},\quad
         W = \operatorname{gen}\left\{\begin{pmatrix}1\\1\\1\end{pmatrix},\begin{pmatrix}0\\0\\1\end{pmatrix}\right\}.
-      \]
-      <details class="solution">
-        <summary>🔍 Ver solución (igualando combinaciones)</summary>
-        <div class="solution-content">
-          <p>Igualando combinaciones lineales con escalares $\alpha_1,\alpha_2$ para $U$ y $\beta_1,\beta_2$ para $W$:</p>
-          \[
+        \]
+        <details class="solution">
+          <summary>🔍 Ver solución (igualando combinaciones)</summary>
+          <div class="solution-content">
+            <p>Igualando combinaciones lineales con escalares $\alpha_1,\alpha_2$ para $U$ y $\beta_1,\beta_2$ para $W$:
+            </p>
+            \[
             \alpha_1 \begin{pmatrix}1\\0\\0\end{pmatrix} + \alpha_2 \begin{pmatrix}0\\1\\1\end{pmatrix}
             = \beta_1 \begin{pmatrix}1\\1\\1\end{pmatrix} + \beta_2 \begin{pmatrix}0\\0\\1\end{pmatrix}
-          \]
-          <p>Componente a componente:</p>
-          \[
+            \]
+            <p>Componente a componente:</p>
+            \[
             \alpha_1 = \beta_1, \quad \alpha_2 = \beta_1, \quad \alpha_2 = \beta_1 + \beta_2.
-          \]
-          <p>De las dos primeras, $\alpha_2 = \beta_1$. Sustituyendo en la tercera: $\beta_1 = \beta_1 + \beta_2
-            \Rightarrow \beta_2 = 0$. Tomando $\beta_1 = \lambda$, la intersección es</p>
-          \[
+            \]
+            <p>De las dos primeras, $\alpha_2 = \beta_1$. Sustituyendo en la tercera: $\beta_1 = \beta_1 + \beta_2
+              \Rightarrow \beta_2 = 0$. Tomando $\beta_1 = \lambda$, la intersección es</p>
+            \[
             U \cap W = \operatorname{gen}\left\{\begin{pmatrix}1\\1\\1\end{pmatrix}\right\},\quad \dim = 1.
-          \]
-        </div>
-      </details>
-    </div>
+            \]
+          </div>
+        </details>
+      </div>
 
-    <h3 class="section-title" id="sec-2-5">2.5 Subespacio Complementario</h3>
+      <h3 class="section-title" id="sec-2-5">2.5 Subespacio Complementario</h3>
 
-    <p>Si conocemos la dimensión de un subespacio, la diferencia con la dimensión total nos da la dimensión de
-      su <strong>complementario</strong>. Dos subespacios son complementarios si su intersección es
-      $\{\vec{0}\}$ y sus bases juntas forman una base de todo el espacio.</p>
+      <p>Si conocemos la dimensión de un subespacio, la diferencia con la dimensión total nos da la dimensión de
+        su <strong>complementario</strong>. Dos subespacios son complementarios si su intersección es
+        $\{\vec{0}\}$ y sus bases juntas forman una base de todo el espacio.</p>
 
-    <p>El método sistemático: poner los vectores de la base del subespacio como columnas, agregar las columnas
-      de la base canónica de $\mathbb{R}^n$, escalonar y observar en qué columnas caen los pivotes. Los vectores
-      canónicos que resulten ser pivote forman el complementario.</p>
+      <p>El método sistemático: poner los vectores de la base del subespacio como columnas, agregar las columnas
+        de la base canónica de $\mathbb{R}^n$, escalonar y observar en qué columnas caen los pivotes. Los vectores
+        canónicos que resulten ser pivote forman el complementario.</p>
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 2.8: complementario de $\langle(1,2,3)\rangle$ en $\mathbb{R}^3$</div>
-      <details class="solution">
-        <summary>🔍 Ver cálculo</summary>
-        <div class="solution-content">
-          \[
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 2.8: complementario de $\langle(1,2,3)\rangle$ en $\mathbb{R}^3$</div>
+        <details class="solution">
+          <summary>🔍 Ver cálculo</summary>
+          <div class="solution-content">
+            \[
             \left(\begin{array}{c|ccc}
-              1 & 1 & 0 & 0\\
-              2 & 0 & 1 & 0\\
-              3 & 0 & 0 & 1
+            1 & 1 & 0 & 0\\
+            2 & 0 & 1 & 0\\
+            3 & 0 & 0 & 1
             \end{array}\right)
             \xrightarrow[F_3 \to F_3 - 3F_1]{F_2 \to F_2 - 2F_1}
             \left(\begin{array}{c|ccc}
-              1 & 1 & 0 & 0\\
-              0 & -2 & 1 & 0\\
-              0 & -3 & 0 & 1
+            1 & 1 & 0 & 0\\
+            0 & -2 & 1 & 0\\
+            0 & -3 & 0 & 1
             \end{array}\right)
             \xrightarrow{F_3 \to F_3 - \frac{3}{2}F_2}
             \left(\begin{array}{c|ccc}
-              1 & 1 & 0 & 0\\
-              0 & -2 & 1 & 0\\
-              0 & 0 & -\tfrac{3}{2} & 1
+            1 & 1 & 0 & 0\\
+            0 & -2 & 1 & 0\\
+            0 & 0 & -\tfrac{3}{2} & 1
             \end{array}\right)
-          \]
-          <p>Pivotes en las columnas 1, 2 y 3: la 1 es el vector original, y las columnas 2 y 3 corresponden a
-            $\vec{e}_1$ y $\vec{e}_2$. Por lo tanto,</p>
-          \[
+            \]
+            <p>Pivotes en las columnas 1, 2 y 3: la 1 es el vector original, y las columnas 2 y 3 corresponden a
+              $\vec{e}_1$ y $\vec{e}_2$. Por lo tanto,</p>
+            \[
             U = \langle(1,0,0),(0,1,0)\rangle,\quad W \oplus U = \mathbb{R}^3.
-          \]
-        </div>
-      </details>
-    </div>
+            \]
+          </div>
+        </details>
+      </div>
 
-    <div class="callout callout-note">
-      <div class="callout-title">💡 El complementario no es único</div>
-      <p style="margin:0;">Cualquier conjunto de vectores LI que complete una base de $V$ da un complementario
-        válido. La relación es simétrica: si $U$ complementa a $W$, entonces $W$ complementa a $U$.</p>
-    </div>
+      <div class="callout callout-note">
+        <div class="callout-title">💡 El complementario no es único</div>
+        <p style="margin:0;">Cualquier conjunto de vectores LI que complete una base de $V$ da un complementario
+          válido. La relación es simétrica: si $U$ complementa a $W$, entonces $W$ complementa a $U$.</p>
+      </div>
 
-    <h4 class="sub-title">Clasificación geométrica de subespacios</h4>
+      <h4 class="sub-title">Clasificación geométrica de subespacios</h4>
 
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th>Subespacios de $\mathbb{R}^2$</th>
-            <th>Subespacios de $\mathbb{R}^3$</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>$\{(0,0)\}$</td><td>$\{(0,0,0)\}$</td></tr>
-          <tr><td>Rectas por el origen</td><td>Rectas por el origen</td></tr>
-          <tr><td>—</td><td>Planos por el origen</td></tr>
-          <tr><td>Todo el plano $\mathbb{R}^2$</td><td>Todo el espacio $\mathbb{R}^3$</td></tr>
-        </tbody>
-      </table>
-    </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Subespacios de $\mathbb{R}^2$</th>
+              <th>Subespacios de $\mathbb{R}^3$</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>$\{(0,0)\}$</td>
+              <td>$\{(0,0,0)\}$</td>
+            </tr>
+            <tr>
+              <td>Rectas por el origen</td>
+              <td>Rectas por el origen</td>
+            </tr>
+            <tr>
+              <td>—</td>
+              <td>Planos por el origen</td>
+            </tr>
+            <tr>
+              <td>Todo el plano $\mathbb{R}^2$</td>
+              <td>Todo el espacio $\mathbb{R}^3$</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-    <p>Y los complementarios directos se resumen así:</p>
+      <p>Y los complementarios directos se resumen así:</p>
 
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th>Subespacio $W$</th>
-            <th>Complemento directo $U$</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">En $\mathbb{R}^2$</td></tr>
-          <tr><td>$\{(0,0)\}$</td><td>$\mathbb{R}^2$</td></tr>
-          <tr><td>Recta por el origen</td><td>Cualquier otra recta por el origen</td></tr>
-          <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">En $\mathbb{R}^3$</td></tr>
-          <tr><td>$\{(0,0,0)\}$</td><td>$\mathbb{R}^3$</td></tr>
-          <tr><td>Recta por el origen</td><td>Cualquier plano por el origen que no la contenga</td></tr>
-        </tbody>
-      </table>
-    </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Subespacio $W$</th>
+              <th>Complemento directo $U$</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">En $\mathbb{R}^2$</td>
+            </tr>
+            <tr>
+              <td>$\{(0,0)\}$</td>
+              <td>$\mathbb{R}^2$</td>
+            </tr>
+            <tr>
+              <td>Recta por el origen</td>
+              <td>Cualquier otra recta por el origen</td>
+            </tr>
+            <tr>
+              <td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">En $\mathbb{R}^3$</td>
+            </tr>
+            <tr>
+              <td>$\{(0,0,0)\}$</td>
+              <td>$\mathbb{R}^3$</td>
+            </tr>
+            <tr>
+              <td>Recta por el origen</td>
+              <td>Cualquier plano por el origen que no la contenga</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-    <h3 class="section-title" id="sec-2-6">2.6 Fórmula de Grassmann y propiedades prácticas de la dimensión</h3>
+      <h3 class="section-title" id="sec-2-6">2.6 Fórmula de Grassmann y propiedades prácticas de la dimensión</h3>
 
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Teorema</div>
-      <p>Sea $V$ de dimensión finita $n$ y $H, F \le V$. Se cumplen:</p>
-      <ol style="margin:0;">
-        <li><strong>Dimensión según la representación</strong>
-          <ul>
-            <li>Conjuntista: número de generadores LI.</li>
-            <li>Cartesiana: $\dim H = n - (\#\text{restricciones LI})$.</li>
-            <li>Paramétrica: número de parámetros libres.</li>
-          </ul>
-        </li>
-        <li><strong>Fórmula de Grassmann:</strong>
-          \[
+      <div class="callout callout-thm">
+        <div class="callout-title">📐 Teorema</div>
+        <p>Sea $V$ de dimensión finita $n$ y $H, F \le V$. Se cumplen:</p>
+        <ol style="margin:0;">
+          <li><strong>Dimensión según la representación</strong>
+            <ul>
+              <li>Conjuntista: número de generadores LI.</li>
+              <li>Cartesiana: $\dim H = n - (\#\text{restricciones LI})$.</li>
+              <li>Paramétrica: número de parámetros libres.</li>
+            </ul>
+          </li>
+          <li><strong>Fórmula de Grassmann:</strong>
+            \[
             \dim(H + F) = \dim H + \dim F - \dim(H \cap F).
-          \]
-        </li>
-        <li><strong>Suma directa:</strong>
-          \[
+            \]
+          </li>
+          <li><strong>Suma directa:</strong>
+            \[
             \dim(H \oplus F) = \dim H + \dim F.
-          \]
-        </li>
-      </ol>
-    </div>
-
-    <div class="diagram-container">
-      <div>
-        <svg class="fig wide" viewBox="0 0 300 220" role="img" aria-label="Suma directa: recta transversal al plano">
-          <line x1="140" y1="130" x2="275" y2="130" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
-          <line x1="140" y1="130" x2="140" y2="15"  stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
-          <line x1="140" y1="130" x2="45"  y2="185" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
-          <text x="270" y="126" font-size="11" fill="#64748b">y</text>
-          <text x="132" y="18"  font-size="11" fill="#64748b">z</text>
-          <text x="36"  y="196" font-size="11" fill="#64748b">x</text>
-
-          <polygon points="40,95 220,70 250,165 70,190" fill="#bfdbfe" fill-opacity="0.65"
-                   stroke="#60a5fa" stroke-width="1.5"/>
-          <text x="115" y="135" font-size="10" fill="#1e3a8a">H (dim 2)</text>
-
-          <!-- recta transversal F -->
-          <line x1="140" y1="25" x2="140" y2="215" stroke="#7c3aed" stroke-width="2.2"/>
-          <text x="146" y="30" font-size="11" fill="#7c3aed">F (dim 1)</text>
-
-          <circle cx="140" cy="130" r="3" fill="#0f172a"/>
-          <text x="118" y="148" font-size="9" fill="#0f172a">0</text>
-        </svg>
-        <div class="diagram-caption">$H \cap F = \{\vec{0}\}$, $\dim(H \oplus F) = 3$</div>
+            \]
+          </li>
+        </ol>
       </div>
+<div class="diagram-container">
+        <div>
+          <svg class="fig wide" viewBox="0 0 400 300" role="img" aria-label="Suma directa: recta transversal al plano">
+            <defs>
+              <marker id="arrow-gray1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8" />
+              </marker>
+              <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#60a5fa" />
+              </marker>
+              <marker id="arrow-blue-start" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 10 0 L 0 5 L 10 10 z" fill="#60a5fa" />
+              </marker>
+            </defs>
 
-      <div>
-        <svg class="fig wide" viewBox="0 0 300 220" role="img" aria-label="Suma normal: recta contenida en el plano">
-          <line x1="140" y1="130" x2="275" y2="130" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
-          <line x1="140" y1="130" x2="140" y2="15"  stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
-          <line x1="140" y1="130" x2="45"  y2="185" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
-          <text x="270" y="126" font-size="11" fill="#64748b">y</text>
-          <text x="132" y="18"  font-size="11" fill="#64748b">z</text>
-          <text x="36"  y="196" font-size="11" fill="#64748b">x</text>
+            <!-- Ejes coordenados -->
+            <line x1="200" y1="150" x2="370" y2="150" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow-gray1)" />
+            <line x1="200" y1="150" x2="200" y2="20" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow-gray1)" />
+            <line x1="200" y1="150" x2="50" y2="200" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow-gray1)" />
+            <text x="375" y="155" font-size="16" fill="#64748b" font-family="serif">Y</text>
+            <text x="205" y="15" font-size="16" fill="#64748b" font-family="serif">Z</text>
+            <text x="35" y="210" font-size="16" fill="#64748b" font-family="serif">X</text>
 
-          <polygon points="40,95 220,70 250,165 70,190" fill="#bfdbfe" fill-opacity="0.65"
-                   stroke="#60a5fa" stroke-width="1.5"/>
-          <text x="115" y="135" font-size="10" fill="#1e3a8a">H (dim 2)</text>
+            <!-- Plano H -->
+            <polygon points="80,130 220,80 320,170 180,220" fill="#e0f2fe" fill-opacity="0.7" stroke="#93c5fd" stroke-width="1.5" />
+            <text x="270" y="115" font-size="18" fill="#3b82f6" font-family="serif">H (dim=2)</text>
 
-          <!-- recta contenida F dentro del plano -->
-          <line x1="60" y1="105" x2="235" y2="185" stroke="#7c3aed" stroke-width="2.2"/>
-          <text x="200" y="195" font-size="11" fill="#7c3aed">F (dim 1)</text>
+            <!-- Recta transversal F (Azul) -->
+            <line x1="100" y1="30" x2="300" y2="270" stroke="#60a5fa" stroke-width="2.5" marker-end="url(#arrow-blue)" marker-start="url(#arrow-blue-start)" />
+            <text x="305" y="280" font-size="18" fill="#60a5fa" font-family="serif">F (dim=1)</text>
 
-          <circle cx="140" cy="130" r="3" fill="#0f172a"/>
-          <text x="118" y="148" font-size="9" fill="#0f172a">0</text>
-        </svg>
-        <div class="diagram-caption">$H \cap F = F$, $\dim(H + F) = 2$ (no directa)</div>
+            <!-- Origen -->
+            <circle cx="200" cy="150" r="3.5" fill="#0f172a" />
+            <text x="175" y="140" font-size="16" fill="#0f172a" font-family="serif">0</text>
+            <line x1="175" y1="128" x2="188" y2="128" stroke="#0f172a" stroke-width="1.2" marker-end="url(#arrow-gray1)" />
+          </svg>
+          <div class="diagram-caption">$H \cap F = \{\vec{0}\}$, $\dim(H \oplus F) = 3$</div>
+        </div>
+
+        <div>
+          <svg class="fig wide" viewBox="0 0 400 300" role="img" aria-label="Suma normal: recta contenida en el plano">
+            <defs>
+              <marker id="arrow-gray2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8" />
+              </marker>
+              <marker id="arrow-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#a855f7" />
+              </marker>
+              <marker id="arrow-purple-start" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 10 0 L 0 5 L 10 10 z" fill="#a855f7" />
+              </marker>
+            </defs>
+
+            <!-- Ejes coordenados -->
+            <line x1="200" y1="150" x2="370" y2="150" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow-gray2)" />
+            <line x1="200" y1="150" x2="200" y2="20" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow-gray2)" />
+            <line x1="200" y1="150" x2="50" y2="200" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow-gray2)" />
+            <text x="375" y="155" font-size="16" fill="#64748b" font-family="serif">Y</text>
+            <text x="205" y="15" font-size="16" fill="#64748b" font-family="serif">Z</text>
+            <text x="35" y="210" font-size="16" fill="#64748b" font-family="serif">X</text>
+
+            <!-- Plano H -->
+            <polygon points="80,130 220,80 320,170 180,220" fill="#e0f2fe" fill-opacity="0.7" stroke="#93c5fd" stroke-width="1.5" />
+            <text x="270" y="115" font-size="18" fill="#3b82f6" font-family="serif">H (dim=2)</text>
+
+            <!-- Recta contenida F (Morada) - Conecta los extremos del plano -->
+            <line x1="80" y1="130" x2="320" y2="170" stroke="#a855f7" stroke-width="2.5" marker-end="url(#arrow-purple)" marker-start="url(#arrow-purple-start)" />
+            <text x="70" y="115" font-size="18" fill="#a855f7" font-family="serif">F (dim=1)</text>
+
+            <!-- Origen -->
+            <circle cx="200" cy="150" r="3.5" fill="#0f172a" />
+            <text x="175" y="140" font-size="16" fill="#0f172a" font-family="serif">0</text>
+            <line x1="175" y1="128" x2="188" y2="128" stroke="#0f172a" stroke-width="1.2" marker-end="url(#arrow-gray2)" />
+          </svg>
+          <div class="diagram-caption">$H \cap F = F$, $\dim(H + F) = 2$ (no directa)</div>
+        </div>
       </div>
-    </div>
-
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 2.9: suma directa vía determinante</div>
-      <p>En $\mathbb{R}^3$, con</p>
-      \[
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 2.9: suma directa vía determinante</div>
+        <p>En $\mathbb{R}^3$, con</p>
+        \[
         H = \{x + y + z = 0\}, \quad F = \{x - y = 0,\ y - z = 0\}.
-      \]
-      <details class="solution">
-        <summary>🔍 Ver desarrollo</summary>
-        <div class="solution-content">
-          <p><strong>Generadores de $H$:</strong> $x = -y - z \Rightarrow H = \langle(-1,1,0),(-1,0,1)\rangle$.</p>
-          <p><strong>Generador de $F$:</strong> $x = y = z \Rightarrow F = \langle(1,1,1)\rangle$.</p>
-          <p><strong>Suma:</strong> $H + F = \langle(-1,1,0),(-1,0,1),(1,1,1)\rangle$.</p>
-          <p><strong>Determinante:</strong></p>
-          \[
+        \]
+        <details class="solution">
+          <summary>🔍 Ver desarrollo</summary>
+          <div class="solution-content">
+            <p><strong>Generadores de $H$:</strong> $x = -y - z \Rightarrow H = \langle(-1,1,0),(-1,0,1)\rangle$.</p>
+            <p><strong>Generador de $F$:</strong> $x = y = z \Rightarrow F = \langle(1,1,1)\rangle$.</p>
+            <p><strong>Suma:</strong> $H + F = \langle(-1,1,0),(-1,0,1),(1,1,1)\rangle$.</p>
+            <p><strong>Determinante:</strong></p>
+            \[
             \begin{vmatrix}
-              -1 & -1 & 1 \\
-               1 &  0 & 1 \\
-               0 &  1 & 1
+            -1 & -1 & 1 \\
+            1 & 0 & 1 \\
+            0 & 1 & 1
             \end{vmatrix}
             = -1(0-1) + 1(1-0) + 1(1-0) = 1 + 1 + 1 = 3 \neq 0.
-          \]
-          <p>Como el determinante es no nulo, los tres vectores son LI $\Rightarrow H \oplus F = \mathbb{R}^3$.</p>
-        </div>
-      </details>
-    </div>
+            \]
+            <p>Como el determinante es no nulo, los tres vectores son LI $\Rightarrow H \oplus F = \mathbb{R}^3$.</p>
+          </div>
+        </details>
+      </div>
 
-    <h4 class="sub-title">Ejemplos adicionales de intersección en otros espacios</h4>
+      <h4 class="sub-title">Ejemplos adicionales de intersección en otros espacios</h4>
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 2.10: intersección en $M_{2\times 2}(\mathbb{R})$</div>
-      <p>Con $M_1$ = matrices triangulares superiores ($c = 0$) y $M_2$ = matrices simétricas ($b = c$):</p>
-      \[
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 2.10: intersección en $M_{2\times 2}(\mathbb{R})$</div>
+        <p>Con $M_1$ = matrices triangulares superiores ($c = 0$) y $M_2$ = matrices simétricas ($b = c$):</p>
+        \[
         M_1 \cap M_2 = \left\{ \begin{pmatrix} a & 0 \\ 0 & d \end{pmatrix} : a,d \in \mathbb{R} \right\}.
-      \]
-      <p>Es decir, el subespacio de las matrices diagonales.</p>
-    </div>
+        \]
+        <p>Es decir, el subespacio de las matrices diagonales.</p>
+      </div>
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 2.11: intersección en $P_2$</div>
-      <p>Con $H_1 = \{p(0) = 0\}$ y $H_2 = \{p(1) = 0\}$, se tiene $c = 0$ y $a + b + c = 0
-        \Rightarrow b = -a$, por lo tanto</p>
-      \[
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 2.11: intersección en $P_2$</div>
+        <p>Con $H_1 = \{p(0) = 0\}$ y $H_2 = \{p(1) = 0\}$, se tiene $c = 0$ y $a + b + c = 0
+          \Rightarrow b = -a$, por lo tanto</p>
+        \[
         H_1 \cap H_2 = \{a(x^2 - x) : a \in \mathbb{R}\}.
-      \]
-    </div>
+        \]
+      </div>
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 2.12: intersección por ecuaciones implícitas en $\mathbb{R}^4$</div>
-      <p>Con $H = \operatorname{gen}\{(1,0,1,0),(0,1,0,-1)\}$ y $F = \{x - y = 0,\ z + w = 0\}$:</p>
-      <details class="solution">
-        <summary>🔍 Ver desarrollo</summary>
-        <div class="solution-content">
-          <p><strong>Ecuaciones de $H$:</strong> escribiendo $(x,y,z,w) = \alpha(1,0,1,0)+\beta(0,1,0,-1)$,
-            obtenemos $x = z$ y $y = -w$, es decir $x - z = 0$ y $y + w = 0$.</p>
-          <p><strong>Intersección con $F$:</strong> el sistema es</p>
-          \[
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 2.12: intersección por ecuaciones implícitas en $\mathbb{R}^4$</div>
+        <p>Con $H = \operatorname{gen}\{(1,0,1,0),(0,1,0,-1)\}$ y $F = \{x - y = 0,\ z + w = 0\}$:</p>
+        <details class="solution">
+          <summary>🔍 Ver desarrollo</summary>
+          <div class="solution-content">
+            <p><strong>Ecuaciones de $H$:</strong> escribiendo $(x,y,z,w) = \alpha(1,0,1,0)+\beta(0,1,0,-1)$,
+              obtenemos $x = z$ y $y = -w$, es decir $x - z = 0$ y $y + w = 0$.</p>
+            <p><strong>Intersección con $F$:</strong> el sistema es</p>
+            \[
             x - z = 0,\quad y + w = 0,\quad x - y = 0,\quad z + w = 0.
-          \]
-          <p>De $y = x$ y $w = -y = -x$, y se verifica $z + w = x + (-x) = 0$. Entonces</p>
-          \[
+            \]
+            <p>De $y = x$ y $w = -y = -x$, y se verifica $z + w = x + (-x) = 0$. Entonces</p>
+            \[
             H \cap F = \operatorname{gen}\{(1,1,1,-1)\}.
-          \]
-        </div>
-      </details>
-    </div>
+            \]
+          </div>
+        </details>
+      </div>
 
-    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
-  </section>
+      <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+    </section>
 
-  <!-- ============================ MÓDULO 3 ============================ -->
-  <section class="card" id="mod-3">
-    <h2 class="module-title"><span class="badge">MÓDULO 03</span> Matriz de Cambio de Base</h2>
+    <!-- ============================ MÓDULO 3 ============================ -->
+<section class="card" id="mod-3">
+      <h2 class="module-title"><span class="badge">MÓDULO 03</span> Matriz de Cambio de Base</h2>
 
-    <h3 class="section-title" id="sec-3-1">3.1 Coordenadas de un vector relativas a una base</h3>
+      <h3 class="section-title" id="sec-3-1">3.1 Coordenadas de un vector relativas a una base</h3>
 
-    <p>La razón principal de elegir una base (en lugar de un conjunto generador cualquiera) es que cada vector
-      $\vec{v}$ se puede escribir de una <strong>única manera</strong> como combinación lineal de los elementos
-      de la base.</p>
+      <p>La razón principal de elegir una base (en lugar de un conjunto generador cualquiera) es que cada vector
+        $\vec{v}$ se puede escribir de una <strong>única manera</strong> como combinación lineal de los elementos
+        de la base.</p>
 
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Teorema</div>
-      <p style="margin:0;">Sea $B = \{\vec{b}_1, \dots, \vec{b}_n\}$ una base de $\mathbb{R}^n$. Entonces todo
-        $\vec{x} \in \mathbb{R}^n$ se escribe de forma única como combinación lineal de los vectores de $B$.</p>
-    </div>
+      <div class="callout callout-thm">
+        <div class="callout-title">📐 Teorema</div>
+        <p style="margin:0;">Sea $B = \{\vec{b}_1, \dots, \vec{b}_n\}$ una base de $\mathbb{R}^n$. Entonces todo
+          $\vec{x} \in \mathbb{R}^n$ se escribe de forma única como combinación lineal de los vectores de $B$.</p>
+      </div>
 
-    <div class="callout callout-def">
-      <div class="callout-title">📌 Definición: vector de coordenadas</div>
-      <p>Las <strong>coordenadas de $\vec{x}$ relativas a $B$</strong> son los escalares $c_1, \dots, c_n$ tales que</p>
-      \[
+      <div class="callout callout-def">
+        <div class="callout-title">📌 Definición: vector de coordenadas</div>
+        <p>Las <strong>coordenadas de $\vec{x}$ relativas a $B$</strong> son los escalares $c_1, \dots, c_n$ tales que
+        </p>
+        \[
         \vec{x} = c_1 \vec{b}_1 + \dots + c_n \vec{b}_n.
-      \]
-      <p>El vector columna $[\vec{x}]_B = (c_1, \dots, c_n)^T$ se llama <strong>vector de coordenadas de
-        $\vec{x}$ respecto a $B$</strong>.</p>
-    </div>
+        \]
+        <p>El vector columna $[\vec{x}]_B = (c_1, \dots, c_n)^T$ se llama <strong>vector de coordenadas de
+            $\vec{x}$ respecto a $B$</strong>.</p>
+      </div>
 
-    <p>Cuando se escribe $\vec{x} = (x_1, \dots, x_n)^T$ sin especificar base, se asume que $x_i$ son las
-      coordenadas respecto a la base canónica de $\mathbb{R}^n$.</p>
+      <p>Cuando se escribe $\vec{x} = (x_1, \dots, x_n)^T$ sin especificar base, se asume que $x_i$ son las
+        coordenadas respecto a la base canónica de $\mathbb{R}^n$.</p>
 
-    <h3 class="section-title" id="sec-3-2">3.2 Matriz de transición (o de cambio de base)</h3>
 
-    <div class="callout callout-def">
-      <div class="callout-title">📌 Definición</div>
-      <p>Sea $B = \{\vec{u}_1, \dots, \vec{u}_n\}$ una base de $\mathbb{R}^n$. Para cada $\vec{x} \in \mathbb{R}^n$
-        expresado en la base canónica, las coordenadas relativas a $B$ cumplen</p>
-      \[
+
+      <h3 class="section-title" id="sec-3-2">3.2 Matriz de transición (o de cambio de base)</h3>
+
+      <div class="callout callout-def">
+        <div class="callout-title">📌 Definición</div>
+        <p>Sea $B = \{\vec{u}_1, \dots, \vec{u}_n\}$ una base de $\mathbb{R}^n$. Para cada $\vec{x} \in \mathbb{R}^n$
+          expresado en la base canónica, las coordenadas relativas a $B$ cumplen</p>
+        \[
         [\vec{x}]_{\text{canónica}} = c_1 \vec{u}_1 + \dots + c_n \vec{u}_n,
-      \]
-      <p>lo que matricialmente se escribe</p>
-      \[
+        \]
+        <p>lo que matricialmente se escribe</p>
+        \[
         [\vec{x}]_{\text{canónica}} =
         \underbrace{\begin{pmatrix}
-          u_{11} & u_{12} & \cdots & u_{1n}\\
-          u_{21} & u_{22} & \cdots & u_{2n}\\
-          \vdots & \vdots & \ddots & \vdots\\
-          u_{n1} & u_{n2} & \cdots & u_{nn}
+        u_{11} & u_{12} & \cdots & u_{1n}\\
+        u_{21} & u_{22} & \cdots & u_{2n}\\
+        \vdots & \vdots & \ddots & \vdots\\
+        u_{n1} & u_{n2} & \cdots & u_{nn}
         \end{pmatrix}}_{A_B}
         \underbrace{\begin{pmatrix}
-          c_1\\c_2\\\vdots\\c_n
+        c_1\\c_2\\\vdots\\c_n
         \end{pmatrix}}_{[\vec{x}]_B}.
-      \]
-      <p style="margin:0;">Las columnas de $A_B$ son los vectores de la base $B$.</p>
-    </div>
+        \]
+        <p style="margin:0;">Las columnas de $A_B$ son los vectores de la base $B$.</p>
+      </div>
 
-    <p>La relación fundamental es</p>
+      <p>La relación fundamental es</p>
 
-    \[
+      \[
       [\vec{x}]_{\text{canónica}} = A_B \, [\vec{x}]_B.
-    \]
+      \]
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 3.1: coordenadas en $B$ → coordenadas canónicas</div>
-      <p>En $\mathbb{R}^2$, sea $B = \left\{\begin{pmatrix}1\\1\end{pmatrix},
-        \begin{pmatrix}-1\\1\end{pmatrix}\right\}$ y $[\vec{x}]_B = \begin{pmatrix}4\\1\end{pmatrix}$.</p>
-      <details class="solution">
-        <summary>🔍 Ver cálculo</summary>
-        <div class="solution-content">
-          \[
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 3.1: coordenadas en $B$ → coordenadas canónicas</div>
+        <p>En $\mathbb{R}^2$, sea $B = \left\{\begin{pmatrix}1\\1\end{pmatrix},
+          \begin{pmatrix}-1\\1\end{pmatrix}\right\}$ y $[\vec{x}]_B = \begin{pmatrix}4\\1\end{pmatrix}$.</p>
+        <details class="solution">
+          <summary>🔍 Ver cálculo</summary>
+          <div class="solution-content">
+            \[
             [\vec{x}]_{\text{canónica}}
             = \begin{pmatrix} 1 & -1 \\ 1 & 1 \end{pmatrix}
-              \begin{pmatrix} 4 \\ 1 \end{pmatrix}
+            \begin{pmatrix} 4 \\ 1 \end{pmatrix}
             = \begin{pmatrix} 4-1 \\ 4+1 \end{pmatrix}
             = \begin{pmatrix} 3 \\ 5 \end{pmatrix}.
-          \]
-        </div>
-      </details>
-    </div>
+            \]
+          </div>
+        </details>
+      </div>
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 3.2: coordenadas en $B$ → canónicas en $\mathbb{R}^3$</div>
-      <p>Con $B = \left\{\begin{pmatrix}1\\0\\0\end{pmatrix},
-        \begin{pmatrix}1\\1\\0\end{pmatrix}, \begin{pmatrix}1\\1\\1\end{pmatrix}\right\}$ y
-        $[\vec{x}]_B = \begin{pmatrix}2\\-1\\3\end{pmatrix}$:</p>
-      <details class="solution">
-        <summary>🔍 Ver cálculo</summary>
-        <div class="solution-content">
-          \[
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 3.2: coordenadas en $B$ → canónicas en $\mathbb{R}^3$</div>
+        <p>Con $B = \left\{\begin{pmatrix}1\\0\\0\end{pmatrix},
+          \begin{pmatrix}1\\1\\0\end{pmatrix}, \begin{pmatrix}1\\1\\1\end{pmatrix}\right\}$ y
+          $[\vec{x}]_B = \begin{pmatrix}2\\-1\\3\end{pmatrix}$:</p>
+        <details class="solution">
+          <summary>🔍 Ver cálculo</summary>
+          <div class="solution-content">
+            \[
             [\vec{x}]_{\text{canónica}}
             = \begin{pmatrix} 1 & 1 & 1 \\ 0 & 1 & 1 \\ 0 & 0 & 1 \end{pmatrix}
-              \begin{pmatrix} 2 \\ -1 \\ 3 \end{pmatrix}
+            \begin{pmatrix} 2 \\ -1 \\ 3 \end{pmatrix}
             = \begin{pmatrix} 2-1+3 \\ -1+3 \\ 3 \end{pmatrix}
             = \begin{pmatrix} 4 \\ 2 \\ 3 \end{pmatrix}.
-          \]
-        </div>
-      </details>
-    </div>
+            \]
+          </div>
+        </details>
+      </div>
 
-    <h3 class="section-title" id="sec-3-3">3.3 Teorema de cambio de base</h3>
+      <h3 class="section-title" id="sec-3-3">3.3 Teorema de cambio de base</h3>
 
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Teorema de cambio de base</div>
-      <p>Sea $B_1 = \{\vec{u}_1, \dots, \vec{u}_n\}$ la base antigua y $B_2$ la base nueva de un espacio
-        $V$. Para todo $\vec{x} \in V$, si sus escalares en $B_1$ son $c_i$ y en $B_2$ son $k_i$, entonces</p>
-      \[
+      <p>Cualquier espacio vectorial, como el plano $\mathbb{R}^2$, no está atado a la cuadrícula rectangular
+        habitual. Si elegimos dos pares diferentes de vectores linealmente independientes, obtenemos dos bases
+        alternativas, digamos $B = \{\vec{b}_1, \vec{b}_2\}$ y $C = \{\vec{c}_1, \vec{c}_2\}$, ninguna de las
+        cuales necesita coincidir con los ejes estándar. Piensa en estas dos bases como dos sistemas de
+        coordenadas oblicuos o “mapas con cuadrículas inclinadas”: el punto o vector físico $\vec{w}$ en el
+        espacio es único, pero sus “instrucciones de navegación” (los vectores de coordenadas $[\vec{w}]_B$ y
+        $[\vec{w}]_C$) se expresan en términos de diferentes pasos a lo largo de los ejes de cada base.</p>
+
+      <div class="callout callout-thm">
+        <div class="callout-title">📐 Teorema de cambio de base</div>
+        <p>Sea $B_1 = \{\vec{u}_1, \dots, \vec{u}_n\}$ la base antigua y $B_2$ la base nueva de un espacio
+          $V$. Para todo $\vec{x} \in V$, si sus escalares en $B_1$ son $c_i$ y en $B_2$ son $k_i$, entonces</p>
+        \[
         \underbrace{\begin{pmatrix} k_1 \\ k_2 \\ \vdots \\ k_n \end{pmatrix}}_{\text{Coordenadas en } B_2}
         =
         \underbrace{\begin{pmatrix}
-          \alpha_{11} & \alpha_{12} & \cdots & \alpha_{1n}\\
-          \alpha_{21} & \alpha_{22} & \cdots & \alpha_{2n}\\
-          \vdots & \vdots & \ddots & \vdots\\
-          \alpha_{n1} & \alpha_{n2} & \cdots & \alpha_{nn}
+        \alpha_{11} & \alpha_{12} & \cdots & \alpha_{1n}\\
+        \alpha_{21} & \alpha_{22} & \cdots & \alpha_{2n}\\
+        \vdots & \vdots & \ddots & \vdots\\
+        \alpha_{n1} & \alpha_{n2} & \cdots & \alpha_{nn}
         \end{pmatrix}}_{\text{Matriz de transición } A_{B_1 \to B_2}}
         \underbrace{\begin{pmatrix} c_1 \\ c_2 \\ \vdots \\ c_n \end{pmatrix}}_{\text{Coordenadas en } B_1}
-      \]
-      <p style="margin:0;">Cada columna $j$ de $A_{B_1 \to B_2}$ contiene los escalares necesarios para expresar
-        $\vec{u}_j$ (vector de $B_1$) como combinación lineal de los vectores de $B_2$. La matriz $A$ es siempre
-        invertible y $A^{-1}$ es la matriz de transición inversa (de $B_2$ a $B_1$).</p>
-    </div>
-
-    <div class="diagram-container">
-      <div>
-        <svg class="fig" viewBox="0 0 240 220" role="img" aria-label="Base B con vector w">
-          <line x1="10" y1="120" x2="230" y2="120" stroke="#e2e8f0" stroke-width="1"/>
-          <line x1="90" y1="215" x2="90" y2="10"  stroke="#e2e8f0" stroke-width="1"/>
-          <circle cx="90" cy="120" r="2" fill="#1e293b"/>
-
-          <line x1="90" y1="120" x2="130" y2="105" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ah-blue)"/>
-          <text x="133" y="102" font-size="11" fill="#2563eb" font-style="italic">b₁</text>
-          <line x1="90" y1="120" x2="105" y2="80" stroke="#dc2626" stroke-width="2.5" marker-end="url(#ah-red)"/>
-          <text x="108" y="76" font-size="11" fill="#dc2626" font-style="italic">b₂</text>
-
-          <line x1="90" y1="120" x2="150" y2="65" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#ah-purple)"/>
-          <text x="152" y="62" font-size="13" fill="#7c3aed" font-style="italic">w</text>
-
-          <line x1="130" y1="105" x2="150" y2="65" stroke="#7c3aed" stroke-width="1" stroke-dasharray="3 2"/>
-          <line x1="105" y1="80"  x2="150" y2="65" stroke="#7c3aed" stroke-width="1" stroke-dasharray="3 2"/>
-
-          <text x="115" y="215" font-size="11" text-anchor="middle"><tspan font-weight="700">Base B</tspan></text>
-          <text x="115" y="230" font-size="10" fill="#475569" text-anchor="middle">$[w]_B = (1,1)^T$</text>
-        </svg>
-        <div class="diagram-caption">Coordenadas en $B$</div>
+        \]
+        <p style="margin:0;">Cada columna $j$ de $A_{B_1 \to B_2}$ contiene los escalares necesarios para expresar
+          $\vec{u}_j$ (vector de $B_1$) como combinación lineal de los vectores de $B_2$. La matriz $A$ es siempre
+          invertible y $A^{-1}$ es la matriz de transición inversa (de $B_2$ a $B_1$).</p>
       </div>
 
-      <div>
-        <svg class="fig" viewBox="0 0 240 220" role="img" aria-label="Base C con el mismo vector w">
-          <line x1="10" y1="120" x2="230" y2="120" stroke="#e2e8f0" stroke-width="1"/>
-          <line x1="90" y1="215" x2="90" y2="10"  stroke="#e2e8f0" stroke-width="1"/>
-          <circle cx="90" cy="120" r="2" fill="#1e293b"/>
+      <p>En la notación de las dos bases $B$ y $C$ introducidas arriba, la <strong>matriz de cambio de base</strong>
+        de $C$ a $B$ (que denotamos $P_{C \to B}$ y que corresponde a $A_{C \to B}$ en el teorema) actúa como el
+        traductor directo entre ambas representaciones:</p>
+      <ul>
+        <li><strong>Su función geométrica:</strong> toma las coordenadas de un vector escritas en términos de la
+          base $C$ y las transforma en las coordenadas equivalentes que corresponden a la base $B$.</li>
+        <li><strong>Construcción y operación:</strong> la matriz $P_{C \to B}$ se construye colocando en sus
+          columnas las coordenadas de los vectores de $C$ expresados en la base $B$, de modo que
+          \[
+            [\vec{w}]_B = P_{C \to B} [\vec{w}]_C.
+          \]</li>
+      </ul>
 
-          <line x1="90" y1="120" x2="140" y2="112" stroke="#16a34a" stroke-width="2.5" marker-end="url(#ah-green)"/>
-          <text x="143" y="109" font-size="11" fill="#16a34a" font-style="italic">c₁</text>
-          <line x1="90" y1="120" x2="55" y2="70"   stroke="#ea580c" stroke-width="2.5" marker-end="url(#ah-orange)"/>
-          <text x="42" y="66" font-size="11" fill="#ea580c" font-style="italic">c₂</text>
+      <div class="diagram-container">
+        <div>
+          <svg class="fig" viewBox="0 0 260 240" role="img" aria-label="Base alternativa B">
+            <line x1="10" y1="130" x2="250" y2="130" stroke="#e2e8f0" stroke-width="1"/>
+            <line x1="100" y1="230" x2="100" y2="15" stroke="#e2e8f0" stroke-width="1"/>
+            <circle cx="100" cy="130" r="2" fill="#1e293b"/>
 
-          <line x1="90" y1="120" x2="150" y2="65" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#ah-purple)"/>
-          <text x="152" y="62" font-size="13" fill="#7c3aed" font-style="italic">w</text>
+            <line x1="100" y1="130" x2="140" y2="110" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ah-blue)"/>
+            <text x="143" y="108" font-size="12" fill="#2563eb" font-style="italic">b₁</text>
+            <line x1="100" y1="130" x2="120" y2="90" stroke="#dc2626" stroke-width="2.5" marker-end="url(#ah-red)"/>
+            <text x="122" y="86" font-size="12" fill="#dc2626" font-style="italic">b₂</text>
 
-          <line x1="140" y1="112" x2="150" y2="65" stroke="#7c3aed" stroke-width="1" stroke-dasharray="3 2"/>
-          <line x1="55"  y1="70"  x2="150" y2="65" stroke="#7c3aed" stroke-width="1" stroke-dasharray="3 2"/>
+            <line x1="100" y1="130" x2="160" y2="70" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#ah-purple)"/>
+            <text x="163" y="68" font-size="14" fill="#7c3aed" font-style="italic">w</text>
 
-          <text x="115" y="215" font-size="11" text-anchor="middle"><tspan font-weight="700">Base C</tspan></text>
-          <text x="115" y="230" font-size="10" fill="#475569" text-anchor="middle">$[w]_C = (2,1)^T$</text>
-        </svg>
-        <div class="diagram-caption">El mismo $w$, con otra base</div>
+            <line x1="140" y1="110" x2="160" y2="70" stroke="#7c3aed" stroke-width="1" stroke-dasharray="3 2"/>
+            <line x1="120" y1="90"  x2="160" y2="70" stroke="#7c3aed" stroke-width="1" stroke-dasharray="3 2"/>
+
+            <text x="130" y="235" font-size="11" fill="#0f172a" text-anchor="middle">
+              <tspan font-weight="700">Base B</tspan>
+            </text>
+            <text x="130" y="252" font-size="10" fill="#475569" text-anchor="middle">[w]_B = (1, 1)</text>
+          </svg>
+          <div class="diagram-caption">Coordenadas en $B$</div>
+        </div>
+        <div>
+          <svg class="fig" viewBox="0 0 260 240" role="img" aria-label="Base alternativa C">
+            <line x1="10" y1="130" x2="250" y2="130" stroke="#e2e8f0" stroke-width="1"/>
+            <line x1="100" y1="230" x2="100" y2="15" stroke="#e2e8f0" stroke-width="1"/>
+            <circle cx="100" cy="130" r="2" fill="#1e293b"/>
+
+            <line x1="100" y1="130" x2="150" y2="125" stroke="#16a34a" stroke-width="2.5" marker-end="url(#ah-green)"/>
+            <text x="153" y="122" font-size="12" fill="#16a34a" font-style="italic">c₁</text>
+            <line x1="100" y1="130" x2="60" y2="80" stroke="#ea580c" stroke-width="2.5" marker-end="url(#ah-orange)"/>
+            <text x="46" y="76" font-size="12" fill="#ea580c" font-style="italic">c₂</text>
+
+            <line x1="100" y1="130" x2="160" y2="70" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#ah-purple)"/>
+            <text x="163" y="68" font-size="14" fill="#7c3aed" font-style="italic">w</text>
+
+            <line x1="200" y1="120" x2="160" y2="70" stroke="#7c3aed" stroke-width="1" stroke-dasharray="3 2"/>
+            <line x1="60"  y1="80"  x2="160" y2="70" stroke="#7c3aed" stroke-width="1" stroke-dasharray="3 2"/>
+            <line x1="150" y1="125" x2="200" y2="120" stroke="#16a34a" stroke-width="1" stroke-dasharray="3 2"/>
+
+            <text x="130" y="235" font-size="11" fill="#0f172a" text-anchor="middle">
+              <tspan font-weight="700">Base C</tspan>
+            </text>
+            <text x="130" y="252" font-size="10" fill="#475569" text-anchor="middle">[w]_C = (2, 1)</text>
+          </svg>
+          <div class="diagram-caption">El mismo $w$, con otra base</div>
+        </div>
       </div>
-    </div>
 
-    <div class="callout callout-note">
-      <div class="callout-title">💡 Idea clave</div>
-      <p style="margin:0;">El vector físico $\vec{w}$ no cambia; sólo cambian los <em>escalares</em> con los que
-        lo describimos. La matriz $A_{B_1 \to B_2}$ traduce coordenadas de una base a la otra sin mover el punto
-        en el espacio.</p>
-    </div>
+      <p>Es una observación geométrica fundamental notar que cualquier par de bases en $\mathbb{R}^2$ genera
+        exactamente el mismo espacio vectorial: ninguna base otorga acceso a regiones del plano que otra no pueda
+        describir. Surge entonces una interrogante natural: <em>¿cuál es el propósito de realizar un cambio de
+        coordenadas si el espacio subyacente permanece inalterado?</em></p>
 
-    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
-  </section>
+      <p>La justificación principal radica en la <strong>perspectiva analítica</strong> y la <strong>conveniencia
+        computacional</strong>. El cambio de base no altera el espacio físico, sino que proporciona un marco de
+        referencia diseñado para simplificar drásticamente los cálculos y elucidar la acción de las
+        transformaciones sobre los vectores.</p>
 
-</div><!-- /container -->
+      <div class="callout callout-note">
+        <div class="callout-title">💡 Idea clave</div>
+        <p style="margin:0;">El vector físico $\vec{w}$ no cambia; sólo cambian los <em>escalares</em> con los que
+          lo describimos, es decir, el <em>idioma</em> de la base elegida. La matriz $A_{B_1 \to B_2}$ traduce
+          coordenadas de una base a la otra sin mover el punto en el espacio, y elegir el idioma correcto puede
+          convertir un cálculo intratable en uno trivial.</p>
+      </div>
 
-<script>
-  function toggleAllDetails(open) {
-    document.querySelectorAll('details.solution').forEach(d => d.open = open);
-  }
-</script>
+      <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+    </section>
+  </div><!-- /container -->
+
+  <script>
+    function toggleAllDetails(open) {
+      document.querySelectorAll('details.solution').forEach(d => d.open = open);
+    }
+  </script>
 
 </body>
+
 </html>
