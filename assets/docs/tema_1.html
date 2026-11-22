@@ -127,7 +127,8 @@
         reglas que rigen cada operación. A continuación se describen los conceptos fundamentales para matrices de mismas
         dimensiones: la <strong>igualdad</strong> requiere que los elementos coincidan posición a posición; la
         <strong>suma y resta</strong> se realizan entrada por entrada; y el <strong>producto por escalar</strong>
-        multiplica cada elemento por un número real \(k\).</p>
+        multiplica cada elemento por un número real \(k\).
+      </p>
 
       <div class="table-wrapper">
         <table>
@@ -461,521 +462,537 @@
         </details>
       </div>
 
-  <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+      <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
 
-  </section>
+    </section>
 
-  <!-- ===================================================================== -->
-  <!-- MÓDULO 5 -->
-  <!-- ===================================================================== -->
-  <section class="card" id="mod-5">
-    <h2 class="module-title"><span class="badge">MÓDULO 05</span> Operaciones Elementales y Eliminación</h2>
+    <!-- ===================================================================== -->
+    <!-- MÓDULO 5 -->
+    <!-- ===================================================================== -->
+    <section class="card" id="mod-5">
+      <h2 class="module-title"><span class="badge">MÓDULO 05</span> Operaciones Elementales y Eliminación</h2>
 
-    <h3 class="section-title" id="sec-5-1">5.1 Operaciones Elementales</h3>
-    <div class="callout callout-def">
-      <p style="margin:0;"><strong>📌 Definición 5.1.1.</strong> Transformaciones básicas que permiten modificar las
-        filas de una matriz sin alterar su información esencial:</p>
-      <ol style="margin:0.5rem 0 0 0;">
-        <li><strong>Intercambio.</strong> Permutar la posición de dos filas: $F_i \leftrightarrow F_j$.</li>
-        <li><strong>Escalamiento.</strong> Multiplicar todos los elementos de una fila por un escalar no nulo: $F_i
-          \leftarrow kF_i \;(k \neq 0)$.</li>
-        <li><strong>Sustitución.</strong> Reemplazar una fila por ella misma más un múltiplo de otra: $F_i \leftarrow
-          F_i + kF_j$.</li>
-      </ol>
-    </div>
-
-    <h4 class="sub-title">Matrices Elementales y Equivalencia por Filas</h4>
-    <p>Cada operación elemental aplicada sobre la matriz identidad define una <strong>matriz elemental</strong>:</p>
-    $$I_n \xrightarrow{\text{1 op.}} E_1$$
-    <p>Cada matriz elemental $E_i$ puede revertirse a la identidad con otra operación elemental del mismo tipo. Si se
-      aplican varias operaciones sucesivas, se define la <strong>matriz de transformación</strong> $E$ como el producto
-      de las matrices elementales asociadas:</p>
-    $$I_n \xrightarrow{op_1} E_1 \xrightarrow{op_2} E_2 \longrightarrow \dots \longrightarrow E_{k-1} \xrightarrow{op_k}
-    E$$
-    <p>Cuando una matriz se deriva de otra por operaciones elementales por filas, se dice que son <strong>equivalentes
-        por filas</strong> (notación $\sim$).</p>
-
-    <div class="example-box">
-      <p><strong>🧩 Ejemplo 5.1.1.</strong> Dada $I_3$, halle las matrices elementales resultantes al aplicar las
-        siguientes operaciones:</p>
-      <ul>
-        <li>Multiplicar la segunda fila por $5$ ($F_2 \leftarrow 5F_2$).</li>
-        <li>Multiplicar la primera fila por $-3$ y sumarla a la tercera ($F_3 \leftarrow F_3 - 3F_1$).</li>
-        <li>Permutar la segunda y tercera fila ($F_2 \leftrightarrow F_3$).</li>
-      </ul>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <ul>
-            <li><strong>$F_2 \leftarrow 5F_2$:</strong>
-              $$\begin{pmatrix} 1 & 0 & 0 \\ 0 & 5 & 0 \\ 0 & 0 & 1 \end{pmatrix}$$
-            </li>
-            <li><strong>$F_3 \leftarrow F_3 - 3F_1$:</strong>
-              $$\begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ -3 & 0 & 1 \end{pmatrix}$$
-            </li>
-            <li><strong>$F_2 \leftrightarrow F_3$:</strong>
-              $$\begin{pmatrix} 1 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1 & 0 \end{pmatrix}$$
-            </li>
-          </ul>
-        </div>
-      </details>
-    </div>
-
-    <h3 class="section-title" id="sec-5-2">5.2 Eliminación Gaussiana</h3>
-    <p>El objetivo es obtener la <strong>forma escalonada</strong> de una matriz. El primer elemento no nulo de cada
-      fila se denomina <strong>elemento pivote</strong>. Una matriz está en forma escalonada si:</p>
-    <ol>
-      <li>Si el pivote es cero, se intercambia la fila con una inferior que tenga elemento no nulo en esa columna.</li>
-      <li>Todos los elementos por debajo de un pivote se anulan usando:
-        $$F_i \leftarrow F_i - \left(\frac{b}{\text{pivote}}\right) F_{\text{pivote}}$$
-        donde $b$ es el elemento a anular.
-      </li>
-      <li>El pivote de una fila inferior está estrictamente a la derecha del pivote de la fila superior.</li>
-      <li>Las filas nulas se ubican al final.</li>
-    </ol>
-
-    <p>Al concatenar $A$ con $I$ y aplicar operaciones por fila, se obtienen simultáneamente la forma escalonada $U$ y
-      la matriz de transformación $E$:</p>
-    $$[A \mid I] \xrightarrow{\text{operaciones}} [U \mid E]$$
-    <p>Estas matrices cumplen la relación $EA = U$.</p>
-
-    <div class="example-box">
-      <p><strong>🧩 Ejemplo 5.2.1.</strong> Dada $A = \begin{pmatrix} 1 & 2 & 1 \\ 2 & 3 & 2 \\ 1 & 1 & 2
-        \end{pmatrix}$, obtenga su forma escalonada.</p>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          $$\begin{pmatrix} 1 & 2 & 1 \\ 2 & 3 & 2 \\ 1 & 1 & 2 \end{pmatrix}
-          \xrightarrow{F_2 - 2F_1}
-          \begin{pmatrix} 1 & 2 & 1 \\ 0 & -1 & 0 \\ 1 & 1 & 2 \end{pmatrix}$$
-          $$\xrightarrow{F_3 - F_1}
-          \begin{pmatrix} 1 & 2 & 1 \\ 0 & -1 & 0 \\ 0 & -1 & 1 \end{pmatrix}
-          \xrightarrow{F_3 - F_2}
-          \begin{pmatrix} 1 & 2 & 1 \\ 0 & -1 & 0 \\ 0 & 0 & 1 \end{pmatrix} = U$$
-          <p>Cada pivote se sitúa a la derecha del pivote superior y todos los elementos por debajo son cero.</p>
-        </div>
-      </details>
-    </div>
-
-    <div class="example-box">
-      <p><strong>🧩 Ejemplo 5.2.2.</strong> Sea $A = \begin{pmatrix} 1 & 2 & 1 \\ 2 & 3 & 2 \\ 1 & 1 & 3 \end{pmatrix}$.
-        Obtenga $U$ y $E$ escalonando $[A | I]$.</p>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          $$[A | I] = \left[\begin{array}{ccc|ccc} 1 & 2 & 1 & 1 & 0 & 0 \\ 2 & 3 & 2 & 0 & 1 & 0 \\ 1 & 1 & 3 & 0 & 0 &
-          1 \end{array}\right]$$
-          $$\xrightarrow{F_2 - 2F_1}
-          \left[\begin{array}{ccc|ccc} 1 & 2 & 1 & 1 & 0 & 0 \\ 0 & -1 & 0 & -2 & 1 & 0 \\ 1 & 1 & 3 & 0 & 0 & 1
-          \end{array}\right]$$
-          $$\xrightarrow{F_3 - F_1}
-          \left[\begin{array}{ccc|ccc} 1 & 2 & 1 & 1 & 0 & 0 \\ 0 & -1 & 0 & -2 & 1 & 0 \\ 0 & -1 & 2 & -1 & 0 & 1
-          \end{array}\right]$$
-          $$\xrightarrow{F_3 - F_2}
-          \left[\begin{array}{ccc|ccc} 1 & 2 & 1 & 1 & 0 & 0 \\ 0 & -1 & 0 & -2 & 1 & 0 \\ 0 & 0 & 2 & 1 & -1 & 1
-          \end{array}\right] = [U | E]$$
-          <p>Se verifica entonces la relación $EA = U$.</p>
-        </div>
-      </details>
-    </div>
-
-    <h3 class="section-title" id="sec-5-3">5.3 Eliminación de Gauss-Jordan</h3>
-    <p>Continuando el proceso sobre la forma escalonada se llega a la <strong>forma escalonada reducida por
-        filas</strong>. Requisitos adicionales:</p>
-    <ol start="5">
-      <li>Cada pivote debe ser igual a $1$: $F_{\text{pivote}} \leftarrow \left(\frac{1}{\text{pivote}}\right)
-        F_{\text{pivote}}$.</li>
-      <li>Los elementos tanto por encima como por debajo de cada pivote deben ser cero: $F_i \leftarrow F_i - c \cdot
-        F_{\text{pivote}}$.</li>
-    </ol>
-
-    <div class="callout callout-thm">
-      <p style="margin:0;"><strong>📐 Teorema 5.3.1.</strong> Si $A$ es cuadrada de orden $n$ y al aplicar Gauss-Jordan
-        se obtienen $n$ pivotes, entonces $A \sim I_n$. La matriz de transformación $E$ resultante es la inversa de $A$:
-      </p>
-      $$[A \mid I_n] \xrightarrow{\text{operaciones}} [I_n \mid A^{-1}]$$
-      <p style="margin:0.5rem 0 0 0;">En tal caso $A^{-1}A = AA^{-1} = I_n$ y $A$ se denomina
-        <strong>invertible</strong> o <strong>no singular</strong>.</p>
-    </div>
-
-    <p><strong>Propiedades de la forma reducida:</strong></p>
-    <ul>
-      <li>La forma escalonada reducida por filas es <strong>única</strong>.</li>
-      <li>El número de pivotes en la forma escalonada define el <strong>rango</strong> de la matriz, denotado
-        $\text{rango}(A)$ o $\text{ran}(A)$.</li>
-      <li>Para $A$ de orden $n$: $U_{red} = I_n \Leftrightarrow \text{rango}(A) = n$ (rango máximo, $n$ pivotes).</li>
-      <li>Si $A$ no es inversible: $U_{red} \neq I_n$, $\text{rango}(A) < n$ y tiene menos de $n$ pivotes.</li>
-    </ul>
-
-    <div class="example-box">
-      <p><strong>🧩 Ejemplo 5.3.1.</strong> Considere $A = \begin{pmatrix} 2 & 5 \\ 1 & 3 \end{pmatrix}$ y $A^{-1} =
-        \begin{pmatrix} 3 & -5 \\ -1 & 2 \end{pmatrix}$. Verifique que $A^{-1}$ es efectivamente la inversa.</p>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          $$\begin{aligned}
-          AA^{-1} &= \begin{pmatrix} 2 & 5 \\ 1 & 3 \end{pmatrix} \begin{pmatrix} 3 & -5 \\ -1 & 2 \end{pmatrix} \\[4pt]
-          &= \begin{pmatrix} 6-5 & -10+10 \\ 3-3 & -5+6 \end{pmatrix} \\[4pt]
-          &= \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} = I_2
-          \end{aligned}$$
-          <p>Como $AA^{-1} = I_2$, se valida la invertibilidad.</p>
-        </div>
-      </details>
-    </div>
-
-    <div class="example-box">
-      <p><strong>🧩 Ejemplo 5.3.2.</strong> Identifique y justifique las estructuras de las siguientes matrices:</p>
-      $$\begin{aligned}
-      A &= \begin{pmatrix} 2 & 3 & 2 & 1 \\ 0 & 0 & 5 & 4 \\ 0 & 0 & 0 & 0 \end{pmatrix} \\[6pt]
-      B &= \begin{pmatrix} 1 & 2 & 0 & 1 \\ 0 & 0 & 1 & 3 \\ 0 & 0 & 0 & 0 \end{pmatrix} \\[6pt]
-      C &= \begin{pmatrix} 0 & 1 & 3 \\ 1 & 0 & 2 \end{pmatrix}
-      \end{aligned}$$
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <ul>
-            <li>
-              <strong>Matriz $A$ (orden $3 \times 4$):</strong> El primer elemento no nulo de la fila 1 es $a_{11}=2$
-              (pivote en columna 1). El primer elemento no nulo de la fila 2 es $a_{23}=5$ (pivote en columna 3, pues
-              $a_{22}=0$). La fila 3 es completamente nula y está ubicada al final. Los pivotes están escalonados y
-              todos los elementos por debajo de cada pivote son cero. Por tanto, $A$ está en <strong>forma
-                escalonada</strong>. No está en forma reducida porque el pivote $5 \neq 1$ y existe un elemento $2$ por
-              encima del segundo pivote (columna 3, fila 1).
-            </li>
-            <li>
-              <strong>Matriz $B$ (orden $3 \times 4$):</strong> Los pivotes son $b_{11}=1$ y $b_{23}=1$ (unitarios). En
-              la columna 1, los elementos por debajo del pivote son cero; en la columna 3, el elemento por encima del
-              pivote es cero. La fila nula está al final. Por tanto, $B$ está en <strong>forma escalonada reducida por
-                filas</strong>.
-            </li>
-            <li>
-              <strong>Matriz $C$ (orden $2 \times 3$):</strong> La primera fila comienza con $0$ y su primer elemento no
-              nulo está en la columna 2. La segunda fila tiene su primer elemento no nulo en la columna 1, que está
-              <em>a la izquierda</em> del pivote de la fila superior. Esto viola la condición de escalonamiento (el
-              pivote de una fila inferior debe estar estrictamente a la derecha del pivote superior). Por tanto, $C$
-              <strong>no está en forma escalonada</strong>; se corregiría con un intercambio $F_1 \leftrightarrow F_2$.
-            </li>
-          </ul>
-        </div>
-      </details>
-    </div>
-
-    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
-  </section>
-
-  <!-- ===================================================================== -->
-  <!-- MÓDULO 6 -->
-  <!-- ===================================================================== -->
-  <section class="card" id="mod-6">
-    <h2 class="module-title"><span class="badge">MÓDULO 06</span> Sistemas de Ecuaciones Lineales</h2>
-
-    <h3 class="section-title" id="sec-6-1">6.1 Representación Matricial de Sistemas</h3>
-    <p>Un <strong>Sistema de Ecuaciones Lineales</strong> (SEL) es un conjunto de dos o más ecuaciones de primer grado
-      que comparten las mismas variables. El primer paso fundamental en el álgebra lineal es la abstracción de estos
-      sistemas mediante matrices para facilitar su análisis y resolución.</p>
-
-    <div class="callout callout-def">
-      <div class="callout-title">📌 Definición: Sistema de $m$ ecuaciones con $n$ incógnitas</div>
-      <p style="margin:0;">Un sistema de $m$ ecuaciones lineales con $n$ incógnitas se expresa formalmente como:</p>
-      $$\begin{align*}
-      a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n &= b_1 \\
-      a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n &= b_2 \\
-      \vdots \hspace{2cm} \vdots \hspace{2cm} \vdots & \\
-      a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n &= b_m
-      \end{align*}$$
-      <p style="margin:0.5rem 0 0 0;">El cual puede separarse en un producto matricial de la siguiente manera:</p>
-      $$\begin{pmatrix}
-      a_{11} & a_{12} & \dots & a_{1n} \\
-      a_{21} & a_{22} & \dots & a_{2n} \\
-      \vdots & \vdots & \ddots & \vdots \\
-      a_{m1} & a_{m2} & \dots & a_{mn}
-      \end{pmatrix}
-      \begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{pmatrix}
-      =
-      \begin{pmatrix} b_1 \\ b_2 \\ \vdots \\ b_m \end{pmatrix}$$
-      <p style="margin:0.5rem 0 0 0;">Este sistema puede condensarse en la forma matricial <strong>$Ax = b$</strong>,
-        donde:</p>
-      <ul style="margin:0.5rem 0 0 0;">
-        <li>$A \in \mathbb{R}^{m \times n}$ es la <strong>matriz de coeficientes</strong>.</li>
-        <li>$x \in \mathbb{R}^{n \times 1}$ es el <strong>vector columna de incógnitas</strong> $(x_1, x_2, \dots,
-          x_n)^T$.</li>
-        <li>$b \in \mathbb{R}^{m \times 1}$ es el <strong>vector columna de términos independientes</strong> $(b_1, b_2,
-          \dots, b_m)^T$.</li>
-      </ul>
-    </div>
-
-    <p>A partir de esto, definimos la <strong>matriz ampliada</strong> del sistema, denotada como $A^*$ o $[A|b]$,
-      agregando el vector de términos independientes como una última columna separada por una barra vertical:</p>
-    $$A^* = \left[
-    \begin{array}{cccc|c}
-    a_{11} & a_{12} & \dots & a_{1n} & b_1 \\
-    a_{21} & a_{22} & \dots & a_{2n} & b_2 \\
-    \vdots & \vdots & \ddots & \vdots & \vdots \\
-    a_{m1} & a_{m2} & \dots & a_{mn} & b_m
-    \end{array}
-    \right]$$
-
-    <p>Se llama <strong>solución del sistema</strong> en $\mathbb{K}$ a todo conjunto de valores de las incógnitas
-      $\{x_1, x_2, \dots, x_n\}$ que satisfaga simultáneamente las $m$ ecuaciones. Si el sistema tiene solución se
-      denomina <strong>compatible</strong>; en caso contrario <strong>incompatible</strong>.</p>
-
-    <h3 class="section-title" id="sec-6-2">6.2 Criterios de Consistencia</h3>
-    <p>El valor del determinante de la matriz de coeficientes $A$ no solo define la invertibilidad de la matriz, sino
-      que es el indicador principal para clasificar el comportamiento de su SEL asociado.</p>
-
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Clasificación mediante determinante</div>
-      <ul style="margin:0;">
-        <li>Si $\det(A) \neq 0$, la matriz es invertible y el sistema es <strong>Consistente Determinado</strong>,
-          garantizando una solución única.</li>
-        <li>Si $\det(A) = 0$, la matriz es <strong>singular</strong> y el sistema no posee solución única. Puede
-          ocurrir:
-          <ol style="margin:0.4rem 0 0 0;">
-            <li>Si durante la reducción se obtiene una fila $[0 \dots 0 \mid c]$ con $c \neq 0$: contradicción $0 = c$.
-              Sistema <strong>Inconsistente</strong> (sin solución).</li>
-            <li>Si la reducción produce una fila $[0 \dots 0 \mid 0]$: sistema <strong>Consistente
-                Indeterminado</strong> con variables libres (infinitas soluciones).</li>
-          </ol>
-        </li>
-      </ul>
-    </div>
-
-    <h4 class="sub-title">Clasificación mediante el Análisis de Rangos</h4>
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Teorema: Clasificación de un SEL</div>
-      <p style="margin:0;">Dado un sistema con $n$ incógnitas, analizamos el rango de $A$ y de la matriz ampliada $A^*$:
-      </p>
-      <div class="table-wrapper" style="margin:0.8rem 0 0 0;">
-        <table>
-          <thead>
-            <tr>
-              <th>Tipo de Sistema</th>
-              <th>Condición de los Rangos</th>
-              <th>Soluciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Compatible determinado</td>
-              <td>$\operatorname{rg} A^{*} = \operatorname{rg} A = n$</td>
-              <td>Única</td>
-            </tr>
-            <tr>
-              <td>Compatible indeterminado</td>
-              <td>$\operatorname{rg} A^{*} = \operatorname{rg} A < n$</td>
-              <td>Infinitas (parámetros libres: $n-\operatorname{rg} A$)</td>
-            </tr>
-            <tr>
-              <td>Incompatible</td>
-              <td>$\operatorname{rg} A^{*} = \operatorname{rg} A + 1$</td>
-              <td>No tiene solución</td>
-            </tr>
-          </tbody>
-        </table>
+      <h3 class="section-title" id="sec-5-1">5.1 Operaciones Elementales</h3>
+      <div class="callout callout-def">
+        <p style="margin:0;"><strong>📌 Definición 5.1.1.</strong> Transformaciones básicas que permiten modificar las
+          filas de una matriz sin alterar su información esencial:</p>
+        <ol style="margin:0.5rem 0 0 0;">
+          <li><strong>Intercambio.</strong> Permutar la posición de dos filas: $F_i \leftrightarrow F_j$.</li>
+          <li><strong>Escalamiento.</strong> Multiplicar todos los elementos de una fila por un escalar no nulo: $F_i
+            \leftarrow kF_i \;(k \neq 0)$.</li>
+          <li><strong>Sustitución.</strong> Reemplazar una fila por ella misma más un múltiplo de otra: $F_i \leftarrow
+            F_i + kF_j$.</li>
+        </ol>
       </div>
-    </div>
 
-    <h4 class="sub-title">Sistemas Homogéneos y Estructura de la Solución General</h4>
-    <div class="callout callout-def">
-      <div class="callout-title">📌 Definición: Sistema Homogéneo</div>
-      <p style="margin:0;">El sistema $Ax=0$ se denomina <strong>Homogéneo</strong> y es <strong>siempre
-          consistente</strong> (el vector nulo $\vec{x}=\vec{0}$ siempre es solución).</p>
-    </div>
+      <h4 class="sub-title">Matrices Elementales y Equivalencia por Filas</h4>
+      <p>Cada operación elemental aplicada sobre la matriz identidad define una <strong>matriz elemental</strong>:</p>
+      $$I_n \xrightarrow{\text{1 op.}} E_1$$
+      <p>Cada matriz elemental $E_i$ puede revertirse a la identidad con otra operación elemental del mismo tipo. Si se
+        aplican varias operaciones sucesivas, se define la <strong>matriz de transformación</strong> $E$ como el
+        producto
+        de las matrices elementales asociadas:</p>
+      $$I_n \xrightarrow{op_1} E_1 \xrightarrow{op_2} E_2 \longrightarrow \dots \longrightarrow E_{k-1}
+      \xrightarrow{op_k}
+      E$$
+      <p>Cuando una matriz se deriva de otra por operaciones elementales por filas, se dice que son <strong>equivalentes
+          por filas</strong> (notación $\sim$).</p>
 
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Teorema: Solución general</div>
-      <p style="margin:0;">Sea un sistema $A\vec{x}=\vec{b}$ compatible con una solución particular $\vec{p}$. Entonces
-        la solución general de $A\vec{x}=\vec{b}$ es
-        $$\vec{x} = \vec{p} + \vec{x}_h$$
-        donde $\vec{x}_h$ es la solución general del sistema homogéneo asociado $A\vec{x}=\vec{0}$.</p>
-    </div>
+      <div class="example-box">
+        <p><strong>🧩 Ejemplo 5.1.1.</strong> Dada $I_3$, halle las matrices elementales resultantes al aplicar las
+          siguientes operaciones:</p>
+        <ul>
+          <li>Multiplicar la segunda fila por $5$ ($F_2 \leftarrow 5F_2$).</li>
+          <li>Multiplicar la primera fila por $-3$ y sumarla a la tercera ($F_3 \leftarrow F_3 - 3F_1$).</li>
+          <li>Permutar la segunda y tercera fila ($F_2 \leftrightarrow F_3$).</li>
+        </ul>
+        <details class="solution">
+          <summary>🔍 Ver solución</summary>
+          <div class="solution-content">
+            <ul>
+              <li><strong>$F_2 \leftarrow 5F_2$:</strong>
+                $$\begin{pmatrix} 1 & 0 & 0 \\ 0 & 5 & 0 \\ 0 & 0 & 1 \end{pmatrix}$$
+              </li>
+              <li><strong>$F_3 \leftarrow F_3 - 3F_1$:</strong>
+                $$\begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ -3 & 0 & 1 \end{pmatrix}$$
+              </li>
+              <li><strong>$F_2 \leftrightarrow F_3$:</strong>
+                $$\begin{pmatrix} 1 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1 & 0 \end{pmatrix}$$
+              </li>
+            </ul>
+          </div>
+        </details>
+      </div>
 
-    <h3 class="section-title" id="sec-6-3">6.3 Métodos Prácticos de Resolución por Eliminación</h3>
-    <p>A dos matrices equivalentes por filas les corresponden sistemas de ecuaciones equivalentes. Para determinar si un
-      sistema tiene solución y obtener ésta, se sustituye el sistema dado por otro equivalente de resolución más
-      sencilla mediante operaciones elementales.</p>
+      <h3 class="section-title" id="sec-5-2">5.2 Eliminación Gaussiana</h3>
+      <p>El objetivo es obtener la <strong>forma escalonada</strong> de una matriz. El primer elemento no nulo de cada
+        fila se denomina <strong>elemento pivote</strong>. Una matriz está en forma escalonada si:</p>
+      <ol>
+        <li>Si el pivote es cero, se intercambia la fila con una inferior que tenga elemento no nulo en esa columna.
+        </li>
+        <li>Todos los elementos por debajo de un pivote se anulan usando:
+          $$F_i \leftarrow F_i - \left(\frac{b}{\text{pivote}}\right) F_{\text{pivote}}$$
+          donde $b$ es el elemento a anular.
+        </li>
+        <li>El pivote de una fila inferior está estrictamente a la derecha del pivote de la fila superior.</li>
+        <li>Las filas nulas se ubican al final.</li>
+      </ol>
 
-    <div class="callout callout-def">
-      <div class="callout-title">📌 Eliminación de Gauss</div>
-      <p style="margin:0;">Consiste en aplicar operaciones elementales en la matriz aumentada $[A|b]$ para llevarla a
-        una <strong>forma escalonada por filas</strong>. Una vez obtenida, el sistema se resuelve mediante una
-        <strong>sustitución regresiva</strong>.</p>
-    </div>
+      <p>Al concatenar $A$ con $I$ y aplicar operaciones por fila, se obtienen simultáneamente la forma escalonada $U$ y
+        la matriz de transformación $E$:</p>
+      $$[A \mid I] \xrightarrow{\text{operaciones}} [U \mid E]$$
+      <p>Estas matrices cumplen la relación $EA = U$.</p>
 
-    <div class="callout callout-def">
-      <div class="callout-title">📌 Eliminación de Gauss-Jordan</div>
-      <p style="margin:0;">Es una extensión del método anterior que continúa el proceso operando tanto debajo como por
-        encima de los pivotes hasta obtener la <strong>forma escalonada reducida por filas</strong>. Permite leer las
-        soluciones directamente.</p>
-    </div>
+      <div class="example-box">
+        <p><strong>🧩 Ejemplo 5.2.1.</strong> Dada $\\ A = \begin{pmatrix} 1 & 2 & 1 \\ 2 & 3 & 2 \\ 1 & 1 & 2
+          \end{pmatrix}$, obtenga su forma escalonada.</p>
+        <details class="solution">
+          <summary>🔍 Ver solución</summary>
+          <div class="solution-content">
+            $$\begin{pmatrix} 1 & 2 & 1 \\ 2 & 3 & 2 \\ 1 & 1 & 2 \end{pmatrix}
+            \xrightarrow{F_2 - 2F_1}
+            \begin{pmatrix} 1 & 2 & 1 \\ 0 & -1 & 0 \\ 1 & 1 & 2 \end{pmatrix}$$
+            $$\xrightarrow{F_3 - F_1}
+            \begin{pmatrix} 1 & 2 & 1 \\ 0 & -1 & 0 \\ 0 & -1 & 1 \end{pmatrix}
+            \xrightarrow{F_3 - F_2}
+            \begin{pmatrix} 1 & 2 & 1 \\ 0 & -1 & 0 \\ 0 & 0 & 1 \end{pmatrix} = U$$
+            <p>Cada pivote se sitúa a la derecha del pivote superior y todos los elementos por debajo son cero.</p>
+          </div>
+        </details>
+      </div>
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 6.1: Conversión a la forma $Ax=b$ y análisis de escenarios</div>
-      <p>Dado el siguiente sistema de 3 ecuaciones con 3 incógnitas:</p>
-      $$\begin{align*}
-      x + y - z &= 1 \\
-      -2x - y + z &= 2 \\
-      3x &= 3
-      \end{align*}$$
-      <p>Determine su representación matricial $Ax=b$, construya la matriz aumentada $[A|b]$ y analice el tipo de
-        sistema bajo dos escenarios:</p>
+      <div class="example-box">
+        <p><strong>🧩 Ejemplo 5.2.2.</strong> Sea $\\ A = \begin{pmatrix} 1 & 2 & 1 \\ 2 & 3 & 2 \\ 1 & 1 & 3
+          \end{pmatrix}$.
+          Obtenga $U$ y $E$ escalonando $[A | I]$.</p>
+        <details class="solution">
+          <summary>🔍 Ver solución</summary>
+          <div class="solution-content">
+            $$[A | I] = \left[\begin{array}{ccc|ccc} 1 & 2 & 1 & 1 & 0 & 0 \\ 2 & 3 & 2 & 0 & 1 & 0 \\ 1 & 1 & 3 & 0 & 0
+            &
+            1 \end{array}\right]$$
+            $$\xrightarrow{F_2 - 2F_1}
+            \left[\begin{array}{ccc|ccc} 1 & 2 & 1 & 1 & 0 & 0 \\ 0 & -1 & 0 & -2 & 1 & 0 \\ 1 & 1 & 3 & 0 & 0 & 1
+            \end{array}\right]$$
+            $$\xrightarrow{F_3 - F_1}
+            \left[\begin{array}{ccc|ccc} 1 & 2 & 1 & 1 & 0 & 0 \\ 0 & -1 & 0 & -2 & 1 & 0 \\ 0 & -1 & 2 & -1 & 0 & 1
+            \end{array}\right]$$
+            $$\xrightarrow{F_3 - F_2}
+            \left[\begin{array}{ccc|ccc} 1 & 2 & 1 & 1 & 0 & 0 \\ 0 & -1 & 0 & -2 & 1 & 0 \\ 0 & 0 & 2 & 1 & -1 & 1
+            \end{array}\right] = [U | E]$$
+            <p>Se verifica entonces la relación $EA = U$.</p>
+          </div>
+        </details>
+      </div>
+
+      <h3 class="section-title" id="sec-5-3">5.3 Eliminación de Gauss-Jordan</h3>
+      <p>Continuando el proceso sobre la forma escalonada se llega a la <strong>forma escalonada reducida por
+          filas</strong>. Requisitos adicionales:</p>
+      <ol start="5">
+        <li>Cada pivote debe ser igual a $1$: $F_{\text{pivote}} \leftarrow \left(\frac{1}{\text{pivote}}\right)
+          F_{\text{pivote}}$.</li>
+        <li>Los elementos tanto por encima como por debajo de cada pivote deben ser cero: $F_i \leftarrow F_i - c \cdot
+          F_{\text{pivote}}$.</li>
+      </ol>
+
+      <div class="callout callout-thm">
+        <p style="margin:0;"><strong>📐 Teorema 5.3.1.</strong> Si $A$ es cuadrada de orden $n$ y al aplicar
+          Gauss-Jordan
+          se obtienen $n$ pivotes, entonces $A \sim I_n$. La matriz de transformación $E$ resultante es la inversa de
+          $A$:
+        </p>
+        $$[A \mid I_n] \xrightarrow{\text{operaciones}} [I_n \mid A^{-1}]$$
+        <p style="margin:0.5rem 0 0 0;">En tal caso $A^{-1}A = AA^{-1} = I_n$ y $A$ se denomina
+          <strong>invertible</strong> o <strong>no singular</strong>.
+        </p>
+      </div>
+
+      <p><strong>Propiedades de la forma reducida:</strong></p>
       <ul>
-        <li><strong>A)</strong> $b = (1, 2, 3)^T$</li>
-        <li><strong>B)</strong> $b = (1, 2, 5)^T$</li>
+        <li>La forma escalonada reducida por filas es <strong>única</strong>.</li>
+        <li>El número de pivotes en la forma escalonada define el <strong>rango</strong> de la matriz, denotado
+          $\text{rango}(A)$ o $\text{ran}(A)$.</li>
+        <li>Para $A$ de orden $n$: $U_{red} = I_n \Leftrightarrow \text{rango}(A) = n$ (rango máximo, $n$ pivotes).</li>
+        <li>Si $A$ no es inversible: $U_{red} \neq I_n$, $\text{rango}(A) < n$ y tiene menos de $n$ pivotes.</li>
       </ul>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p><strong>Representación matricial:</strong></p>
-          $$\begin{pmatrix} 1 & 1 & -1 \\ -2 & -1 & 1 \\ 3 & 0 & 0 \end{pmatrix}
-          \begin{pmatrix} x \\ y \\ z \end{pmatrix} =
-          \begin{pmatrix} 1 \\ 2 \\ 3 \end{pmatrix}$$
-          <p><strong>Determinante de $A$:</strong></p>
-          $$\det(A) = 1(0) - 1(-3) - 1(3) = 0$$
-          <p>El sistema no tendrá solución única. Construimos la matriz aumentada:</p>
-          $$[A|b] = \left[ \begin{array}{ccc|c}
-          1 & 1 & -1 & 1 \\
-          -2 & -1 & 1 & 2 \\
-          3 & 0 & 0 & 3
-          \end{array} \right]$$
 
-          <p><strong>Escenario A: $b = (1,2,3)^T$ — Inconsistente</strong></p>
-          $$\left[ \begin{array}{ccc|c}
-          1 & 1 & -1 & 1 \\
-          -2 & -1 & 1 & 2 \\
-          3 & 0 & 0 & 3
-          \end{array} \right]
-          \xrightarrow{\substack{F_2 + 2F_1 \\ F_3 - 3F_1}}
-          \left[ \begin{array}{ccc|c}
-          1 & 1 & -1 & 1 \\
-          0 & 1 & -1 & 4 \\
-          0 & -3 & 3 & 0
-          \end{array} \right]
-          \xrightarrow{F_3 + 3F_2}
-          \left[ \begin{array}{ccc|c}
-          1 & 1 & -1 & 1 \\
-          0 & 1 & -1 & 4 \\
-          0 & 0 & 0 & 12
-          \end{array} \right]$$
-          <p>La última fila representa \(0x + 0y + 0z = 12\), es decir, \(0 = 12\). Es una <strong>contradicción matemática</strong>. El sistema es <strong>Inconsistente</strong> (no tiene solución).</p>
+      <div class="example-box">
+        <p><strong>🧩 Ejemplo 5.3.1.</strong> Considere $A = \begin{pmatrix} 2 & 5 \\ 1 & 3 \end{pmatrix}$ y $A^{-1} =
+          \begin{pmatrix} 3 & -5 \\ -1 & 2 \end{pmatrix}$. Verifique que $A^{-1}$ es efectivamente la inversa.</p>
+        <details class="solution">
+          <summary>🔍 Ver solución</summary>
+          <div class="solution-content">
+            $$\begin{aligned}
+            AA^{-1} &= \begin{pmatrix} 2 & 5 \\ 1 & 3 \end{pmatrix} \begin{pmatrix} 3 & -5 \\ -1 & 2 \end{pmatrix}
+            \\[4pt]
+            &= \begin{pmatrix} 6-5 & -10+10 \\ 3-3 & -5+6 \end{pmatrix} \\[4pt]
+            &= \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} = I_2
+            \end{aligned}$$
+            <p>Como $AA^{-1} = I_2$, se valida la invertibilidad.</p>
+          </div>
+        </details>
+      </div>
 
-          <p><strong>Escenario B: $b = (1,2,5)^T$ — Inconsistente</strong></p>
-          $$\left[ \begin{array}{ccc|c}
-          1 & 1 & -1 & 1 \\
-          -2 & -1 & 1 & 2 \\
-          3 & 0 & 0 & 5
-          \end{array} \right]
-          \xrightarrow{\substack{F_2 + 2F_1 \\ F_3 - 3F_1}}
-          \left[ \begin{array}{ccc|c}
-          1 & 1 & -1 & 1 \\
-          0 & 1 & -1 & 4 \\
-          0 & -3 & 3 & 2
-          \end{array} \right]
-          \xrightarrow{F_3 + 3F_2}
-          \left[ \begin{array}{ccc|c}
-          1 & 1 & -1 & 1 \\
-          0 & 1 & -1 & 4 \\
-          0 & 0 & 0 & 14
-          \end{array} \right]$$
-          <p>La última fila representa $0x + 0y + 0z = 14$, es decir, $0 = 14$. Es una <strong>contradicción
-              matemática</strong>. El sistema es <strong>Inconsistente</strong> (no tiene solución).</p>
+      <div class="example-box">
+        <p><strong>🧩 Ejemplo 5.3.2.</strong> Identifique y justifique las estructuras de las siguientes matrices:</p>
+        $$\begin{aligned}
+        A &= \begin{pmatrix} 2 & 3 & 2 & 1 \\ 0 & 0 & 5 & 4 \\ 0 & 0 & 0 & 0 \end{pmatrix} \\[6pt]
+        B &= \begin{pmatrix} 1 & 2 & 0 & 1 \\ 0 & 0 & 1 & 3 \\ 0 & 0 & 0 & 0 \end{pmatrix} \\[6pt]
+        C &= \begin{pmatrix} 0 & 1 & 3 \\ 1 & 0 & 2 \end{pmatrix}
+        \end{aligned}$$
+        <details class="solution">
+          <summary>🔍 Ver solución</summary>
+          <div class="solution-content">
+            <p>
+              <strong>Primero:</strong><br>
+              La matriz <em>A</em> (orden 3 &times; 4) tiene pivotes en <em>a</em><sub>11</sub> = 2 y
+              <em>a</em><sub>23</sub> = 5, con la fila 3 nula al final y ceros debajo de cada pivote.
+              Está en forma escalonada, pero no en forma reducida porque el pivote 5 &ne; 1 y hay un 2
+              encima del segundo pivote.
+            </p>
+
+            <p>
+              <strong>Luego:</strong><br>
+              La matriz <em>B</em> (orden 3 &times; 4) tiene pivotes unitarios
+              <em>b</em><sub>11</sub> = 1 y <em>b</em><sub>23</sub> = 1, con ceros debajo y encima de los
+              pivotes correspondientes y la fila nula al final. Está en forma escalonada reducida por filas.
+            </p>
+
+            <p>
+              <strong>Finalmente:</strong><br>
+              La matriz <em>C</em> (orden 2 &times; 3) tiene el primer pivote de la fila 1 en la columna 2 y
+              el de la fila 2 en la columna 1, es decir, a la izquierda del pivote superior. Esto viola la
+              condición de escalonamiento, por lo que <em>C</em> no está en forma escalonada; se corregiría
+              intercambiando <em>F</em><sub>1</sub> &harr; <em>F</em><sub>2</sub>.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- MÓDULO 6 -->
+    <!-- ===================================================================== -->
+    <section class="card" id="mod-6">
+      <h2 class="module-title"><span class="badge">MÓDULO 06</span> Sistemas de Ecuaciones Lineales</h2>
+
+      <h3 class="section-title" id="sec-6-1">6.1 Representación Matricial de Sistemas</h3>
+      <p>Un <strong>Sistema de Ecuaciones Lineales</strong> (SEL) es un conjunto de dos o más ecuaciones de primer grado
+        que comparten las mismas variables. El primer paso fundamental en el álgebra lineal es la abstracción de estos
+        sistemas mediante matrices para facilitar su análisis y resolución.</p>
+
+      <div class="callout callout-def">
+        <div class="callout-title">📌 Definición: Sistema de ecuaciones</div>
+        <p style="margin:0;">Un sistema de $m$ ecuaciones lineales con $n$ incógnitas se expresa formalmente como:</p>
+        $$\begin{align*}
+        a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n &= b_1 \\
+        a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n &= b_2 \\
+        \vdots \hspace{2cm} \vdots \hspace{2cm} \vdots & \\
+        a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n &= b_m
+        \end{align*}$$
+        <p style="margin:0.5rem 0 0 0;">El cual puede separarse en un producto matricial de la siguiente manera:</p>
+        $$\begin{pmatrix}
+        a_{11} & a_{12} & \dots & a_{1n} \\
+        a_{21} & a_{22} & \dots & a_{2n} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        a_{m1} & a_{m2} & \dots & a_{mn}
+        \end{pmatrix}
+        \begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{pmatrix}
+        =
+        \begin{pmatrix} b_1 \\ b_2 \\ \vdots \\ b_m \end{pmatrix}$$
+        <p style="margin:0.5rem 0 0 0;">Este sistema puede condensarse en la forma matricial <strong>$Ax = b$</strong>,
+          donde:</p>
+        <ul style="margin:0.5rem 0 0 0;">
+          <li>$A \in \mathbb{R}^{m \times n}$ es la <strong>matriz de coeficientes</strong>.</li>
+          <li>$x \in \mathbb{R}^{n \times 1}$ es el <strong>vector columna de incógnitas</strong> $(x_1, x_2, \dots,
+            x_n)^T$.</li>
+          <li>$b \in \mathbb{R}^{m \times 1}$ es el <strong>vector columna de términos independientes</strong> $(b_1,
+            b_2,
+            \dots, b_m)^T$.</li>
+        </ul>
+      </div>
+
+      <p>A partir de esto, definimos la <strong>matriz ampliada</strong> del sistema, denotada como $A^*$ o $[A|b]$,
+        agregando el vector de términos independientes como una última columna separada por una barra vertical:</p>
+      $$A^* = \left[
+      \begin{array}{cccc|c}
+      a_{11} & a_{12} & \dots & a_{1n} & b_1 \\
+      a_{21} & a_{22} & \dots & a_{2n} & b_2 \\
+      \vdots & \vdots & \ddots & \vdots & \vdots \\
+      a_{m1} & a_{m2} & \dots & a_{mn} & b_m
+      \end{array}
+      \right]$$
+
+      <p>Se llama <strong>solución del sistema</strong> en $\mathbb{K}$ a todo conjunto de valores de las incógnitas
+        $\{x_1, x_2, \dots, x_n\}$ que satisfaga simultáneamente las $m$ ecuaciones. Si el sistema tiene solución se
+        denomina <strong>compatible</strong>; en caso contrario <strong>incompatible</strong>.</p>
+
+      <h3 class="section-title" id="sec-6-2">6.2 Criterios de Consistencia</h3>
+      <p>El valor del determinante de la matriz de coeficientes $A$ no solo define la invertibilidad de la matriz, sino
+        que es el indicador principal para clasificar el comportamiento de su SEL asociado.</p>
+
+      <div class="callout callout-thm">
+        <div class="callout-title">📐 Clasificación mediante determinante</div>
+        <ul style="margin:0;">
+          <li>Si $\det(A) \neq 0$, la matriz es invertible y el sistema es <strong>Consistente Determinado</strong>,
+            garantizando una solución única.</li>
+          <li>Si $\det(A) = 0$, la matriz es <strong>singular</strong> y el sistema no posee solución única. Puede
+            ocurrir:
+            <ol style="margin:0.4rem 0 0 0;">
+              <li>Si durante la reducción se obtiene una fila $[0 \dots 0 \mid c]$ con $c \neq 0$: contradicción $0 =
+                c$.
+                Sistema <strong>Inconsistente</strong> (sin solución).</li>
+              <li>Si la reducción produce una fila $[0 \dots 0 \mid 0]$: sistema <strong>Consistente
+                  Indeterminado</strong> con variables libres (infinitas soluciones).</li>
+            </ol>
+          </li>
+        </ul>
+      </div>
+
+      <h4 class="sub-title">Clasificación mediante el Análisis de Rangos</h4>
+      <div class="callout callout-thm">
+        <div class="callout-title">📐 Teorema: Clasificación de un SEL</div>
+        <p style="margin:0;">Dado un sistema con $n$ incógnitas, analizamos el rango de $A$ y de la matriz ampliada
+          $A^*$:
+        </p>
+        <div class="table-wrapper" style="margin:0.8rem 0 0 0;">
+          <table>
+            <thead>
+              <tr>
+                <th>Tipo de Sistema</th>
+                <th>Condición de los Rangos</th>
+                <th>Soluciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Compatible determinado</td>
+                <td>$\operatorname{rg} A^{*} = \operatorname{rg} A = n$</td>
+                <td>Única</td>
+              </tr>
+              <tr>
+                <td>Compatible indeterminado</td>
+                <td>$\operatorname{rg} A^{*} = \operatorname{rg} A < n$</td>
+                <td>Infinitas (parámetros libres: $n-\operatorname{rg} A$)</td>
+              </tr>
+              <tr>
+                <td>Incompatible</td>
+                <td>$\operatorname{rg} A^{*} = \operatorname{rg} A + 1$</td>
+                <td>No tiene solución</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </details>
-    </div>
+      </div>
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 6.2: Resolución completa por Gauss y Gauss-Jordan</div>
-      <p>Dado el siguiente sistema de ecuaciones:</p>
-      $$\begin{align*}
-      x + y + z &= 6 \\
-      2x - y + 3z &= 9 \\
-      -x + 2y - z &= 0
-      \end{align*}$$
-      <p>Resuélvalo aplicando Eliminación de Gauss y luego continúe con Gauss-Jordan hasta la forma escalonada reducida.
-      </p>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p><strong>Fase 1: Eliminación de Gauss (forma escalonada)</strong></p>
-          $$\left[ \begin{array}{ccc|c}
-          1 & 1 & 1 & 6 \\
-          2 & -1 & 3 & 9 \\
-          -1 & 2 & -1 & 0
-          \end{array} \right]
-          \xrightarrow{\substack{F_2 - 2F_1 \\ F_3 + F_1}}
-          \left[ \begin{array}{ccc|c}
-          1 & 1 & 1 & 6 \\
-          0 & -3 & 1 & -3 \\
-          0 & 3 & 0 & 6
-          \end{array} \right]
-          \xrightarrow{F_3 + F_2}
-          \left[ \begin{array}{ccc|c}
-          1 & 1 & 1 & 6 \\
-          0 & -3 & 1 & -3 \\
-          0 & 0 & 1 & 3
-          \end{array} \right]$$
-          <p>Por sustitución hacia atrás:</p>
-          $$\begin{align*}
-          z = 3 &\Rightarrow z = 3 \\
-          -3y + z = -3 \Rightarrow -3y + 3 = -3 &\Rightarrow y = 2 \\
-          x + y + z = 6 \Rightarrow x + 2 + 3 = 6 &\Rightarrow x = 1
-          \end{align*}$$
+      <h4 class="sub-title">Sistemas Homogéneos y Estructura de la Solución General</h4>
+      <div class="callout callout-def">
+        <div class="callout-title">📌 Definición: Sistema Homogéneo</div>
+        <p style="margin:0;">El sistema $Ax=0$ se denomina <strong>Homogéneo</strong> y es <strong>siempre
+            consistente</strong> (el vector nulo $\vec{x}=\vec{0}$ siempre es solución).</p>
+      </div>
 
-          <p><strong>Fase 2: Gauss-Jordan (forma escalonada reducida)</strong></p>
-          $$\left[ \begin{array}{ccc|c}
-          1 & 1 & 1 & 6 \\
-          0 & -3 & 1 & -3 \\
-          0 & 0 & 1 & 3
-          \end{array} \right]
-          \xrightarrow{-\frac{1}{3}F_2}
-          \left[ \begin{array}{ccc|c}
-          1 & 1 & 1 & 6 \\
-          0 & 1 & -1/3 & 1 \\
-          0 & 0 & 1 & 3
-          \end{array} \right]$$
-          $$\xrightarrow{\substack{F_1 - F_3 \\ F_2 + \frac{1}{3}F_3}}
-          \left[ \begin{array}{ccc|c}
-          1 & 1 & 0 & 3 \\
-          0 & 1 & 0 & 2 \\
-          0 & 0 & 1 & 3
-          \end{array} \right]
-          \xrightarrow{F_1 - F_2}
-          \left[ \begin{array}{ccc|c}
-          1 & 0 & 0 & 1 \\
-          0 & 1 & 0 & 2 \\
-          0 & 0 & 1 & 3
-          \end{array} \right]$$
-          <p>La matriz está en <strong>forma escalonada reducida por filas</strong>. El vector solución se lee
-            directamente:</p>
-          $$x = 1, \quad y = 2, \quad z = 3$$
-          <p>Es un <strong>Sistema Consistente Determinado</strong>.</p>
-        </div>
-      </details>
-    </div>
+      <div class="callout callout-thm">
+        <div class="callout-title">📐 Teorema: Solución general</div>
+        <p style="margin:0;">Sea un sistema $A\vec{x}=\vec{b}$ compatible con una solución particular $\vec{p}$.
+          Entonces
+          la solución general de $A\vec{x}=\vec{b}$ es
+          $$\vec{x} = \vec{p} + \vec{x}_h$$
+          donde $\vec{x}_h$ es la solución general del sistema homogéneo asociado $A\vec{x}=\vec{0}$.</p>
+      </div>
 
-    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
-  </section>
+      <h3 class="section-title" id="sec-6-3">6.3 Métodos Prácticos de Resolución por Eliminación</h3>
+      <p>A dos matrices equivalentes por filas les corresponden sistemas de ecuaciones equivalentes. Para determinar si
+        un
+        sistema tiene solución y obtener ésta, se sustituye el sistema dado por otro equivalente de resolución más
+        sencilla mediante operaciones elementales.</p>
 
-  <!-- ===================================================================== -->
-  <!-- BIBLIOGRAFÍA -->
-  <!-- ===================================================================== -->
-  <section class="card" id="bibliografia">
-    <h2 class="module-title">📚 Bibliografía</h2>
-    <ul style="line-height:1.9;">
-      <li>Anton, H., &amp; Rorres, C. <em>Elementary Linear Algebra: Applications Version</em>. Wiley.</li>
-      <li>Strang, G. <em>Linear Algebra and Its Applications</em>. Cengage Learning.</li>
-      <li>Lay, D. C., Lay, S. R., &amp; McDonald, J. J. <em>Linear Algebra and Its Applications</em>. Pearson.</li>
-      <li>Grossman, S. I. <em>Álgebra Lineal</em>. McGraw-Hill.</li>
-      <li>Kolman, B., &amp; Hill, D. R. <em>Álgebra Lineal con Aplicaciones y MATLAB</em>. Pearson.</li>
-      <li>Hoffman, K., &amp; Kunze, R. <em>Linear Algebra</em>. Prentice-Hall.</li>
-    </ul>
-    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
-  </section>
+      <div class="callout callout-def">
+        <div class="callout-title">📌 Eliminación de Gauss</div>
+        <p style="margin:0;">Consiste en aplicar operaciones elementales en la matriz aumentada $[A|b]$ para llevarla a
+          una <strong>forma escalonada por filas</strong>. Una vez obtenida, el sistema se resuelve mediante una
+          <strong>sustitución regresiva</strong>.
+        </p>
+      </div>
 
-  <footer style="text-align:center; color:var(--text-muted); font-size:0.88rem; margin-top:2rem;">
-    <p>Apuntes de Cálculo III — Autor: Diego Linares<br>
-      Documento generado como material de estudio universitario.</p>
-  </footer>
+      <div class="callout callout-def">
+        <div class="callout-title">📌 Eliminación de Gauss-Jordan</div>
+        <p style="margin:0;">Es una extensión del método anterior que continúa el proceso operando tanto debajo como por
+          encima de los pivotes hasta obtener la <strong>forma escalonada reducida por filas</strong>. Permite leer las
+          soluciones directamente.</p>
+      </div>
+
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 6.1:</div>
+        <p>Dado el siguiente sistema de 3 ecuaciones con 3 incógnitas:</p>
+        $$\begin{align*}
+        x + y - z &= 1 \\
+        -2x - y + z &= 2 \\
+        3x &= 3
+        \end{align*}$$
+        <p>Determine su representación matricial $Ax=b$, construya la matriz aumentada $[A|b]$ y analice el tipo de
+          sistema bajo dos escenarios:</p>
+        <ul>
+          <li><strong>A)</strong> $b = (1, 2, 3)^T$</li>
+          <li><strong>B)</strong> $b = (1, 2, 5)^T$</li>
+        </ul>
+        <details class="solution">
+          <summary>🔍 Ver solución</summary>
+          <div class="solution-content">
+            <p><strong>Representación matricial:</strong></p>
+            $$\begin{pmatrix} 1 & 1 & -1 \\ -2 & -1 & 1 \\ 3 & 0 & 0 \end{pmatrix}
+            \begin{pmatrix} x \\ y \\ z \end{pmatrix} =
+            \begin{pmatrix} 1 \\ 2 \\ 3 \end{pmatrix}$$
+            <p><strong>Determinante de $A$:</strong></p>
+            $$\det(A) = 1(0) - 1(-3) - 1(3) = 0$$
+            <p>El sistema no tendrá solución única. Construimos la matriz aumentada:</p>
+            $$[A|b] = \left[ \begin{array}{ccc|c}
+            1 & 1 & -1 & 1 \\
+            -2 & -1 & 1 & 2 \\
+            3 & 0 & 0 & 3
+            \end{array} \right]$$
+
+            <p><strong>Escenario A: $b = (1,2,3)^T$ — Inconsistente</strong></p>
+            $$\left[ \begin{array}{ccc|c}
+            1 & 1 & -1 & 1 \\
+            -2 & -1 & 1 & 2 \\
+            3 & 0 & 0 & 3
+            \end{array} \right]
+            \xrightarrow{\substack{F_2 + 2F_1 \\ F_3 - 3F_1}}
+            \left[ \begin{array}{ccc|c}
+            1 & 1 & -1 & 1 \\
+            0 & 1 & -1 & 4 \\
+            0 & -3 & 3 & 0
+            \end{array} \right]
+            \xrightarrow{F_3 + 3F_2}
+            \left[ \begin{array}{ccc|c}
+            1 & 1 & -1 & 1 \\
+            0 & 1 & -1 & 4 \\
+            0 & 0 & 0 & 12
+            \end{array} \right]$$
+            <p>La última fila representa \(0x + 0y + 0z = 12\), es decir, \(0 = 12\). Es una <strong>contradicción
+                matemática</strong>. El sistema es <strong>Inconsistente</strong> (no tiene solución).</p>
+
+            <p><strong>Escenario B: $b = (1,2,5)^T$ — Inconsistente</strong></p>
+            $$\left[ \begin{array}{ccc|c}
+            1 & 1 & -1 & 1 \\
+            -2 & -1 & 1 & 2 \\
+            3 & 0 & 0 & 5
+            \end{array} \right]
+            \xrightarrow{\substack{F_2 + 2F_1 \\ F_3 - 3F_1}}
+            \left[ \begin{array}{ccc|c}
+            1 & 1 & -1 & 1 \\
+            0 & 1 & -1 & 4 \\
+            0 & -3 & 3 & 2
+            \end{array} \right]
+            \xrightarrow{F_3 + 3F_2}
+            \left[ \begin{array}{ccc|c}
+            1 & 1 & -1 & 1 \\
+            0 & 1 & -1 & 4 \\
+            0 & 0 & 0 & 14
+            \end{array} \right]$$
+            <p>La última fila representa $0x + 0y + 0z = 14$, es decir, $0 = 14$. Es una <strong>contradicción
+                matemática</strong>. El sistema es <strong>Inconsistente</strong> (no tiene solución).</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 6.2:</div>
+        <p>Dado el siguiente sistema de ecuaciones:</p>
+        $$\begin{align*}
+        x + y + z &= 6 \\
+        2x - y + 3z &= 9 \\
+        -x + 2y - z &= 0
+        \end{align*}$$
+        <p>Resuélvalo aplicando Eliminación de Gauss y luego continúe con Gauss-Jordan hasta la forma escalonada
+          reducida.
+        </p>
+        <details class="solution">
+          <summary>🔍 Ver solución</summary>
+          <div class="solution-content">
+            <p><strong>Fase 1: Eliminación de Gauss (forma escalonada)</strong></p>
+            $$\left[ \begin{array}{ccc|c}
+            1 & 1 & 1 & 6 \\
+            2 & -1 & 3 & 9 \\
+            -1 & 2 & -1 & 0
+            \end{array} \right]
+            \xrightarrow{\substack{F_2 - 2F_1 \\ F_3 + F_1}}
+            \left[ \begin{array}{ccc|c}
+            1 & 1 & 1 & 6 \\
+            0 & -3 & 1 & -3 \\
+            0 & 3 & 0 & 6
+            \end{array} \right]
+            \xrightarrow{F_3 + F_2}
+            \left[ \begin{array}{ccc|c}
+            1 & 1 & 1 & 6 \\
+            0 & -3 & 1 & -3 \\
+            0 & 0 & 1 & 3
+            \end{array} \right]$$
+            <p>Por sustitución hacia atrás:</p>
+            $$\begin{align*}
+            z = 3 &\Rightarrow z = 3 \\
+            -3y + z = -3 \Rightarrow -3y + 3 = -3 &\Rightarrow y = 2 \\
+            x + y + z = 6 \Rightarrow x + 2 + 3 = 6 &\Rightarrow x = 1
+            \end{align*}$$
+
+            <p><strong>Fase 2: Gauss-Jordan (forma escalonada reducida)</strong></p>
+            $$\left[ \begin{array}{ccc|c}
+            1 & 1 & 1 & 6 \\
+            0 & -3 & 1 & -3 \\
+            0 & 0 & 1 & 3
+            \end{array} \right]
+            \xrightarrow{-\frac{1}{3}F_2}
+            \left[ \begin{array}{ccc|c}
+            1 & 1 & 1 & 6 \\
+            0 & 1 & -1/3 & 1 \\
+            0 & 0 & 1 & 3
+            \end{array} \right]$$
+            $$\xrightarrow{\substack{F_1 - F_3 \\ F_2 + \frac{1}{3}F_3}}
+            \left[ \begin{array}{ccc|c}
+            1 & 1 & 0 & 3 \\
+            0 & 1 & 0 & 2 \\
+            0 & 0 & 1 & 3
+            \end{array} \right]
+            \xrightarrow{F_1 - F_2}
+            \left[ \begin{array}{ccc|c}
+            1 & 0 & 0 & 1 \\
+            0 & 1 & 0 & 2 \\
+            0 & 0 & 1 & 3
+            \end{array} \right]$$
+            <p>La matriz está en <strong>forma escalonada reducida por filas</strong>. El vector solución se lee
+              directamente:</p>
+            $$x = 1, \quad y = 2, \quad z = 3$$
+            <p>Es un <strong>Sistema Consistente Determinado</strong>.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- BIBLIOGRAFÍA -->
+    <!-- ===================================================================== -->
+    <section class="card" id="bibliografia">
+      <h2 class="module-title">📚 Bibliografía</h2>
+      <ul style="line-height:1.9;">
+        <li>Anton, H., &amp; Rorres, C. <em>Elementary Linear Algebra: Applications Version</em>. Wiley.</li>
+        <li>Strang, G. <em>Linear Algebra and Its Applications</em>. Cengage Learning.</li>
+        <li>Lay, D. C., Lay, S. R., &amp; McDonald, J. J. <em>Linear Algebra and Its Applications</em>. Pearson.</li>
+        <li>Grossman, S. I. <em>Álgebra Lineal</em>. McGraw-Hill.</li>
+        <li>Kolman, B., &amp; Hill, D. R. <em>Álgebra Lineal con Aplicaciones y MATLAB</em>. Pearson.</li>
+        <li>Hoffman, K., &amp; Kunze, R. <em>Linear Algebra</em>. Prentice-Hall.</li>
+      </ul>
+      <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+    </section>
+
+    <footer style="text-align:center; color:var(--text-muted); font-size:0.88rem; margin-top:2rem;">
+      <p>Apuntes de Cálculo III — Autor: Diego Linares<br>
+        Documento generado como material de estudio universitario.</p>
+    </footer>
 
   </div>
 
