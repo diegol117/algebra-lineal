@@ -410,3 +410,61 @@ details.solution summary:hover {
     padding: 0.35rem 0;
   }
 }
+
+
+/* ===== KaTeX: Corrección definitiva para Modo Oscuro/Claro ===== */
+
+/* 1. Forzar que el contenedor de KaTeX herede el color del texto padre */
+.katex,
+.katex-display {
+    color: inherit !important;
+}
+
+/* 2. Forzar a que TODOS los SVG (paréntesis, corchetes, raíces) usen el color actual */
+.katex svg,
+.katex svg path,
+.katex svg line,
+.katex svg rect,
+.katex svg polygon {
+    fill: currentColor !important;
+    stroke: currentColor !important;
+}
+
+/* 3. Corregir elementos que KaTeX dibuja con bordes CSS (fracciones, flechas, líneas) */
+.katex .frac-line,
+.katex .overline .overline-line,
+.katex .underline .underline-line,
+.katex .hline,
+.katex .hdashline,
+.katex .rule {
+    border-color: currentColor !important;
+    background-color: currentColor !important;
+}
+
+/* 4. Evitar problemas de apilamiento de glifos */
+.katex .delimsizing,
+.katex .op-symbol {
+    color: inherit !important;
+}
+
+/* ===== Corrección específica para el Modo Oscuro Forzado de Edge ===== */
+
+/* 1. Forzar que los SVG de KaTeX hereden siempre el color del texto y anulen el filtro de Edge */
+.katex svg {
+    fill: currentColor !important;
+    stroke: currentColor !important;
+    filter: none !important; /* Anula el filtro de inversión de Edge */
+}
+
+.katex svg path {
+    fill: currentColor !important;
+    stroke: none !important; /* Evita que los paréntesis se vean "hinchados" o borrosos */
+}
+
+/* 2. Asegurar que el contenedor de KaTeX mantenga su color base */
+.katex,
+.katex-display {
+    color: inherit !important;
+    -webkit-filter: none !important;
+    filter: none !important;
+}

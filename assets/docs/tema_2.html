@@ -19,302 +19,8 @@
       throwOnError: false
     });"></script>
 
-  <style>
-    :root {
-      --primary: #1e3a8a;
-      --primary-light: #eff6ff;
-      --primary-border: #3b82f6;
-      --secondary: #0f766e;
-      --secondary-light: #f0fdfa;
-      --secondary-border: #14b8a6;
-      --accent: #b45309;
-      --accent-light: #fffbeb;
-      --accent-border: #f59e0b;
-      --bg: #f8fafc;
-      --surface: #ffffff;
-      --text: #1e293b;
-      --text-muted: #64748b;
-      --border: #e2e8f0;
-      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-    }
-
-    * { box-sizing: border-box; scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.65;
-      margin: 0;
-      padding: 0;
-    }
-
-    .container { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
-
-    /* Header */
-    header.doc-header {
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
-      color: white;
-      padding: 2.5rem 2rem;
-      border-radius: 16px;
-      margin-bottom: 2rem;
-      box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.25);
-    }
-
-    header.doc-header h1 {
-      margin: 0 0 0.75rem 0;
-      font-size: 2.1rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    .meta-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      font-size: 0.92rem;
-      color: #cbd5e1;
-      border-top: 1px solid rgba(255,255,255,0.15);
-      padding-top: 0.85rem;
-      margin-top: 0.85rem;
-    }
-
-    .meta-bar span strong { color: #ffffff; }
-
-
-
-    /* Controls Bar */
-    .controls-bar { display: flex; justify-content: flex-end; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-
-    .btn {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 0.45rem 0.9rem;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-    }
-
-    .btn:hover { background: var(--primary-light); border-color: var(--primary-border); color: var(--primary); }
-
-    /* Cards & Sections */
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.75rem 2rem;
-      margin-bottom: 2rem;
-      box-shadow: var(--shadow);
-    }
-
-    h2.module-title {
-      color: var(--primary);
-      font-size: 1.6rem;
-      margin-top: 0;
-      padding-bottom: 0.6rem;
-      border-bottom: 2px solid var(--primary-light);
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      background: var(--primary);
-      color: white;
-      font-size: 0.8rem;
-      padding: 0.2rem 0.6rem;
-      border-radius: 6px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      white-space: nowrap;
-    }
-
-    h3.section-title { color: #0f172a; font-size: 1.25rem; margin-top: 1.8rem; margin-bottom: 0.75rem; }
-    h4.sub-title { color: #334155; font-size: 1.05rem; margin-top: 1.2rem; margin-bottom: 0.5rem; }
-
-    /* Tables */
-    .table-wrapper {
-      overflow-x: auto;
-      margin: 1.2rem 0;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-    }
-
-    table { width: 100%; border-collapse: collapse; font-size: 0.95rem; background: var(--surface); }
-
-    th {
-      background-color: #f1f5f9;
-      color: #0f172a;
-      font-weight: 700;
-      text-align: left;
-      padding: 0.8rem 1rem;
-      border-bottom: 2px solid var(--border);
-    }
-
-    td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background-color: #f8fafc; }
-
-    table a { color: var(--primary); text-decoration: none; font-weight: 600; }
-    table a:hover { text-decoration: underline; }
-
-    /* Callout Boxes */
-    .callout { border-left: 4px solid; border-radius: 0 10px 10px 0; padding: 1.1rem 1.35rem; margin: 1.25rem 0; }
-    .callout-def { background-color: var(--primary-light); border-color: var(--primary-border); }
-    .callout-thm { background-color: var(--secondary-light); border-color: var(--secondary-border); }
-    .callout-note { background-color: var(--accent-light); border-color: var(--accent-border); }
-
-    .callout-title {
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      font-size: 1rem;
-    }
-
-    .callout-def .callout-title { color: var(--primary); }
-    .callout-thm .callout-title { color: var(--secondary); }
-    .callout-note .callout-title { color: var(--accent); }
-
-    /* Examples & Collapsible Details */
-    .example-box {
-      background: #fafafa;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 1.2rem 1.4rem;
-      margin: 1.35rem 0;
-    }
-
-    .example-header {
-      font-weight: 700;
-      color: #0f172a;
-      margin-bottom: 0.6rem;
-      font-size: 1.03rem;
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-    }
-
-    details.solution {
-      margin-top: 0.9rem;
-      background: var(--surface);
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    details.solution summary {
-      padding: 0.65rem 1rem;
-      font-weight: 600;
-      color: var(--primary);
-      cursor: pointer;
-      background: #f1f5f9;
-      user-select: none;
-      list-style: none;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: background 0.15s ease;
-    }
-
-    details.solution summary::-webkit-details-marker { display: none; }
-
-    details.solution summary::before {
-      content: "▶";
-      font-size: 0.75rem;
-      transition: transform 0.2s ease;
-      display: inline-block;
-    }
-
-    details.solution[open] summary::before { transform: rotate(90deg); }
-    details.solution summary:hover { background: #e2e8f0; }
-
-    .solution-content { padding: 1.1rem 1.25rem; border-top: 1px solid #e2e8f0; }
-
-    /* Diagram Containers */
-    .diagram-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: 1.5rem;
-      margin: 1.25rem 0;
-      padding: 1rem;
-      background: #ffffff;
-      border: 1px dashed #cbd5e1;
-      border-radius: 10px;
-    }
-
-    .diagram-caption {
-      text-align: center;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-top: 0.35rem;
-      font-weight: 600;
-    }
-
-/* ---- 1) SVG: ocupa el ancho disponible con un tope reducido ---- */
-svg.fig {
-  display: block;
-  margin: 0 auto;
-  width: 100%;
-  max-width: min(100%, 432px);   /* antes 720 px → −40 % */
-  height: auto;
-}
-svg.fig.sm   { max-width: min(100%, 240px); }   /* antes 400 px */
-svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
-
-/* ---- 2) Wrappers: los <div> dentro de .diagram-container ---- */
-.diagram-container > div {
-  flex: 1 1 192px;   /* antes 320 px → −40 % */
-  min-width: 0;
-  max-width: 100%;
-}
-
-/* ---- 3) Contenedor: alinea arriba para que las captions queden parejas ---- */
-.diagram-container {
-  align-items: flex-start;
-}
-
-    /* Back to top link */
-    .back-top { text-align: right; margin-top: 1.5rem; padding-top: 0.75rem; border-top: 1px solid var(--border); }
-    .back-top a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; font-weight: 600; }
-    .back-top a:hover { color: var(--primary); }
-
-    /* ===== AJUSTES RESPONSIVE ===== */
-    @media (max-width: 640px) {
-      body { font-size: 0.96rem; line-height: 1.6; }
-      .container { padding: 0.9rem 0.85rem 3.5rem; }
-
-      header.doc-header { padding: 1.4rem 1.15rem; border-radius: 12px; margin-bottom: 1.25rem; }
-      header.doc-header h1 { font-size: 1.45rem; line-height: 1.25; }
-      header.doc-header p { font-size: 0.95rem !important; }
-
-      .meta-bar { flex-direction: column; gap: 0.35rem; font-size: 0.85rem; }
-
-      .controls-bar { flex-direction: column; gap: 0.5rem; margin-bottom: 1.1rem; }
-      .controls-bar .btn { width: 100%; text-align: center; padding: 0.65rem 0.85rem; }
-
-      .card { padding: 1.15rem 1rem; border-radius: 12px; margin-bottom: 1.25rem; }
-
-      h2.module-title { font-size: 1.22rem; flex-wrap: wrap; gap: 0.45rem; line-height: 1.3; }
-      h3.section-title { font-size: 1.1rem; margin-top: 1.4rem; }
-
-      .example-box { padding: 0.95rem 1rem; margin: 1rem 0; }
-      .callout { padding: 0.9rem 1rem; margin: 1rem 0; }
-
-      th, td { padding: 0.55rem 0.65rem; font-size: 0.86rem; }
-
-      .katex-display { overflow-x: auto; overflow-y: hidden; padding: 0.35rem 0; max-width: 100%; }
-      .katex-display > .katex { font-size: 0.95em; }
-    }
-  </style>
+  <!-- Estilos externos -->
+  <link rel="stylesheet" href="estilos_t2.css">
 </head>
 <body>
 
@@ -364,9 +70,7 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
     </p>
     <div class="meta-bar">
       <span><strong>Autor:</strong> Diego Linares</span>
-      <span>•</span>
       <span><strong>Área:</strong> Álgebra Lineal</span>
-      <span>•</span>
       <span><strong>Nivel:</strong> Universitario</span>
     </div>
   </header>
@@ -394,7 +98,7 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
             <td><span class="badge">01</span></td>
             <td><a href="#mod-1">Conceptos Algebraicos Previos</a></td>
             <td>
-              <a href="#sec-1-1">1.1 Cuerpo o campo ($F$)</a> •
+              <a href="#sec-1-1">1.1 Cuerpo o campo ($F$)</a><br>
               <a href="#sec-1-2">1.2 Vector y escalares</a>
             </td>
           </tr>
@@ -402,9 +106,9 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
             <td><span class="badge">02</span></td>
             <td><a href="#mod-2">Espacios Vectoriales</a></td>
             <td>
-              <a href="#sec-2-1">2.1 Definición formal</a> •
-              <a href="#sec-2-2">2.2 Los ocho axiomas</a> •
-              <a href="#sec-2-3">2.3 El espacio $\mathbb{R}^2$</a> •
+              <a href="#sec-2-1">2.1 Definición formal</a><br>
+              <a href="#sec-2-2">2.2 Los ocho axiomas</a><br>
+              <a href="#sec-2-3">2.3 El espacio $\mathbb{R}^2$</a><br>
               <a href="#sec-2-4">2.4 El espacio $M_{n \times n}(\mathbb{R})$</a>
             </td>
           </tr>
@@ -412,8 +116,8 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
             <td><span class="badge">03</span></td>
             <td><a href="#mod-3">Subespacio Vectorial</a></td>
             <td>
-              <a href="#sec-3-1">3.1 Definición</a> •
-              <a href="#sec-3-2">3.2 Tests del subespacio</a> •
+              <a href="#sec-3-1">3.1 Definición</a><br>
+              <a href="#sec-3-2">3.2 Tests del subespacio</a><br>
               <a href="#sec-3-3">3.3 Ejemplos y contraejemplo</a>
             </td>
           </tr>
@@ -421,15 +125,15 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
             <td><span class="badge">04</span></td>
             <td><a href="#mod-4">Interpretación Geométrica</a></td>
             <td>
-              <a href="#sec-4-1">4.1 Vectores, magnitud y ortogonalidad</a> •
-              <a href="#sec-4-2">4.2 Escalamiento</a> •
-              <a href="#sec-4-3">4.3 Subespacios en el plano y el espacio</a> •
-              <a href="#sec-4-4">4.4 Matrices y determinante</a> •
-              <a href="#sec-4-5">4.5 Bases e independencia</a> •
-              <a href="#sec-4-6">4.6 Suma y combinaciones lineales</a> •
-              <a href="#sec-4-7">4.7 Del retículo al plano continuo</a> •
-              <a href="#sec-4-8">4.8 El span</a> •
-              <a href="#sec-4-9">4.9 Los escenarios $\mathbb{R}$, $\mathbb{R}^2$, $\mathbb{R}^3$</a> •
+              <a href="#sec-4-1">4.1 Vectores, magnitud y ortogonalidad</a><br>
+              <a href="#sec-4-2">4.2 Escalamiento</a><br>
+              <a href="#sec-4-3">4.3 Subespacios en el plano y el espacio</a><br>
+              <a href="#sec-4-4">4.4 Matrices y determinante</a><br>
+              <a href="#sec-4-5">4.5 Bases e independencia</a><br>
+              <a href="#sec-4-6">4.6 Suma y combinaciones lineales</a><br>
+              <a href="#sec-4-7">4.7 Del retículo al plano continuo</a><br>
+              <a href="#sec-4-8">4.8 El span</a><br>
+              <a href="#sec-4-9">4.9 Los escenarios $\mathbb{R}$, $\mathbb{R}^2$, $\mathbb{R}^3$</a><br>
               <a href="#sec-4-10">4.10 Cambio de base</a>
             </td>
           </tr>
@@ -437,7 +141,6 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       </table>
     </div>
   </section>
-
   <!-- ===================================================================== -->
   <!-- MÓDULO 1: CONCEPTOS ALGEBRAICOS PREVIOS -->
   <!-- ===================================================================== -->
@@ -912,7 +615,7 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
   <!-- ===================================================================== -->
   <!-- MÓDULO 4: INTERPRETACIÓN GEOMÉTRICA -->
   <!-- ===================================================================== -->
-  <section class="card" id="mod-4">
+<section class="card" id="mod-4">
     <h2 class="module-title"><span class="badge">MÓDULO 04</span> Interpretación Geométrica</h2>
 
     <h3 class="section-title" id="sec-4-1">4.1 Vectores: Interpretación, Magnitud y Ortogonalidad</h3>
@@ -922,7 +625,7 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       $(0,0)$ o $(0,0,0)$— hasta un punto específico en el espacio. En esta representación, la longitud de la flecha
       nos indica su magnitud, mientras que la dirección en la que apunta establece su orientación.</p>
 
-    <div class="diagram-container">
+    <div class="diagram-container" style="display: flex; flex-direction: column; align-items: center;">
       <svg class="fig" viewBox="0 0 280 210" role="img" aria-label="Vector en el plano partiendo del origen">
         <line x1="30" y1="160" x2="262" y2="160" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
         <line x1="60" y1="196" x2="60" y2="26" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
@@ -941,7 +644,7 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       parten del origen y sus puntas tocan exactamente el borde de una circunferencia de radio $1$, conocida como la
       circunferencia unitaria.</p>
 
-    <div class="diagram-container">
+    <div class="diagram-container" style="display: flex; flex-direction: column; align-items: center;">
       <svg class="fig" viewBox="0 0 260 220" role="img" aria-label="Vector unitario sobre la circunferencia unitaria">
         <line x1="20" y1="110" x2="245" y2="110" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
         <line x1="130" y1="205" x2="130" y2="20" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
@@ -963,7 +666,7 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       flecha original, pero siempre manteniéndola sobre la misma línea recta. Si $c > 1$, el vector se alarga; si está
       entre $0$ y $1$, se encoge; y si $c$ es negativo, la flecha invierte su sentido.</p>
 
-    <div class="diagram-container">
+    <div class="diagram-container" style="display: flex; flex-direction: column; align-items: center;">
       <svg class="fig" viewBox="0 0 320 210" role="img" aria-label="Vector v y sus múltiplos escalares">
         <line x1="10" y1="120" x2="305" y2="120" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
         <line x1="110" y1="196" x2="110" y2="22" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
@@ -988,7 +691,7 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       el origen. Esta recta es, en esencia, el subespacio generado por ese vector, denotado como
       $\operatorname{gen}\{\vec{v}\}$.</p>
 
-    <div class="diagram-container">
+    <div class="diagram-container" style="display: flex; flex-direction: column; align-items: center;">
       <svg class="fig" viewBox="0 0 320 210" role="img" aria-label="Recta generada por un vector">
         <line x1="10" y1="120" x2="305" y2="120" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
         <line x1="110" y1="196" x2="110" y2="22" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
@@ -1014,7 +717,7 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       propios se limitan a ser rectas que pasan por el origen, mientras que en $\mathbb{R}^3$ pueden ser tanto rectas
       como planos que atraviesan el origen.</p>
 
-    <div class="diagram-container">
+    <div class="diagram-container" style="display: flex; flex-direction: column; align-items: center;">
       <svg class="fig" viewBox="0 0 300 240" role="img" aria-label="Plano que pasa por el origen en el espacio tridimensional">
         <line x1="140" y1="155" x2="285" y2="155" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
         <line x1="140" y1="155" x2="140" y2="28" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
@@ -1041,7 +744,7 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       Si observamos las columnas de una matriz de $2 \times 2$, estas nos revelan exactamente dónde aterrizarán los
       vectores de la base estándar, $\hat{\imath} = (1,0)$ y $\hat{\jmath} = (0,1)$, tras aplicar la transformación.</p>
 
-    <div class="diagram-container">
+    <div class="diagram-container" style="display: flex; flex-direction: column; align-items: center;">
       <svg class="fig" viewBox="0 0 300 210" role="img" aria-label="Columnas de una matriz como imágenes de los vectores base">
         <line x1="25" y1="160" x2="285" y2="160" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
         <line x1="60" y1="200" x2="60" y2="20" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
@@ -1062,36 +765,36 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       <div class="diagram-caption">Las columnas de $A$ indican el destino de $\hat{\imath}$ y $\hat{\jmath}$</div>
     </div>
 
-    <p>Finalmente, esta capacidad de deformar el espacio nos permite darle una interpretación visual muy intuitiva al
-      <strong>determinante</strong>, el cual actúa como el factor de escala de dicha deformación. En $\mathbb{R}^2$, el
-      determinante equivale al área del paralelogramo que forman los vectores columna de la matriz, mientras que en
-      $\mathbb{R}^3$, mide el volumen del paralelepípedo (una especie de caja deformada) construido por sus tres
-      columnas. Si alguna vez el determinante es $0$, significa que la transformación aplastó el espacio hacia una
-      dimensión inferior —el área o volumen desapareció—, colapsando todo en una línea, un plano o incluso un solo
-      punto.</p>
+<p>Finalmente, esta capacidad de deformar el espacio nos permite darle una interpretación visual muy intuitiva al
+      <strong>determinante</strong>, el cual actúa como el factor de escala con orientación de dicha deformación. En
+      $\mathbb{R}^2$, el valor absoluto del determinante, $|\det(A)|$, equivale al área del paralelogramo que forman los
+      vectores columna de la matriz, mientras que en $\mathbb{R}^3$, $|\det(A)|$ mide el volumen del paralelepípedo
+      (una especie de caja deformada) construido por sus tres columnas (en ambos casos, el signo indica si se conserva
+      o se invierte la orientación del espacio). Si alguna vez el determinante es $0$, significa que la transformación
+      aplastó el espacio hacia una dimensión inferior —el área o volumen desapareció—, colapsando todo en una línea, un
+      plano o incluso un solo punto.</p>
+<div class="diagram-container" style="display: flex; flex-direction: column; align-items: center;">
+  <svg class="fig" viewBox="0 0 420 230" role="img" aria-label="El determinante como área del paralelogramo">
+    <line x1="20" y1="180" x2="405" y2="180" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+    <line x1="60" y1="215" x2="60" y2="15" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+    <text x="408" y="184" font-size="12" fill="#64748b">x</text>
+    <text x="54" y="12" font-size="12" fill="#64748b">y</text>
 
-    <div class="diagram-container">
-      <svg class="fig" viewBox="0 0 320 230" role="img" aria-label="El determinante como área del paralelogramo">
-        <line x1="20" y1="180" x2="305" y2="180" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
-        <line x1="60" y1="215" x2="60" y2="15" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
-        <text x="308" y="184" font-size="12" fill="#64748b">x</text>
-        <text x="54" y="12" font-size="12" fill="#64748b">y</text>
+    <polygon points="60,180 110,180 110,130 60,130" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="18" y="108" font-size="10" fill="#64748b">Área = 1</text>
 
-        <polygon points="60,180 110,180 110,130 60,130" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="5 4"/>
-        <text x="18" y="108" font-size="10" fill="#64748b">Área = 1</text>
+    <polygon points="60,180 210,130 260,30 110,80" fill="#fdba74" fill-opacity="0.65"
+             stroke="#ea580c" stroke-width="2"/>
+    <text x="118" y="128" font-size="12" fill="#7c2d12">Área = |det(A)|</text>
 
-        <polygon points="60,180 210,130 260,30 110,80" fill="#fdba74" fill-opacity="0.65"
-                 stroke="#ea580c" stroke-width="2"/>
-        <text x="118" y="128" font-size="12" fill="#7c2d12">Área = |det(A)|</text>
+    <line x1="60" y1="180" x2="210" y2="130" stroke="#2563eb" stroke-width="3" marker-end="url(#ah-blue)"/>
+    <text x="220" y="152" font-size="11" fill="#1d4ed8">Columna 1</text>
 
-        <line x1="60" y1="180" x2="210" y2="130" stroke="#2563eb" stroke-width="3" marker-end="url(#ah-blue)"/>
-        <text x="150" y="152" font-size="11" fill="#1d4ed8">Columna 1</text>
-        <line x1="60" y1="180" x2="110" y2="80" stroke="#dc2626" stroke-width="3" marker-end="url(#ah-red)"/>
-        <text x="72" y="72" font-size="11" fill="#b91c1c">Columna 2</text>
-      </svg>
-      <div class="diagram-caption">El determinante como factor de escala del área</div>
-    </div>
-
+    <line x1="60" y1="180" x2="110" y2="80" stroke="#dc2626" stroke-width="3" marker-end="url(#ah-red)"/>
+    <text x="50" y="72" font-size="11" fill="#b91c1c">Columna 2</text>
+  </svg>
+  <div class="diagram-caption">El determinante como factor de escala del área</div>
+</div>
     <h3 class="section-title" id="sec-4-5">4.5 Bases, Independencia y Planos Generados</h3>
 
     <p>Para ubicarnos en el espacio, necesitamos un sistema de referencia, lo cual logramos a través de una
@@ -1102,7 +805,7 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       gráficamente es cambiar nuestra cuadrícula de referencia por una nueva, cuyos ejes podrían estar inclinados o
       tener escalas diferentes.</p>
 
-    <div class="diagram-container">
+    <div class="diagram-container" style="display: flex; flex-direction: column; align-items: center;">
       <svg class="fig" viewBox="0 0 570 280" role="img" aria-label="Comparación entre base estándar y base alternativa">
         <!-- ===== Base estándar ===== -->
         <g>
@@ -1166,29 +869,32 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       fueran las varillas guía con las que tensamos y construimos una superficie plana e infinita que atraviesa
       obligatoriamente el origen.</p>
 
-    <div class="diagram-container">
-      <svg class="fig" viewBox="0 0 300 250" role="img" aria-label="Plano generado por dos vectores en el espacio">
-        <line x1="150" y1="155" x2="290" y2="155" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
-        <line x1="150" y1="155" x2="150" y2="28" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
-        <line x1="150" y1="155" x2="60" y2="200" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
-        <text x="292" y="160" font-size="12" fill="#64748b">y</text>
-        <text x="144" y="23" font-size="12" fill="#64748b">z</text>
-        <text x="42" y="212" font-size="12" fill="#64748b">x</text>
+<div class="diagram-container" style="display: flex; flex-direction: column; align-items: center;">
+  <svg class="fig" viewBox="0 0 300 250" role="img" aria-label="Plano generado por dos vectores en el espacio">
+    <line x1="150" y1="155" x2="290" y2="155" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+    <line x1="150" y1="155" x2="150" y2="28" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+    <line x1="150" y1="155" x2="60" y2="200" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+    <text x="292" y="160" font-size="12" fill="#64748b">y</text>
+    <text x="144" y="23" font-size="12" fill="#64748b">z</text>
+    <text x="42" y="212" font-size="12" fill="#64748b">x</text>
 
-        <polygon points="50,125 240,105 275,185 85,205" fill="#a5f3fc" fill-opacity="0.7"
-                 stroke="#22d3ee" stroke-width="2"/>
+    <polygon points="50,125 240,105 275,185 85,205" fill="#a5f3fc" fill-opacity="0.7"
+             stroke="#22d3ee" stroke-width="2"/>
 
-        <line x1="150" y1="155" x2="210" y2="135" stroke="#2563eb" stroke-width="3" marker-end="url(#ah-blue)"/>
-        <text x="212" y="152" font-size="14" fill="#2563eb" font-style="italic">u</text>
-        <line x1="150" y1="155" x2="130" y2="107" stroke="#1e40af" stroke-width="3" marker-end="url(#ah-blue)"/>
-        <text x="112" y="102" font-size="14" fill="#1e40af" font-style="italic">v</text>
-        <circle cx="150" cy="155" r="3" fill="#1e293b"/>
+    <!-- u: ahora toca el borde derecho del plano -->
+    <line x1="150" y1="155" x2="248" y2="122" stroke="#2563eb" stroke-width="3" marker-end="url(#ah-blue)"/>
+    <text x="252" y="120" font-size="14" fill="#2563eb" font-style="italic">u</text>
 
-        <text x="150" y="238" font-size="12" fill="#0e7490" text-anchor="middle">Plano generado</text>
-      </svg>
-      <div class="diagram-caption">Dos vectores independientes generan un plano en $\mathbb{R}^3$</div>
-    </div>
+    <!-- v: ahora toca el borde superior del plano -->
+    <line x1="150" y1="155" x2="134" y2="116" stroke="#1e40af" stroke-width="3" marker-end="url(#ah-blue)"/>
+    <text x="112" y="110" font-size="14" fill="#1e40af" font-style="italic">v</text>
 
+    <circle cx="150" cy="155" r="3" fill="#1e293b"/>
+
+    <text x="150" y="238" font-size="12" fill="#0e7490" text-anchor="middle">Plano generado</text>
+  </svg>
+  <div class="diagram-caption">Dos vectores independientes generan un plano en $\mathbb{R}^3$</div>
+</div>
     <p>Ahora bien, para que esos dos vectores realmente logren construir un plano, deben aportar direcciones
       completamente distintas. Si uno de ellos es simplemente la versión estirada, comprimida o invertida del otro,
       decimos que son <strong>vectores linealmente dependientes</strong>, ya que ambos yacen atrapados sobre una misma
@@ -1202,7 +908,7 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       vectores son linealmente independientes y también <strong>ortogonales</strong> o
       <strong>perpendiculares</strong>.</p>
 
-    <div class="diagram-container">
+    <div class="diagram-container" style="display: flex; flex-direction: column; align-items: center;">
       <svg class="fig" viewBox="0 0 660 230" role="img" aria-label="Vectores dependientes, independientes y ortogonales">
         <!-- Dependientes -->
         <g>
@@ -1253,7 +959,7 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       cola”). Alternativamente, si ambos parten del origen, la suma es exactamente la diagonal principal del
       paralelogramo que se forma entre ellos.</p>
 
-    <div class="diagram-container">
+    <div class="diagram-container" style="display: flex; flex-direction: column; align-items: center;">
       <svg class="fig" viewBox="0 0 340 220" role="img" aria-label="Suma de vectores mediante la regla del paralelogramo">
         <line x1="25" y1="170" x2="330" y2="170" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
         <line x1="60" y1="205" x2="60" y2="20" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
@@ -1281,7 +987,7 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       elección, y finalmente sumar todos los resultados. Es la receta definitiva para movernos por el espacio usando
       nuestras flechas base.</p>
 
-    <div class="diagram-container">
+    <div class="diagram-container" style="display: flex; flex-direction: column; align-items: center;">
       <svg class="fig" viewBox="0 0 380 250" role="img" aria-label="Combinación lineal 2u menos v">
         <line x1="30" y1="140" x2="360" y2="140" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
         <line x1="120" y1="235" x2="120" y2="25" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ah-gray)"/>
@@ -1294,7 +1000,7 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
         <text x="140" y="72" font-size="12" fill="#dc2626" font-style="italic">v</text>
 
         <line x1="120" y1="140" x2="270" y2="90" stroke="#1d4ed8" stroke-width="3" marker-end="url(#ah-blue)"/>
-        <text x="248" y="108" font-size="13" fill="#1d4ed8" font-style="italic">2u</text>
+        <text x="280" y="108" font-size="13" fill="#1d4ed8" font-style="italic">2u</text>
         <line x1="120" y1="140" x2="70" y2="215" stroke="#991b1b" stroke-width="3" marker-end="url(#ah-red)"/>
         <text x="44" y="212" font-size="13" fill="#991b1b" font-style="italic">−v</text>
 
@@ -1307,15 +1013,6 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       </svg>
       <div class="diagram-caption">La combinación lineal $2\vec{u} - \vec{v}$</div>
     </div>
-
-
-
-
-
-
-
-
-
 
     <h3 class="section-title" id="sec-4-7">4.7 Del Retículo al Plano Infinito: la Naturaleza del Subespacio</h3>
 
@@ -1390,7 +1087,7 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       posibles</strong>? A esta colección infinita de puntos a los que podemos viajar la llamamos el
       <strong>espacio generado</strong> (o <em>span</em>).</p>
 
-    <p>Si nuestros dos vectores “viven” en un mundo bidimensional, al sumar y escalar $\vec{u}$ y $\vec{v}$
+<p>Si nuestros dos vectores “viven” en un mundo bidimensional, al sumar y escalar $\vec{u}$ y $\vec{v}$
       con cualquier número real, literalmente logramos barrer y colorear todo el lienzo. Gráficamente, el
       espacio generado por dos vectores linealmente independientes en $\mathbb{R}^2$ es el <strong>plano
       completo de $\mathbb{R}^2$</strong>: no hay una sola esquina o coordenada en la pantalla a la que no
@@ -1417,32 +1114,6 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
         </svg>
         <div class="diagram-caption">Todo $\mathbb{R}^2$ es alcanzable</div>
       </div>
-      <div>
-        <svg class="fig" viewBox="0 0 280 220" role="img" aria-label="Plano en R³ con punto inalcanzable">
-          <line x1="140" y1="130" x2="270" y2="130" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
-          <line x1="140" y1="130" x2="140" y2="15"  stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
-          <line x1="140" y1="130" x2="45"  y2="190" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
-          <text x="272" y="135" font-size="11" fill="#64748b">y</text>
-          <text x="132" y="12"  font-size="11" fill="#64748b">z</text>
-          <text x="32"  y="198" font-size="11" fill="#64748b">x</text>
-
-          <polygon points="30,90 220,65 250,165 60,190" fill="#e9d5ff" fill-opacity="0.7"
-                   stroke="#a855f7" stroke-width="1.8"/>
-          <text x="118" y="132" font-size="10" fill="#6b21a8">Plano generado</text>
-
-          <line x1="140" y1="130" x2="190" y2="115" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ah-blue)"/>
-          <text x="192" y="112" font-size="12" fill="#2563eb" font-style="italic">u</text>
-          <line x1="140" y1="130" x2="125" y2="75" stroke="#dc2626" stroke-width="2.5" marker-end="url(#ah-red)"/>
-          <text x="112" y="70" font-size="12" fill="#dc2626" font-style="italic">v</text>
-          <circle cx="140" cy="130" r="2.5" fill="#1e293b"/>
-
-          <circle cx="180" cy="30" r="3" fill="#dc2626"/>
-          <text x="186" y="28" font-size="9" fill="#dc2626">inalcanzable</text>
-          <line x1="180" y1="30" x2="180" y2="100" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3 2"/>
-          <circle cx="180" cy="100" r="2" fill="#7c3aed"/>
-        </svg>
-        <div class="diagram-caption">Plano en $\mathbb{R}^3$: no todo es alcanzable</div>
-      </div>
     </div>
 
     <p>Pero la historia cambia drásticamente si tomamos esos mismos dos vectores y los llevamos a un mundo
@@ -1455,6 +1126,35 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       dirección sobre esa superficie inclinada, pero al carecer de un tercer vector independiente, es
       matemáticamente imposible “despegar” de esa hoja para alcanzar el resto del volumen del espacio.</p>
 
+    <div class="diagram-container">
+      <div>
+        <svg class="fig" viewBox="0 0 280 220" role="img" aria-label="Plano en R³ con punto inalcanzable">
+          <line x1="140" y1="130" x2="270" y2="130" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
+          <line x1="140" y1="130" x2="140" y2="15"  stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
+          <line x1="140" y1="130" x2="45"  y2="190" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
+          <text x="272" y="135" font-size="11" fill="#64748b">y</text>
+          <text x="132" y="12"  font-size="11" fill="#64748b">z</text>
+          <text x="32"  y="198" font-size="11" fill="#64748b">x</text>
+
+          <polygon points="30,90 220,65 250,165 60,190" fill="#e9d5ff" fill-opacity="0.7"
+                   stroke="#a855f7" stroke-width="1.8"/>
+          <text x="118" y="150" font-size="10" fill="#6b21a8">Plano generado</text>
+          <text x="160" y="110" font-size="8" fill="#6b21a8" font-style="italic">Sombra</text>
+
+          <line x1="140" y1="130" x2="190" y2="115" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ah-blue)"/>
+          <text x="192" y="112" font-size="12" fill="#2563eb" font-style="italic">u</text>
+          <line x1="140" y1="130" x2="125" y2="75" stroke="#dc2626" stroke-width="2.5" marker-end="url(#ah-red)"/>
+          <text x="112" y="70" font-size="12" fill="#dc2626" font-style="italic">v</text>
+          <circle cx="140" cy="130" r="2.5" fill="#1e293b"/>
+
+          <circle cx="180" cy="30" r="3" fill="#dc2626"/>
+          <text x="186" y="28" font-size="9" fill="#dc2626">Inalcanzable</text>
+          <line x1="180" y1="30" x2="180" y2="100" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3 2"/>
+          <circle cx="180" cy="100" r="2" fill="#7c3aed"/>
+        </svg>
+        <div class="diagram-caption">Plano en $\mathbb{R}^3$: no todo es alcanzable</div>
+      </div>
+    </div>
     <!-- ============================================================ -->
     <!-- 4.9  LOS ESCENARIOS: ℝ, ℝ² Y ℝ³                               -->
     <!-- ============================================================ -->
@@ -1480,59 +1180,96 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
         paralelepípedo geométrico elemental.</li>
     </ul>
 
-    <div class="diagram-container">
-      <div>
-        <svg class="fig sm" viewBox="0 0 180 140" role="img" aria-label="R: espacio de dimensión 1">
-          <line x1="10" y1="70" x2="170" y2="70" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
-          <text x="172" y="74" font-size="10" fill="#64748b">x</text>
-          <circle cx="90" cy="70" r="2" fill="#1e293b"/>
-          <text x="86" y="84" font-size="9" fill="#64748b">0</text>
-          <line x1="90" y1="70" x2="130" y2="70" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ah-blue)"/>
-          <text x="132" y="66" font-size="11" fill="#2563eb" font-style="italic">î</text>
-          <text x="90" y="115" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="600">ℝ</text>
-          <text x="90" y="130" font-size="9" fill="#64748b" text-anchor="middle">Dimensión 1: Segmento</text>
-        </svg>
-      </div>
-      <div>
-        <svg class="fig sm" viewBox="0 0 180 180" role="img" aria-label="R²: espacio de dimensión 2">
-          <line x1="10" y1="110" x2="170" y2="110" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
-          <line x1="50" y1="170" x2="50" y2="15"   stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
-          <text x="170" y="122" font-size="10" fill="#64748b">x</text>
-          <text x="42" y="15"   font-size="10" fill="#64748b">y</text>
-          <circle cx="50" cy="110" r="2" fill="#1e293b"/>
-          <rect x="50" y="60" width="50" height="50" fill="#fee2e2" stroke="#f87171" stroke-width="1.2" stroke-dasharray="3 2"/>
-          <line x1="50" y1="110" x2="100" y2="110" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ah-blue)"/>
-          <text x="102" y="107" font-size="10" fill="#2563eb" font-style="italic">î</text>
-          <line x1="50" y1="110" x2="50" y2="60" stroke="#dc2626" stroke-width="2.5" marker-end="url(#ah-red)"/>
-          <text x="42" y="55" font-size="10" fill="#dc2626" font-style="italic">ĵ</text>
-          <text x="90" y="150" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="600">ℝ²</text>
-          <text x="90" y="165" font-size="9" fill="#64748b" text-anchor="middle">Dimensión 2: Área</text>
-        </svg>
-      </div>
-      <div>
-        <svg class="fig sm" viewBox="0 0 200 200" role="img" aria-label="R³: espacio de dimensión 3">
-          <line x1="90" y1="130" x2="190" y2="130" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
-          <line x1="90" y1="130" x2="90" y2="15"   stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
-          <line x1="90" y1="130" x2="15" y2="180"  stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
-          <text x="192" y="135" font-size="10" fill="#64748b">y</text>
-          <text x="82"  y="12"  font-size="10" fill="#64748b">z</text>
-          <text x="8"   y="190" font-size="10" fill="#64748b">x</text>
-          <circle cx="90" cy="130" r="2" fill="#1e293b"/>
-          <polygon points="90,130 140,130 140,80 90,80" fill="#dcfce7" stroke="#22c55e" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.7"/>
-          <polygon points="90,80 140,80 130,70 80,70"   fill="#bbf7d0" stroke="#22c55e" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.7"/>
-          <polygon points="90,130 90,80 80,70 70,120"   fill="#bbf7d0" stroke="#22c55e" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.5"/>
-          <line x1="90" y1="130" x2="140" y2="130" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ah-blue)"/>
-          <text x="142" y="128" font-size="10" fill="#2563eb" font-style="italic">ĵ</text>
-          <line x1="90" y1="130" x2="90" y2="80" stroke="#dc2626" stroke-width="2.5" marker-end="url(#ah-red)"/>
-          <text x="82" y="76" font-size="10" fill="#dc2626" font-style="italic">k̂</text>
-          <line x1="90" y1="130" x2="70" y2="120" stroke="#16a34a" stroke-width="2.5" marker-end="url(#ah-green)"/>
-          <text x="60" y="118" font-size="10" fill="#16a34a" font-style="italic">î</text>
-          <text x="100" y="180" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="600">ℝ³</text>
-          <text x="100" y="195" font-size="9" fill="#64748b" text-anchor="middle">Dimensión 3: Volumen</text>
-        </svg>
-      </div>
-    </div>
+<div class="diagram-container">
+  <div>
+    <svg class="fig sm" viewBox="0 0 180 140" role="img" aria-label="R: espacio de dimensión 1">
+      <line x1="10" y1="70" x2="170" y2="70" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
+      <text x="172" y="74" font-size="10" fill="#64748b">x</text>
+      <circle cx="90" cy="70" r="2" fill="#1e293b"/>
+      <text x="86" y="84" font-size="9" fill="#64748b">0</text>
+      <line x1="90" y1="70" x2="130" y2="70" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ah-blue)"/>
+      <text x="132" y="66" font-size="11" fill="#2563eb" font-style="italic">î</text>
+      <text x="90" y="115" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="600">ℝ</text>
+      <text x="90" y="130" font-size="9" fill="#64748b" text-anchor="middle">Dimensión 1: Segmento</text>
+    </svg>
+  </div>
 
+  <div>
+    <svg class="fig sm" viewBox="0 0 180 180" role="img" aria-label="R²: espacio de dimensión 2">
+      <line x1="10" y1="110" x2="170" y2="110" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
+      <line x1="50" y1="170" x2="50" y2="15"   stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
+      <text x="170" y="122" font-size="10" fill="#64748b">x</text>
+      <text x="42" y="15"   font-size="10" fill="#64748b">y</text>
+      <circle cx="50" cy="110" r="2" fill="#1e293b"/>
+      <rect x="50" y="60" width="50" height="50" fill="#fee2e2" stroke="#f87171" stroke-width="1.2" stroke-dasharray="3 2"/>
+      <line x1="50" y1="110" x2="100" y2="110" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ah-blue)"/>
+      <text x="102" y="107" font-size="10" fill="#2563eb" font-style="italic">î</text>
+      <line x1="50" y1="110" x2="50" y2="60" stroke="#dc2626" stroke-width="2.5" marker-end="url(#ah-red)"/>
+      <text x="42" y="55" font-size="10" fill="#dc2626" font-style="italic">ĵ</text>
+      <text x="90" y="150" font-size="11" fill="#0f172a" text-anchor="middle" font-weight="600">ℝ²</text>
+      <text x="90" y="165" font-size="9" fill="#64748b" text-anchor="middle">Dimensión 2: Área</text>
+    </svg>
+  </div>
+
+  <div>
+    <svg class="fig sm" viewBox="0 0 260 250" role="img" aria-label="El Universo R³">
+      <defs>
+        <!-- Definiciones de flechas únicas para este gráfico para evitar conflictos -->
+        <marker id="arrow-gray-r3" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" fill="#94a3b8"/>
+        </marker>
+        <marker id="arrow-blue-r3" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" fill="#2563eb"/>
+        </marker>
+        <marker id="arrow-red-r3" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" fill="#dc2626"/>
+        </marker>
+        <marker id="arrow-green-r3" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+          <polygon points="0 0, 8 3, 0 6" fill="#16a34a"/>
+        </marker>
+      </defs>
+
+      <!-- Ejes Coordenados -->
+      <line x1="110" y1="140" x2="230" y2="140" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow-gray-r3)"/>
+      <line x1="110" y1="140" x2="110" y2="30" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow-gray-r3)"/>
+      <line x1="110" y1="140" x2="20" y2="200" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow-gray-r3)"/>
+
+      <!-- Nombres de los Ejes -->
+      <text x="235" y="145" font-family="serif" font-size="14" fill="#64748b" font-style="italic">y</text>
+      <text x="100" y="25" font-family="serif" font-size="14" fill="#64748b" font-style="italic">z</text>
+      <text x="5" y="205" font-family="serif" font-size="14" fill="#64748b" font-style="italic">x</text>
+
+      <!-- Caras del cubo (fondo semitransparente) -->
+      <polygon points="110,140 160,140 160,80 110,80" fill="#dcfce7" fill-opacity="0.4"/>
+      <polygon points="110,80 160,80 120,100 70,100" fill="#dcfce7" fill-opacity="0.4"/>
+      <polygon points="110,140 70,160 70,100 110,80" fill="#dcfce7" fill-opacity="0.4"/>
+
+      <!-- Aristas ocultas/traseras del cubo (líneas discontinuas) -->
+      <!-- Se ha añadido 'L 160 140' al final para cerrar la base del cubo -->
+      <path d="M 160 140 L 160 80 L 120 100 L 120 160 M 120 100 L 70 100 L 110 80 L 160 80 M 70 100 L 70 160 L 120 160 L 160 140" fill="none" stroke="#4ade80" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+      <!-- Vectores Unitarios (aristas frontales) -->
+      <!-- Vector i (verde) - Ajustado y2="160" para que coincida exactamente con la esquina del cubo -->
+      <line x1="110" y1="140" x2="70" y2="165" stroke="#16a34a" stroke-width="3" marker-end="url(#arrow-green-r3)"/>
+      <text x="55" y="165" font-family="serif" font-size="16" fill="#16a34a" font-style="italic">î</text>
+
+      <!-- Vector j (azul) -->
+      <line x1="110" y1="140" x2="160" y2="140" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow-blue-r3)"/>
+      <text x="150" y="160" font-family="serif" font-size="16" fill="#2563eb" font-style="italic">ĵ</text>
+
+      <!-- Vector k (rojo) -->
+      <line x1="110" y1="140" x2="110" y2="80" stroke="#dc2626" stroke-width="3" marker-end="url(#arrow-red-r3)"/>
+      <text x="90" y="75" font-family="serif" font-size="16" fill="#dc2626" font-style="italic">k̂</text>
+
+      <!-- Punto de Origen -->
+      <circle cx="110" cy="140" r="2.5" fill="#1e293b"/>
+
+      <!-- Textos Inferiores -->
+      <text x="130" y="215" font-family="serif" font-size="18" fill="#1e293b" text-anchor="middle">El Universo ℝ³</text>
+      <text x="130" y="235" font-family="sans-serif" font-size="14" fill="#64748b" text-anchor="middle">(3 Dimensiones: Volumen/Cubo)</text>
+    </svg>
+  </div>
+</div>
     <!-- ============================================================ -->
     <!-- 4.10  CAMBIO DE BASE                                           -->
     <!-- ============================================================ -->
@@ -1669,5 +1406,4 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
 
     <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
   </section>
-
   <!-- (Aquí continúa tu HTML existente si quedaba algo: footer, scripts de toggle, etc.) -->
