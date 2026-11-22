@@ -19,294 +19,10 @@
       throwOnError: false
     });"></script>
 
-  <style>
-    :root {
-      --primary: #1e3a8a;
-      --primary-light: #eff6ff;
-      --primary-border: #3b82f6;
-      --secondary: #0f766e;
-      --secondary-light: #f0fdfa;
-      --secondary-border: #14b8a6;
-      --accent: #b45309;
-      --accent-light: #fffbeb;
-      --accent-border: #f59e0b;
-      --bg: #f8fafc;
-      --surface: #ffffff;
-      --text: #1e293b;
-      --text-muted: #64748b;
-      --border: #e2e8f0;
-      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-    }
-
-    * { box-sizing: border-box; scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.65;
-      margin: 0;
-      padding: 0;
-    }
-
-    .container { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
-
-    header.doc-header {
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
-      color: white;
-      padding: 2.5rem 2rem;
-      border-radius: 16px;
-      margin-bottom: 2rem;
-      box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.25);
-    }
-
-    header.doc-header h1 {
-      margin: 0 0 0.75rem 0;
-      font-size: 2.1rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    .meta-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      font-size: 0.92rem;
-      color: #cbd5e1;
-      border-top: 1px solid rgba(255,255,255,0.15);
-      padding-top: 0.85rem;
-      margin-top: 0.85rem;
-    }
-
-    .meta-bar span strong { color: #ffffff; }
-
-    .controls-bar {
-      display: flex;
-      justify-content: flex-end;
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .btn {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 0.45rem 0.9rem;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-    }
-
-    .btn:hover {
-      background: var(--primary-light);
-      border-color: var(--primary-border);
-      color: var(--primary);
-    }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.75rem 2rem;
-      margin-bottom: 2rem;
-      box-shadow: var(--shadow);
-    }
-
-    h2.module-title {
-      color: var(--primary);
-      font-size: 1.6rem;
-      margin-top: 0;
-      padding-bottom: 0.6rem;
-      border-bottom: 2px solid var(--primary-light);
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .badge {
-      background: var(--primary);
-      color: white;
-      font-size: 0.8rem;
-      padding: 0.2rem 0.6rem;
-      border-radius: 6px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-    }
-
-    h3.section-title {
-      color: #0f172a;
-      font-size: 1.25rem;
-      margin-top: 1.8rem;
-      margin-bottom: 0.75rem;
-    }
-
-    h4.sub-title {
-      color: #334155;
-      font-size: 1.05rem;
-      margin-top: 1.2rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .table-wrapper {
-      overflow-x: auto;
-      margin: 1.2rem 0;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.95rem;
-      background: var(--surface);
-    }
-
-    th {
-      background-color: #f1f5f9;
-      color: #0f172a;
-      font-weight: 700;
-      text-align: left;
-      padding: 0.8rem 1rem;
-      border-bottom: 2px solid var(--border);
-    }
-
-    td {
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid var(--border);
-      vertical-align: middle;
-    }
-
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background-color: #f8fafc; }
-
-    table a {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 600;
-    }
-    table a:hover { text-decoration: underline; }
-
-    .callout {
-      border-left: 4px solid;
-      border-radius: 0 10px 10px 0;
-      padding: 1.1rem 1.35rem;
-      margin: 1.25rem 0;
-    }
-
-    .callout-def { background-color: var(--primary-light); border-color: var(--primary-border); }
-    .callout-thm { background-color: var(--secondary-light); border-color: var(--secondary-border); }
-    .callout-note { background-color: var(--accent-light); border-color: var(--accent-border); }
-
-    .callout-title {
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      font-size: 1rem;
-    }
-
-    .callout-def .callout-title { color: var(--primary); }
-    .callout-thm .callout-title { color: var(--secondary); }
-    .callout-note .callout-title { color: var(--accent); }
-
-    .example-box {
-      background: #fafafa;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 1.2rem 1.4rem;
-      margin: 1.35rem 0;
-    }
-
-    .example-header {
-      font-weight: 700;
-      color: #0f172a;
-      margin-bottom: 0.6rem;
-      font-size: 1.03rem;
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-    }
-
-    details.solution {
-      margin-top: 0.9rem;
-      background: var(--surface);
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    details.solution summary {
-      padding: 0.65rem 1rem;
-      font-weight: 600;
-      color: var(--primary);
-      cursor: pointer;
-      background: #f1f5f9;
-      user-select: none;
-      list-style: none;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: background 0.15s ease;
-    }
-
-    details.solution summary::-webkit-details-marker { display: none; }
-
-    details.solution summary::before {
-      content: "▶";
-      font-size: 0.75rem;
-      transition: transform 0.2s ease;
-      display: inline-block;
-    }
-
-    details.solution[open] summary::before { transform: rotate(90deg); }
-    details.solution summary:hover { background: #e2e8f0; }
-
-    .solution-content {
-      padding: 1.1rem 1.25rem;
-      border-top: 1px solid #e2e8f0;
-    }
-
-    .back-top {
-      text-align: right;
-      margin-top: 1.5rem;
-      padding-top: 0.75rem;
-      border-top: 1px solid var(--border);
-    }
-
-    .back-top a {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      text-decoration: none;
-      font-weight: 600;
-    }
-    .back-top a:hover { color: var(--primary); }
-
-    @media (max-width: 640px) {
-      body { font-size: 0.96rem; line-height: 1.6; }
-      .container { padding: 0.9rem 0.85rem 3.5rem; }
-      header.doc-header { padding: 1.4rem 1.15rem; border-radius: 12px; margin-bottom: 1.25rem; }
-      header.doc-header h1 { font-size: 1.45rem; line-height: 1.25; }
-      header.doc-header p { font-size: 0.95rem !important; }
-      .meta-bar { flex-direction: column; gap: 0.35rem; font-size: 0.85rem; }
-      .controls-bar { flex-direction: column; gap: 0.5rem; margin-bottom: 1.1rem; }
-      .controls-bar .btn { width: 100%; text-align: center; padding: 0.65rem 0.85rem; }
-      .card { padding: 1.15rem 1rem; border-radius: 12px; margin-bottom: 1.25rem; }
-      h2.module-title { font-size: 1.22rem; flex-wrap: wrap; gap: 0.45rem; line-height: 1.3; }
-      h3.section-title { font-size: 1.1rem; margin-top: 1.4rem; }
-      .example-box { padding: 0.95rem 1rem; margin: 1rem 0; }
-      .callout { padding: 0.9rem 1rem; margin: 1rem 0; }
-      th, td { padding: 0.55rem 0.65rem; font-size: 0.86rem; }
-      .katex-display { overflow-x: auto; overflow-y: hidden; padding: 0.35rem 0; max-width: 100%; }
-      .katex-display > .katex { font-size: 0.95em; }
-    }
-  </style>
+  <!-- Estilos externos -->
+  <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-
 <div class="container">
 
   <!-- HEADER -->
@@ -408,614 +124,661 @@
     </div>
   </section>
 
-  <!-- ===================================================================== -->
-  <!-- MÓDULO 1 -->
-  <!-- ===================================================================== -->
-  <section class="card" id="mod-1">
-    <h2 class="module-title"><span class="badge">MÓDULO 01</span> Álgebra de Matrices: Operaciones Básicas</h2>
 
-    <p>Para operar con matrices y establecer comparaciones, es fundamental conocer las condiciones estructurales y las reglas que rigen cada operación. A continuación se resumen los principios básicos para matrices de mismas dimensiones.</p>
+<!-- ===================================================================== -->
+<!-- MÓDULO 1 -->
+<!-- ===================================================================== -->
+<section class="card" id="mod-1">
+  <h2 class="module-title"><span class="badge">MÓDULO 01</span> Álgebra de Matrices: Operaciones Básicas</h2>
 
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr><th>Concepto</th><th>Descripción</th><th>Expresión</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Igualdad</strong></td>
-            <td>Elementos idénticos posición a posición.</td>
-            <td>$A = B \iff a_{ij} = b_{ij}$</td>
-          </tr>
-          <tr>
-            <td><strong>Suma y Resta</strong></td>
-            <td>Operación aditiva posición a posición.</td>
-            <td>$C = A \pm B \implies c_{ij} = a_{ij} \pm b_{ij}$</td>
-          </tr>
-          <tr>
-            <td><strong>Producto por Escalar</strong></td>
-            <td>Cada elemento es multiplicado por un número real $k$.</td>
-            <td>$k \cdot A = (k \cdot a_{ij})$</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <p>Para operar con matrices y establecer comparaciones, es fundamental conocer las condiciones estructurales y las reglas que rigen cada operación. A continuación se resumen los principios básicos para matrices de mismas dimensiones.</p>
 
-    <h3 class="section-title" id="sec-1-1">1.1 Igualdad de Matrices</h3>
-    <div class="callout callout-def">
-      <div class="callout-title">📌 Definición: Igualdad Matricial</div>
-      <p style="margin:0;">Dos matrices $A$ y $B$ del mismo orden $m \times n$ son iguales si y solo si todos sus elementos correspondientes coinciden:
-      $$A = B \iff a_{ij} = b_{ij} \quad \forall i, j$$</p>
-    </div>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Concepto</th><th>Descripción</th><th>Expresión</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Igualdad</strong></td>
+          <td>Elementos idénticos posición a posición.</td>
+          <td>$A = B \iff a_{ij} = b_{ij}$</td>
+        </tr>
+        <tr>
+          <td><strong>Suma y Resta</strong></td>
+          <td>Operación aditiva posición a posición.</td>
+          <td>$C = A \pm B \implies c_{ij} = a_{ij} \pm b_{ij}$</td>
+        </tr>
+        <tr>
+          <td><strong>Producto por Escalar</strong></td>
+          <td>Cada elemento es multiplicado por un número real $k$.</td>
+          <td>$k \cdot A = (k \cdot a_{ij})$</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 1.1: Igualdad de Matrices</div>
-      <p>Dadas las matrices $M$ y $N$ de orden $2 \times 2$, determine las condiciones para que se cumpla la igualdad $M = N$.</p>
-      $$M = \begin{bmatrix} x + 1 & 2y \\ z - 3 & w \end{bmatrix}, \quad N = \begin{bmatrix} 5 & -4 \\ 0 & 7 \end{bmatrix}$$
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p>Como ambas matrices comparten el mismo orden ($2 \times 2$), igualamos algebraicamente cada elemento de $M$ con su homólogo exacto en $N$ ($m_{ij} = n_{ij}$):</p>
-          <ul>
-            <li><strong>Posición (1,1):</strong> $x + 1 = 5 \implies x = 4$</li>
-            <li><strong>Posición (1,2):</strong> $2y = -4 \implies y = -2$</li>
-            <li><strong>Posición (2,1):</strong> $z - 3 = 0 \implies z = 3$</li>
-            <li><strong>Posición (2,2):</strong> $w = 7$</li>
-          </ul>
-          <p>Las condiciones necesarias y suficientes para que se cumpla $M = N$ son: $x = 4$, $y = -2$, $z = 3$ y $w = 7$.</p>
-        </div>
-      </details>
-    </div>
+  <h3 class="section-title" id="sec-1-1">1.1 Igualdad de Matrices</h3>
+  <div class="callout callout-def">
+    <p style="margin:0;"><strong>📌 Definición 1.1.1.</strong> Dos matrices $A$ y $B$ del mismo orden $m \times n$ son iguales si y solo si todos sus elementos correspondientes coinciden:</p>
+    $$A = B \iff a_{ij} = b_{ij} \quad \forall i, j$$
+  </div>
 
-    <h3 class="section-title" id="sec-1-2">1.2 Suma y Resta de Matrices</h3>
-    <p>La suma (o resta) de matrices está definida únicamente cuando ambas tienen el mismo orden. La operación se realiza entrada por entrada.</p>
-
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 1.2: Suma de Matrices</div>
-      <p>Dadas las matrices $A$ y $B$ de orden $2 \times 2$, calcule $A + B$:</p>
-      $$A = \begin{bmatrix} 2 & -1 \\ 4 & 0 \end{bmatrix}, \quad B = \begin{bmatrix} 3 & 5 \\ -2 & 1 \end{bmatrix}$$
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          $$A + B = \begin{bmatrix} 2+3 & -1+5 \\ 4+(-2) & 0+1 \end{bmatrix} = \begin{bmatrix} 5 & 4 \\ 2 & 1 \end{bmatrix}$$
-        </div>
-      </details>
-    </div>
-
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 1.3: Resta de Matrices</div>
-      <p>Dadas $A$ y $B$ de orden $2 \times 2$, determine $A - B$:</p>
-      $$A = \begin{bmatrix} 2 & -1 \\ 4 & 0 \end{bmatrix}, \quad B = \begin{bmatrix} 3 & 5 \\ -2 & 1 \end{bmatrix}$$
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p>La resta se define como $A + (-1)\cdot B$. Primero calculamos el opuesto de $B$:</p>
-          $$-B = \begin{bmatrix} -3 & -5 \\ 2 & -1 \end{bmatrix}$$
-          <p>Luego sumamos:</p>
-          $$A - B = \begin{bmatrix} 2 + (-3) & -1 + (-5) \\ 4 + 2 & 0 + (-1) \end{bmatrix} = \begin{bmatrix} -1 & -6 \\ 6 & -1 \end{bmatrix}$$
-        </div>
-      </details>
-    </div>
-
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 1.4: Contraejemplo — Incompatibilidad</div>
-      <p>Consideremos las matrices:</p>
-      $$C = \begin{bmatrix} 1 & 2 \end{bmatrix} \quad \text{y} \quad D = \begin{bmatrix} 3 \\ 4 \end{bmatrix}$$
-      <p>Determine si es posible realizar $C + D$.</p>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p>La matriz $C$ tiene orden $1 \times 2$ y $D$ tiene orden $2 \times 1$. La suma $C + D$ <strong>no está definida</strong>: la suma matricial requiere que las matrices tengan la misma dimensión. El elemento $c_{1,2} = 2$ no tiene pareja en $D$. Por lo tanto, $C$ y $D$ no son conformables para la suma.</p>
-        </div>
-      </details>
-    </div>
-
-    <h3 class="section-title" id="sec-1-3">1.3 Producto por Escalar</h3>
-    <div class="callout callout-def">
-      <div class="callout-title">📌 Definición: Producto por Escalar</div>
-      <p style="margin:0;">Al multiplicar una matriz $A$ por un escalar $k \in \mathbb{R}$, cada elemento de $A$ se multiplica por $k$:
-      $$k \cdot A = (k \cdot a_{ij})$$</p>
-    </div>
-
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 1.5: Escalamiento</div>
-      <p>Calcule el resultado de multiplicar la siguiente matriz por el escalar $3$:</p>
-      $$3 \cdot \begin{bmatrix} 1 & -2 \\ 4 & 5 \end{bmatrix}$$
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          $$= \begin{bmatrix} 3 \cdot (1) & 3 \cdot (-2) \\ 3 \cdot (4) & 3 \cdot (5) \end{bmatrix} = \begin{bmatrix} 3 & -6 \\ 12 & 15 \end{bmatrix}$$
-        </div>
-      </details>
-    </div>
-
-    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
-  </section>
-
-  <!-- ===================================================================== -->
-  <!-- MÓDULO 2 -->
-  <!-- ===================================================================== -->
-  <section class="card" id="mod-2">
-    <h2 class="module-title"><span class="badge">MÓDULO 02</span> Producto, Potencias y Traspuesta</h2>
-
-    <h3 class="section-title" id="sec-2-1">2.1 Producto de Matrices</h3>
-    <p>A diferencia de la suma o el escalamiento, el producto de matrices representa una transformación más compleja: permite componer linealmente los datos contenidos en dos matrices.</p>
-
-    <div class="callout callout-def">
-      <div class="callout-title">📌 Definición: Producto de Matrices</div>
-      <p style="margin:0;">Dadas $A_{m \times n}$ y $B_{n \times p}$, su producto $C = AB$ es una matriz $C_{m \times p}$ donde cada elemento se calcula como el producto escalar entre la fila $i$ de $A$ y la columna $j$ de $B$:
-      $$c_{ij} = \sum_{k=1}^{n} a_{ik}b_{kj} = a_{i1}b_{1j} + a_{i2}b_{2j} + \dots + a_{in}b_{nj}$$</p>
-    </div>
-
-    <p><strong>Compatibilidad multiplicativa:</strong> la operación solo es posible si el número de columnas de $A$ coincide con el número de filas de $B$.</p>
-
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 2.1: El impacto de las dimensiones</div>
-      <p>Dadas la matriz fila $A$ de orden $1 \times 3$ y la matriz columna $B$ de orden $3 \times 1$:</p>
-      $$A = \begin{bmatrix} 1 & 2 & 3 \end{bmatrix}, \quad B = \begin{bmatrix} 4 \\ 5 \\ 6 \end{bmatrix}$$
-      <p>Efectúe el producto $A \cdot B$ y analice la dimensión del resultado.</p>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p>El producto está definido ($3$ columnas de $A$ = $3$ filas de $B$) y resulta una matriz $1 \times 1$, es decir, un escalar:</p>
-          $$A \cdot B = \begin{bmatrix} 1 & 2 & 3 \end{bmatrix} \begin{bmatrix} 4 \\ 5 \\ 6 \end{bmatrix} = (1 \cdot 4) + (2 \cdot 5) + (3 \cdot 6) = 4 + 10 + 18 = \mathbf{32}$$
-          <p>Este producto proyecta la relación lineal de los vectores en un único valor numérico.</p>
-        </div>
-      </details>
-    </div>
-
-    <h3 class="section-title" id="sec-2-2">2.2 Potencia de Matrices y Nilpotencia</h3>
-    <div class="callout callout-def">
-      <div class="callout-title">📌 Definición: Potencia k-ésima</div>
-      <p style="margin:0;">Sea $A$ una matriz cuadrada de orden $n$. Para cualquier entero positivo $k$:
-      $$A^k = \underbrace{A \cdot A \cdot \dots \cdot A}_{k \text{ veces}}$$
-      Por convención, si $A$ es no nula, $A^0 = I_n$ (matriz identidad de orden $n$).</p>
-    </div>
-
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 2.2: Potencia y divisores de cero</div>
-      <p>Dada la matriz $A = \begin{bmatrix} 0 & 1 \\ 0 & 0 \end{bmatrix}$, calcule $A^2$ e interprete el resultado.</p>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          $$A^2 = \begin{bmatrix} 0 & 1 \\ 0 & 0 \end{bmatrix} \begin{bmatrix} 0 & 1 \\ 0 & 0 \end{bmatrix} = \begin{bmatrix} 0(0)+1(0) & 0(1)+1(0) \\ 0(0)+0(0) & 0(1)+0(0) \end{bmatrix} = \begin{bmatrix} 0 & 0 \\ 0 & 0 \end{bmatrix}$$
-          <p>Una matriz no nula elevada a una potencia puede resultar en la matriz nula. A estas matrices se les conoce como <strong>matrices nilpotentes</strong>.</p>
-        </div>
-      </details>
-    </div>
-
-    <h3 class="section-title" id="sec-2-3">2.3 Trasposición</h3>
-    <div class="callout callout-def">
-      <div class="callout-title">📌 Definición: Matriz Traspuesta</div>
-      <p style="margin:0;">La traspuesta de $A$, denotada $A^T$, se obtiene al intercambiar filas por columnas. Si $A$ es de orden $m \times n$, entonces $A^T$ es de orden $n \times m$, y sus elementos cumplen $(A^T)_{ij} = a_{ji}$.</p>
-      $$A = \begin{bmatrix} a_{11} & a_{12} & \cdots & a_{1n} \\ a_{21} & a_{22} & \cdots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & \cdots & a_{mn} \end{bmatrix} \implies A^T = \begin{bmatrix} a_{11} & a_{21} & \cdots & a_{m1} \\ a_{12} & a_{22} & \cdots & a_{m2} \\ \vdots & \vdots & \ddots & \vdots \\ a_{1n} & a_{2n} & \cdots & a_{mn} \end{bmatrix}$$
-    </div>
-
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 2.3: Matriz Traspuesta</div>
-      <p>Halle la matriz traspuesta ($A^T$) de la siguiente matriz $A$ de orden $2 \times 3$:</p>
-      $$A = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix}$$
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p>Reescribimos secuencialmente cada fila de $A$ como columna:</p>
-          <ul>
-            <li>La <strong>primera fila</strong> $(1, 2, 3)$ se convierte en la <strong>primera columna</strong> de $A^T$.</li>
-            <li>La <strong>segunda fila</strong> $(4, 5, 6)$ se convierte en la <strong>segunda columna</strong> de $A^T$.</li>
-          </ul>
-          $$A^T = \begin{bmatrix} 1 & 4 \\ 2 & 5 \\ 3 & 6 \end{bmatrix}$$
-          <p>El orden ahora es $3 \times 2$.</p>
-        </div>
-      </details>
-    </div>
-
-    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
-  </section>
-
-  <!-- ===================================================================== -->
-  <!-- MÓDULO 3 -->
-  <!-- ===================================================================== -->
-  <section class="card" id="mod-3">
-    <h2 class="module-title"><span class="badge">MÓDULO 03</span> Propiedades y Clases de Matrices</h2>
-
-    <p>Sean $A, B, C$ matrices sobre un cuerpo $\mathbb{K}$ (donde $\mathbb{K} = \mathbb{R}$ o $\mathbb{C}$) con dimensiones conformables para las operaciones indicadas, y $\alpha, \beta \in \mathbb{K}$ escalares.</p>
-
-    <h3 class="section-title" id="sec-3-1">3.1 Propiedades Algebraicas de las Operaciones</h3>
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr><th>Categoría</th><th>Propiedad</th><th>Definición Matemática</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td rowspan="10" style="vertical-align: middle; text-align:center;"><strong>Suma y<br>Producto por<br>un Escalar</strong></td>
-            <td>Operación cerrada I</td><td>$A+B \in M$</td>
-          </tr>
-          <tr><td>Operación cerrada II</td><td>$\alpha A \in M$</td></tr>
-          <tr><td>Conmutativa (Suma)</td><td>$A+B=B+A$</td></tr>
-          <tr><td>Asociativa I</td><td>$(A+B)+C=A+(B+C)$</td></tr>
-          <tr><td>Asociativa II</td><td>$\alpha(\beta A)=(\alpha \beta) A$</td></tr>
-          <tr><td>Distributiva I</td><td>$\alpha(A+B)=\alpha A+\alpha B$</td></tr>
-          <tr><td>Distributiva II</td><td>$(\alpha+\beta) A=\alpha A+\beta A$</td></tr>
-          <tr><td>Elemento neutro I</td><td>$\exists \mathbf{0} \in M \;/\; A+\mathbf{0}=A$</td></tr>
-          <tr><td>Elemento neutro II</td><td>$1 \cdot A=A$</td></tr>
-          <tr><td>Elemento opuesto</td><td>$\exists -A \in M \;/\; A+(-A)=\mathbf{0}$</td></tr>
-
-          <tr>
-            <td rowspan="10" style="vertical-align: middle; text-align:center;"><strong>Producto de<br>Matrices y<br>Potencias</strong></td>
-            <td>Asociativa</td><td>$A \cdot (B \cdot C) = (A \cdot B) \cdot C$</td>
-          </tr>
-          <tr><td>Distributiva I (izq.)</td><td>$A \cdot (B+C) = A \cdot B + A \cdot C$</td></tr>
-          <tr><td>Distributiva II (der.)</td><td>$(A+B) \cdot C = A \cdot C + B \cdot C$</td></tr>
-          <tr><td>Elemento neutro I</td><td>$A \cdot I = A$</td></tr>
-          <tr><td>Elemento neutro II</td><td>$I \cdot A = A$</td></tr>
-          <tr><td>No conmutatividad</td><td>En general, $A \cdot B \neq B \cdot A$</td></tr>
-          <tr><td>Divisores de cero</td><td>$A \cdot B = 0 \nRightarrow A = 0 \lor B = 0$</td></tr>
-          <tr><td>Falta de simplificación</td><td>$A \cdot B = A \cdot C \nRightarrow B = C$</td></tr>
-          <tr><td>Leyes de exponentes I</td><td>$A^p \cdot A^q = A^{p+q}$</td></tr>
-          <tr><td>Leyes de exponentes II</td><td>$(A^p)^q = A^{pq}$</td></tr>
-
-          <tr>
-            <td rowspan="4" style="vertical-align: middle; text-align:center;"><strong>Trasposición</strong></td>
-            <td>Involutiva</td><td>$\left(A^{t}\right)^{t} = A$</td>
-          </tr>
-          <tr><td>Linealidad I (Suma)</td><td>$(A \pm B)^{t} = A^{t} \pm B^{t}$</td></tr>
-          <tr><td>Linealidad II (Escalar)</td><td>$(\alpha \cdot A)^{t} = \alpha \cdot A^{t}$</td></tr>
-          <tr><td>Producto de matrices</td><td>$(A \cdot B)^{t} = B^{t} \cdot A^{t}$</td></tr>
-
-          <tr>
-            <td rowspan="4" style="vertical-align: middle; text-align:center;"><strong>Inversión</strong></td>
-            <td>Unicidad</td><td>$A^{-1}$ es única</td>
-          </tr>
-          <tr><td>Involutiva</td><td>$\left(A^{-1}\right)^{-1} = A$</td></tr>
-          <tr><td>Producto por un escalar</td><td>$(\alpha \cdot A)^{-1} = \alpha^{-1} \cdot A^{-1}$</td></tr>
-          <tr><td>Producto de matrices</td><td>$(A \cdot B)^{-1} = B^{-1} \cdot A^{-1}$</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h3 class="section-title" id="sec-3-2">3.2 Clases de Matrices Notables</h3>
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr><th>Concepto / Teorema</th><th>Definición o Propiedad Matemática</th></tr>
-        </thead>
-        <tbody>
-          <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">Conmutatividad en el producto</td></tr>
-          <tr><td><strong>Matrices conmutativas</strong> (permutables)</td><td>$A \cdot B = B \cdot A$</td></tr>
-          <tr><td><strong>Matrices anticonmutativas</strong></td><td>$A \cdot B = -B \cdot A$</td></tr>
-
-          <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">Simetría de matrices cuadradas</td></tr>
-          <tr><td><strong>Matriz simétrica</strong></td><td>$A = A^t \quad (a_{ij} = a_{ji})$</td></tr>
-          <tr><td><strong>Matriz antisimétrica</strong> (hemisimétrica)</td><td>$A = -A^t \quad (a_{ij} = -a_{ji} \text{ y } a_{ii} = 0)$</td></tr>
-          <tr><td><strong>Matriz simétrica inducida</strong></td><td>$A + A^t$ es siempre simétrica</td></tr>
-          <tr><td><strong>Matriz antisimétrica inducida</strong></td><td>$A - A^t$ es siempre antisimétrica</td></tr>
-          <tr><td><strong>Descomposición de matriz</strong></td><td>$A = S + H$ ($S$: simétrica, $H$: antisimétrica)</td></tr>
-
-          <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">Matrices triangulares y diagonales</td></tr>
-          <tr><td><strong>Producto triangulares sup.</strong></td><td>Resulta otra matriz triangular superior</td></tr>
-          <tr><td><strong>Producto triangulares inf.</strong></td><td>Resulta otra matriz triangular inferior</td></tr>
-          <tr><td><strong>Producto de matrices diag.</strong></td><td>Resulta matriz diagonal con $c_{ii} = a_{ii} b_{ii}$</td></tr>
-          <tr><td><strong>Conmutatividad diagonal</strong></td><td>Conmutan con todas las matrices diagonales</td></tr>
-
-          <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">Clases por potencias</td></tr>
-          <tr><td><strong>Matriz periódica</strong> (período $n \geq 2$)</td><td>$A^n = A$</td></tr>
-          <tr><td><strong>Matriz idempotente</strong> (período $n=2$)</td><td>$A^2 = A$</td></tr>
-          <tr><td><strong>Matriz nilpotente</strong> (índice $n$)</td><td>$A^n = \mathbf{0}$</td></tr>
-          <tr><td><strong>Matriz involutiva</strong></td><td>$A^2 = I \implies A^{-1} = A$</td></tr>
-
-          <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">Inversibilidad y matrices ortogonales</td></tr>
-          <tr><td><strong>Matriz regular</strong></td><td>Tiene inversa $\iff |A| \neq 0$</td></tr>
-          <tr><td><strong>Inversa de la traspuesta</strong></td><td>$(A^t)^{-1} = (A^{-1})^t$</td></tr>
-          <tr><td><strong>Matriz ortogonal</strong></td><td>$A^t A = I \implies A^{-1} = A^t$</td></tr>
-          <tr><td><strong>Determinante ortogonal</strong></td><td>$|A| = 1$ ó $|A| = -1$</td></tr>
-          <tr><td><strong>Cierre ortogonal</strong></td><td>Inversa, traspuesta y productos son ortogonales</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h3 class="section-title" id="sec-3-3">3.3 Matrices Complejas</h3>
-    <p>Una matriz compleja es aquella cuyas entradas pertenecen a $\mathbb{C}$. Cada elemento $a_{ij} = x + yi$, con $x$ parte real, $y$ parte imaginaria e $i^2 = -1$.</p>
-
-    <div class="callout callout-def">
-      <div class="callout-title">📌 Operaciones sobre matrices complejas</div>
-      <ul style="margin:0;">
-        <li><strong>Conjugado de un número complejo:</strong> si $z = x + yi$, entonces $\bar{z} = x - yi$.</li>
-        <li><strong>Matriz conjugada ($\bar{A}$):</strong> sustituye cada elemento por su conjugado.</li>
-        <li><strong>Traspuesta conjugada ($\overline{A^t}$):</strong> también llamada <em>adjunta</em> o <em>hermítica</em>, denotada $A^*$ o $A^H$. Aplica trasposición y conjugación simultáneamente.</li>
-      </ul>
-    </div>
-
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr><th>Concepto / Propiedad</th><th>Definición Matemática</th></tr>
-        </thead>
-        <tbody>
-          <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">Opuesta y conjugada</td></tr>
-          <tr><td><strong>Matriz opuesta</strong></td><td>$-A = \{-a_{ij}\}$</td></tr>
-          <tr><td><strong>Matriz conjugada</strong></td><td>$\bar{A} = \{\overline{a_{ij}}\}$</td></tr>
-
-          <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">Propiedades de la conjugación</td></tr>
-          <tr><td><strong>Doble conjugación</strong> (involución)</td><td>$\overline{\overline{A}} = A$</td></tr>
-          <tr><td><strong>Conjugada del producto escalar</strong></td><td>$\overline{\alpha A} = \bar{\alpha} \bar{A}$</td></tr>
-          <tr><td><strong>Conjugada de la suma y resta</strong></td><td>$\overline{A \pm B} = \bar{A} \pm \bar{B}$</td></tr>
-          <tr><td><strong>Conjugada del producto</strong></td><td>$\overline{A B} = \bar{A} \bar{B}$</td></tr>
-          <tr><td><strong>Matriz con elementos reales</strong></td><td>$\bar{A} = A$</td></tr>
-          <tr><td><strong>Matriz con elementos imaginarios puros</strong></td><td>$\bar{A} = -A$</td></tr>
-
-          <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">Clases de matrices complejas cuadradas</td></tr>
-          <tr><td><strong>Matriz Hermítica</strong> (autoadjunta)</td><td>$\overline{A^t} = A \implies a_{ij} = \overline{a_{ji}}$ (diagonal real)</td></tr>
-          <tr><td><strong>Matriz Antihermítica</strong> (hemihermítica)</td><td>$\overline{A^t} = -A \implies a_{ij} = -\overline{a_{ji}}$ (diagonal nula o imag. puros)</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
-  </section>
-
-  <!-- ===================================================================== -->
-  <!-- MÓDULO 4 -->
-  <!-- ===================================================================== -->
-  <section class="card" id="mod-4">
-    <h2 class="module-title"><span class="badge">MÓDULO 04</span> Determinantes</h2>
-
-    <h3 class="section-title" id="sec-4-1">4.1 Definición e Invertibilidad</h3>
-    <div class="callout callout-def">
-      <div class="callout-title">📌 Definición: Determinante</div>
-      <p style="margin:0;">El <strong>determinante</strong> es una función escalar asignada exclusivamente a matrices cuadradas. Se denota $\det(A)$ o $|A|$, y contiene información sobre la naturaleza del sistema de ecuaciones asociado.</p>
-    </div>
-
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Teorema de invertibilidad</div>
-      <p style="margin:0;">Una matriz cuadrada es <strong>invertible</strong> si y solo si su determinante es distinto de cero:
-      $$A \text{ es invertible} \iff \det(A) \neq 0$$
-      Si $\det(A) = 0$, la matriz es <strong>singular</strong> (no invertible) y sus filas/columnas son linealmente dependientes.</p>
-    </div>
-
-    <h3 class="section-title" id="sec-4-2">4.2 Expansión de Laplace</h3>
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Teorema: Expansión de Laplace</div>
-      <p style="margin:0;">Sea $A_{n \times n}$. Su determinante se calcula como:</p>
-      $$\det(A) = \sum_{j=1}^n a_{ij} (-1)^{i+j} \det(M_{ij})$$
-      <p style="margin:0.5rem 0 0 0;">Donde $(-1)^{i+j}$ es el signo alternado ($+$ si $i+j$ par, $-$ si impar), y $M_{ij}$ es la submatriz de orden $(n-1) \times (n-1)$ obtenida al eliminar la fila $i$ y la columna $j$.</p>
-    </div>
-
-    <p>El procedimiento consiste en:</p>
-    <ol>
-      <li>Elegir una fila (o columna) cualquiera.</li>
-      <li>Por cada elemento, determinar el signo según la suma $i+j$.</li>
-      <li>Construir la submatriz $M_{ij}$ eliminando la fila y columna del elemento.</li>
-      <li>Calcular el determinante de la submatriz y multiplicar por el elemento con su signo.</li>
-      <li>Sumar todos los productos.</li>
-    </ol>
-
-    <h4 class="sub-title">Determinante de una matriz $2 \times 2$</h4>
-    <p>Para $A = \begin{bmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{bmatrix}$, desarrollando por la primera fila:</p>
-    $$\det(A) = a_{11}(+1)\det(M_{11}) + a_{12}(-1)\det(M_{12}) = a_{11}a_{22} - a_{12}a_{21}$$
-
-    <h4 class="sub-title">Determinante de una matriz $3 \times 3$</h4>
-    <p>Para $A = \begin{bmatrix} a_{11} & a_{12} & a_{13} \\ a_{21} & a_{22} & a_{23} \\ a_{31} & a_{32} & a_{33} \end{bmatrix}$, con signos $(+,-,+)$ en la primera fila:</p>
-    $$\det(A) = a_{11}\det(M_{11}) - a_{12}\det(M_{12}) + a_{13}\det(M_{13})$$
+  <div class="example-box">
+    <p><strong>🧩 Ejemplo 1.1.1.</strong> Dadas las matrices $M$ y $N$ de orden $2 \times 2$, determine las condiciones para que se cumpla la igualdad $M = N$.</p>
     $$\begin{aligned}
-    \det(A) &= a_{11}(a_{22}a_{33} - a_{23}a_{32}) \\
-    &\quad - a_{12}(a_{21}a_{33} - a_{23}a_{31}) \\
-    &\quad + a_{13}(a_{21}a_{32} - a_{22}a_{31})
+    M &= \begin{pmatrix} x + 1 & 2y \\ z - 3 & w \end{pmatrix} \\[4pt]
+    N &= \begin{pmatrix} 5 & -4 \\ 0 & 7 \end{pmatrix}
     \end{aligned}$$
+    <details class="solution">
+      <summary>🔍 Ver solución</summary>
+      <div class="solution-content">
+        <p>Como ambas matrices comparten el mismo orden ($2 \times 2$), igualamos algebraicamente cada elemento de $M$ con su homólogo exacto en $N$ ($m_{ij} = n_{ij}$):</p>
+        <ul>
+          <li><strong>Posición (1,1):</strong> $x + 1 = 5 \implies x = 4$</li>
+          <li><strong>Posición (1,2):</strong> $2y = -4 \implies y = -2$</li>
+          <li><strong>Posición (2,1):</strong> $z - 3 = 0 \implies z = 3$</li>
+          <li><strong>Posición (2,2):</strong> $w = 7$</li>
+        </ul>
+        <p>Las condiciones necesarias y suficientes para que se cumpla $M = N$ son: $x = 4$, $y = -2$, $z = 3$ y $w = 7$.</p>
+      </div>
+    </details>
+  </div>
 
-    <h3 class="section-title" id="sec-4-3">4.3 Ejemplo — Determinante $4 \times 4$ por Laplace</h3>
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 4.1: Desarrollo por cofactores</div>
-      <p>Considérese la siguiente matriz $A$ de orden $4 \times 4$:</p>
-      $$A = \begin{bmatrix} 2 & 0 & 1 & 0 \\ 0 & 3 & 0 & 4 \\ -1 & 0 & 0 & 5 \\ 0 & 2 & 0 & 0 \end{bmatrix}$$
-      <p>Calcule el valor de su determinante aplicando el desarrollo por cofactores.</p>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p>Aplicamos el desarrollo a lo largo de la primera fila con signos alternados $(+,-,+,-)$:</p>
-          $$\det(A) = 2\det(M_{11}) - 0\det(M_{12}) + 1\det(M_{13}) - 0\det(M_{14})$$
-          <p><strong>Menor $M_{11}$</strong> (eliminando fila 1 y columna 1):</p>
-          $$M_{11} = \begin{bmatrix} 3 & 0 & 4 \\ 0 & 0 & 5 \\ 2 & 0 & 0 \end{bmatrix}$$
-          <p>Su segunda columna es nula, por lo que $\det(M_{11}) = 0$.</p>
-          <p><strong>Menor $M_{13}$</strong> (eliminando fila 1 y columna 3):</p>
-          $$M_{13} = \begin{bmatrix} 0 & 3 & 4 \\ -1 & 0 & 5 \\ 0 & 2 & 0 \end{bmatrix}$$
-          <p>Desarrollando por la primera columna:</p>
-          $$\det(M_{13}) = -(-1)\cdot\det\begin{bmatrix} 3 & 4 \\ 2 & 0 \end{bmatrix} = (+1)(3 \cdot 0 - 4 \cdot 2) = -8$$
-          <p>Por lo tanto:</p>
-          $$\det(A) = 2(0) + 1(-8) = \mathbf{-8}$$
-        </div>
-      </details>
-    </div>
+  <h3 class="section-title" id="sec-1-2">1.2 Suma y Resta de Matrices</h3>
+  <p>La suma (o resta) de matrices está definida únicamente cuando ambas tienen el mismo orden. La operación se realiza entrada por entrada.</p>
 
-    <h3 class="section-title" id="sec-4-4">4.4 Propiedades de los Determinantes</h3>
-    <p>Sean $A$ y $B$ matrices cuadradas de orden $n$ sobre un cuerpo $\mathbb{K}$, $\lambda$ un escalar, y $F_i$ la $i$-ésima línea (fila o columna) de $A$.</p>
+  <div class="example-box">
+    <p><strong>🧩 Ejemplo 1.2.1.</strong> Dadas las matrices $A$ y $B$ de orden $2 \times 2$, calcule $A + B$:</p>
+    $$\begin{aligned}
+    A &= \begin{pmatrix} 2 & -1 \\ 4 & 0 \end{pmatrix} \\[4pt]
+    B &= \begin{pmatrix} 3 & 5 \\ -2 & 1 \end{pmatrix}
+    \end{aligned}$$
+    <details class="solution">
+      <summary>🔍 Ver solución</summary>
+      <div class="solution-content">
+        $$\begin{aligned}
+        A + B &= \begin{pmatrix} 2+3 & -1+5 \\ 4+(-2) & 0+1 \end{pmatrix} \\[4pt]
+        &= \begin{pmatrix} 5 & 4 \\ 2 & 1 \end{pmatrix}
+        \end{aligned}$$
+      </div>
+    </details>
+  </div>
 
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr><th>Propiedad</th><th>Expresión Matemática</th></tr>
-        </thead>
-        <tbody>
-          <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">1. Propiedades algebraicas</td></tr>
-          <tr><td><strong>Matriz transpuesta</strong></td><td>$|A| = \left|A^t\right|$</td></tr>
-          <tr><td><strong>Producto de matrices</strong></td><td>$|A \cdot B| = |A| \cdot |B|$</td></tr>
-          <tr><td><strong>Producto por un escalar</strong></td><td>$|\lambda A| = \lambda^n |A|$</td></tr>
-          <tr><td><strong>Matriz inversa</strong></td><td>$|A| \neq 0 \implies \left|A^{-1}\right| = |A|^{-1}$</td></tr>
-          <tr><td><strong>Triangulares/diagonales</strong></td><td>$|A| = \prod_{i=1}^n a_{ii}$</td></tr>
+  <div class="example-box">
+    <p><strong>🧩 Ejemplo 1.2.2.</strong> Dadas $A$ y $B$ de orden $2 \times 2$, determine $A - B$:</p>
+    $$\begin{aligned}
+    A &= \begin{pmatrix} 2 & -1 \\ 4 & 0 \end{pmatrix} \\[4pt]
+    B &= \begin{pmatrix} 3 & 5 \\ -2 & 1 \end{pmatrix}
+    \end{aligned}$$
+    <details class="solution">
+      <summary>🔍 Ver solución</summary>
+      <div class="solution-content">
+        <p>La resta se define como $A + (-1)\cdot B$. Primero calculamos el opuesto de $B$:</p>
+        $$-B = \begin{pmatrix} -3 & -5 \\ 2 & -1 \end{pmatrix}$$
+        <p>Luego sumamos:</p>
+        $$\begin{aligned}
+        A - B &= \begin{pmatrix} 2 + (-3) & -1 + (-5) \\ 4 + 2 & 0 + (-1) \end{pmatrix} \\[4pt]
+        &= \begin{pmatrix} -1 & -6 \\ 6 & -1 \end{pmatrix}
+        \end{aligned}$$
+      </div>
+    </details>
+  </div>
 
-          <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">2. Transformaciones de líneas (multilinealidad y alternancia)</td></tr>
-          <tr><td><strong>Intercambio de líneas</strong></td><td>$|F_i, F_j| = -|F_j, F_i|$</td></tr>
-          <tr><td><strong>Factor común en una línea</strong></td><td>$|\alpha F_i| = \alpha |F_i|$</td></tr>
-          <tr><td><strong>Descomposición por sumandos</strong></td><td>$|F_i + F'_i| = |F_i| + |F'_i|$</td></tr>
-          <tr><td><strong>Operación elemental</strong></td><td>$|F_i + \alpha F_j| = |F_i| \quad (i \neq j)$</td></tr>
+  <div class="example-box">
+    <p><strong>🧩 Ejemplo 1.2.3.</strong> Consideremos las matrices:</p>
+    $$\begin{aligned}
+    C &= \begin{pmatrix} 1 & 2 \end{pmatrix} \\[4pt]
+    D &= \begin{pmatrix} 3 \\ 4 \end{pmatrix}
+    \end{aligned}$$
+    <p>Determine si es posible realizar $C + D$.</p>
+    <details class="solution">
+      <summary>🔍 Ver solución</summary>
+      <div class="solution-content">
+        <p>La matriz $C$ tiene orden $1 \times 2$ y $D$ tiene orden $2 \times 1$. La suma $C + D$ <strong>no está definida</strong>: la suma matricial requiere que las matrices tengan la misma dimensión. El elemento $c_{1,2} = 2$ no tiene pareja en $D$. Por lo tanto, $C$ y $D$ no son conformables para la suma.</p>
+      </div>
+    </details>
+  </div>
 
-          <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">3. Condiciones de nulidad ($|A|=0$)</td></tr>
-          <tr><td><strong>Línea nula</strong></td><td>$|0| = 0$</td></tr>
-          <tr><td><strong>Líneas iguales</strong></td><td>$|F_i, F_i| = 0$</td></tr>
-          <tr><td><strong>Líneas proporcionales</strong></td><td>$|F_i, \alpha F_i| = 0$</td></tr>
-          <tr><td><strong>Combinación lineal</strong></td><td>$F_i = \sum_{j \neq i} \alpha_j F_j \implies |A| = 0$</td></tr>
+  <h3 class="section-title" id="sec-1-3">1.3 Producto por Escalar</h3>
+  <div class="callout callout-def">
+    <p style="margin:0;"><strong>📌 Definición 1.3.1.</strong> Al multiplicar una matriz $A$ por un escalar $k \in \mathbb{R}$, cada elemento de $A$ se multiplica por $k$:</p>
+    $$k \cdot A = (k \cdot a_{ij})$$
+  </div>
 
-          <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">4. Desarrollo por adjuntos</td></tr>
-          <tr><td><strong>Cálculo del determinante</strong></td><td>$|A| = \sum_{k=1}^n a_{ik} A_{ik}$</td></tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="example-box">
+    <p><strong>🧩 Ejemplo 1.3.1.</strong> Calcule el resultado de multiplicar la siguiente matriz por el escalar $3$:</p>
+    $$3 \cdot \begin{pmatrix} 1 & -2 \\ 4 & 5 \end{pmatrix}$$
+    <details class="solution">
+      <summary>🔍 Ver solución</summary>
+      <div class="solution-content">
+        $$\begin{aligned}
+        3 \cdot \begin{pmatrix} 1 & -2 \\ 4 & 5 \end{pmatrix}
+        &= \begin{pmatrix} 3 \cdot (1) & 3 \cdot (-2) \\ 3 \cdot (4) & 3 \cdot (5) \end{pmatrix} \\[4pt]
+        &= \begin{pmatrix} 3 & -6 \\ 12 & 15 \end{pmatrix}
+        \end{aligned}$$
+      </div>
+    </details>
+  </div>
 
-    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
-  </section>
+  <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+</section>
 
-  <!-- ===================================================================== -->
-  <!-- MÓDULO 5 -->
-  <!-- ===================================================================== -->
-  <section class="card" id="mod-5">
-    <h2 class="module-title"><span class="badge">MÓDULO 05</span> Operaciones Elementales y Eliminación</h2>
+<!-- ===================================================================== -->
+<!-- MÓDULO 2 -->
+<!-- ===================================================================== -->
+<section class="card" id="mod-2">
+  <h2 class="module-title"><span class="badge">MÓDULO 02</span> Producto, Potencias y Traspuesta</h2>
 
-    <h3 class="section-title" id="sec-5-1">5.1 Operaciones Elementales</h3>
-    <div class="callout callout-def">
-      <div class="callout-title">📌 Definición: Operaciones Elementales</div>
-      <p style="margin:0;">Transformaciones básicas que permiten modificar las filas de una matriz sin alterar su información esencial:</p>
-      <ol style="margin:0.5rem 0 0 0;">
-        <li><strong>Intercambio.</strong> Permutar la posición de dos filas: $F_i \leftrightarrow F_j$.</li>
-        <li><strong>Escalamiento.</strong> Multiplicar todos los elementos de una fila por un escalar no nulo: $F_i \leftarrow kF_i \;(k \neq 0)$.</li>
-        <li><strong>Sustitución.</strong> Reemplazar una fila por ella misma más un múltiplo de otra: $F_i \leftarrow F_i + kF_j$.</li>
-      </ol>
-    </div>
+  <h3 class="section-title" id="sec-2-1">2.1 Producto de Matrices</h3>
+  <p>A diferencia de la suma o el escalamiento, el producto de matrices representa una transformación más compleja: permite componer linealmente los datos contenidos en dos matrices.</p>
 
-    <h4 class="sub-title">Matrices Elementales y Equivalencia por Filas</h4>
-    <p>Cada operación elemental aplicada sobre la matriz identidad define una <strong>matriz elemental</strong>:</p>
-    $$I_n \xrightarrow{\text{1 op.}} E_1$$
-    <p>Cada matriz elemental $E_i$ puede revertirse a la identidad con otra operación elemental del mismo tipo. Si se aplican varias operaciones sucesivas, se define la <strong>matriz de transformación</strong> $E$ como el producto de las matrices elementales asociadas:</p>
-    $$I_n \xrightarrow{op_1} E_1 \xrightarrow{op_2} E_2 \longrightarrow \dots \longrightarrow E_{k-1} \xrightarrow{op_k} E$$
-    <p>Cuando una matriz se deriva de otra por operaciones elementales por filas, se dice que son <strong>equivalentes por filas</strong> (notación $\sim$).</p>
+  <div class="callout callout-def">
+    <p style="margin:0;"><strong>📌 Definición 2.1.1.</strong> Dadas $A_{m \times n}$ y $B_{n \times p}$, su producto $C = AB$ es una matriz $C_{m \times p}$ donde cada elemento se calcula como el producto escalar entre la fila $i$ de $A$ y la columna $j$ de $B$:</p>
+    $$\begin{aligned}
+    c_{ij} &= \sum_{k=1}^{n} a_{ik}b_{kj} \\[4pt]
+    &= a_{i1}b_{1j} + a_{i2}b_{2j} + \dots + a_{in}b_{nj}
+    \end{aligned}$$
+  </div>
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 5.1: Matrices elementales</div>
-      <p>Dada $I_3$, halle las matrices elementales resultantes al aplicar las siguientes operaciones:</p>
-      <ul>
-        <li>Multiplicar la segunda fila por $5$ ($F_2 \leftarrow 5F_2$).</li>
-        <li>Multiplicar la primera fila por $-3$ y sumarla a la tercera ($F_3 \leftarrow F_3 - 3F_1$).</li>
-        <li>Permutar la segunda y tercera fila ($F_2 \leftrightarrow F_3$).</li>
-      </ul>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <ul>
-            <li><strong>$F_2 \leftarrow 5F_2$:</strong>
-              $$\begin{bmatrix} 1 & 0 & 0 \\ 0 & 5 & 0 \\ 0 & 0 & 1 \end{bmatrix}$$
-            </li>
-            <li><strong>$F_3 \leftarrow F_3 - 3F_1$:</strong>
-              $$\begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ -3 & 0 & 1 \end{bmatrix}$$
-            </li>
-            <li><strong>$F_2 \leftrightarrow F_3$:</strong>
-              $$\begin{bmatrix} 1 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1 & 0 \end{bmatrix}$$
-            </li>
-          </ul>
-        </div>
-      </details>
-    </div>
+  <p><strong>Compatibilidad multiplicativa:</strong> la operación solo es posible si el número de columnas de $A$ coincide con el número de filas de $B$.</p>
 
-    <h3 class="section-title" id="sec-5-2">5.2 Eliminación Gaussiana</h3>
-    <p>El objetivo es obtener la <strong>forma escalonada</strong> de una matriz. El primer elemento no nulo de cada fila se denomina <strong>elemento pivote</strong>. Una matriz está en forma escalonada si:</p>
-    <ol>
-      <li>Si el pivote es cero, se intercambia la fila con una inferior que tenga elemento no nulo en esa columna.</li>
-      <li>Todos los elementos por debajo de un pivote se anulan usando:
-        $$F_i \leftarrow F_i - \left(\frac{b}{\text{pivote}}\right) F_{\text{pivote}}$$
-        donde $b$ es el elemento a anular.
-      </li>
-      <li>El pivote de una fila inferior está estrictamente a la derecha del pivote de la fila superior.</li>
-      <li>Las filas nulas se ubican al final.</li>
-    </ol>
+  <div class="example-box">
+    <p><strong>🧩 Ejemplo 2.1.1.</strong> Dadas la matriz fila $A$ de orden $1 \times 3$ y la matriz columna $B$ de orden $3 \times 1$:</p>
+    $$\begin{aligned}
+    A &= \begin{pmatrix} 1 & 2 & 3 \end{pmatrix} \\[4pt]
+    B &= \begin{pmatrix} 4 \\ 5 \\ 6 \end{pmatrix}
+    \end{aligned}$$
+    <p>Efectúe el producto $A \cdot B$ y analice la dimensión del resultado.</p>
+    <details class="solution">
+      <summary>🔍 Ver solución</summary>
+      <div class="solution-content">
+        <p>El producto está definido ($3$ columnas de $A$ = $3$ filas de $B$) y resulta una matriz $1 \times 1$, es decir, un escalar:</p>
+        $$\begin{aligned}
+        A \cdot B &= \begin{pmatrix} 1 & 2 & 3 \end{pmatrix} \begin{pmatrix} 4 \\ 5 \\ 6 \end{pmatrix} \\[4pt]
+        &= (1 \cdot 4) + (2 \cdot 5) + (3 \cdot 6) \\[4pt]
+        &= 4 + 10 + 18 \\[4pt]
+        &= \mathbf{32}
+        \end{aligned}$$
+        <p>Este producto proyecta la relación lineal de los vectores en un único valor numérico.</p>
+      </div>
+    </details>
+  </div>
 
-    <p>Al concatenar $A$ con $I$ y aplicar operaciones por fila, se obtienen simultáneamente la forma escalonada $U$ y la matriz de transformación $E$:</p>
-    $$[A \mid I] \xrightarrow{\text{operaciones}} [U \mid E]$$
-    <p>Estas matrices cumplen la relación $EA = U$.</p>
+  <h3 class="section-title" id="sec-2-2">2.2 Potencia de Matrices y Nilpotencia</h3>
+  <div class="callout callout-def">
+    <p style="margin:0;"><strong>📌 Definición 2.2.1.</strong> Sea $A$ una matriz cuadrada de orden $n$. Para cualquier entero positivo $k$:</p>
+    $$A^k = \underbrace{A \cdot A \cdot \dots \cdot A}_{k \text{ veces}}$$
+    <p style="margin:0.5rem 0 0 0;">Por convención, si $A$ es no nula, $A^0 = I_n$ (matriz identidad de orden $n$).</p>
+  </div>
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 5.2: Reducción de una matriz $3 \times 3$</div>
-      <p>Dada $A = \begin{bmatrix} 1 & 2 & 1 \\ 2 & 3 & 2 \\ 1 & 1 & 2 \end{bmatrix}$, obtenga su forma escalonada.</p>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          $$\begin{bmatrix} 1 & 2 & 1 \\ 2 & 3 & 2 \\ 1 & 1 & 2 \end{bmatrix} \xrightarrow{F_2 - 2F_1} \begin{bmatrix} 1 & 2 & 1 \\ 0 & -1 & 0 \\ 1 & 1 & 2 \end{bmatrix}$$
-          $$\xrightarrow{F_3 - F_1} \begin{bmatrix} 1 & 2 & 1 \\ 0 & -1 & 0 \\ 0 & -1 & 1 \end{bmatrix} \xrightarrow{F_3 - F_2} \begin{bmatrix} 1 & 2 & 1 \\ 0 & -1 & 0 \\ 0 & 0 & 1 \end{bmatrix} = U$$
-          <p>Cada pivote se sitúa a la derecha del pivote superior y todos los elementos por debajo son cero.</p>
-        </div>
-      </details>
-    </div>
+  <div class="example-box">
+    <p><strong>🧩 Ejemplo 2.2.1.</strong> Dada la matriz $A = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}$, calcule $A^2$ e interprete el resultado.</p>
+    <details class="solution">
+      <summary>🔍 Ver solución</summary>
+      <div class="solution-content">
+        $$\begin{aligned}
+        A^2 &= \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} \\[4pt]
+        &= \begin{pmatrix} 0(0)+1(0) & 0(1)+1(0) \\ 0(0)+0(0) & 0(1)+0(0) \end{pmatrix} \\[4pt]
+        &= \begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix}
+        \end{aligned}$$
+        <p>Una matriz no nula elevada a una potencia puede resultar en la matriz nula. A estas matrices se les conoce como <strong>matrices nilpotentes</strong>.</p>
+      </div>
+    </details>
+  </div>
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 5.3: Construcción simultánea de $U$ y $E$</div>
-      <p>Sea $A = \begin{bmatrix} 1 & 2 & 1 \\ 2 & 3 & 2 \\ 1 & 1 & 3 \end{bmatrix}$. Obtenga $U$ y $E$ escalonando $[A | I]$.</p>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          $$[A | I] = \left[\begin{array}{ccc|ccc} 1 & 2 & 1 & 1 & 0 & 0 \\ 2 & 3 & 2 & 0 & 1 & 0 \\ 1 & 1 & 3 & 0 & 0 & 1 \end{array}\right]$$
-          $$\xrightarrow{F_2 - 2F_1} \left[\begin{array}{ccc|ccc} 1 & 2 & 1 & 1 & 0 & 0 \\ 0 & -1 & 0 & -2 & 1 & 0 \\ 1 & 1 & 3 & 0 & 0 & 1 \end{array}\right]$$
-          $$\xrightarrow{F_3 - F_1} \left[\begin{array}{ccc|ccc} 1 & 2 & 1 & 1 & 0 & 0 \\ 0 & -1 & 0 & -2 & 1 & 0 \\ 0 & -1 & 2 & -1 & 0 & 1 \end{array}\right]$$
-          $$\xrightarrow{F_3 - F_2} \left[\begin{array}{ccc|ccc} 1 & 2 & 1 & 1 & 0 & 0 \\ 0 & -1 & 0 & -2 & 1 & 0 \\ 0 & 0 & 2 & 1 & -1 & 1 \end{array}\right] = [U | E]$$
-          <p>Se verifica entonces la relación $EA = U$.</p>
-        </div>
-      </details>
-    </div>
+  <h3 class="section-title" id="sec-2-3">2.3 Trasposición</h3>
+  <div class="callout callout-def">
+    <p style="margin:0;"><strong>📌 Definición 2.3.1.</strong> La traspuesta de $A$, denotada $A^T$, se obtiene al intercambiar filas por columnas. Si $A$ es de orden $m \times n$, entonces $A^T$ es de orden $n \times m$, y sus elementos cumplen $(A^T)_{ij} = a_{ji}$.</p>
 
-    <h3 class="section-title" id="sec-5-3">5.3 Eliminación de Gauss-Jordan</h3>
-    <p>Continuando el proceso sobre la forma escalonada se llega a la <strong>forma escalonada reducida por filas</strong>. Requisitos adicionales:</p>
-    <ol start="5">
-      <li>Cada pivote debe ser igual a $1$: $F_{\text{pivote}} \leftarrow \left(\frac{1}{\text{pivote}}\right) F_{\text{pivote}}$.</li>
-      <li>Los elementos tanto por encima como por debajo de cada pivote deben ser cero: $F_i \leftarrow F_i - c \cdot F_{\text{pivote}}$.</li>
-    </ol>
+    $$\begin{aligned}
+    A &= \begin{pmatrix} a_{11} & a_{12} & \cdots & a_{1n} \\ a_{21} & a_{22} & \cdots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & \cdots & a_{mn} \end{pmatrix} \\[6pt]
+    A^T &= \begin{pmatrix} a_{11} & a_{21} & \cdots & a_{m1} \\ a_{12} & a_{22} & \cdots & a_{m2} \\ \vdots & \vdots & \ddots & \vdots \\ a_{1n} & a_{2n} & \cdots & a_{mn} \end{pmatrix}
+    \end{aligned}$$
+  </div>
 
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Cálculo de la inversa por Gauss-Jordan</div>
-      <p style="margin:0;">Si $A$ es cuadrada de orden $n$ y al aplicar Gauss-Jordan se obtienen $n$ pivotes, entonces $A \sim I_n$. La matriz de transformación $E$ resultante es la inversa de $A$:</p>
-      $$[A \mid I_n] \xrightarrow{\text{operaciones}} [I_n \mid A^{-1}]$$
-      <p style="margin:0.5rem 0 0 0;">En tal caso $A^{-1}A = AA^{-1} = I_n$ y $A$ se denomina <strong>invertible</strong> o <strong>no singular</strong>.</p>
-    </div>
+  <div class="example-box">
+    <p><strong>🧩 Ejemplo 2.3.1.</strong> Halle la matriz traspuesta ($A^T$) de la siguiente matriz $A$ de orden $2 \times 3$:</p>
+    $$A = \begin{pmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{pmatrix}$$
+    <details class="solution">
+      <summary>🔍 Ver solución</summary>
+      <div class="solution-content">
+        <p>Reescribimos secuencialmente cada fila de $A$ como columna:</p>
+        <ul>
+          <li>La <strong>primera fila</strong> $(1, 2, 3)$ se convierte en la <strong>primera columna</strong> de $A^T$.</li>
+          <li>La <strong>segunda fila</strong> $(4, 5, 6)$ se convierte en la <strong>segunda columna</strong> de $A^T$.</li>
+        </ul>
+        $$A^T = \begin{pmatrix} 1 & 4 \\ 2 & 5 \\ 3 & 6 \end{pmatrix}$$
+        <p>El orden ahora es $3 \times 2$.</p>
+      </div>
+    </details>
+  </div>
 
-    <p><strong>Propiedades de la forma reducida:</strong></p>
-    <ul>
-      <li>La forma escalonada reducida por filas es <strong>única</strong>.</li>
-      <li>El número de pivotes en la forma escalonada define el <strong>rango</strong> de la matriz, denotado $\text{rango}(A)$ o $\text{ran}(A)$.</li>
-      <li>Para $A$ de orden $n$: $U_{red} = I_n \iff \text{rango}(A) = n$ (rango máximo, $n$ pivotes).</li>
-      <li>Si $A$ no es inversible: $U_{red} \neq I_n$, $\text{rango}(A) < n$ y tiene menos de $n$ pivotes.</li>
+  <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+</section>
+
+<!-- ===================================================================== -->
+<!-- MÓDULO 3 -->
+<!-- ===================================================================== -->
+<section class="card" id="mod-3">
+  <h2 class="module-title"><span class="badge">MÓDULO 03</span> Propiedades y Clases de Matrices</h2>
+
+  <p>Sean $A, B, C$ matrices sobre un cuerpo $\mathbb{K}$ (donde $\mathbb{K} = \mathbb{R}$ o $\mathbb{C}$) con dimensiones conformables para las operaciones indicadas, y $\alpha, \beta \in \mathbb{K}$ escalares.</p>
+
+  <h3 class="section-title" id="sec-3-1">3.1 Propiedades Algebraicas de las Operaciones</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Categoría</th><th>Propiedad</th><th>Definición Matemática</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="10" style="vertical-align: middle; text-align:center;"><strong>Suma y<br>Producto por<br>un Escalar</strong></td>
+          <td>Operación cerrada I</td><td>$A+B \in M$</td>
+        </tr>
+        <tr><td>Operación cerrada II</td><td>$\alpha A \in M$</td></tr>
+        <tr><td>Conmutativa (Suma)</td><td>$A+B=B+A$</td></tr>
+        <tr><td>Asociativa I</td><td>$(A+B)+C=A+(B+C)$</td></tr>
+        <tr><td>Asociativa II</td><td>$\alpha(\beta A)=(\alpha \beta) A$</td></tr>
+        <tr><td>Distributiva I</td><td>$\alpha(A+B)=\alpha A+\alpha B$</td></tr>
+        <tr><td>Distributiva II</td><td>$(\alpha+\beta) A=\alpha A+\beta A$</td></tr>
+        <tr><td>Elemento neutro I</td><td>$\exists \mathbf{0} \in M \;/\; A+\mathbf{0}=A$</td></tr>
+        <tr><td>Elemento neutro II</td><td>$1 \cdot A=A$</td></tr>
+        <tr><td>Elemento opuesto</td><td>$\exists -A \in M \;/\; A+(-A)=\mathbf{0}$</td></tr>
+
+        <tr>
+          <td rowspan="10" style="vertical-align: middle; text-align:center;"><strong>Producto de<br>Matrices y<br>Potencias</strong></td>
+          <td>Asociativa</td><td>$A \cdot (B \cdot C) = (A \cdot B) \cdot C$</td>
+        </tr>
+        <tr><td>Distributiva I (izq.)</td><td>$A \cdot (B+C) = A \cdot B + A \cdot C$</td></tr>
+        <tr><td>Distributiva II (der.)</td><td>$(A+B) \cdot C = A \cdot C + B \cdot C$</td></tr>
+        <tr><td>Elemento neutro I</td><td>$A \cdot I = A$</td></tr>
+        <tr><td>Elemento neutro II</td><td>$I \cdot A = A$</td></tr>
+        <tr><td>No conmutatividad</td><td>En general, $A \cdot B \neq B \cdot A$</td></tr>
+        <tr><td>Divisores de cero</td><td>$A \cdot B = 0 \nRightarrow A = 0 \lor B = 0$</td></tr>
+        <tr><td>Falta de simplificación</td><td>$A \cdot B = A \cdot C \nRightarrow B = C$</td></tr>
+        <tr><td>Leyes de exponentes I</td><td>$A^p \cdot A^q = A^{p+q}$</td></tr>
+        <tr><td>Leyes de exponentes II</td><td>$(A^p)^q = A^{pq}$</td></tr>
+
+        <tr>
+          <td rowspan="4" style="vertical-align: middle; text-align:center;"><strong>Trasposición</strong></td>
+          <td>Involutiva</td><td>$\left(A^{t}\right)^{t} = A$</td>
+        </tr>
+        <tr><td>Linealidad I (Suma)</td><td>$(A \pm B)^{t} = A^{t} \pm B^{t}$</td></tr>
+        <tr><td>Linealidad II (Escalar)</td><td>$(\alpha \cdot A)^{t} = \alpha \cdot A^{t}$</td></tr>
+        <tr><td>Producto de matrices</td><td>$(A \cdot B)^{t} = B^{t} \cdot A^{t}$</td></tr>
+
+        <tr>
+          <td rowspan="4" style="vertical-align: middle; text-align:center;"><strong>Inversión</strong></td>
+          <td>Unicidad</td><td>$A^{-1}$ es única</td>
+        </tr>
+        <tr><td>Involutiva</td><td>$\left(A^{-1}\right)^{-1} = A$</td></tr>
+        <tr><td>Producto por un escalar</td><td>$(\alpha \cdot A)^{-1} = \alpha^{-1} \cdot A^{-1}$</td></tr>
+        <tr><td>Producto de matrices</td><td>$(A \cdot B)^{-1} = B^{-1} \cdot A^{-1}$</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="section-title" id="sec-3-2">3.2 Clases de Matrices Notables</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Concepto / Teorema</th><th>Definición o Propiedad Matemática</th></tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">Conmutatividad en el producto</td></tr>
+        <tr><td><strong>Matrices conmutativas</strong> (permutables)</td><td>$A \cdot B = B \cdot A$</td></tr>
+        <tr><td><strong>Matrices anticonmutativas</strong></td><td>$A \cdot B = -B \cdot A$</td></tr>
+
+        <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">Simetría de matrices cuadradas</td></tr>
+        <tr><td><strong>Matriz simétrica</strong></td><td>$A = A^t \quad (a_{ij} = a_{ji})$</td></tr>
+        <tr><td><strong>Matriz antisimétrica</strong> (hemisimétrica)</td><td>$A = -A^t \quad (a_{ij} = -a_{ji} \text{ y } a_{ii} = 0)$</td></tr>
+        <tr><td><strong>Matriz simétrica inducida</strong></td><td>$A + A^t$ es siempre simétrica</td></tr>
+        <tr><td><strong>Matriz antisimétrica inducida</strong></td><td>$A - A^t$ es siempre antisimétrica</td></tr>
+        <tr><td><strong>Descomposición de matriz</strong></td><td>$A = S + H$ ($S$: simétrica, $H$: antisimétrica)</td></tr>
+
+        <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">Matrices triangulares y diagonales</td></tr>
+        <tr><td><strong>Producto triangulares sup.</strong></td><td>Resulta otra matriz triangular superior</td></tr>
+        <tr><td><strong>Producto triangulares inf.</strong></td><td>Resulta otra matriz triangular inferior</td></tr>
+        <tr><td><strong>Producto de matrices diag.</strong></td><td>Resulta matriz diagonal con $c_{ii} = a_{ii} b_{ii}$</td></tr>
+        <tr><td><strong>Conmutatividad diagonal</strong></td><td>Conmutan con todas las matrices diagonales</td></tr>
+
+        <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">Clases por potencias</td></tr>
+        <tr><td><strong>Matriz periódica</strong> (período $n \geq 2$)</td><td>$A^n = A$</td></tr>
+        <tr><td><strong>Matriz idempotente</strong> (período $n=2$)</td><td>$A^2 = A$</td></tr>
+        <tr><td><strong>Matriz nilpotente</strong> (índice $n$)</td><td>$A^n = \mathbf{0}$</td></tr>
+        <tr><td><strong>Matriz involutiva</strong></td><td>$A^2 = I \implies A^{-1} = A$</td></tr>
+
+        <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">Inversibilidad y matrices ortogonales</td></tr>
+        <tr><td><strong>Matriz regular</strong></td><td>Tiene inversa $\iff |A| \neq 0$</td></tr>
+        <tr><td><strong>Inversa de la traspuesta</strong></td><td>$(A^t)^{-1} = (A^{-1})^t$</td></tr>
+        <tr><td><strong>Matriz ortogonal</strong></td><td>$A^t A = I \implies A^{-1} = A^t$</td></tr>
+        <tr><td><strong>Determinante ortogonal</strong></td><td>$|A| = 1$ ó $|A| = -1$</td></tr>
+        <tr><td><strong>Cierre ortogonal</strong></td><td>Inversa, traspuesta y productos son ortogonales</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="section-title" id="sec-3-3">3.3 Matrices Complejas</h3>
+  <p>Una matriz compleja es aquella cuyas entradas pertenecen a $\mathbb{C}$. Cada elemento $a_{ij} = x + yi$, con $x$ parte real, $y$ parte imaginaria e $i^2 = -1$.</p>
+
+  <div class="callout callout-def">
+    <p style="margin:0;"><strong>📌 Definición 3.3.1.</strong> Operaciones sobre matrices complejas:</p>
+    <ul style="margin:0.5rem 0 0 0;">
+      <li><strong>Conjugado de un número complejo:</strong> si $z = x + yi$, entonces $\bar{z} = x - yi$.</li>
+      <li><strong>Matriz conjugada ($\bar{A}$):</strong> sustituye cada elemento por su conjugado.</li>
+      <li><strong>Traspuesta conjugada ($\overline{A^t}$):</strong> también llamada <em>adjunta</em> o <em>hermítica</em>, denotada $A^*$ o $A^H$. Aplica trasposición y conjugación simultáneamente.</li>
     </ul>
+  </div>
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 5.4: Verificación analítica de la inversa</div>
-      <p>Considere $A = \begin{bmatrix} 2 & 5 \\ 1 & 3 \end{bmatrix}$ y $A^{-1} = \begin{bmatrix} 3 & -5 \\ -1 & 2 \end{bmatrix}$. Verifique que $A^{-1}$ es efectivamente la inversa.</p>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          $$AA^{-1} = \begin{bmatrix} 2 & 5 \\ 1 & 3 \end{bmatrix} \begin{bmatrix} 3 & -5 \\ -1 & 2 \end{bmatrix} = \begin{bmatrix} 6-5 & -10+10 \\ 3-3 & -5+6 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} = I_2$$
-          <p>Como $AA^{-1} = I_2$, se valida la invertibilidad.</p>
-        </div>
-      </details>
-    </div>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Concepto / Propiedad</th><th>Definición Matemática</th></tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">Opuesta y conjugada</td></tr>
+        <tr><td><strong>Matriz opuesta</strong></td><td>$-A = \{-a_{ij}\}$</td></tr>
+        <tr><td><strong>Matriz conjugada</strong></td><td>$\bar{A} = \{\overline{a_{ij}}\}$</td></tr>
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 5.5: Identificación de formas escalonadas</div>
-      <p>Identifique y justifique las estructuras de las siguientes matrices:</p>
-      $$A = \begin{bmatrix} 2 & 3 & 2 & 1 \\ 0 & 0 & 5 & 4 \\ 0 & 0 & 0 & 0 \end{bmatrix}, \quad B = \begin{bmatrix} 1 & 2 & 0 & 1 \\ 0 & 0 & 1 & 3 \\ 0 & 0 & 0 & 0 \end{bmatrix}, \quad C = \begin{bmatrix} 0 & 1 & 3 \\ 1 & 0 & 2 \end{bmatrix}$$
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-                <div class="solution-content">
-          <ul>
-            <li>
-              <strong>Matriz $A$ (orden $3 \times 4$):</strong> El primer elemento no nulo de la fila 1 es $a_{11}=2$ (pivote en columna 1). El primer elemento no nulo de la fila 2 es $a_{23}=5$ (pivote en columna 3, pues $a_{22}=0$). La fila 3 es completamente nula y está ubicada al final. Los pivotes están escalonados y todos los elementos por debajo de cada pivote son cero. Por tanto, $A$ está en <strong>forma escalonada</strong>. No está en forma reducida porque el pivote $5 \neq 1$ y existe un elemento $2$ por encima del segundo pivote (columna 3, fila 1).
-            </li>
-            <li>
-              <strong>Matriz $B$ (orden $3 \times 4$):</strong> Los pivotes son $b_{11}=1$ y $b_{23}=1$ (unitarios). En la columna 1, los elementos por debajo del pivote son cero; en la columna 3, el elemento por encima del pivote es cero. La fila nula está al final. Por tanto, $B$ está en <strong>forma escalonada reducida por filas</strong>.
-            </li>
-            <li>
-              <strong>Matriz $C$ (orden $2 \times 3$):</strong> La primera fila comienza con $0$ y su primer elemento no nulo está en la columna 2. La segunda fila tiene su primer elemento no nulo en la columna 1, que está <em>a la izquierda</em> del pivote de la fila superior. Esto viola la condición de escalonamiento (el pivote de una fila inferior debe estar estrictamente a la derecha del pivote superior). Por tanto, $C$ <strong>no está en forma escalonada</strong>; se corregiría con un intercambio $F_1 \leftrightarrow F_2$.
-            </li>
-          </ul>
-        </div>
-      </details>
-    </div>
+        <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">Propiedades de la conjugación</td></tr>
+        <tr><td><strong>Doble conjugación</strong> (involución)</td><td>$\overline{\overline{A}} = A$</td></tr>
+        <tr><td><strong>Conjugada del producto escalar</strong></td><td>$\overline{\alpha A} = \bar{\alpha} \bar{A}$</td></tr>
+        <tr><td><strong>Conjugada de la suma y resta</strong></td><td>$\overline{A \pm B} = \bar{A} \pm \bar{B}$</td></tr>
+        <tr><td><strong>Conjugada del producto</strong></td><td>$\overline{A B} = \bar{A} \bar{B}$</td></tr>
+        <tr><td><strong>Matriz con elementos reales</strong></td><td>$\bar{A} = A$</td></tr>
+        <tr><td><strong>Matriz con elementos imaginarios puros</strong></td><td>$\bar{A} = -A$</td></tr>
 
-    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
-  </section>
+        <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">Clases de matrices complejas cuadradas</td></tr>
+        <tr><td><strong>Matriz Hermítica</strong> (autoadjunta)</td><td>$\overline{A^t} = A \implies a_{ij} = \overline{a_{ji}}$ (diagonal real)</td></tr>
+        <tr><td><strong>Matriz Antihermítica</strong> (hemihermítica)</td><td>$\overline{A^t} = -A \implies a_{ij} = -\overline{a_{ji}}$ (diagonal nula o imag. puros)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+</section>
+
+<!-- ===================================================================== -->
+<!-- MÓDULO 4 -->
+<!-- ===================================================================== -->
+<section class="card" id="mod-4">
+  <h2 class="module-title"><span class="badge">MÓDULO 04</span> Determinantes</h2>
+
+  <h3 class="section-title" id="sec-4-1">4.1 Definición e Invertibilidad</h3>
+  <div class="callout callout-def">
+    <p style="margin:0;"><strong>📌 Definición 4.1.1.</strong> El <strong>determinante</strong> es una función escalar asignada exclusivamente a matrices cuadradas. Se denota $\det(A)$ o $|A|$, y contiene información sobre la naturaleza del sistema de ecuaciones asociado.</p>
+  </div>
+
+  <div class="callout callout-thm">
+    <p style="margin:0;"><strong>📐 Teorema 4.1.1.</strong> Una matriz cuadrada es <strong>invertible</strong> si y solo si su determinante es distinto de cero:</p>
+    $$A \text{ es invertible} \iff \det(A) \neq 0$$
+    <p style="margin:0.5rem 0 0 0;">Si $\det(A) = 0$, la matriz es <strong>singular</strong> (no invertible) y sus filas/columnas son linealmente dependientes.</p>
+  </div>
+
+  <h3 class="section-title" id="sec-4-2">4.2 Expansión de Laplace</h3>
+  <div class="callout callout-thm">
+    <p style="margin:0;"><strong>📐 Teorema 4.2.1.</strong> Sea $A_{n \times n}$. Su determinante se calcula como:</p>
+    $$\det(A) = \sum_{j=1}^n a_{ij} (-1)^{i+j} \det(M_{ij})$$
+    <p style="margin:0.5rem 0 0 0;">Donde $(-1)^{i+j}$ es el signo alternado ($+$ si $i+j$ par, $-$ si impar), y $M_{ij}$ es la submatriz de orden $(n-1) \times (n-1)$ obtenida al eliminar la fila $i$ y la columna $j$.</p>
+  </div>
+
+  <p>El procedimiento consiste en:</p>
+  <ol>
+    <li>Elegir una fila (o columna) cualquiera.</li>
+    <li>Por cada elemento, determinar el signo según la suma $i+j$.</li>
+    <li>Construir la submatriz $M_{ij}$ eliminando la fila y columna del elemento.</li>
+    <li>Calcular el determinante de la submatriz y multiplicar por el elemento con su signo.</li>
+    <li>Sumar todos los productos.</li>
+  </ol>
+
+  <h4 class="sub-title">Determinante de una matriz $2 \times 2$</h4>
+  <p>Para $A = \begin{pmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{pmatrix}$, desarrollando por la primera fila:</p>
+  $$\begin{aligned}
+  \det(A) &= a_{11}(+1)\det(M_{11}) + a_{12}(-1)\det(M_{12}) \\[4pt]
+  &= a_{11}a_{22} - a_{12}a_{21}
+  \end{aligned}$$
+
+  <h4 class="sub-title">Determinante de una matriz $3 \times 3$</h4>
+  <p>Para $A = \begin{pmatrix} a_{11} & a_{12} & a_{13} \\ a_{21} & a_{22} & a_{23} \\ a_{31} & a_{32} & a_{33} \end{pmatrix}$, con signos $(+,-,+)$ en la primera fila:</p>
+  $$\det(A) = a_{11}\det(M_{11}) - a_{12}\det(M_{12}) + a_{13}\det(M_{13})$$
+  $$\begin{aligned}
+  \det(A) &= a_{11}(a_{22}a_{33} - a_{23}a_{32}) \\[4pt]
+  &\quad - a_{12}(a_{21}a_{33} - a_{23}a_{31}) \\[4pt]
+  &\quad + a_{13}(a_{21}a_{32} - a_{22}a_{31})
+  \end{aligned}$$
+
+  <h3 class="section-title" id="sec-4-3">4.3 Ejemplo — Determinante $4 \times 4$ por Laplace</h3>
+  <div class="example-box">
+    <p><strong>🧩 Ejemplo 4.3.1.</strong> Considérese la siguiente matriz $A$ de orden $4 \times 4$:</p>
+    $$A = \begin{pmatrix} 2 & 0 & 1 & 0 \\ 0 & 3 & 0 & 4 \\ -1 & 0 & 0 & 5 \\ 0 & 2 & 0 & 0 \end{pmatrix}$$
+    <p>Calcule el valor de su determinante aplicando el desarrollo por cofactores.</p>
+    <details class="solution">
+      <summary>🔍 Ver solución</summary>
+      <div class="solution-content">
+        <p>Aplicamos el desarrollo a lo largo de la primera fila con signos alternados $(+,-,+,-)$:</p>
+        $$\begin{aligned}
+        \det(A) &= 2\det(M_{11}) - 0\det(M_{12}) \\[4pt]
+        &\quad + 1\det(M_{13}) - 0\det(M_{14})
+        \end{aligned}$$
+        <p><strong>Menor $M_{11}$</strong> (eliminando fila 1 y columna 1):</p>
+        $$M_{11} = \begin{pmatrix} 3 & 0 & 4 \\ 0 & 0 & 5 \\ 2 & 0 & 0 \end{pmatrix}$$
+        <p>Su segunda columna es nula, por lo que $\det(M_{11}) = 0$.</p>
+        <p><strong>Menor $M_{13}$</strong> (eliminando fila 1 y columna 3):</p>
+        $$M_{13} = \begin{pmatrix} 0 & 3 & 4 \\ -1 & 0 & 5 \\ 0 & 2 & 0 \end{pmatrix}$$
+        <p>Desarrollando por la primera columna:</p>
+        $$\begin{aligned}
+        \det(M_{13}) &= -(-1)\cdot\det\begin{pmatrix} 3 & 4 \\ 2 & 0 \end{pmatrix} \\[4pt]
+        &= (+1)(3 \cdot 0 - 4 \cdot 2) \\[4pt]
+        &= -8
+        \end{aligned}$$
+        <p>Por lo tanto:</p>
+        $$\begin{aligned}
+        \det(A) &= 2(0) + 1(-8) \\[4pt]
+        &= \mathbf{-8}
+        \end{aligned}$$
+      </div>
+    </details>
+  </div>
+
+  <h3 class="section-title" id="sec-4-4">4.4 Propiedades de los Determinantes</h3>
+  <p>Sean $A$ y $B$ matrices cuadradas de orden $n$ sobre un cuerpo $\mathbb{K}$, $\lambda$ un escalar, y $F_i$ la $i$-ésima línea (fila o columna) de $A$.</p>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Propiedad</th><th>Expresión Matemática</th></tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">1. Propiedades algebraicas</td></tr>
+        <tr><td><strong>Matriz transpuesta</strong></td><td>$|A| = \left|A^t\right|$</td></tr>
+        <tr><td><strong>Producto de matrices</strong></td><td>$|A \cdot B| = |A| \cdot |B|$</td></tr>
+        <tr><td><strong>Producto por un escalar</strong></td><td>$|\lambda A| = \lambda^n |A|$</td></tr>
+        <tr><td><strong>Matriz inversa</strong></td><td>$|A| \neq 0 \implies \left|A^{-1}\right| = |A|^{-1}$</td></tr>
+        <tr><td><strong>Triangulares/diagonales</strong></td><td>$|A| = \prod_{i=1}^n a_{ii}$</td></tr>
+
+        <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">2. Transformaciones de líneas (multilinealidad y alternancia)</td></tr>
+        <tr><td><strong>Intercambio de líneas</strong></td><td>$|F_i, F_j| = -|F_j, F_i|$</td></tr>
+        <tr><td><strong>Factor común en una línea</strong></td><td>$|\alpha F_i| = \alpha |F_i|$</td></tr>
+        <tr><td><strong>Descomposición por sumandos</strong></td><td>$|F_i + F'_i| = |F_i| + |F'_i|$</td></tr>
+        <tr><td><strong>Operación elemental</strong></td><td>$|F_i + \alpha F_j| = |F_i| \quad (i \neq j)$</td></tr>
+
+        <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">3. Condiciones de nulidad ($|A|=0$)</td></tr>
+        <tr><td><strong>Línea nula</strong></td><td>$|0| = 0$</td></tr>
+        <tr><td><strong>Líneas iguales</strong></td><td>$|F_i, F_i| = 0$</td></tr>
+        <tr><td><strong>Líneas proporcionales</strong></td><td>$|F_i, \alpha F_i| = 0$</td></tr>
+        <tr><td><strong>Combinación lineal</strong></td><td>$F_i = \sum_{j \neq i} \alpha_j F_j \implies |A| = 0$</td></tr>
+
+        <tr><td colspan="2" style="background:#f1f5f9; font-weight:700; color:#0f172a;">4. Desarrollo por adjuntos</td></tr>
+        <tr><td><strong>Cálculo del determinante</strong></td><td>$|A| = \sum_{k=1}^n a_{ik} A_{ik}$</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+</section>
+
+<!-- ===================================================================== -->
+<!-- MÓDULO 5 -->
+<!-- ===================================================================== -->
+<section class="card" id="mod-5">
+  <h2 class="module-title"><span class="badge">MÓDULO 05</span> Operaciones Elementales y Eliminación</h2>
+
+  <h3 class="section-title" id="sec-5-1">5.1 Operaciones Elementales</h3>
+  <div class="callout callout-def">
+    <p style="margin:0;"><strong>📌 Definición 5.1.1.</strong> Transformaciones básicas que permiten modificar las filas de una matriz sin alterar su información esencial:</p>
+    <ol style="margin:0.5rem 0 0 0;">
+      <li><strong>Intercambio.</strong> Permutar la posición de dos filas: $F_i \leftrightarrow F_j$.</li>
+      <li><strong>Escalamiento.</strong> Multiplicar todos los elementos de una fila por un escalar no nulo: $F_i \leftarrow kF_i \;(k \neq 0)$.</li>
+      <li><strong>Sustitución.</strong> Reemplazar una fila por ella misma más un múltiplo de otra: $F_i \leftarrow F_i + kF_j$.</li>
+    </ol>
+  </div>
+
+  <h4 class="sub-title">Matrices Elementales y Equivalencia por Filas</h4>
+  <p>Cada operación elemental aplicada sobre la matriz identidad define una <strong>matriz elemental</strong>:</p>
+  $$I_n \xrightarrow{\text{1 op.}} E_1$$
+  <p>Cada matriz elemental $E_i$ puede revertirse a la identidad con otra operación elemental del mismo tipo. Si se aplican varias operaciones sucesivas, se define la <strong>matriz de transformación</strong> $E$ como el producto de las matrices elementales asociadas:</p>
+  $$I_n \xrightarrow{op_1} E_1 \xrightarrow{op_2} E_2 \longrightarrow \dots \longrightarrow E_{k-1} \xrightarrow{op_k} E$$
+  <p>Cuando una matriz se deriva de otra por operaciones elementales por filas, se dice que son <strong>equivalentes por filas</strong> (notación $\sim$).</p>
+
+  <div class="example-box">
+    <p><strong>🧩 Ejemplo 5.1.1.</strong> Dada $I_3$, halle las matrices elementales resultantes al aplicar las siguientes operaciones:</p>
+    <ul>
+      <li>Multiplicar la segunda fila por $5$ ($F_2 \leftarrow 5F_2$).</li>
+      <li>Multiplicar la primera fila por $-3$ y sumarla a la tercera ($F_3 \leftarrow F_3 - 3F_1$).</li>
+      <li>Permutar la segunda y tercera fila ($F_2 \leftrightarrow F_3$).</li>
+    </ul>
+    <details class="solution">
+      <summary>🔍 Ver solución</summary>
+      <div class="solution-content">
+        <ul>
+          <li><strong>$F_2 \leftarrow 5F_2$:</strong>
+            $$\begin{pmatrix} 1 & 0 & 0 \\ 0 & 5 & 0 \\ 0 & 0 & 1 \end{pmatrix}$$
+          </li>
+          <li><strong>$F_3 \leftarrow F_3 - 3F_1$:</strong>
+            $$\begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ -3 & 0 & 1 \end{pmatrix}$$
+          </li>
+          <li><strong>$F_2 \leftrightarrow F_3$:</strong>
+            $$\begin{pmatrix} 1 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1 & 0 \end{pmatrix}$$
+          </li>
+        </ul>
+      </div>
+    </details>
+  </div>
+
+  <h3 class="section-title" id="sec-5-2">5.2 Eliminación Gaussiana</h3>
+  <p>El objetivo es obtener la <strong>forma escalonada</strong> de una matriz. El primer elemento no nulo de cada fila se denomina <strong>elemento pivote</strong>. Una matriz está en forma escalonada si:</p>
+  <ol>
+    <li>Si el pivote es cero, se intercambia la fila con una inferior que tenga elemento no nulo en esa columna.</li>
+    <li>Todos los elementos por debajo de un pivote se anulan usando:
+      $$F_i \leftarrow F_i - \left(\frac{b}{\text{pivote}}\right) F_{\text{pivote}}$$
+      donde $b$ es el elemento a anular.
+    </li>
+    <li>El pivote de una fila inferior está estrictamente a la derecha del pivote de la fila superior.</li>
+    <li>Las filas nulas se ubican al final.</li>
+  </ol>
+
+  <p>Al concatenar $A$ con $I$ y aplicar operaciones por fila, se obtienen simultáneamente la forma escalonada $U$ y la matriz de transformación $E$:</p>
+  $$[A \mid I] \xrightarrow{\text{operaciones}} [U \mid E]$$
+  <p>Estas matrices cumplen la relación $EA = U$.</p>
+
+  <div class="example-box">
+    <p><strong>🧩 Ejemplo 5.2.1.</strong> Dada $A = \begin{pmatrix} 1 & 2 & 1 \\ 2 & 3 & 2 \\ 1 & 1 & 2 \end{pmatrix}$, obtenga su forma escalonada.</p>
+    <details class="solution">
+      <summary>🔍 Ver solución</summary>
+      <div class="solution-content">
+        $$\begin{pmatrix} 1 & 2 & 1 \\ 2 & 3 & 2 \\ 1 & 1 & 2 \end{pmatrix}
+        \xrightarrow{F_2 - 2F_1}
+        \begin{pmatrix} 1 & 2 & 1 \\ 0 & -1 & 0 \\ 1 & 1 & 2 \end{pmatrix}$$
+        $$\xrightarrow{F_3 - F_1}
+        \begin{pmatrix} 1 & 2 & 1 \\ 0 & -1 & 0 \\ 0 & -1 & 1 \end{pmatrix}
+        \xrightarrow{F_3 - F_2}
+        \begin{pmatrix} 1 & 2 & 1 \\ 0 & -1 & 0 \\ 0 & 0 & 1 \end{pmatrix} = U$$
+        <p>Cada pivote se sitúa a la derecha del pivote superior y todos los elementos por debajo son cero.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="example-box">
+    <p><strong>🧩 Ejemplo 5.2.2.</strong> Sea $A = \begin{pmatrix} 1 & 2 & 1 \\ 2 & 3 & 2 \\ 1 & 1 & 3 \end{pmatrix}$. Obtenga $U$ y $E$ escalonando $[A | I]$.</p>
+    <details class="solution">
+      <summary>🔍 Ver solución</summary>
+      <div class="solution-content">
+        $$[A | I] = \left[\begin{array}{ccc|ccc} 1 & 2 & 1 & 1 & 0 & 0 \\ 2 & 3 & 2 & 0 & 1 & 0 \\ 1 & 1 & 3 & 0 & 0 & 1 \end{array}\right]$$
+        $$\xrightarrow{F_2 - 2F_1}
+        \left[\begin{array}{ccc|ccc} 1 & 2 & 1 & 1 & 0 & 0 \\ 0 & -1 & 0 & -2 & 1 & 0 \\ 1 & 1 & 3 & 0 & 0 & 1 \end{array}\right]$$
+        $$\xrightarrow{F_3 - F_1}
+        \left[\begin{array}{ccc|ccc} 1 & 2 & 1 & 1 & 0 & 0 \\ 0 & -1 & 0 & -2 & 1 & 0 \\ 0 & -1 & 2 & -1 & 0 & 1 \end{array}\right]$$
+        $$\xrightarrow{F_3 - F_2}
+        \left[\begin{array}{ccc|ccc} 1 & 2 & 1 & 1 & 0 & 0 \\ 0 & -1 & 0 & -2 & 1 & 0 \\ 0 & 0 & 2 & 1 & -1 & 1 \end{array}\right] = [U | E]$$
+        <p>Se verifica entonces la relación $EA = U$.</p>
+      </div>
+    </details>
+  </div>
+
+  <h3 class="section-title" id="sec-5-3">5.3 Eliminación de Gauss-Jordan</h3>
+  <p>Continuando el proceso sobre la forma escalonada se llega a la <strong>forma escalonada reducida por filas</strong>. Requisitos adicionales:</p>
+  <ol start="5">
+    <li>Cada pivote debe ser igual a $1$: $F_{\text{pivote}} \leftarrow \left(\frac{1}{\text{pivote}}\right) F_{\text{pivote}}$.</li>
+    <li>Los elementos tanto por encima como por debajo de cada pivote deben ser cero: $F_i \leftarrow F_i - c \cdot F_{\text{pivote}}$.</li>
+  </ol>
+
+  <div class="callout callout-thm">
+    <p style="margin:0;"><strong>📐 Teorema 5.3.1.</strong> Si $A$ es cuadrada de orden $n$ y al aplicar Gauss-Jordan se obtienen $n$ pivotes, entonces $A \sim I_n$. La matriz de transformación $E$ resultante es la inversa de $A$:</p>
+    $$[A \mid I_n] \xrightarrow{\text{operaciones}} [I_n \mid A^{-1}]$$
+    <p style="margin:0.5rem 0 0 0;">En tal caso $A^{-1}A = AA^{-1} = I_n$ y $A$ se denomina <strong>invertible</strong> o <strong>no singular</strong>.</p>
+  </div>
+
+  <p><strong>Propiedades de la forma reducida:</strong></p>
+  <ul>
+    <li>La forma escalonada reducida por filas es <strong>única</strong>.</li>
+    <li>El número de pivotes en la forma escalonada define el <strong>rango</strong> de la matriz, denotado $\text{rango}(A)$ o $\text{ran}(A)$.</li>
+    <li>Para $A$ de orden $n$: $U_{red} = I_n \iff \text{rango}(A) = n$ (rango máximo, $n$ pivotes).</li>
+    <li>Si $A$ no es inversible: $U_{red} \neq I_n$, $\text{rango}(A) < n$ y tiene menos de $n$ pivotes.</li>
+  </ul>
+
+  <div class="example-box">
+    <p><strong>🧩 Ejemplo 5.3.1.</strong> Considere $A = \begin{pmatrix} 2 & 5 \\ 1 & 3 \end{pmatrix}$ y $A^{-1} = \begin{pmatrix} 3 & -5 \\ -1 & 2 \end{pmatrix}$. Verifique que $A^{-1}$ es efectivamente la inversa.</p>
+    <details class="solution">
+      <summary>🔍 Ver solución</summary>
+      <div class="solution-content">
+        $$\begin{aligned}
+        AA^{-1} &= \begin{pmatrix} 2 & 5 \\ 1 & 3 \end{pmatrix} \begin{pmatrix} 3 & -5 \\ -1 & 2 \end{pmatrix} \\[4pt]
+        &= \begin{pmatrix} 6-5 & -10+10 \\ 3-3 & -5+6 \end{pmatrix} \\[4pt]
+        &= \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} = I_2
+        \end{aligned}$$
+        <p>Como $AA^{-1} = I_2$, se valida la invertibilidad.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="example-box">
+    <p><strong>🧩 Ejemplo 5.3.2.</strong> Identifique y justifique las estructuras de las siguientes matrices:</p>
+    $$\begin{aligned}
+    A &= \begin{pmatrix} 2 & 3 & 2 & 1 \\ 0 & 0 & 5 & 4 \\ 0 & 0 & 0 & 0 \end{pmatrix} \\[6pt]
+    B &= \begin{pmatrix} 1 & 2 & 0 & 1 \\ 0 & 0 & 1 & 3 \\ 0 & 0 & 0 & 0 \end{pmatrix} \\[6pt]
+    C &= \begin{pmatrix} 0 & 1 & 3 \\ 1 & 0 & 2 \end{pmatrix}
+    \end{aligned}$$
+    <details class="solution">
+      <summary>🔍 Ver solución</summary>
+      <div class="solution-content">
+        <ul>
+          <li>
+            <strong>Matriz $A$ (orden $3 \times 4$):</strong> El primer elemento no nulo de la fila 1 es $a_{11}=2$ (pivote en columna 1). El primer elemento no nulo de la fila 2 es $a_{23}=5$ (pivote en columna 3, pues $a_{22}=0$). La fila 3 es completamente nula y está ubicada al final. Los pivotes están escalonados y todos los elementos por debajo de cada pivote son cero. Por tanto, $A$ está en <strong>forma escalonada</strong>. No está en forma reducida porque el pivote $5 \neq 1$ y existe un elemento $2$ por encima del segundo pivote (columna 3, fila 1).
+          </li>
+          <li>
+            <strong>Matriz $B$ (orden $3 \times 4$):</strong> Los pivotes son $b_{11}=1$ y $b_{23}=1$ (unitarios). En la columna 1, los elementos por debajo del pivote son cero; en la columna 3, el elemento por encima del pivote es cero. La fila nula está al final. Por tanto, $B$ está en <strong>forma escalonada reducida por filas</strong>.
+          </li>
+          <li>
+            <strong>Matriz $C$ (orden $2 \times 3$):</strong> La primera fila comienza con $0$ y su primer elemento no nulo está en la columna 2. La segunda fila tiene su primer elemento no nulo en la columna 1, que está <em>a la izquierda</em> del pivote de la fila superior. Esto viola la condición de escalonamiento (el pivote de una fila inferior debe estar estrictamente a la derecha del pivote superior). Por tanto, $C$ <strong>no está en forma escalonada</strong>; se corregiría con un intercambio $F_1 \leftrightarrow F_2$.
+          </li>
+        </ul>
+      </div>
+    </details>
+  </div>
+
+  <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+</section>
 
   <!-- ===================================================================== -->
   <!-- MÓDULO 6 -->
@@ -1036,15 +799,15 @@
         a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n &= b_m
       \end{align*}$$
       <p style="margin:0.5rem 0 0 0;">El cual puede separarse en un producto matricial de la siguiente manera:</p>
-      $$\begin{bmatrix}
+      $$\begin{pmatrix}
         a_{11} & a_{12} & \dots & a_{1n} \\
         a_{21} & a_{22} & \dots & a_{2n} \\
         \vdots & \vdots & \ddots & \vdots \\
         a_{m1} & a_{m2} & \dots & a_{mn}
-      \end{bmatrix}
-      \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix}
+      \end{pmatrix}
+      \begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{pmatrix}
       =
-      \begin{bmatrix} b_1 \\ b_2 \\ \vdots \\ b_m \end{bmatrix}$$
+      \begin{pmatrix} b_1 \\ b_2 \\ \vdots \\ b_m \end{pmatrix}$$
       <p style="margin:0.5rem 0 0 0;">Este sistema puede condensarse en la forma matricial <strong>$Ax = b$</strong>, donde:</p>
       <ul style="margin:0.5rem 0 0 0;">
         <li>$A \in \mathbb{R}^{m \times n}$ es la <strong>matriz de coeficientes</strong>.</li>
@@ -1142,9 +905,9 @@
         <summary>🔍 Ver solución</summary>
         <div class="solution-content">
           <p><strong>Representación matricial:</strong></p>
-          $$\begin{bmatrix} 1 & 1 & -1 \\ -2 & -1 & 1 \\ 3 & 0 & 0 \end{bmatrix}
-          \begin{bmatrix} x \\ y \\ z \end{bmatrix} =
-          \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}$$
+          $$\begin{pmatrix} 1 & 1 & -1 \\ -2 & -1 & 1 \\ 3 & 0 & 0 \end{pmatrix}
+          \begin{pmatrix} x \\ y \\ z \end{pmatrix} =
+          \begin{pmatrix} 1 \\ 2 \\ 3 \end{pmatrix}$$
           <p><strong>Determinante de $A$:</strong></p>
           $$\det(A) = 1(0) - 1(-3) - 1(3) = 0$$
           <p>El sistema no tendrá solución única. Construimos la matriz aumentada:</p>
@@ -1185,7 +948,7 @@
           \end{align*}$$
           <p>Como hay una fila de ceros, $z$ es <strong>variable libre</strong>. Sea $z = t$, $t \in \mathbb{R}$. De (Ec. 2): $-3y = -3t \implies y = t$. Sustituyendo en (Ec. 1): $x + t - t = 1 \implies x = 1$.</p>
           <p><strong>Conjunto solución:</strong></p>
-          $$\begin{bmatrix} x \\ y \\ z \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix} + t \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix}, \quad \forall t \in \mathbb{R}$$
+          $$\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} + t \begin{pmatrix} 0 \\ 1 \\ 1 \end{pmatrix}, \quad \forall t \in \mathbb{R}$$
           <p>El sistema es <strong>Consistente Indeterminado</strong> (infinitas soluciones, $n - \operatorname{rg}A = 3 - 2 = 1$ parámetro libre).</p>
 
           <p><strong>Escenario B: $b = (1,2,5)^T$ — Inconsistente</strong></p>
