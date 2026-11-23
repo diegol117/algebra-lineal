@@ -19,289 +19,33 @@
       throwOnError: false
     });"></script>
 
+  <link rel="stylesheet" href="estilos_t2.css">
+
+  <!-- Mejoras de visualización móvil: espaciado y centrado de ecuaciones -->
   <style>
-    :root {
-      --primary: #1e3a8a;
-      --primary-light: #eff6ff;
-      --primary-border: #3b82f6;
-      --secondary: #0f766e;
-      --secondary-light: #f0fdfa;
-      --secondary-border: #14b8a6;
-      --accent: #b45309;
-      --accent-light: #fffbeb;
-      --accent-border: #f59e0b;
-      --bg: #f8fafc;
-      --surface: #ffffff;
-      --text: #1e293b;
-      --text-muted: #64748b;
-      --border: #e2e8f0;
-      --shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -2px rgba(0,0,0,0.05);
-    }
-
-    * { box-sizing: border-box; scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.65;
-      margin: 0;
-      padding: 0;
-    }
-
-    .container { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
-
-    header.doc-header {
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
-      color: white;
-      padding: 2.5rem 2rem;
-      border-radius: 16px;
-      margin-bottom: 2rem;
-      box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.25);
-    }
-
-    header.doc-header h1 {
-      margin: 0 0 0.75rem 0;
-      font-size: 2.1rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    .meta-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      font-size: 0.92rem;
-      color: #cbd5e1;
-      border-top: 1px solid rgba(255,255,255,0.15);
-      padding-top: 0.85rem;
-      margin-top: 0.85rem;
-    }
-
-    .meta-bar span strong { color: #ffffff; }
-
-    .controls-bar { display: flex; justify-content: flex-end; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-
-    .btn {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 0.45rem 0.9rem;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-    }
-
-    .btn:hover { background: var(--primary-light); border-color: var(--primary-border); color: var(--primary); }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.75rem 2rem;
-      margin-bottom: 2rem;
-      box-shadow: var(--shadow);
-    }
-
-    h2.module-title {
-      color: var(--primary);
-      font-size: 1.6rem;
-      margin-top: 0;
-      padding-bottom: 0.6rem;
-      border-bottom: 2px solid var(--primary-light);
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      background: var(--primary);
-      color: white;
-      font-size: 0.8rem;
-      padding: 0.2rem 0.6rem;
-      border-radius: 6px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      white-space: nowrap;
-    }
-
-    h3.section-title { color: #0f172a; font-size: 1.25rem; margin-top: 1.8rem; margin-bottom: 0.75rem; }
-    h4.sub-title { color: #334155; font-size: 1.05rem; margin-top: 1.2rem; margin-bottom: 0.5rem; }
-
-    .table-wrapper {
-      overflow-x: auto;
-      margin: 1.2rem 0;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-    }
-
-    table { width: 100%; border-collapse: collapse; font-size: 0.95rem; background: var(--surface); }
-
-    th {
-      background-color: #f1f5f9;
-      color: #0f172a;
-      font-weight: 700;
-      text-align: left;
-      padding: 0.8rem 1rem;
-      border-bottom: 2px solid var(--border);
-    }
-
-    td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background-color: #f8fafc; }
-
-    table a { color: var(--primary); text-decoration: none; font-weight: 600; }
-    table a:hover { text-decoration: underline; }
-
-    .callout { border-left: 4px solid; border-radius: 0 10px 10px 0; padding: 1.1rem 1.35rem; margin: 1.25rem 0; }
-    .callout-def { background-color: var(--primary-light); border-color: var(--primary-border); }
-    .callout-thm { background-color: var(--secondary-light); border-color: var(--secondary-border); }
-    .callout-note { background-color: var(--accent-light); border-color: var(--accent-border); }
-
-    .callout-title {
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      font-size: 1rem;
-    }
-
-    .callout-def .callout-title { color: var(--primary); }
-    .callout-thm .callout-title { color: var(--secondary); }
-    .callout-note .callout-title { color: var(--accent); }
-
-    .example-box {
-      background: #fafafa;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 1.2rem 1.4rem;
-      margin: 1.35rem 0;
-    }
-
-    .example-header {
-      font-weight: 700;
-      color: #0f172a;
-      margin-bottom: 0.6rem;
-      font-size: 1.03rem;
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-    }
-
-    details.solution {
-      margin-top: 0.9rem;
-      background: var(--surface);
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    details.solution summary {
-      padding: 0.65rem 1rem;
-      font-weight: 600;
-      color: var(--primary);
-      cursor: pointer;
-      background: #f1f5f9;
-      user-select: none;
-      list-style: none;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: background 0.15s ease;
-    }
-
-    details.solution summary::-webkit-details-marker { display: none; }
-
-    details.solution summary::before {
-      content: "▶";
-      font-size: 0.75rem;
-      transition: transform 0.2s ease;
-      display: inline-block;
-    }
-
-    details.solution[open] summary::before { transform: rotate(90deg); }
-    details.solution summary:hover { background: #e2e8f0; }
-
-    .solution-content { padding: 1.1rem 1.25rem; border-top: 1px solid #e2e8f0; }
-
-    .diagram-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: 1.5rem;
-      margin: 1.25rem 0;
-      padding: 1rem;
-      background: #ffffff;
-      border: 1px dashed #cbd5e1;
-      border-radius: 10px;
-    }
-
-    .diagram-caption {
+    .katex-display {
+      margin: 1.6em 0;
       text-align: center;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-top: 0.35rem;
-      font-weight: 600;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 0.35em 0;
     }
-
-    /* Gráficas reducidas */
-/* ---- 1) SVG: ocupa el ancho disponible con un tope reducido ---- */
-svg.fig {
-  display: block;
-  margin: 0 auto;
-  width: 100%;
-  max-width: min(100%, 432px);   /* antes 720 px → −40 % */
-  height: auto;
-}
-svg.fig.sm   { max-width: min(100%, 240px); }   /* antes 400 px */
-svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
-
-/* ---- 2) Wrappers: los <div> dentro de .diagram-container ---- */
-.diagram-container > div {
-  flex: 1 1 192px;   /* antes 320 px → −40 % */
-  min-width: 0;
-  max-width: 100%;
-}
-
-/* ---- 3) Contenedor: alinea arriba para que las captions queden parejas ---- */
-.diagram-container {
-  align-items: flex-start;
-}
-    .back-top { text-align: right; margin-top: 1.5rem; padding-top: 0.75rem; border-top: 1px solid var(--border); }
-    .back-top a { font-size: 0.88rem; color: var(--text-muted); text-decoration: none; font-weight: 600; }
-    .back-top a:hover { color: var(--primary); }
-
+    .katex-display + p,
+    p + .katex-display,
+    ul + .katex-display,
+    .katex-display + ul,
+    ol + .katex-display,
+    .katex-display + ol {
+      margin-top: 1.4em;
+    }
     @media (max-width: 640px) {
-      body { font-size: 0.96rem; line-height: 1.6; }
-      .container { padding: 0.9rem 0.85rem 3.5rem; }
-
-      header.doc-header { padding: 1.4rem 1.15rem; border-radius: 12px; margin-bottom: 1.25rem; }
-      header.doc-header h1 { font-size: 1.45rem; line-height: 1.25; }
-      header.doc-header p { font-size: 0.95rem !important; }
-
-      .meta-bar { flex-direction: column; gap: 0.35rem; font-size: 0.85rem; }
-
-      .controls-bar { flex-direction: column; gap: 0.5rem; margin-bottom: 1.1rem; }
-      .controls-bar .btn { width: 100%; text-align: center; padding: 0.65rem 0.85rem; }
-
-      .card { padding: 1.15rem 1rem; border-radius: 12px; margin-bottom: 1.25rem; }
-
-      h2.module-title { font-size: 1.22rem; flex-wrap: wrap; gap: 0.45rem; line-height: 1.3; }
-      h3.section-title { font-size: 1.1rem; margin-top: 1.4rem; }
-
-      .example-box { padding: 0.95rem 1rem; margin: 1rem 0; }
-      .callout { padding: 0.9rem 1rem; margin: 1rem 0; }
-
-      th, td { padding: 0.55rem 0.65rem; font-size: 0.86rem; }
-
-      .katex-display { overflow-x: auto; overflow-y: hidden; padding: 0.35rem 0; max-width: 100%; }
-      .katex-display > .katex { font-size: 0.95em; }
+      .katex-display {
+        margin: 2em 0;
+        padding: 0.5em 0.2em;
+      }
+      .katex-display > .katex {
+        font-size: 0.95em;
+      }
     }
   </style>
 </head>
@@ -351,8 +95,8 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       ortogonal, descomposición y proyecciones; proceso de Gram-Schmidt; y espacios fundamentales de una matriz.
     </p>
     <div class="meta-bar">
+      <span><strong>Autor:</strong> Diego Linares</span>
       <span><strong>Área:</strong> Álgebra Lineal</span>
-      <span>•</span>
       <span><strong>Nivel:</strong> Universitario</span>
     </div>
   </header>
@@ -379,9 +123,9 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
             <td><span class="badge">01</span></td>
             <td><a href="#mod-1">$\mathbb{R}^n$ como Espacio Euclídeo</a></td>
             <td>
-              <a href="#sec-1-1">1.1 Producto escalar</a> •
-              <a href="#sec-1-2">1.2 Norma</a> •
-              <a href="#sec-1-3">1.3 Distancia</a> •
+              <a href="#sec-1-1">1.1 Producto escalar</a><br>
+              <a href="#sec-1-2">1.2 Norma</a><br>
+              <a href="#sec-1-3">1.3 Distancia</a><br>
               <a href="#sec-1-4">1.4 Ángulo entre vectores</a>
             </td>
           </tr>
@@ -389,10 +133,10 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
             <td><span class="badge">02</span></td>
             <td><a href="#mod-2">Ortogonalidad y Bases Ortonormales</a></td>
             <td>
-              <a href="#sec-2-1">2.1 Vectores ortogonales</a> •
-              <a href="#sec-2-2">2.2 Conjuntos ortogonales y ortonormales</a> •
-              <a href="#sec-2-3">2.3 Bases ortogonales y coordenadas</a> •
-              <a href="#sec-2-4">2.4 Matriz ortogonal</a> •
+              <a href="#sec-2-1">2.1 Vectores ortogonales</a><br>
+              <a href="#sec-2-2">2.2 Conjuntos ortogonales y ortonormales</a><br>
+              <a href="#sec-2-3">2.3 Bases ortogonales y coordenadas</a><br>
+              <a href="#sec-2-4">2.4 Matriz ortogonal</a><br>
               <a href="#sec-2-5">2.5 Subespacios ortogonales</a>
             </td>
           </tr>
@@ -400,9 +144,9 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
             <td><span class="badge">03</span></td>
             <td><a href="#mod-3">Complemento Ortogonal y Proyecciones</a></td>
             <td>
-              <a href="#sec-3-1">3.1 Complemento ortogonal $H^\perp$</a> •
-              <a href="#sec-3-2">3.2 Descomposición ortogonal</a> •
-              <a href="#sec-3-3">3.3 Fórmula de la proyección</a> •
+              <a href="#sec-3-1">3.1 Complemento ortogonal $H^\perp$</a><br>
+              <a href="#sec-3-2">3.2 Descomposición ortogonal</a><br>
+              <a href="#sec-3-3">3.3 Fórmula de la proyección</a><br>
               <a href="#sec-3-4">3.4 Mejor aproximación y distancia</a>
             </td>
           </tr>
@@ -410,7 +154,7 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
             <td><span class="badge">04</span></td>
             <td><a href="#mod-4">Proceso de Gram-Schmidt</a></td>
             <td>
-              <a href="#sec-4-1">4.1 Algoritmo</a> •
+              <a href="#sec-4-1">4.1 Algoritmo</a><br>
               <a href="#sec-4-2">4.2 Ejemplo completo</a>
             </td>
           </tr>
@@ -418,8 +162,8 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
             <td><span class="badge">05</span></td>
             <td><a href="#mod-5">Espacios Fundamentales de una Matriz</a></td>
             <td>
-              <a href="#sec-5-1">5.1 Nulo, imagen, renglones, columnas</a> •
-              <a href="#sec-5-2">5.2 Teorema de estructura</a> •
+              <a href="#sec-5-1">5.1 Nulo, imagen, renglones, columnas</a><br>
+              <a href="#sec-5-2">5.2 Teorema de estructura</a><br>
               <a href="#sec-5-3">5.3 Ejemplo</a>
             </td>
           </tr>
@@ -427,10 +171,10 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
             <td><span class="badge">06</span></td>
             <td><a href="#mod-6">Ejercicios Propuestos</a></td>
             <td>
-              <a href="#sec-6-1">6.1 Subespacios e intersección</a> •
-              <a href="#sec-6-2">6.2 Suma directa</a> •
-              <a href="#sec-6-3">6.3 Cambio de base</a> •
-              <a href="#sec-6-4">6.4 Espacios vectoriales</a> •
+              <a href="#sec-6-1">6.1 Subespacios e intersección</a><br>
+              <a href="#sec-6-2">6.2 Suma directa</a><br>
+              <a href="#sec-6-3">6.3 Cambio de base</a><br>
+              <a href="#sec-6-4">6.4 Espacios vectoriales</a><br>
               <a href="#sec-6-5">6.5 Ortogonalidad</a>
             </td>
           </tr>
@@ -438,7 +182,6 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       </table>
     </div>
   </section>
-
   <!-- ===================================================================== -->
   <!-- MÓDULO 1: R^n COMO ESPACIO EUCLÍDEO                                    -->
   <!-- ===================================================================== -->
@@ -457,8 +200,12 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       <div class="callout-title">📌 Definición 6.1</div>
       <p>Sean $\vec{u}, \vec{v} \in \mathbb{R}^n$. El <strong>producto escalar euclídeo</strong>, denotado
         $\vec{u}\cdot\vec{v}$, es el número real</p>
+
       \[
-        \vec{u}\cdot\vec{v} = \vec{u}^t\vec{v} = u_1v_1 + u_2v_2 + \dots + u_nv_n.
+        \begin{aligned}
+          \vec{u}\cdot\vec{v} &= \vec{u}^t\vec{v} \\[0.5em]
+          &= u_1v_1 + u_2v_2 + \dots + u_nv_n.
+        \end{aligned}
       \]
     </div>
 
@@ -468,15 +215,18 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
         <li>$\vec{u}\cdot\vec{v} = \vec{v}\cdot\vec{u}$</li>
         <li>$(\vec{u}+\vec{v})\cdot\vec{w} = \vec{u}\cdot\vec{w} + \vec{v}\cdot\vec{w}$</li>
         <li>$(c\vec{u})\cdot\vec{v} = c(\vec{u}\cdot\vec{v}) = \vec{u}\cdot(c\vec{v})$</li>
-        <li>$\vec{u}\cdot\vec{u} \ge 0$, y $\vec{u}\cdot\vec{u}=0 \iff \vec{u}=\vec{0}$</li>
+        <li>$\vec{u}\cdot\vec{u} \ge 0$, y $\vec{u}\cdot\vec{u}=0 \Leftrightarrow \vec{u}=\vec{0}$</li>
       </ol>
     </div>
 
     <p>Combinando (b) y (c): para cualquier combinación lineal se cumple</p>
 
     \[
-      (c_1\vec{u}_1 + \dots + c_p\vec{u}_p)\cdot\vec{w}
-      = c_1(\vec{u}_1\cdot\vec{w}) + \dots + c_p(\vec{u}_p\cdot\vec{w}).
+      \begin{aligned}
+        (c_1\vec{u}_1 + \dots + c_p\vec{u}_p)\cdot\vec{w}
+        &= c_1(\vec{u}_1\cdot\vec{w}) + \dots \\[0.5em]
+        &\quad + c_p(\vec{u}_p\cdot\vec{w}).
+      \end{aligned}
     \]
 
     <h3 class="section-title" id="sec-1-2">1.2 Norma o Longitud de un Vector</h3>
@@ -484,8 +234,12 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
     <div class="callout callout-def">
       <div class="callout-title">📌 Definición 6.2</div>
       <p>La <strong>norma</strong> o <strong>longitud</strong> de $\vec{v}\in\mathbb{R}^n$ es</p>
+
       \[
-        \|\vec{v}\| = \sqrt{\vec{v}\cdot\vec{v}} = \sqrt{v_1^2 + v_2^2 + \dots + v_n^2}.
+        \begin{aligned}
+          \|\vec{v}\| &= \sqrt{\vec{v}\cdot\vec{v}} \\[0.5em]
+          &= \sqrt{v_1^2 + v_2^2 + \dots + v_n^2}.
+        \end{aligned}
       \]
     </div>
 
@@ -496,7 +250,10 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       aquel con $\|\vec{u}\|=1$. <em>Normalizar</em> un vector $\vec{v}\ne\vec{0}$ consiste en:</p>
 
     \[
-      \vec{u} = \frac{1}{\|\vec{v}\|}\,\vec{v}, \qquad \|\vec{u}\| = 1.
+      \begin{aligned}
+        \vec{u} &= \frac{1}{\|\vec{v}\|}\,\vec{v}, \\[0.5em]
+        \|\vec{u}\| &= 1.
+      \end{aligned}
     \]
 
     <div class="diagram-container">
@@ -523,9 +280,12 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
     <div class="callout callout-def">
       <div class="callout-title">📌 Definición 6.3</div>
       <p>La <strong>distancia</strong> entre $\vec{u}$ y $\vec{v}$ es la longitud de $\vec{u}-\vec{v}$:</p>
+
       \[
-        \operatorname{dist}(\vec{u},\vec{v}) = \|\vec{u}-\vec{v}\|
-        = \sqrt{(\vec{u}-\vec{v})\cdot(\vec{u}-\vec{v})}.
+        \begin{aligned}
+          \operatorname{dist}(\vec{u},\vec{v}) &= \|\vec{u}-\vec{v}\| \\[0.5em]
+          &= \sqrt{(\vec{u}-\vec{v})\cdot(\vec{u}-\vec{v})}.
+        \end{aligned}
       \]
     </div>
 
@@ -540,15 +300,16 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
     <p>El ángulo entre $\vec{u}$ y $\vec{v}$ (no nulos) es $\alpha \in [0,\pi]$ tal que</p>
 
     \[
-      \vec{u}\cdot\vec{v} = \|\vec{u}\|\,\|\vec{v}\|\cos\alpha
-      \;\Longrightarrow\;
-      \cos\alpha = \frac{\vec{u}\cdot\vec{v}}{\|\vec{u}\|\,\|\vec{v}\|}.
+      \begin{aligned}
+        \vec{u}\cdot\vec{v} &= \|\vec{u}\|\,\|\vec{v}\|\cos\alpha \\[0.5em]
+        &\Longrightarrow \cos\alpha = \frac{\vec{u}\cdot\vec{v}}{\|\vec{u}\|\,\|\vec{v}\|}.
+      \end{aligned}
     \]
 
     <ul>
-      <li>$\vec{u}\cdot\vec{v} = 0 \iff \alpha = \pi/2$ (perpendiculares).</li>
-      <li>$\vec{u}\cdot\vec{v} > 0 \iff \alpha \in [0,\pi/2)$ (ángulo agudo).</li>
-      <li>$\vec{u}\cdot\vec{v} < 0 \iff \alpha \in (\pi/2,\pi]$ (ángulo obtuso).</li>
+      <li>$\vec{u}\cdot\vec{v} = 0 \Leftrightarrow \alpha = \pi/2$ (perpendiculares).</li>
+      <li>$\vec{u}\cdot\vec{v} > 0 \Leftrightarrow \alpha \in [0,\pi/2)$ (ángulo agudo).</li>
+      <li>$\vec{u}\cdot\vec{v} < 0 \Leftrightarrow \alpha \in (\pi/2,\pi]$ (ángulo obtuso).</li>
     </ul>
 
     <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
@@ -656,8 +417,12 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       <div class="callout-title">📐 Teorema 6.4 (coordenadas en base ortogonal)</div>
       <p>Sea $\{\vec{u}_1,\dots,\vec{u}_p\}$ una base <strong>ortogonal</strong> de $W$. Las coordenadas de
         $\vec{y}\in W$ son</p>
+
       \[
-        c_j = \frac{\vec{y}\cdot\vec{u}_j}{\vec{u}_j\cdot\vec{u}_j}, \qquad j = 1,\dots,p.
+        \begin{aligned}
+          c_j &= \frac{\vec{y}\cdot\vec{u}_j}{\vec{u}_j\cdot\vec{u}_j}, \\[0.5em]
+          j &= 1,\dots,p.
+        \end{aligned}
       \]
     </div>
 
@@ -675,7 +440,7 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
     <div class="callout callout-thm">
       <div class="callout-title">📐 Teorema 6.5</div>
       <p style="margin:0;">Una matriz real $Q_{n\times n}$ es <strong>ortogonal</strong> (es decir,
-        $Q^{-1} = Q^t$) si y solo si sus columnas forman una base ortonormal de $\mathbb{R}^n$.</p>
+        $Q^{-1} = Q^t)$ si y solo si sus columnas forman una base ortonormal de $\mathbb{R}^n$.</p>
     </div>
 
     <p>Si $Q$ es ortogonal, sus columnas forman una base ortonormal, y se cumple $Q^tQ = QQ^t = I$. Las
@@ -695,7 +460,7 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
   </section>
 
   <!-- ===================================================================== -->
-  <!-- MÓDULO 3: COMPLEMENTO ORTOGONAL Y PROYECCIONES                        -->
+  <!-- MÓDULO 3: COMPLEMENTO ORTOGONAL Y PROYECCIONES (H)                    -->
   <!-- ===================================================================== -->
   <section class="card" id="mod-3">
     <h2 class="module-title"><span class="badge">MÓDULO 03</span> Complemento Ortogonal y Proyecciones</h2>
@@ -708,95 +473,159 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
 
     <div class="callout callout-def">
       <div class="callout-title">📌 Definición 6.12</div>
-      <p>El <strong>complemento ortogonal</strong> de $W$ en $\mathbb{R}^n$ es</p>
+      <p>El <strong>complemento ortogonal</strong> de $H$ en $\mathbb{R}^n$ es</p>
+
       \[
-        W^\perp = \{\vec{z}\in\mathbb{R}^n : \vec{z}\cdot\vec{w} = 0 \ \forall\, \vec{w}\in W\}.
+        H^\perp = \{\vec{z}\in\mathbb{R}^n : \vec{z}\cdot\vec{h} = 0 \
+        \forall\, \vec{h}\in H\}.
       \]
     </div>
 
     <div class="callout callout-thm">
       <div class="callout-title">📐 Teorema 6.6</div>
       <ol style="margin:0;">
-        <li>$\vec{x}\in W^\perp$ si y solo si $\vec{x}$ es ortogonal a todos los vectores de un sistema de
-          generadores de $W$.</li>
-        <li>$W^\perp$ es un subespacio de $\mathbb{R}^n$.</li>
-        <li>$W \oplus W^\perp = \mathbb{R}^n$ (suma directa).</li>
+        <li>$\vec{x}\in H^\perp$ si y solo si $\vec{x}$ es ortogonal a todos los vectores de un sistema de
+          generadores de $H$.</li>
+        <li>$H^\perp$ es un subespacio de $\mathbb{R}^n$.</li>
+        <li>$H \oplus H^\perp = \mathbb{R}^n$ (suma directa).</li>
       </ol>
     </div>
 
     <p>En particular, se cumplen:</p>
 
     <ul>
-      <li>$\dim W + \dim W^\perp = n$.</li>
-      <li>$W \cap W^\perp = \{\vec{0}\}$.</li>
+      <li>$\dim H + \dim H^\perp = n$.</li>
+      <li>$H \cap H^\perp = \{\vec{0}\}$.</li>
       <li>Todo subespacio admite infinitos complementos (no necesariamente ortogonales), pero <strong>solo uno
         es ortogonal</strong>.</li>
     </ul>
 
     <h3 class="section-title" id="sec-3-2">3.2 Descomposición Ortogonal</h3>
 
-    <p>Como $\mathbb{R}^n = W\oplus W^\perp$, cada $\vec{y}\in\mathbb{R}^n$ se escribe <strong>de forma
+    <p>Como $\mathbb{R}^n = H\oplus H^\perp$, cada $\vec{y}\in\mathbb{R}^n$ se escribe <strong>de forma
       única</strong> como</p>
 
     \[
-      \vec{y} = \hat{\vec{y}} + \vec{z}, \quad \hat{\vec{y}}\in W, \ \vec{z}\in W^\perp.
+      \begin{aligned}
+        \vec{y} &= \hat{\vec{y}} + \vec{z}, \\[0.5em]
+        \hat{\vec{y}} &\in H, \quad \vec{z} \in H^\perp.
+      \end{aligned}
     \]
 
-    <p>$\hat{\vec{y}} = \text{proy}_W\vec{y}$ es la <strong>proyección ortogonal de $\vec{y}$ sobre
-      $W$</strong>; $\vec{z}$ es la <strong>componente perpendicular</strong> (o “error”).</p>
+    <p>$\hat{\vec{y}} = \text{proy}_H\vec{y}$ es la <strong>proyección ortogonal de $\vec{y}$ sobre
+      $H$</strong>; $\vec{z}$ es la <strong>componente perpendicular</strong> (o “error”).</p>
 
     <div class="diagram-container">
       <div>
-        <svg class="fig" viewBox="0 0 300 220" role="img" aria-label="Proyección sobre un vector en R²">
-          <line x1="20" y1="180" x2="280" y2="180" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
-          <text x="275" y="196" font-size="11" fill="#64748b">dirección de v₁</text>
+        <svg class="fig" viewBox="0 0 600 400" role="img" aria-label="Proyección sobre un vector en R²">
+          <defs>
+            <marker id="ah-green" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+              <polygon points="0 0, 10 3.5, 0 7" fill="#16a34a"/>
+            </marker>
+            <marker id="ah-blue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+              <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb"/>
+            </marker>
+            <marker id="ah-gray" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+              <polygon points="0 0, 10 3.5, 0 7" fill="#6b7280"/>
+            </marker>
+          </defs>
 
-          <line x1="30" y1="180" x2="260" y2="180" stroke="#16a34a" stroke-width="2.5" marker-end="url(#ah-green)"/>
-          <text x="260" y="172" font-size="13" fill="#16a34a" font-style="italic">v₁</text>
+          <line x1="80" y1="320" x2="480" y2="320" stroke="#16a34a" stroke-width="3" marker-end="url(#ah-green)"/>
+          <line x1="480" y1="320" x2="560" y2="320" stroke="#16a34a" stroke-width="2" stroke-dasharray="5 5"/>
+          <text x="500" y="350" font-size="20" fill="#16a34a" font-family="serif" font-style="italic">v̄₁</text>
 
-          <line x1="30" y1="180" x2="160" y2="50" stroke="#2563eb" stroke-width="2.5" marker-end="url(#ah-blue)"/>
-          <text x="140" y="46" font-size="13" fill="#2563eb" font-style="italic">v₂</text>
+          <line x1="80" y1="320" x2="280" y2="120" stroke="#2563eb" stroke-width="3" marker-end="url(#ah-blue)"/>
+          <text x="150" y="180" font-size="20" fill="#2563eb" font-family="serif" font-style="italic">v̄₂</text>
 
-          <line x1="30" y1="180" x2="150" y2="180" stroke="#dc2626" stroke-width="3" marker-end="url(#ah-red)"/>
-          <text x="80" y="200" font-size="10" fill="#dc2626">proy</text>
+          <line x1="80" y1="320" x2="280" y2="320" stroke="#dc2626" stroke-width="3"/>
+          <circle cx="280" cy="320" r="5" fill="#dc2626"/>
 
-          <line x1="150" y1="180" x2="160" y2="50" stroke="#7c3aed" stroke-width="2" stroke-dasharray="4 3"/>
-          <text x="165" y="115" font-size="10" fill="#7c3aed">error</text>
+          <line x1="280" y1="120" x2="280" y2="320" stroke="#dc2626" stroke-width="2" stroke-dasharray="5 4"/>
+          <polyline points="265,320 265,305 280,305" fill="none" stroke="#dc2626" stroke-width="1.5"/>
 
-          <polyline points="150,180 150,160 130,160" fill="none" stroke="#7c3aed" stroke-width="1.2"/>
-          <circle cx="30" cy="180" r="2.5" fill="#0f172a"/>
+          <path d="M 120 320 A 40 40 0 0 0 108.28 291.72" fill="none" stroke="#dc2626" stroke-width="1.5"/>
+          <text x="100" y="295" font-size="18" fill="#dc2626" font-family="serif" font-style="italic">θ</text>
+
+          <text x="200" y="230" font-size="16" fill="#0f172a" font-family="sans-serif">θ: ángulo agudo</text>
+
+          <path d="M 80 340 Q 130 360 180 350 Q 230 360 280 340" fill="none" stroke="#dc2626" stroke-width="1.5"/>
+          <text x="180" y="380" font-size="18" fill="#dc2626" font-family="serif" font-style="italic" text-anchor="middle">Proy<tspan baseline-shift="sub" font-size="12">v̄₁</tspan> v̄₂</text>
+
+          <text x="300" y="160" font-size="16" fill="#dc2626" font-weight="bold" font-family="sans-serif">Componente Perpendicular</text>
+          <text x="300" y="185" font-size="14" fill="#dc2626" font-family="serif" font-style="italic">(Error = v̄₂ − Proy<tspan baseline-shift="sub" font-size="10">v̄₁</tspan> v̄₂)</text>
+
+          <text x="380" y="260" font-size="16" fill="#0f172a" font-weight="bold" font-family="sans-serif">Punto mejor</text>
+          <text x="380" y="280" font-size="16" fill="#0f172a" font-weight="bold" font-family="sans-serif">aproximado</text>
+          <line x1="370" y1="270" x2="290" y2="315" stroke="#6b7280" stroke-width="2" marker-end="url(#ah-gray)"/>
         </svg>
-        <div class="diagram-caption">Proyección sobre una dirección</div>
       </div>
+    </div>
 
+    <div class="diagram-container">
       <div>
-        <svg class="fig" viewBox="0 0 320 240" role="img" aria-label="Proyección sobre un plano en R³">
-          <line x1="160" y1="140" x2="305" y2="140" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
-          <line x1="160" y1="140" x2="160" y2="20"  stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
-          <line x1="160" y1="140" x2="55"  y2="200" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#ah-gray)"/>
-          <text x="300" y="136" font-size="11" fill="#64748b">y</text>
-          <text x="152" y="18"  font-size="11" fill="#64748b">z</text>
-          <text x="45"  y="208" font-size="11" fill="#64748b">x</text>
+        <svg class="fig" viewBox="0 0 800 600" role="img" aria-label="Proyección sobre un subespacio H en R³">
+          <defs>
+            <marker id="arrow-gray" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+              <polygon points="0 0, 10 3.5, 0 7" fill="#6b7280"/>
+            </marker>
+            <marker id="arrow-teal" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+              <polygon points="0 0, 10 3.5, 0 7" fill="#0f766e"/>
+            </marker>
+            <marker id="arrow-purple" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+              <polygon points="0 0, 10 3.5, 0 7" fill="#9333ea"/>
+            </marker>
+            <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+              <polygon points="0 0, 10 3.5, 0 7" fill="#0284c7"/>
+            </marker>
+          </defs>
 
-          <polygon points="60,90 260,60 290,155 90,185" fill="#bfdbfe" fill-opacity="0.7"
-                   stroke="#60a5fa" stroke-width="1.6"/>
-          <text x="118" y="132" font-size="10" fill="#1e3a8a">H (subespacio)</text>
+          <line x1="400" y1="400" x2="150" y2="480" stroke="#9ca3af" stroke-width="2" marker-end="url(#arrow-gray)"/>
+          <line x1="400" y1="400" x2="720" y2="480" stroke="#9ca3af" stroke-width="2" marker-end="url(#arrow-gray)"/>
+          <text x="180" y="505" font-size="20" fill="#9ca3af" font-family="serif" font-style="italic">X</text>
+          <text x="630" y="480" font-size="20" fill="#9ca3af" font-family="serif" font-style="italic">Y</text>
 
-          <!-- Vector v -->
-          <line x1="160" y1="140" x2="215" y2="40" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#ah-purple)"/>
-          <text x="218" y="38" font-size="13" fill="#7c3aed" font-style="italic">v</text>
+          <polygon points="150,380 450,280 720,400 420,520" fill="#e0f2fe" fill-opacity="0.8" stroke="#93c5fd" stroke-width="2"/>
+          <text x="580" y="440" font-size="24" fill="#2563eb" font-family="sans-serif" font-weight="bold">Subespacio H</text>
 
-          <!-- Proyección h -->
-          <line x1="160" y1="140" x2="200" y2="120" stroke="#0f766e" stroke-width="2.5" marker-end="url(#ah-teal)"/>
-          <text x="175" y="115" font-size="12" fill="#0f766e" font-style="italic">h = proy_H v</text>
+          <line x1="400" y1="520" x2="400" y2="60" stroke="#0f766e" stroke-width="3" marker-end="url(#arrow-teal)"/>
+          <text x="300" y="55" font-size="22" fill="#0f766e" font-family="sans-serif" font-weight="bold">Complemento Ortogonal H<tspan baseline-shift="super" font-size="16">⊥</tspan></text>
 
-          <!-- Error p -->
-          <line x1="200" y1="120" x2="215" y2="40" stroke="#dc2626" stroke-width="2" stroke-dasharray="4 3"/>
-          <text x="220" y="110" font-size="11" fill="#dc2626" font-style="italic">p (error)</text>
+          <line x1="400" y1="400" x2="500" y2="200" stroke="#9333ea" stroke-width="3" marker-end="url(#arrow-purple)"/>
+          <text x="440" y="250" font-size="20" fill="#000" font-family="sans-serif" font-weight="bold">v</text>
 
-          <circle cx="160" cy="140" r="2.5" fill="#0f172a"/>
+          <line x1="400" y1="400" x2="500" y2="380" stroke="#0284c7" stroke-width="3" marker-end="url(#arrow-blue)"/>
+
+          <line x1="500" y1="200" x2="400" y2="200" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 4"/>
+          <line x1="500" y1="200" x2="500" y2="380" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 4"/>
+
+          <path d="M 515 370 Q 525 370 525 285 Q 525 210 515 210" fill="none" stroke="#dc2626" stroke-width="2"/>
+          <text x="540" y="300" font-size="18" fill="#dc2626" font-family="sans-serif">Error = p = v − h</text>
+
+          <text x="160" y="180" font-size="20" fill="#1e293b" font-family="serif">p: Proyección sobre H<tspan baseline-shift="super" font-size="14">⊥</tspan></text>
+          <text x="140" y="205" font-size="20" fill="#1e293b" font-family="serif">Componente Perpendicular</text>
+          <line x1="380" y1="190" x2="400" y2="200" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+
+          <text x="370" y="190" font-size="20" fill="#000" font-family="serif" font-style="italic">p</text>
+          <text x="485" y="370" font-size="20" fill="#000" font-family="serif" font-style="italic">h</text>
+
+          <text x="440" y="550" font-size="20" fill="#1e293b" font-family="serif">h: Proyección sobre H</text>
+          <text x="440" y="575" font-size="20" fill="#1e293b" font-family="serif">Punto mejor aproximado a <tspan font-weight="bold">v</tspan> en H</text>
+
+          <rect x="200" y="270" width="100" height="40" rx="8" fill="#fff" stroke="#cbd5e1" stroke-width="1.5"/>
+          <text x="215" y="295" font-size="18" fill="#1e293b" font-family="serif" font-style="italic">v = h + p</text>
+
+          <rect x="525" y="80" width="273" height="140" rx="10" fill="#fff" stroke="#cbd5e1" stroke-width="1.5"/>
+          <text x="538" y="110" font-size="14" fill="#1e293b" font-family="sans-serif">
+            <tspan font-weight="bold">El Complemento Ortogonal (H</tspan><tspan baseline-shift="super" font-size="10" font-weight="bold">⊥</tspan><tspan font-weight="bold">)</tspan>
+          </text>
+          <text x="538" y="130" font-size="14" fill="#1e293b" font-family="sans-serif">es el conjunto completo de vectores</text>
+          <text x="538" y="150" font-size="14" fill="#1e293b" font-family="sans-serif">perpendiculares a H.</text>
+          <text x="538" y="175" font-size="14" fill="#1e293b" font-family="sans-serif">
+            <tspan font-weight="bold">La Componente Perpendicular (p)</tspan> es
+          </text>
+          <text x="538" y="195" font-size="14" fill="#1e293b" font-family="sans-serif">el vector resultante de proyectar <tspan font-weight="bold">v</tspan> sobre</text>
+          <text x="538" y="215" font-size="14" fill="#1e293b" font-family="sans-serif">H<tspan baseline-shift="super" font-size="10">⊥</tspan>.</text>
         </svg>
-        <div class="diagram-caption">$v = h + p$ con $h\in H$, $p\in H^\perp$</div>
       </div>
     </div>
 
@@ -804,19 +633,26 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
 
     <div class="callout callout-thm">
       <div class="callout-title">📐 Teorema 6.7 (base ortogonal)</div>
-      <p>Si $\{\vec{u}_1,\dots,\vec{u}_p\}$ es una base <strong>ortogonal</strong> de $W$ y
+      <p>Si $\{\vec{u}_1,\dots,\vec{u}_p\}$ es una base <strong>ortogonal</strong> de $H$ y
         $\vec{y}\in\mathbb{R}^n$, entonces</p>
+
       \[
-        \text{proy}_W\vec{y} =
-        \frac{\vec{y}\cdot\vec{u}_1}{\vec{u}_1\cdot\vec{u}_1}\vec{u}_1 + \dots +
-        \frac{\vec{y}\cdot\vec{u}_p}{\vec{u}_p\cdot\vec{u}_p}\vec{u}_p.
+        \begin{aligned}
+          \text{proy}_H\vec{y} &=
+          \frac{\vec{y}\cdot\vec{u}_1}{\vec{u}_1\cdot\vec{u}_1}\vec{u}_1 + \dots \\[0.5em]
+          &\quad + \frac{\vec{y}\cdot\vec{u}_p}{\vec{u}_p\cdot\vec{u}_p}\vec{u}_p.
+        \end{aligned}
       \]
     </div>
 
     <p>Si la base es <strong>ortonormal</strong>, la fórmula se simplifica:</p>
 
     \[
-      \text{proy}_W\vec{y} = (\vec{y}\cdot\vec{u}_1)\vec{u}_1 + \dots + (\vec{y}\cdot\vec{u}_p)\vec{u}_p.
+      \begin{aligned}
+        \text{proy}_H\vec{y} &=
+        (\vec{y}\cdot\vec{u}_1)\vec{u}_1 + \dots \\[0.5em]
+        &\quad + (\vec{y}\cdot\vec{u}_p)\vec{u}_p.
+      \end{aligned}
     \]
 
     <div class="callout callout-note">
@@ -828,31 +664,36 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
     <p>Para un subespacio de <strong>dimensión 1</strong> (una recta de dirección $\vec{u}$):</p>
 
     \[
-      \text{proy}_{\vec{u}}\vec{y} = \frac{\vec{y}\cdot\vec{u}}{\vec{u}\cdot\vec{u}}\,\vec{u}.
+      \text{proy}_{\vec{u}}\vec{y} =
+      \frac{\vec{y}\cdot\vec{u}}{\vec{u}\cdot\vec{u}}\,\vec{u}.
     \]
 
-    <p>Si $\vec{y}\in W$, entonces $\text{proy}_W\vec{y}=\vec{y}$ (corolario 6.2).</p>
+    <p>Si $\vec{y}\in H$, entonces $\text{proy}_H\vec{y}=\vec{y}$ (corolario 6.2).</p>
 
     <h3 class="section-title" id="sec-3-4">3.4 Mejor Aproximación y Distancia</h3>
 
     <div class="callout callout-thm">
       <div class="callout-title">📐 Mejor aproximación</div>
-      <p>La proyección ortogonal $\text{proy}_W\vec{y}$ es el <strong>vector de $W$ más cercano</strong> a
-        $\vec{y}$. Para cualquier $\vec{v}\in W$, $\vec{v}\ne\text{proy}_W\vec{y}$:</p>
+      <p>La proyección ortogonal $\text{proy}_H\vec{y}$ es el <strong>vector de $H$ más cercano</strong> a
+        $\vec{y}$. Para cualquier $\vec{h}\in H$, $\vec{h}\ne\text{proy}_H\vec{y}$:</p>
+
       \[
-        \|\vec{y} - \text{proy}_W\vec{y}\| < \|\vec{y} - \vec{v}\|.
+        \|\vec{y} - \text{proy}_H\vec{y}\| < \|\vec{y} - \vec{h}\|.
       \]
     </div>
 
-    <p>El vector error $\vec{\varepsilon} = \vec{y} - \text{proy}_W\vec{y}$ pertenece a $W^\perp$ y minimiza la
-      suma de errores al cuadrado. La <strong>distancia de $\vec{y}$ a $W$</strong> es</p>
+    <p>El vector error $\vec{\varepsilon} = \vec{y} - \text{proy}_H\vec{y}$ pertenece a $H^\perp$ y minimiza
+      la suma de errores al cuadrado. La <strong>distancia de $\vec{y}$ a $H$</strong> es</p>
 
     \[
-      d(\vec{y}, W) = \|\vec{y} - \text{proy}_W\vec{y}\| = \|\text{proy}_{W^\perp}\vec{y}\|.
+      \begin{aligned}
+        d(\vec{y}, H) &= \|\vec{y} - \text{proy}_H\vec{y}\| \\[0.5em]
+        &= \|\text{proy}_{H^\perp}\vec{y}\|.
+      \end{aligned}
     \]
 
-    <p>Análogamente, la distancia de $\vec{y}$ a $W^\perp$ es
-      $d(\vec{y}, W^\perp) = \|\text{proy}_W\vec{y}\|$.</p>
+    <p>Análogamente, la distancia de $\vec{y}$ a $H^\perp$ es
+      $d(\vec{y}, H^\perp) = \|\text{proy}_H\vec{y}\|$.</p>
 
     <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
   </section>
@@ -872,16 +713,21 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
     <div class="callout callout-thm">
       <div class="callout-title">📐 Teorema 6.8 (Gram-Schmidt)</div>
       <p>Dada una base $\{\vec{x}_1,\dots,\vec{x}_p\}$ de $W$, se definen:</p>
+
       \[
         \begin{aligned}
-          \vec{v}_1 &= \vec{x}_1 \\
-          \vec{v}_2 &= \vec{x}_2 - \frac{\vec{x}_2\cdot\vec{v}_1}{\vec{v}_1\cdot\vec{v}_1}\vec{v}_1 \\
-          \vec{v}_3 &= \vec{x}_3 - \frac{\vec{x}_3\cdot\vec{v}_1}{\vec{v}_1\cdot\vec{v}_1}\vec{v}_1
-                     - \frac{\vec{x}_3\cdot\vec{v}_2}{\vec{v}_2\cdot\vec{v}_2}\vec{v}_2 \\
-          &\vdots \\
-          \vec{v}_k &= \vec{x}_k - \sum_{j=1}^{k-1} \frac{\vec{x}_k\cdot\vec{v}_j}{\vec{v}_j\cdot\vec{v}_j}\,\vec{v}_j.
+          \vec{v}_1 &= \vec{x}_1 \\[0.5em]
+          \vec{v}_2 &= \vec{x}_2 -
+            \frac{\vec{x}_2\cdot\vec{v}_1}{\vec{v}_1\cdot\vec{v}_1}\vec{v}_1 \\[0.5em]
+          \vec{v}_3 &= \vec{x}_3 -
+            \frac{\vec{x}_3\cdot\vec{v}_1}{\vec{v}_1\cdot\vec{v}_1}\vec{v}_1 \\[0.3em]
+          &\quad - \frac{\vec{x}_3\cdot\vec{v}_2}{\vec{v}_2\cdot\vec{v}_2}\vec{v}_2 \\[0.5em]
+          &\vdots \\[0.5em]
+          \vec{v}_k &= \vec{x}_k - \sum_{j=1}^{k-1}
+            \frac{\vec{x}_k\cdot\vec{v}_j}{\vec{v}_j\cdot\vec{v}_j}\,\vec{v}_j.
         \end{aligned}
       \]
+
       <p>Entonces $\{\vec{v}_1,\dots,\vec{v}_p\}$ es una base <strong>ortogonal</strong> de $W$. Además,
         $\langle\vec{v}_1,\dots,\vec{v}_k\rangle = \langle\vec{x}_1,\dots,\vec{x}_k\rangle$ para todo $k$.</p>
       <p style="margin:0;">Finalmente, normalizando $\vec{u}_k = \vec{v}_k/\|\vec{v}_k\|$ se obtiene una base
@@ -892,31 +738,26 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       <div>
         <svg class="fig wide" viewBox="0 0 540 300" role="img" aria-label="Diagrama de flujo del proceso de Gram-Schmidt">
           <g font-family="Segoe UI, sans-serif">
-            <!-- Paso 1 -->
             <rect x="110" y="20" width="320" height="46" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
             <text x="270" y="42" font-size="12" text-anchor="middle" font-weight="700" fill="#1e3a8a">Paso 1: Identificar base inicial</text>
             <text x="270" y="58" font-size="11" text-anchor="middle" fill="#1e3a8a">{x₁, x₂, …, xₚ}</text>
             <line x1="270" y1="66" x2="270" y2="84" stroke="#475569" stroke-width="1.5" marker-end="url(#ah-gray)"/>
 
-            <!-- Paso 2 -->
             <rect x="110" y="88" width="320" height="46" rx="8" fill="#bfdbfe" stroke="#2563eb" stroke-width="1.5"/>
             <text x="270" y="110" font-size="12" text-anchor="middle" font-weight="700" fill="#1e3a8a">Paso 2: Fijar el primer vector</text>
             <text x="270" y="126" font-size="11" text-anchor="middle" fill="#1e3a8a">v₁ = x₁</text>
             <line x1="270" y1="134" x2="270" y2="152" stroke="#475569" stroke-width="1.5" marker-end="url(#ah-gray)"/>
 
-            <!-- Paso 3 -->
             <rect x="80" y="156" width="380" height="56" rx="8" fill="#93c5fd" stroke="#2563eb" stroke-width="1.5"/>
             <text x="270" y="178" font-size="12" text-anchor="middle" font-weight="700" fill="#0c4a6e">Paso 3: Iterar restando proyecciones</text>
             <text x="270" y="196" font-size="11" text-anchor="middle" fill="#0c4a6e">vₖ = xₖ − Σⱼ₌₁ᵏ⁻¹ (xₖ·vⱼ)/(vⱼ·vⱼ) · vⱼ</text>
             <line x1="270" y1="212" x2="270" y2="228" stroke="#475569" stroke-width="1.5" marker-end="url(#ah-gray)"/>
 
-            <!-- Paso 4 -->
             <rect x="110" y="232" width="320" height="46" rx="8" fill="#60a5fa" stroke="#2563eb" stroke-width="1.5"/>
             <text x="270" y="254" font-size="12" text-anchor="middle" font-weight="700" fill="#ffffff">Paso 4: Base ortogonal</text>
             <text x="270" y="270" font-size="11" text-anchor="middle" fill="#ffffff">{v₁, v₂, …, vₚ}</text>
             <line x1="440" y1="255" x2="490" y2="255" stroke="#475569" stroke-width="1.5" marker-end="url(#ah-gray)"/>
 
-            <!-- Paso 5 -->
             <rect x="420" y="180" width="110" height="130" rx="8" fill="#1d4ed8" stroke="#1e3a8a" stroke-width="1.5"/>
             <text x="475" y="200" font-size="11" text-anchor="middle" font-weight="700" fill="#ffffff">Paso 5:</text>
             <text x="475" y="216" font-size="10" text-anchor="middle" fill="#ffffff">Ortonormalizar</text>
@@ -939,47 +780,82 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
         <div class="solution-content">
           <p><strong>1) Base inicial.</strong> Despejando $z = -x-y$, un vector genérico es
             $(x,y,-x-y)$, de donde</p>
+
           \[
-            \mathbf{w}_1 = (1,0,-1), \qquad \mathbf{w}_2 = (0,1,-1).
+            \begin{aligned}
+              \mathbf{w}_1 &= (1,0,-1), \\[0.5em]
+              \mathbf{w}_2 &= (0,1,-1).
+            \end{aligned}
           \]
+
           <p><strong>2) ¿Son ortogonales?</strong></p>
+
           \[
-            \mathbf{w}_1\cdot\mathbf{w}_2 = 0 + 0 + 1 = 1 \neq 0 \Rightarrow \text{no ortogonal}.
+            \begin{aligned}
+              \mathbf{w}_1\cdot\mathbf{w}_2 &= 0 + 0 + 1 \\[0.5em]
+              &= 1 \neq 0 \;\Rightarrow\; \text{no ortogonal}.
+            \end{aligned}
           \]
 
           <p><strong>3) Primero ortogonalizamos.</strong></p>
+
           \[
             \mathbf{v}_1 = \mathbf{w}_1 = (1,0,-1).
           \]
+
           <p>Proyección de $\mathbf{w}_2$ sobre $\mathbf{v}_1$:</p>
+
           \[
-            \mathbf{w}_2\cdot\mathbf{v}_1 = 1, \quad \|\mathbf{v}_1\|^2 = 2,
-            \quad \text{proy} = \tfrac{1}{2}(1,0,-1) = \left(\tfrac{1}{2},0,-\tfrac{1}{2}\right).
+            \begin{aligned}
+              \mathbf{w}_2\cdot\mathbf{v}_1 &= 1, \\[0.5em]
+              \|\mathbf{v}_1\|^2 &= 2, \\[0.5em]
+              \text{proy} &= \tfrac{1}{2}(1,0,-1) \\[0.5em]
+              &= \left(\tfrac{1}{2},0,-\tfrac{1}{2}\right).
+            \end{aligned}
           \]
+
           \[
-            \mathbf{v}_2 = \mathbf{w}_2 - \text{proy}
-            = \left(0,1,-1\right) - \left(\tfrac{1}{2},0,-\tfrac{1}{2}\right)
-            = \left(-\tfrac{1}{2},1,-\tfrac{1}{2}\right).
+            \begin{aligned}
+              \mathbf{v}_2 &= \mathbf{w}_2 - \text{proy} \\[0.5em]
+              &= \left(0,1,-1\right) - \left(\tfrac{1}{2},0,-\tfrac{1}{2}\right) \\[0.5em]
+              &= \left(-\tfrac{1}{2},1,-\tfrac{1}{2}\right).
+            \end{aligned}
           \]
+
           <p>Escalamos (para evitar fracciones):</p>
+
           \[
             \mathbf{v}_2 \to (-1,2,-1).
           \]
+
           <p>Verificación: $\mathbf{v}_1\cdot\mathbf{v}_2 = -1 + 0 + 1 = 0$ ✓</p>
 
           <p><strong>4) Normalizamos.</strong></p>
+
           \[
-            \|\mathbf{v}_1\| = \sqrt{2},\quad \|\mathbf{v}_2\| = \sqrt{6}.
+            \begin{aligned}
+              \|\mathbf{v}_1\| &= \sqrt{2}, \\[0.5em]
+              \|\mathbf{v}_2\| &= \sqrt{6}.
+            \end{aligned}
           \]
+
           \[
-            \mathbf{u}_1 = \left(\tfrac{1}{\sqrt{2}},0,-\tfrac{1}{\sqrt{2}}\right), \quad
-            \mathbf{u}_2 = \left(-\tfrac{1}{\sqrt{6}},\tfrac{2}{\sqrt{6}},-\tfrac{1}{\sqrt{6}}\right).
+            \begin{aligned}
+              \mathbf{u}_1 &= \left(\tfrac{1}{\sqrt{2}},0,-\tfrac{1}{\sqrt{2}}\right), \\[0.5em]
+              \mathbf{u}_2 &= \left(-\tfrac{1}{\sqrt{6}},\tfrac{2}{\sqrt{6}},-\tfrac{1}{\sqrt{6}}\right).
+            \end{aligned}
           \]
 
           <p><strong>5) Comprobación.</strong></p>
+
           \[
-            \mathbf{u}_1\cdot\mathbf{u}_2 = 0, \quad \|\mathbf{u}_1\|=1, \quad \|\mathbf{u}_2\|=1.
+            \begin{aligned}
+              \mathbf{u}_1\cdot\mathbf{u}_2 &= 0, \\[0.5em]
+              \|\mathbf{u}_1\| &= 1, \\[0.5em]
+              \|\mathbf{u}_2\| &= 1.
+            \end{aligned}
           \]
+
           <p style="margin:0;">La base ortonormal de $H$ es $\{\mathbf{u}_1,\mathbf{u}_2\}$.</p>
         </div>
       </details>
@@ -994,13 +870,17 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
         <div class="solution-content">
           <p><strong>Complemento ortogonal.</strong> La ecuación implícita $x+y+z=0$ tiene vector normal
             $\mathbf{n}=(1,1,1)$. Normalizado:</p>
+
           \[
-            \mathbf{u}_3 = \left(\tfrac{1}{\sqrt{3}},\tfrac{1}{\sqrt{3}},\tfrac{1}{\sqrt{3}}\right),
-            \qquad H^\perp = \operatorname{gen}\{\mathbf{u}_3\}.
+            \begin{aligned}
+              \mathbf{u}_3 &= \left(\tfrac{1}{\sqrt{3}},\tfrac{1}{\sqrt{3}},\tfrac{1}{\sqrt{3}}\right), \\[0.5em]
+              H^\perp &= \operatorname{gen}\{\mathbf{u}_3\}.
+            \end{aligned}
           \]
 
           <p><strong>Matriz ortogonal.</strong> Tomando $\mathbf{u}_1,\mathbf{u}_2,\mathbf{u}_3$ como
             columnas:</p>
+
           \[
             Q = \begin{pmatrix}
               \tfrac{1}{\sqrt{2}} & -\tfrac{1}{\sqrt{6}} & \tfrac{1}{\sqrt{3}} \\
@@ -1010,13 +890,26 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
           \]
 
           <p><strong>Proyección.</strong></p>
+
           \[
-            \mathbf{v}\cdot\mathbf{u}_1 = \tfrac{1}{\sqrt{2}} + 0 - \tfrac{3}{\sqrt{2}} = -\tfrac{2}{\sqrt{2}},
-            \quad \mathbf{v}\cdot\mathbf{u}_2 = -\tfrac{1}{\sqrt{6}} + \tfrac{4}{\sqrt{6}} - \tfrac{3}{\sqrt{6}} = 0.
+            \begin{aligned}
+              \mathbf{v}\cdot\mathbf{u}_1 &= \tfrac{1}{\sqrt{2}} + 0 - \tfrac{3}{\sqrt{2}} \\[0.5em]
+              &= -\tfrac{2}{\sqrt{2}},
+            \end{aligned}
           \]
+
           \[
-            \text{proy}_H\mathbf{v} = -\tfrac{2}{\sqrt{2}}\left(\tfrac{1}{\sqrt{2}},0,-\tfrac{1}{\sqrt{2}}\right)
-            = (-1,0,1).
+            \begin{aligned}
+              \mathbf{v}\cdot\mathbf{u}_2 &= -\tfrac{1}{\sqrt{6}} + \tfrac{4}{\sqrt{6}} - \tfrac{3}{\sqrt{6}} \\[0.5em]
+              &= 0.
+            \end{aligned}
+          \]
+
+          \[
+            \begin{aligned}
+              \text{proy}_H\mathbf{v} &= -\tfrac{2}{\sqrt{2}}\left(\tfrac{1}{\sqrt{2}},0,-\tfrac{1}{\sqrt{2}}\right) \\[0.5em]
+              &= (-1,0,1).
+            \end{aligned}
           \]
 
           <p><strong>Comprobación.</strong> $(-1)+0+1=0$ ✓ (pertenece a $H$); además
@@ -1079,7 +972,7 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
       </div>
     </div>
 
-    <p>El espacio de columnas coincide con la imagen ($C_A = \text{Im}(A)$). Además, se cumple la relación
+    <p>El espacio de columnas coincide con la imagen $(C_A = \text{Im}(A))$. Además, se cumple la relación
       fundamental entre ecuaciones implícitas y complemento ortogonal:</p>
 
     \[
@@ -1090,23 +983,23 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
 
     <div class="callout callout-thm">
       <div class="callout-title">📐 Propiedades estructurales</div>
-      <div class="table-wrapper" style="margin-top:0.6rem;">
-        <table>
-          <thead><tr><th>Propiedad</th><th>Relación / condición</th></tr></thead>
-          <tbody>
-            <tr><td><strong>Rango-Nulidad</strong></td>
-                <td>$ran(A) + nul(A) = n$</td></tr>
-            <tr><td><strong>Dimensiones</strong></td>
-                <td>$\dim R_A = \dim C_A = \dim\text{Im}(A) = ran(A)$</td></tr>
-            <tr><td><strong>Invarianza</strong></td>
-                <td>Si $A\sim B$, comparten $R_A$, rango y nulidad. $\operatorname{rg}(A)$ = número de pivotes.</td></tr>
-            <tr><td><strong>Invertibilidad</strong> ($n\times n$)</td>
-                <td>$A$ invertible $\iff ran(A) = n \iff nul(A) = 0$</td></tr>
-            <tr><td><strong>Consistencia</strong></td>
-                <td>$A\vec{x}=\vec{b}$ tiene solución $\iff \vec{b}\in C_A \iff ran(A) = ran(A\mid\vec{b})$</td></tr>
-          </tbody>
-        </table>
-      </div>
+<div class="table-wrapper" style="margin-top:0.6rem;">
+  <table>
+    <thead><tr><th>Propiedad</th><th>Relación / condición</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Rango-Nulidad</strong></td>
+          <td>$ran(A) + nul(A) = n$</td></tr>
+      <tr><td><strong>Dimensiones</strong></td>
+          <td>$\dim R_A = \dim C_A$<br>$= \dim\text{Im}(A) = ran(A)$</td></tr>
+      <tr><td><strong>Invarianza</strong></td>
+          <td>Si $A\sim B$, comparten $R_A$, rango y nulidad.<br>$\operatorname{rg}(A)$ = número de pivotes.</td></tr>
+      <tr><td><strong>Invertibilidad</strong> $(n\times n)$</td>
+          <td>$A$ invertible<br>$\Leftrightarrow ran(A) = n$<br>$\Leftrightarrow nul(A) = 0$</td></tr>
+      <tr><td><strong>Consistencia</strong></td>
+          <td>$A\vec{x}=\vec{b}$ tiene solución<br>$\Leftrightarrow \vec{b}\in C_A$<br>$\Leftrightarrow ran(A) = ran(A\mid\vec{b})$</td></tr>
+    </tbody>
+  </table>
+</div>
     </div>
 
     <h3 class="section-title" id="sec-5-3">5.3 Ejemplo</h3>
@@ -1114,39 +1007,56 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
     <div class="example-box">
       <div class="example-header">🧩 Ejemplo 5.1: espacios fundamentales de una matriz $3\times4$</div>
       <p>Sistema homogéneo:</p>
+
       \[
         \begin{aligned}
-          x_1 + 2x_2 - x_3 + x_4 &= 0 \\
-          2x_1 + 4x_2 - x_3 + 3x_4 &= 0 \\
+          x_1 + 2x_2 - x_3 + x_4 &= 0 \\[0.5em]
+          2x_1 + 4x_2 - x_3 + 3x_4 &= 0 \\[0.5em]
           -x_1 - 2x_2 + 2x_3 &= 0
         \end{aligned}
       \]
+
       <details class="solution">
         <summary>🔍 Ver solución</summary>
         <div class="solution-content">
           <p>Matriz aumentada y Gauss-Jordan:</p>
+
           \[
-            A = \begin{pmatrix}1&2&-1&1\\2&4&-1&3\\-1&-2&2&0\end{pmatrix}
-            \sim R = \begin{pmatrix}1&2&0&2\\0&0&1&1\\0&0&0&0\end{pmatrix}.
+            \begin{aligned}
+              A &= \begin{pmatrix}1&2&-1&1\\2&4&-1&3\\-1&-2&2&0\end{pmatrix} \\[0.5em]
+              &\sim R = \begin{pmatrix}1&2&0&2\\0&0&1&1\\0&0&0&0\end{pmatrix}.
+            \end{aligned}
           \]
 
           <p><strong>Espacio fila.</strong> Filas no nulas de $R$:</p>
+
           \[
-            \operatorname{Base}(R_A) = \{(1,2,0,2), (0,0,1,1)\}, \quad \dim = 2.
+            \operatorname{Base}(R_A) = \{(1,2,0,2),\, (0,0,1,1)\}, \quad \dim = 2.
           \]
+
           <p>Interpretación: el sistema original tiene solo dos restricciones independientes.</p>
 
           <p><strong>Espacio columna.</strong> Columnas pivotales (1 y 3) de $A$:</p>
+
           \[
-            \operatorname{Base}(C_A) = \left\{\begin{pmatrix}1\\2\\-1\end{pmatrix}, \begin{pmatrix}-1\\-1\\2\end{pmatrix}\right\}, \quad \dim = 2.
+            \operatorname{Base}(C_A) =
+            \left\{\begin{pmatrix}1\\2\\-1\end{pmatrix},
+            \begin{pmatrix}-1\\-1\\2\end{pmatrix}\right\}, \quad \dim = 2.
           \]
 
           <p><strong>Espacio nulo.</strong> Con $x_2=s$, $x_4=t$ libres:</p>
+
           \[
-            x_1 = -2s-2t, \quad x_3 = -t,
+            \begin{aligned}
+              x_1 &= -2s-2t, \\[0.5em]
+              x_3 &= -t,
+            \end{aligned}
           \]
+
           \[
-            \operatorname{Base}(N_A) = \left\{\begin{pmatrix}-2\\1\\0\\0\end{pmatrix}, \begin{pmatrix}-2\\0\\-1\\1\end{pmatrix}\right\}, \quad \dim = 2.
+            \operatorname{Base}(N_A) =
+            \left\{\begin{pmatrix}-2\\1\\0\\0\end{pmatrix},
+            \begin{pmatrix}-2\\0\\-1\\1\end{pmatrix}\right\}, \quad \dim = 2.
           \]
 
           <p><strong>Verificación rango-nulidad:</strong> $2 + 2 = 4 = n$ ✓</p>
@@ -1160,526 +1070,6 @@ svg.fig.wide { max-width: min(100%, 540px); }   /* antes 900 px */
   <!-- ===================================================================== -->
   <!-- MÓDULO 6: EJERCICIOS PROPUESTOS                                       -->
   <!-- ===================================================================== -->
-  <section class="card" id="mod-6">
-    <h2 class="module-title"><span class="badge">MÓDULO 06</span> Ejercicios Propuestos</h2>
-
-    <h3 class="section-title" id="sec-6-1">6.1 Subespacios e Intersección</h3>
-
-    <div class="example-box">
-      <div class="example-header">📝 Ejercicio 6.1: intersección generador/implícita</div>
-      <p>Sean $H_1 = \operatorname{gen}\{(1,0,1),(0,1,1)\}$ y $H_2 = \{(x,y,z) : x+y-2z = 0\}$.
-        Determine una base para $H_1\cap H_2$.</p>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p><strong>Forma implícita de $H_1$.</strong> Un vector genérico es
-            $(\alpha, \beta, \alpha+\beta)$. Entonces $z = x+y \Rightarrow x+y-z=0$.</p>
-          <p><strong>Intersección.</strong> Resolvemos:</p>
-          \[
-            x+y-z=0, \qquad x+y-2z=0.
-          \]
-          <p>Restando: $z=0$. Entonces $y=-x$. Por lo tanto</p>
-          \[
-            H_1\cap H_2 = \operatorname{gen}\{(1,-1,0)\}.
-          \]
-          <p>Base: $\{(1,-1,0)\}$, dimensión $1$.</p>
-        </div>
-      </details>
-    </div>
-
-    <div class="example-box">
-      <div class="example-header">📝 Ejercicio 6.2: base y dimensión de la suma</div>
-      <p>Con $H = \operatorname{gen}\{(1,0,1),(0,1,1)\}$ y $F = \operatorname{gen}\{(1,1,2),(0,0,1)\}$
-        en $\mathbb{R}^3$. Determinar $H+F$, una base y su dimensión.</p>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p>Unión de generadores:</p>
-          \[
-            H+F = \operatorname{gen}\{(1,0,1),(0,1,1),(1,1,2),(0,0,1)\}.
-          \]
-          <p>Observamos que $(1,1,2) = (1,0,1)+(0,1,1)$, así que es redundante. Reducimos a
-            $\{(1,0,1),(0,1,1),(0,0,1)\}$, que son LI. Por tanto</p>
-          \[
-            \dim(H+F) = 3 \Rightarrow H+F = \mathbb{R}^3.
-          \]
-          <p>Base: $\{(1,0,1),(0,1,1),(0,0,1)\}$.</p>
-        </div>
-      </details>
-    </div>
-
-    <div class="example-box">
-      <div class="example-header">📝 Ejercicio 6.3: análisis de vectores y bases en $\mathbb{R}^3$</div>
-      <p>Con $\mathbf{u}_1 = (1,2,1)$, $\mathbf{u}_2 = (0,1,1)$:</p>
-      <ol type="a">
-        <li>Encuentre $k$ tal que $\mathbf{v}=(2,k,3)$ sea combinación lineal de $\mathbf{u}_1,\mathbf{u}_2$.</li>
-        <li>Encuentre $k$ tal que $S=\{\mathbf{u}_1,\mathbf{u}_2,(1,k,0)\}$ sea base de $\mathbb{R}^3$.</li>
-        <li>Con $H = \operatorname{gen}\{\mathbf{u}_1\}$ y $F = \operatorname{gen}\{\mathbf{u}_2,(1,0,0)\}$,
-          determine si $H\oplus F = \mathbb{R}^3$.</li>
-      </ol>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p><strong>a)</strong> Planteando $\mathbf{v} = a\mathbf{u}_1 + b\mathbf{u}_2$:</p>
-          \[
-            (2,k,3) = a(1,2,1) + b(0,1,1) = (a, 2a+b, a+b).
-          \]
-          <p>De $a=2$ y $a+b=3 \Rightarrow b=1$. Entonces $k = 2(2)+1 = 5$.</p>
-
-          <p><strong>b)</strong> Determinante de $\{\mathbf{u}_1,\mathbf{u}_2,(1,k,0)\}$:</p>
-          \[
-            \det\begin{pmatrix}1&0&1\\2&1&k\\1&1&0\end{pmatrix}
-            = 1(0-k) - 0 + 1(2-1) = -k + 1.
-          \]
-          <p>Es base si $-k+1\ne 0 \Rightarrow k \ne 1$.</p>
-
-          <p><strong>c)</strong> Verificamos $\dim(H+F) = 3$:</p>
-          \[
-            \dim H = 1, \quad \dim F = 2, \quad \dim(H\cap F)=?
-          \]
-          <p>¿Está $\mathbf{u}_1=(1,2,1)$ en $F$? Resolvemos
-            $a(0,1,1)+b(1,0,0) = (1,2,1)$: de $b=1$, $a=2$, $a=1$ → contradicción. Por tanto
-            $H\cap F = \{\vec{0}\}$, y $\dim(H+F) = 1+2-0 = 3$. Sí son complementarios.</p>
-        </div>
-      </details>
-    </div>
-
-    <div class="example-box">
-      <div class="example-header">📝 Ejercicio 6.4: determinación de subespacio</div>
-      <p>Determine si $S = \{(x,y,z) : xy = 0\}$ es subespacio de $\mathbb{R}^3$.</p>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p>Tomemos $\vec{u} = (1,0,0)\in S$ y $\vec{v} = (0,1,0)\in S$ (ambos cumplen $xy=0$).
-            Su suma $\vec{u}+\vec{v} = (1,1,0)$ tiene $xy = 1 \ne 0$, luego no está en $S$.</p>
-          <p style="margin:0;"><strong>No es subespacio.</strong></p>
-        </div>
-      </details>
-    </div>
-
-    <div class="example-box">
-      <div class="example-header">📝 Ejercicio 6.5: subespacio paramétrico</div>
-      <p>¿Para qué $k$ el conjunto $W = \{(x,y,z): 2x-y+3z = k^2-4\}$ es subespacio?</p>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p>Un subespacio definido por una sola ecuación <em>debe pasar por el origen</em>. Sustituimos
-            $(0,0,0)$: $0 = k^2-4 \Rightarrow k^2 = 4 \Rightarrow k = \pm 2$.</p>
-          <p style="margin:0;">Para esos valores $W$ es un plano por el origen y sí es subespacio.</p>
-        </div>
-      </details>
-    </div>
-
-    <h3 class="section-title" id="sec-6-2">6.2 Suma Directa y Descomposición</h3>
-
-    <div class="example-box">
-      <div class="example-header">📝 Ejercicio 6.6: pertenencia y descomposición en suma directa</div>
-      <p>Sea $\mathbf{v} = (3,-2,5)$, $H = \operatorname{gen}\{(1,1,0),(0,1,1)\}$ y
-        $F = \operatorname{gen}\{(1,0,1)\}$. Sabiendo que $\mathbb{R}^3 = H\oplus F$:</p>
-      <ol type="a">
-        <li>¿Pertenece $\mathbf{v}$ a $H$?</li>
-        <li>Exprese $\mathbf{v} = \mathbf{u} + \mathbf{w}$ con $\mathbf{u}\in H$, $\mathbf{w}\in F$.</li>
-      </ol>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p><strong>a)</strong> Planteamos $\mathbf{v} = a(1,1,0) + b(0,1,1) = (a, a+b, b)$. De $a=3$ y
-            $b=5$, $a+b=8 \ne -2$. <strong>No pertenece.</strong></p>
-
-          <p><strong>b)</strong> Planteamos
-            $\mathbf{v} = a(1,1,0)+b(0,1,1)+c(1,0,1)$:</p>
-          \[
-            \begin{cases}
-              a + c = 3\\
-              a + b = -2\\
-              b + c = 5
-            \end{cases}
-          \]
-          <p>De las dos primeras: $c=3-a$, $b=-2-a$. Sustituyendo en la tercera:
-            $(-2-a)+(3-a)=5 \Rightarrow 1-2a=5 \Rightarrow a=-2$. Entonces $b=0$, $c=5$.</p>
-          \[
-            \mathbf{u} = -2(1,1,0)+0\cdot(0,1,1) = (-2,-2,0),
-            \quad \mathbf{w} = 5(1,0,1) = (5,0,5).
-          \]
-          <p style="margin:0;">Verificación: $(-2,-2,0)+(5,0,5)=(3,-2,5)$ ✓</p>
-        </div>
-      </details>
-    </div>
-
-    <h3 class="section-title" id="sec-6-3">6.3 Cambio de Base</h3>
-
-    <div class="example-box">
-      <div class="example-header">📝 Ejercicio 6.7: cambio de base en $\mathbb{R}^2$</div>
-      <p>$B_1 = \{(1,2),(-1,1)\}$ y $B_2 = \{(1,1),(1,-1)\}$.</p>
-      <ol type="a">
-        <li>Calcule $A_{B_1\to B_2}$.</li>
-        <li>Con $[\vec{x}]_{B_1} = (6,-4)$, calcule $[\vec{x}]_{\text{canónica}}$ y $[\vec{x}]_{B_2}$.</li>
-        <li>Con $[\vec{y}]_{\text{canónica}} = (4,5)$, calcule $[\vec{y}]_{B_1}$.</li>
-      </ol>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p><strong>Paso 1.</strong> Matrices de paso a la canónica:</p>
-          \[
-            P_{B_1} = \begin{pmatrix}1&-1\\2&1\end{pmatrix}, \quad
-            P_{B_2} = \begin{pmatrix}1&1\\1&-1\end{pmatrix}, \quad
-            P_{B_2}^{-1} = \tfrac{1}{-2}\begin{pmatrix}-1&-1\\-1&1\end{pmatrix}
-            = \begin{pmatrix}1/2&1/2\\1/2&-1/2\end{pmatrix}.
-          \]
-
-          <p><strong>a) Cambio de base.</strong></p>
-          \[
-            A_{B_1\to B_2} = P_{B_2}^{-1}P_{B_1}
-            = \begin{pmatrix}1/2&1/2\\1/2&-1/2\end{pmatrix}
-              \begin{pmatrix}1&-1\\2&1\end{pmatrix}
-            = \begin{pmatrix}3/2&0\\-1/2&-1\end{pmatrix}.
-          \]
-
-          <p><strong>b) Con $[\vec{x}]_{B_1}=(6,-4)$.</strong></p>
-          \[
-            [\vec{x}]_{\text{can}} = P_{B_1}\begin{pmatrix}6\\-4\end{pmatrix}
-            = \begin{pmatrix}6+4\\12-4\end{pmatrix} = \begin{pmatrix}10\\8\end{pmatrix}.
-          \]
-          \[
-            [\vec{x}]_{B_2} = A_{B_1\to B_2}\begin{pmatrix}6\\-4\end{pmatrix}
-            = \begin{pmatrix}9\\1\end{pmatrix}.
-          \]
-
-          <p><strong>c) Con $[\vec{y}]_{\text{can}}=(4,5)$.</strong></p>
-          \[
-            [\vec{y}]_{B_1} = P_{B_1}^{-1}\begin{pmatrix}4\\5\end{pmatrix}
-            = \tfrac{1}{3}\begin{pmatrix}1&1\\-2&1\end{pmatrix}\begin{pmatrix}4\\5\end{pmatrix}
-            = \tfrac{1}{3}\begin{pmatrix}9\\-3\end{pmatrix} = \begin{pmatrix}3\\-1\end{pmatrix}.
-          \]
-        </div>
-      </details>
-    </div>
-
-    <div class="example-box">
-      <div class="example-header">📝 Ejercicio 6.8: cambio de base en $\mathbb{R}^3$ (bases triangulares)</div>
-      <p>$B_1 = \{(1,0,1),(0,1,1),(1,1,0)\}$ y $B_2 = \{(1,0,0),(1,1,0),(1,1,1)\}$.</p>
-      <ol type="a">
-        <li>$A_{B_1\to B_2}$.</li>
-        <li>Con $[\vec{x}]_{B_1}=(2,-1,3)$: calcule $[\vec{x}]_{\text{can}}$ y $[\vec{x}]_{B_2}$.</li>
-        <li>Con $[\vec{y}]_{\text{can}}=(4,5,-2)$: calcule $[\vec{y}]_{B_1}$.</li>
-      </ol>
-      <details class="solution">
-        <summary>🔍 Ver solución (resumen)</summary>
-        <div class="solution-content">
-          <p>Matrices:</p>
-          \[
-            P_{B_1} = \begin{pmatrix}1&0&1\\0&1&1\\1&1&0\end{pmatrix},\quad
-            P_{B_2} = \begin{pmatrix}1&1&1\\0&1&1\\0&0&1\end{pmatrix}.
-          \]
-          \[
-            P_{B_2}^{-1} = \begin{pmatrix}1&-1&0\\0&1&-1\\0&0&1\end{pmatrix}.
-          \]
-          \[
-            A_{B_1\to B_2} = P_{B_2}^{-1}P_{B_1}
-            = \begin{pmatrix}1&-1&0\\-1&0&1\\1&1&0\end{pmatrix}.
-          \]
-
-          <p><strong>b)</strong> $[\vec{x}]_{\text{can}} = P_{B_1}(2,-1,3)^t = (5,2,1)^t$.</p>
-          \[
-            [\vec{x}]_{B_2} = A_{B_1\to B_2}(2,-1,3)^t = (3,-1,1)^t.
-          \]
-
-          <p><strong>c)</strong> $[\vec{y}]_{B_1} = P_{B_1}^{-1}(4,5,-2)^t$. Se obtiene
-            $(3,2,-1)^t$.</p>
-        </div>
-      </details>
-    </div>
-
-    <div class="example-box">
-      <div class="example-header">📝 Ejercicio 6.9: cambio de base con bases escaladas</div>
-      <p>$B_1 = \{(1,1,1),(0,1,1),(0,0,1)\}$ y $B_2 = \{(2,0,0),(0,-1,0),(0,0,3)\}$.</p>
-      <ol type="a">
-        <li>$A_{B_1\to B_2}$.</li>
-        <li>Con $[\vec{x}]_{B_1}=(1,2,-1)$: $[\vec{x}]_{\text{can}}$ y $[\vec{x}]_{B_2}$.</li>
-        <li>Con $[\vec{y}]_{\text{can}}=(-2,3,6)$: $[\vec{y}]_{B_1}$.</li>
-      </ol>
-      <details class="solution">
-        <summary>🔍 Ver solución (resumen)</summary>
-        <div class="solution-content">
-          <p>$P_{B_1}$ es triangular superior con $1$'s en la diagonal, $P_{B_2}$ es diagonal, por lo
-            que</p>
-          \[
-            P_{B_1}^{-1} = \begin{pmatrix}1&-1&0\\0&1&-1\\0&0&1\end{pmatrix},\quad
-            P_{B_2}^{-1} = \begin{pmatrix}1/2&0&0\\0&-1&0\\0&0&1/3\end{pmatrix}.
-          \]
-          \[
-            A_{B_1\to B_2} = P_{B_2}^{-1}P_{B_1}
-            = \begin{pmatrix}1/2&1/2&1/2\\0&-1&-1\\0&0&1/3\end{pmatrix}.
-          \]
-
-          <p><strong>b)</strong> $[\vec{x}]_{\text{can}} = P_{B_1}(1,2,-1)^t = (1,3,2)^t$.</p>
-          \[
-            [\vec{x}]_{B_2} = A_{B_1\to B_2}(1,2,-1)^t = (1,-1,-1/3)^t.
-          \]
-
-          <p><strong>c)</strong> $[\vec{y}]_{B_1} = P_{B_1}^{-1}(-2,3,6)^t = (-5,-3,6)^t$.</p>
-        </div>
-      </details>
-    </div>
-
-    <h3 class="section-title" id="sec-6-4">6.4 Espacios Vectoriales</h3>
-
-    <div class="example-box">
-      <div class="example-header">📝 Ejercicio 6.10: matrices diagonales como espacio vectorial</div>
-      <p>Sea $V = \left\{\begin{pmatrix}a&0\\0&b\end{pmatrix} : a,b\in\mathbb{R}\right\}$ con las operaciones
-        usuales. ¿Es espacio vectorial sobre $\mathbb{R}$?</p>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p><strong>Sí.</strong> La suma de dos matrices diagonales es diagonal y la multiplicación por un
-            escalar también. El neutro (matriz cero) es diagonal y para cada matriz existe su opuesta. Los 8
-            axiomas se heredan de $M_{2\times2}(\mathbb{R})$. Por tanto $V \le M_{2\times2}(\mathbb{R})$ es
-            un subespacio y, en sí mismo, un espacio vectorial.</p>
-        </div>
-      </details>
-    </div>
-
-    <h3 class="section-title" id="sec-6-5">6.5 Ortogonalidad y Proyecciones</h3>
-
-    <div class="example-box">
-      <div class="example-header">📝 Ejercicio 6.11: espacios fundamentales de una matriz $3\times4$</div>
-      <p>Con</p>
-      \[
-        A = \begin{pmatrix}1&2&1&2\\2&4&-1&-5\\1&2&2&5\end{pmatrix},
-        \quad \mathbf{v} = (-1,1,-3,1)^t.
-      \]
-      <ol type="a">
-        <li>Base y nulidad de $N_A$.</li>
-        <li>Base de $R_A$.</li>
-        <li>Base de $C_A$ y rango.</li>
-        <li>¿Pertenece $\mathbf{v}$ a $N_A$?</li>
-      </ol>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p>Eliminando Gauss-Jordan:</p>
-          \[
-            R = \begin{pmatrix}1&2&0&3\\0&0&1&-1\\0&0&0&0\end{pmatrix}.
-          \]
-
-          <p><strong>a) Nulo.</strong> Pivotes en columnas 1 y 3. Variables libres $x_2=s$, $x_4=t$:</p>
-          \[
-            x_1 = -2s - 3t, \quad x_3 = t.
-          \]
-          \[
-            \operatorname{Base}(N_A) = \left\{(-2,1,0,0)^t, (-3,0,1,1)^t\right\}, \quad nul = 2.
-          \]
-
-          <p><strong>b) Fila.</strong></p>
-          \[
-            \operatorname{Base}(R_A) = \{(1,2,0,3), (0,0,1,-1)\}.
-          \]
-
-          <p><strong>c) Columnas.</strong> Pivotes en columnas 1 y 3 de $A$:</p>
-          \[
-            \operatorname{Base}(C_A) = \left\{(1,2,1)^t, (1,-1,2)^t\right\}, \quad ran = 2.
-          \]
-
-          <p><strong>d)</strong> Calculamos $A\mathbf{v}$:</p>
-          \[
-            A\mathbf{v} = \begin{pmatrix}0\\0\\0\end{pmatrix} \Rightarrow \mathbf{v}\in N_A \ \checkmark.
-          \]
-        </div>
-      </details>
-    </div>
-
-    <div class="example-box">
-      <div class="example-header">📝 Ejercicio 6.12: proyección ortogonal sobre un subespacio de $\mathbb{R}^4$</div>
-      <p>Sea $W = \operatorname{gen}\{(1,1,1,1),(2,2,0,0),(3,1,1,-1)\}$ y $\mathbf{v}=(8,-6,2,4)$. Halle:</p>
-      <ol type="a">
-        <li>Base ortonormal de $W$ (Gram-Schmidt).</li>
-        <li>Base de $W^\perp$ y verificación de dimensiones.</li>
-        <li>$\text{proy}_W\mathbf{v}$.</li>
-        <li>Verificar que $\mathbf{v}-\text{proy}_W\mathbf{v}\in W^\perp$.</li>
-      </ol>
-      <details class="solution">
-        <summary>🔍 Ver solución (resumen)</summary>
-        <div class="solution-content">
-          <p><strong>a)</strong> Gram-Schmidt sobre $\{w_1,w_2,w_3\}$:</p>
-          \[
-            v_1 = (1,1,1,1), \quad v_2 = (2,2,0,0) - 1\cdot v_1 = (1,1,-1,-1),
-          \]
-          \[
-            v_3 = w_3 - \tfrac{w_3\cdot v_1}{4}v_1 - \tfrac{w_3\cdot v_2}{4}v_2
-                = (3,1,1,-1) - 1\cdot v_1 - 1\cdot v_2 = (1,-1,1,-1).
-          \]
-          <p>Normalizando: $\|v_1\| = \|v_2\| = \|v_3\| = 2$.</p>
-          \[
-            u_1 = \tfrac12(1,1,1,1), \ u_2=\tfrac12(1,1,-1,-1), \ u_3=\tfrac12(1,-1,1,-1).
-          \]
-
-          <p><strong>b)</strong> $W^\perp$: $\dim W^\perp = 4-3=1$. El vector perpendicular a los tres
-            $u_i$ es $u_4 = \tfrac12(1,-1,-1,1)$ (se verifica con productos punto).</p>
-
-          <p><strong>c) Proyección.</strong> $v\cdot u_1 = 4$, $v\cdot u_2 = 0$, $v\cdot u_3 = 12$.
-            Entonces</p>
-          \[
-            \text{proy}_W\mathbf{v} = 4u_1 + 0\cdot u_2 + 12 u_3
-            = 2(1,1,1,1)+6(1,-1,1,-1) = (8,-4,8,-4).
-          \]
-
-          <p><strong>d)</strong> $\mathbf{v}-\text{proy}_W\mathbf{v} = (0,-2,-6,8)$. Este vector debe
-            ser proporcional a $u_4 = (1,-1,-1,1)$: $(0,-2,-6,8)$ no es proporcional… conviene
-            rehacer: el error es $(8-8, -6+4, 2-8, 4+4) = (0,-2,-6,8)$, y el múltiplo es $-2\cdot
-            (0,1,3,-4)$, mientras que $u_4$ no es proporcional. Conviene recalcular $v_3$: el cálculo
-            correcto da $v_3=(1,-1,1,-1)$ y $u_4=(1,-1,-1,1)/2$. Producto $\mathbf{v}\cdot u_3 = (8+6+2-4)/2 = 6$,
-            luego $\text{proy}=2(1,1,1,1)+6(1,-1,1,-1) = (8,-4,8,-4)$ y error $(0,-2,-6,8)$, que sí es
-            perpendicular a $u_1,u_2,u_3$.</p>
-        </div>
-      </details>
-    </div>
-
-    <div class="example-box">
-      <div class="example-header">📝 Ejercicio 6.13: construcción de matriz ortogonal</div>
-      <p>Sea</p>
-      \[
-        A = \begin{pmatrix}1/\sqrt{3} & 1/\sqrt{2} & a\\1/\sqrt{3}&-1/\sqrt{2}&b\\1/\sqrt{3}&0&c\end{pmatrix}.
-      \]
-      <ol type="a">
-        <li>Determine $a,b,c$ para que las columnas sean ortonormales ($a>0$).</li>
-        <li>Verifique $A^tA = I$.</li>
-        <li>Resuelva $A\mathbf{x} = (1,0,1)^t$ sin Gauss-Jordan.</li>
-      </ol>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p><strong>a)</strong> La tercera columna $(a,b,c)$ debe ser ortogonal a las dos primeras y
-            tener norma 1. Ortogonal a col 1: $\tfrac{a+b+c}{\sqrt{3}}=0 \Rightarrow a+b+c=0$. Ortogonal a
-            col 2: $\tfrac{a-b}{\sqrt{2}}=0 \Rightarrow a=b$.</p>
-          <p>De ambas: $a=b$ y $c=-2a$. Con $\|(a,a,-2a)\| = |a|\sqrt{6} = 1 \Rightarrow a = 1/\sqrt{6}$.
-            Por tanto</p>
-          \[
-            a = b = \tfrac{1}{\sqrt{6}}, \quad c = -\tfrac{2}{\sqrt{6}}.
-          \]
-
-          <p><strong>b)</strong> $A^tA = I$ se verifica por construcción: las columnas son ortonormales.</p>
-
-          <p><strong>c)</strong> Como $A$ es ortogonal, $A^{-1} = A^t$. Entonces</p>
-          \[
-            \mathbf{x} = A^t(1,0,1)^t = \left(\tfrac{1}{\sqrt{3}}+\tfrac{1}{\sqrt{3}},
-              \tfrac{1}{\sqrt{2}}-\tfrac{1}{\sqrt{2}}, a+b\right)^t?
-          \]
-          <p>Recalculando:</p>
-          \[
-            \mathbf{x} = \left(\tfrac{2}{\sqrt{3}}, 0, a+b\right)^t
-            = \left(\tfrac{2}{\sqrt{3}}, 0, \tfrac{2}{\sqrt{6}}\right)^t.
-          \]
-        </div>
-      </details>
-    </div>
-
-    <div class="example-box">
-      <div class="example-header">📝 Ejercicio 6.14: base ortonormal por Gram-Schmidt</div>
-      <p>$v_1=(1,-1,1)$, $v_2=(-2,3,-1)$, $v_3=(1,2,-4)$. Obtenga una base ortonormal de $\mathbb{R}^3$.</p>
-      <details class="solution">
-        <summary>🔍 Ver solución (resumen)</summary>
-        <div class="solution-content">
-          <p><strong>Ortogonalización:</strong></p>
-          \[
-            u_1 = (1,-1,1), \quad \|u_1\|^2 = 3.
-          \]
-          \[
-            u_2 = v_2 - \tfrac{v_2\cdot u_1}{3}u_1 = (-2,3,-1) - (-2)u_1 = (0,1,1).
-          \]
-          \[
-            u_3 = v_3 - \tfrac{v_3\cdot u_1}{3}u_1 - \tfrac{v_3\cdot u_2}{2}u_2
-                = (1,2,-4) - (-1)u_1 - (-1)u_2 = (0,-1,1).
-          \]
-          <p><strong>Normalización:</strong></p>
-          \[
-            e_1 = \tfrac{1}{\sqrt{3}}(1,-1,1), \quad
-            e_2 = \tfrac{1}{\sqrt{2}}(0,1,1), \quad
-            e_3 = \tfrac{1}{\sqrt{2}}(0,-1,1).
-          \]
-        </div>
-      </details>
-    </div>
-
-    <div class="example-box">
-      <div class="example-header">📝 Ejercicio 6.15: ortogonalización y distancias en $\mathbb{R}^3$</div>
-      <p>$H = \operatorname{gen}\{(1,-1,1),(1,0,1)\}$, $\mathbf{v} = (2,0,0)$.</p>
-      <ol type="a">
-        <li>Base ortonormal de $H$.</li>
-        <li>Descomposición $\mathbf{v} = \mathbf{h} + \mathbf{p}$, $\mathbf{h}\in H$, $\mathbf{p}\in H^\perp$.</li>
-        <li>Dimensión de $H^\perp$ y justificación de $H\cap H^\perp = \{\vec{0}\}$.</li>
-      </ol>
-      <details class="solution">
-        <summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p><strong>a)</strong> Gram-Schmidt sobre $w_1=(1,-1,1)$, $w_2=(1,0,1)$:</p>
-          \[
-            u_1 = (1,-1,1), \quad u_2 = w_2 - \tfrac{w_2\cdot u_1}{3}u_1
-            = (1,0,1) - \tfrac{2}{3}(1,-1,1) = \left(\tfrac{1}{3},\tfrac{2}{3},\tfrac{1}{3}\right) \propto (1,2,1).
-          \]
-          <p>Normalizando:</p>
-          \[
-            e_1 = \tfrac{1}{\sqrt{3}}(1,-1,1), \quad e_2 = \tfrac{1}{\sqrt{6}}(1,2,1).
-          \]
-
-          <p><strong>b)</strong> $\dim H = 2$, $\dim\mathbb{R}^3=3$ ⇒ $\dim H^\perp = 1$. Base:
-            $e_3 \propto w_1\times w_2 = (-1,0,1)$, normalizado $e_3 = \tfrac{1}{\sqrt{2}}(-1,0,1)$.</p>
-          \[
-            \mathbf{h} = (\mathbf{v}\cdot e_1)e_1 + (\mathbf{v}\cdot e_2)e_2
-            = \tfrac{2}{\sqrt{3}}e_1 + \tfrac{2}{\sqrt{6}}e_2.
-          \]
-          \[
-            \mathbf{h} = \left(\tfrac{2}{3}+\tfrac{2}{6}, -\tfrac{2}{3}+\tfrac{4}{6}, \tfrac{2}{3}+\tfrac{2}{6}\right)
-            = \left(1,0,1\right)?
-          \]
-          <p>Recalculando: $\mathbf{v}\cdot e_1 = 2/\sqrt{3}$, $\mathbf{v}\cdot e_2 = 2/\sqrt{6}$.
-            Entonces</p>
-          \[
-            \mathbf{h} = \tfrac{2}{3}(1,-1,1) + \tfrac{2}{6}(1,2,1) = (1,0,1).
-          \]
-          \[
-            \mathbf{p} = \mathbf{v}-\mathbf{h} = (2,0,0) - (1,0,1) = (1,0,-1).
-          \]
-          <p>Verificación: $\mathbf{p}\cdot w_1 = 1-1 = 0$, $\mathbf{p}\cdot w_2 = 1-1 = 0$ ✓</p>
-
-          <p><strong>c)</strong> $\dim H^\perp = 3-2=1$; $H\cap H^\perp = \{\vec{0}\}$ porque todo
-            $\vec{w}\in H\cap H^\perp$ debe cumplir $\vec{w}\cdot\vec{w}=0$, luego $\vec{w}=\vec{0}$.</p>
-        </div>
-      </details>
-    </div>
-
-    <div class="example-box">
-      <div class="example-header">📝 Ejercicio 6.16: descomposición con mejor aproximación (verificación)</div>
-      <p>Con $H = \{x-y=0\}$ en $\mathbb{R}^3$ y $\mathbf{v} = (3,1,4)$:</p>
-      <ul>
-        <li>Base ortonormal de $H$ y de $H^\perp$.</li>
-        <li>Descomposición $\mathbf{v} = \mathbf{h} + \mathbf{p}$.</li>
-        <li>Comparar $\|\mathbf{v}-\text{proy}_H\mathbf{v}\|$ con $\|\mathbf{v}-\mathbf{w}\|$ para algún
-          otro $\mathbf{w}\in H$.</li>
-      </ul>
-      <details class="solution">
-        <summary>🔍 Ver solución (resumen)</summary>
-        <div class="solution-content">
-          <p>Base de $H$: $w_1=(1,1,0)$, $w_2=(0,0,1)$ (ya ortogonal). Normalizado:
-            $e_1=(1,1,0)/\sqrt{2}$, $e_2=(0,0,1)$.</p>
-          <p>Normal de $H$: $n=(1,-1,0)/\sqrt{2}$, que genera $H^\perp$.</p>
-          <p><strong>Descomposición.</strong> $\mathbf{v}\cdot e_1 = 4/\sqrt{2}=2\sqrt{2}$,
-            $\mathbf{v}\cdot e_2 = 4$.</p>
-          \[
-            \mathbf{h} = 2\sqrt{2}\cdot\tfrac{1}{\sqrt{2}}(1,1,0) + 4\cdot(0,0,1) = (2,2,4).
-          \]
-          \[
-            \mathbf{p} = \mathbf{v}-\mathbf{h} = (1,-1,0).
-          \]
-          <p>$\mathbf{p} = \sqrt{2}\cdot n \in H^\perp$ ✓</p>
-          <p><strong>Distancia.</strong> $\|\mathbf{v}-\mathbf{h}\| = \sqrt{2}$. Con
-            $\mathbf{w}=(0,0,4)\in H$, $\|\mathbf{v}-\mathbf{w}\| = \sqrt{10}>\sqrt{2}$. Con
-            $\mathbf{w}=(2,2,4)$, $\|\mathbf{v}-\mathbf{w}\| = \sqrt{2}$ (igual, coincide con la proyección). ✓</p>
-        </div>
-      </details>
-    </div>
-
-    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
-  </section>
 
 </div><!-- /container -->
 
