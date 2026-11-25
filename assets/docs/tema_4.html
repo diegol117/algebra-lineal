@@ -19,111 +19,8 @@
       throwOnError: false
     });"></script>
 
-  <style>
-    :root{
-      --primary:#1e3a8a; --primary-light:#eff6ff; --primary-border:#3b82f6;
-      --secondary:#0f766e; --secondary-light:#f0fdfa; --secondary-border:#14b8a6;
-      --accent:#b45309; --accent-light:#fffbeb; --accent-border:#f59e0b;
-      --bg:#f8fafc; --surface:#fff; --text:#1e293b; --text-muted:#64748b;
-      --border:#e2e8f0; --shadow:0 4px 6px -1px rgba(0,0,0,.05),0 2px 4px -2px rgba(0,0,0,.05);
-    }
-    *{box-sizing:border-box;scroll-behavior:smooth}
-    body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
-         background:var(--bg);color:var(--text);line-height:1.65;margin:0;padding:0}
-    .container{max-width:1000px;margin:0 auto;padding:2rem 1.5rem 5rem}
 
-    header.doc-header{background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 100%);
-      color:#fff;padding:2.5rem 2rem;border-radius:16px;margin-bottom:2rem;
-      box-shadow:0 10px 25px -5px rgba(30,58,138,.25)}
-    header.doc-header h1{margin:0 0 .75rem 0;font-size:2.1rem;font-weight:700;letter-spacing:-.02em}
-    .meta-bar{display:flex;flex-wrap:wrap;gap:1rem;font-size:.92rem;color:#cbd5e1;
-      border-top:1px solid rgba(255,255,255,.15);padding-top:.85rem;margin-top:.85rem}
-    .meta-bar span strong{color:#fff}
-
-    .controls-bar{display:flex;justify-content:flex-end;gap:.75rem;margin-bottom:1.5rem}
-    .btn{background:var(--surface);border:1px solid var(--border);color:var(--text);
-      padding:.45rem .9rem;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;
-      transition:all .15s ease;box-shadow:0 1px 2px rgba(0,0,0,.04)}
-    .btn:hover{background:var(--primary-light);border-color:var(--primary-border);color:var(--primary)}
-
-    .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;
-      padding:1.75rem 2rem;margin-bottom:2rem;box-shadow:var(--shadow)}
-    h2.module-title{color:var(--primary);font-size:1.6rem;margin-top:0;
-      padding-bottom:.6rem;border-bottom:2px solid var(--primary-light);
-      display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
-    .badge{background:var(--primary);color:#fff;font-size:.8rem;padding:.2rem .6rem;
-      border-radius:6px;font-weight:700;letter-spacing:.04em}
-    h3.section-title{color:#0f172a;font-size:1.25rem;margin-top:1.8rem;margin-bottom:.75rem}
-    h4.sub-title{color:#334155;font-size:1.05rem;margin-top:1.2rem;margin-bottom:.5rem}
-
-    .table-wrapper{overflow-x:auto;margin:1.2rem 0;border-radius:10px;border:1px solid var(--border)}
-    table{width:100%;border-collapse:collapse;font-size:.95rem;background:var(--surface)}
-    th{background:#f1f5f9;color:#0f172a;font-weight:700;text-align:left;padding:.8rem 1rem;
-      border-bottom:2px solid var(--border)}
-    td{padding:.75rem 1rem;border-bottom:1px solid var(--border);vertical-align:middle}
-    tr:last-child td{border-bottom:none}
-    tr:hover td{background:#f8fafc}
-    table a{color:var(--primary);text-decoration:none;font-weight:600}
-    table a:hover{text-decoration:underline}
-
-    .callout{border-left:4px solid;border-radius:0 10px 10px 0;padding:1.1rem 1.35rem;margin:1.25rem 0}
-    .callout-def{background:var(--primary-light);border-color:var(--primary-border)}
-    .callout-thm{background:var(--secondary-light);border-color:var(--secondary-border)}
-    .callout-note{background:var(--accent-light);border-color:var(--accent-border)}
-    .callout-title{font-weight:700;margin-bottom:.5rem;display:flex;align-items:center;
-      gap:.45rem;font-size:1rem}
-    .callout-def .callout-title{color:var(--primary)}
-    .callout-thm .callout-title{color:var(--secondary)}
-    .callout-note .callout-title{color:var(--accent)}
-    .callout ol,.callout ul{margin:.5rem 0 0 0;padding-left:1.4rem}
-    .callout ol li,.callout ul li{margin-bottom:.35rem}
-
-    .example-box{background:#fafafa;border:1px solid #e2e8f0;border-radius:12px;
-      padding:1.2rem 1.4rem;margin:1.35rem 0}
-    .example-header{font-weight:700;color:#0f172a;margin-bottom:.6rem;font-size:1.03rem;
-      display:flex;align-items:center;gap:.45rem}
-
-    details.solution{margin-top:.9rem;background:var(--surface);border:1px solid #cbd5e1;
-      border-radius:8px;overflow:hidden}
-    details.solution summary{padding:.65rem 1rem;font-weight:600;color:var(--primary);
-      cursor:pointer;background:#f1f5f9;user-select:none;list-style:none;
-      display:flex;align-items:center;gap:.5rem;transition:background .15s ease}
-    details.solution summary::-webkit-details-marker{display:none}
-    details.solution summary::before{content:"▶";font-size:.75rem;
-      transition:transform .2s ease;display:inline-block}
-    details.solution[open] summary::before{transform:rotate(90deg)}
-    details.solution summary:hover{background:#e2e8f0}
-    .solution-content{padding:1.1rem 1.25rem;border-top:1px solid #e2e8f0}
-    .solution-content ol,.solution-content ul{padding-left:1.4rem}
-    .solution-content li{margin-bottom:.4rem}
-
-    .diagram-caption{text-align:center;font-size:.85rem;color:var(--text-muted);
-      margin-top:.35rem;font-weight:600}
-    .back-top{text-align:right;margin-top:1.5rem;padding-top:.75rem;border-top:1px solid var(--border)}
-    .back-top a{font-size:.88rem;color:var(--text-muted);text-decoration:none;font-weight:600}
-    .back-top a:hover{color:var(--primary)}
-
-    .proposed{background:#fffbeb;border:1px solid #fde68a;border-left:4px solid #f59e0b;
-      border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin:1.2rem 0}
-    .proposed-title{font-weight:700;color:#92400e;margin-bottom:.4rem}
-
-    @media (max-width:640px){
-      body{font-size:.96rem;line-height:1.6}
-      .container{padding:.9rem .85rem 3.5rem}
-      header.doc-header{padding:1.4rem 1.15rem;border-radius:12px;margin-bottom:1.25rem}
-      header.doc-header h1{font-size:1.45rem;line-height:1.25}
-      .meta-bar{flex-direction:column;gap:.35rem;font-size:.85rem}
-      .controls-bar{flex-direction:column;gap:.5rem}
-      .controls-bar .btn{width:100%;text-align:center;padding:.65rem .85rem}
-      .card{padding:1.15rem 1rem;border-radius:12px;margin-bottom:1.25rem}
-      h2.module-title{font-size:1.22rem;line-height:1.3}
-      h3.section-title{font-size:1.1rem;margin-top:1.4rem}
-      .example-box,.callout{padding:.95rem 1rem;margin:1rem 0}
-      th,td{padding:.55rem .65rem;font-size:.86rem}
-      .katex-display{overflow-x:auto;overflow-y:hidden;padding:.35rem 0;max-width:100%}
-      .katex-display>.katex{font-size:.95em}
-    }
-  </style>
+  <link rel="stylesheet" href="estilos_t2.css">
 </head>
 <body>
 <div class="container">
@@ -138,9 +35,7 @@
     </p>
     <div class="meta-bar">
       <span><strong>Tema:</strong> Autovalores y Diagonalización</span>
-      <span>•</span>
       <span><strong>Área:</strong> Álgebra Lineal</span>
-      <span>•</span>
       <span><strong>Nivel:</strong> Universitario</span>
     </div>
   </header>
@@ -168,10 +63,10 @@
             <td><span class="badge">01</span></td>
             <td><a href="#mod-1">Autovalores y Autovectores</a></td>
             <td>
-              <a href="#sec-1-1">1.1 Motivación e introducción</a> •
-              <a href="#sec-1-2">1.2 Definiciones</a> •
-              <a href="#sec-1-3">1.3 Polinomio característico</a> •
-              <a href="#sec-1-4">1.4 Multiplicidades</a> •
+              <a href="#sec-1-1">1.1 Motivación e introducción</a><br>
+              <a href="#sec-1-2">1.2 Definiciones</a><br>
+              <a href="#sec-1-3">1.3 Polinomio característico</a><br>
+              <a href="#sec-1-4">1.4 Multiplicidades</a><br>
               <a href="#sec-1-5">1.5 Propiedades</a>
             </td>
           </tr>
@@ -179,10 +74,10 @@
             <td><span class="badge">02</span></td>
             <td><a href="#mod-2">Ejemplos de cálculo</a></td>
             <td>
-              <a href="#sec-2-1">2.1 Matrices B y M (multiplicidades)</a> •
-              <a href="#sec-2-2">2.2 Matriz A (2×2)</a> •
-              <a href="#sec-2-3">2.3 Matriz C (autovalores complejos)</a> •
-              <a href="#sec-2-4">2.4 Matriz singular</a> •
+              <a href="#sec-2-1">2.1 Matrices B y M (multiplicidades)</a><br>
+              <a href="#sec-2-2">2.2 Matriz A (2×2)</a><br>
+              <a href="#sec-2-3">2.3 Matriz C (autovalores complejos)</a><br>
+              <a href="#sec-2-4">2.4 Matriz singular</a><br>
               <a href="#sec-2-5">2.5 Matriz con incógnita A₃</a>
             </td>
           </tr>
@@ -190,9 +85,9 @@
             <td><span class="badge">03</span></td>
             <td><a href="#mod-3">Diagonalización</a></td>
             <td>
-              <a href="#sec-3-1">3.1 Relación con TL</a> •
-              <a href="#sec-3-2">3.2 Matrices semejantes</a> •
-              <a href="#sec-3-3">3.3 Teorema de diagonalización</a> •
+              <a href="#sec-3-1">3.1 Relación con TL</a><br>
+              <a href="#sec-3-2">3.2 Matrices semejantes</a><br>
+              <a href="#sec-3-3">3.3 Teorema de diagonalización</a><br>
               <a href="#sec-3-4">3.4 Ejemplos</a>
             </td>
           </tr>
@@ -200,23 +95,15 @@
             <td><span class="badge">04</span></td>
             <td><a href="#mod-4">Diagonalización ortogonal</a></td>
             <td>
-              <a href="#sec-4-1">4.1 Teorema espectral</a> •
-              <a href="#sec-4-2">4.2 Casos (raíces simples/múltiples)</a> •
+              <a href="#sec-4-1">4.1 Teorema espectral</a><br>
+              <a href="#sec-4-2">4.2 Casos (raíces simples/múltiples)</a><br>
               <a href="#sec-4-3">4.3 Ejemplos</a>
-            </td>
-          </tr>
-          <tr>
-            <td><span class="badge">05</span></td>
-            <td><a href="#mod-5">Ejercicios propuestos</a></td>
-            <td>
-              <a href="#sec-5-1">5.1 Diagonalización y matrices</a>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
   </section>
-
   <!-- ===================================================================== -->
   <!-- MÓDULO 01: AUTOVALORES Y AUTOVECTORES                                -->
   <!-- ===================================================================== -->
@@ -575,120 +462,6 @@
     <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
   </section>
 
-  <!-- ===================================================================== -->
-  <!-- MÓDULO 05: EJERCICIOS PROPUESTOS                                     -->
-  <!-- ===================================================================== -->
-  <section class="card" id="mod-5">
-    <h2 class="module-title"><span class="badge">MÓDULO 05</span> Ejercicios Propuestos</h2>
-
-    <h3 class="section-title" id="sec-5-1">5.1 Diagonalización y matrices</h3>
-
-    <div class="proposed">
-      <div class="proposed-title">✏️ Ejercicio 5.1: ¿Es diagonalizable $M$?</div>
-      <p>Consideremos la matriz:</p>
-      $$M=\begin{pmatrix}3&-1&0\\-1&3&0\\1&1&2\end{pmatrix}$$
-      <p>Diga si es diagonalizable o no.</p>
-      <details class="solution"><summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p><strong>Autovalores:</strong> $p(\lambda)=\det(M-\lambda I)$. Desarrollando por la tercera columna:</p>
-          $$p(\lambda)=(2-\lambda)\big[(3-\lambda)^2-1\big]=(2-\lambda)(\lambda-2)(\lambda-4)$$
-          <p>$\lambda_1=4$, $\lambda_2=2$ ($m_\lambda=2$).</p>
-          <p><strong>$S_4$:</strong> $(M-4I)v=0\Rightarrow x=y=0$, $z$ libre. $\dim S_4=1$.</p>
-          <p><strong>$S_2$:</strong> $(M-2I)v=0\Rightarrow -x+y=0$, $x+y=0$, $z$ libre. Solo $x=y=0$, $z$ libre: $\dim S_2=1$.</p>
-          <p>Como $m_\lambda(2)=2$ pero $\dim S_2=1$, <strong>$M$ no es diagonalizable</strong>.</p>
-        </div>
-      </details>
-    </div>
-
-    <div class="proposed">
-      <div class="proposed-title">✏️ Ejercicio 5.2: Semejanza</div>
-      <p>Consideremos:</p>
-      $$B=\begin{pmatrix}2&1\\0&1\end{pmatrix},\quad A=\begin{pmatrix}1&3\\0&2\end{pmatrix},\quad P=\begin{pmatrix}3&0\\1&1\end{pmatrix}$$
-      <p>Calcule $P^{-1}$ y compruebe la semejanza $B=P^{-1}AP$.</p>
-      <details class="solution"><summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p>$\det(P)=3$, $P^{-1}=\dfrac13\begin{pmatrix}1&0\\-1&3\end{pmatrix}$.</p>
-          <p>Producto $AP$:</p>
-          $$AP=\begin{pmatrix}1&3\\0&2\end{pmatrix}\begin{pmatrix}3&0\\1&1\end{pmatrix}=\begin{pmatrix}6&3\\2&2\end{pmatrix}$$
-          <p>Producto $P^{-1}(AP)$:</p>
-          $$P^{-1}AP=\frac13\begin{pmatrix}1&0\\-1&3\end{pmatrix}\begin{pmatrix}6&3\\2&2\end{pmatrix}=\frac13\begin{pmatrix}6&3\\0&3\end{pmatrix}=\begin{pmatrix}2&1\\0&1\end{pmatrix}=B\;\checkmark$$
-        </div>
-      </details>
-    </div>
-
-    <div class="proposed">
-      <div class="proposed-title">✏️ Ejercicio 5.3: Determinar $a,b$ para doble autovalor y diagonalizabilidad</div>
-      <p>Sea:</p>
-      $$M=\begin{pmatrix}1&2&3\\2&a&b\\0&0&3\end{pmatrix}$$
-      <p>Determinar $a,b$ para que $\lambda=3$ sea autovalor doble y $M$ sea diagonalizable.</p>
-      <details class="solution"><summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p>La matriz es triangular por bloques; el autovalor $3$ ya aparece en la posición $(3,3)$. Para que $\lambda=3$ sea doble, el bloque $\begin{pmatrix}1&2\\2&a\end{pmatrix}$ debe tener a $3$ como raíz:</p>
-          $$\det\begin{pmatrix}1-3&2\\2&a-3\end{pmatrix}=(-2)(a-3)-4=0\Rightarrow -2a+6-4=0\Rightarrow a=1$$
-          <p>Con $a=1$, ese bloque es $\begin{pmatrix}1&2\\2&1\end{pmatrix}$ con autovalores $3$ y $-1$. Falta analizar la multiplicidad geométrica de $\lambda=3$:</p>
-          $$\dim S_3=3-\operatorname{rango}(M-3I)$$
-          $$M-3I=\begin{pmatrix}-2&2&3\\2&-2&b\\0&0&0\end{pmatrix}\Rightarrow \operatorname{rango}=2 \text{ si } b\neq -3\ (\text{filas independientes})$$
-          <p>Para que $\dim S_3=2=m_\lambda$, necesitamos $\operatorname{rango}(M-3I)=1$. Eso ocurre si la segunda fila es $-\,$la primera: requiere $b=-3$.</p>
-          <p><strong>Respuesta:</strong> $a=1$, $b=-3$.</p>
-        </div>
-      </details>
-    </div>
-
-    <div class="proposed">
-      <div class="proposed-title">✏️ Ejercicio 5.4: $p(\lambda)=\lambda^2(1-\lambda)$ y autoespacio conocido</div>
-      <p>Sea $A\in\mathbb{R}^{3\times 3}$ con $p(\lambda)=\lambda^2(1-\lambda)$, y $S=\{(x,y,z)\in\mathbb{R}^{3\times 1}\mid x+y+z=0\}$ un autoespacio de $A$. Analizar si $A$ es diagonalizable.</p>
-      <details class="solution"><summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p>El polinomio característico da autovalores $\lambda=0$ ($m_\lambda=2$) y $\lambda=1$ ($m_\lambda=1$).</p>
-          <p>El subespacio $S$ tiene dimensión $2$ (es un plano). Como $S$ es un autoespacio, corresponde a algún autovalor. Su dimensión solo puede ser $\le m_\lambda$ del autovalor correspondiente. Como solo $\lambda=0$ tiene $m_\lambda=2$, debe ser $S=S_0$.</p>
-          <p>Entonces $\dim S_0=2=m_\lambda(0)$. Falta verificar $\dim S_1$: como $m_\lambda(1)=1$, siempre $\dim S_1\ge 1$. Por tanto, la suma de dimensiones geométricas es $2+1=3=n$.</p>
-          <p><strong>Conclusión:</strong> $A$ <strong>es diagonalizable</strong>.</p>
-        </div>
-      </details>
-    </div>
-
-    <div class="proposed">
-      <div class="proposed-title">✏️ Ejercicio 5.5: Análisis paramétrico en $c$</div>
-      <p>Dada:</p>
-      $$A=\begin{pmatrix}1&1&2\\2&2&4\\0&0&c\end{pmatrix}$$
-      <ul>
-        <li>Hallar todos los valores de $c$ para los cuales $A$ es diagonalizable.</li>
-        <li>Para $c=0$, hallar (si es posible) $P$ inversible y $D$ diagonal tales que $P^{-1}AP=D$.</li>
-      </ul>
-      <details class="solution"><summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p><strong>Polinomio característico:</strong> la primera y segunda fila son proporcionales ($R_2=2R_1$), así que el rango de $A-\lambda I$ pierde al menos una fila. Desarrollando:</p>
-          $$p(\lambda)=-\lambda(\lambda-3)(\lambda-c)$$
-          <p>Autovalores: $\lambda_1=0$, $\lambda_2=3$, $\lambda_3=c$.</p>
-          <p><strong>Diagonalizabilidad según $c$:</strong></p>
-          <ul>
-            <li>Si $c\notin\{0,3\}$: tres autovalores distintos → <strong>siempre diagonalizable</strong>.</li>
-            <li>Si $c=0$: $\lambda=0$ con $m_\lambda=2$. Hay que revisar $\dim S_0$.
-              $$A-0I=\begin{pmatrix}1&1&2\\2&2&4\\0&0&0\end{pmatrix}\Rightarrow \operatorname{rango}=1$$
-              $\dim S_0=3-1=2=m_\lambda(0)$. <strong>Diagonalizable</strong>.
-            </li>
-            <li>Si $c=3$: $\lambda=3$ con $m_\lambda=2$.
-              $$A-3I=\begin{pmatrix}-2&1&2\\2&-1&4\\0&0&0\end{pmatrix}$$
-              El rango es $2$ (filas independientes por el término $4\neq -2$... en realidad, al comparar: las dos primeras filas no son proporcionales, luego $\operatorname{rango}=2$).
-              $\dim S_3=3-2=1<2$. <strong>No diagonalizable</strong>.
-            </li>
-          </ul>
-          <p><strong>Respuesta (a):</strong> $A$ es diagonalizable para todo $c\neq 3$.</p>
-
-          <p><strong>Caso $c=0$:</strong> autovalores $\lambda_1=0$ ($m_\lambda=2$) y $\lambda_2=3$ ($m_\lambda=1$).</p>
-          <p>$S_0$: $x+y+2z=0\Rightarrow x=-y-2z$:
-          $$S_0=\operatorname{gen}\left\{\begin{pmatrix}-1\\1\\0\end{pmatrix},\begin{pmatrix}-2\\0\\1\end{pmatrix}\right\}$$
-          <p>$S_3$: $x+y+2z=3x$... resolviendo $A-3I$ con $c=0$:</p>
-          $$(A-3I)v=0\Rightarrow \begin{pmatrix}-2&1&2\\2&-2&4\\0&0&-3\end{pmatrix}v=0\Rightarrow z=0,\,-2x+y=0\Rightarrow y=2x$$
-          $$S_3=\operatorname{gen}\left\{\begin{pmatrix}1\\2\\0\end{pmatrix}\right\}$$
-          <p><strong>Matrices:</strong></p>
-          $$P=\begin{pmatrix}-1&-2&1\\1&0&2\\0&1&0\end{pmatrix},\quad D=\begin{pmatrix}0&0&0\\0&0&0\\0&0&3\end{pmatrix}$$
-        </div>
-      </details>
-    </div>
-
-    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
-  </section>
 
 </div>
 
