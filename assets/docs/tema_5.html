@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,7 @@
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
-    onload="renderMathInElement(document.body, {
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
       delimiters: [
         {left: '$$', right: '$$', display: true},
         {left: '$', right: '$', display: false},
@@ -18,1048 +18,1166 @@
       throwOnError: false
     });"></script>
 
-  <style>
-    :root{
-      --primary:#1e3a8a; --primary-light:#eff6ff; --primary-border:#3b82f6;
-      --secondary:#0f766e; --secondary-light:#f0fdfa; --secondary-border:#14b8a6;
-      --accent:#b45309; --accent-light:#fffbeb; --accent-border:#f59e0b;
-      --bg:#f8fafc; --surface:#fff; --text:#1e293b; --text-muted:#64748b;
-      --border:#e2e8f0; --shadow:0 4px 6px -1px rgba(0,0,0,.05),0 2px 4px -2px rgba(0,0,0,.05);
-    }
-    *{box-sizing:border-box;scroll-behavior:smooth}
-    body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
-         background:var(--bg);color:var(--text);line-height:1.65;margin:0;padding:0}
-    .container{max-width:1000px;margin:0 auto;padding:2rem 1.5rem 5rem}
-
-    header.doc-header{background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 100%);
-      color:#fff;padding:2.5rem 2rem;border-radius:16px;margin-bottom:2rem;
-      box-shadow:0 10px 25px -5px rgba(30,58,138,.25)}
-    header.doc-header h1{margin:0 0 .75rem 0;font-size:2.1rem;font-weight:700;letter-spacing:-.02em}
-    .meta-bar{display:flex;flex-wrap:wrap;gap:1rem;font-size:.92rem;color:#cbd5e1;
-      border-top:1px solid rgba(255,255,255,.15);padding-top:.85rem;margin-top:.85rem}
-    .meta-bar span strong{color:#fff}
-
-    .controls-bar{display:flex;justify-content:flex-end;gap:.75rem;margin-bottom:1.5rem}
-    .btn{background:var(--surface);border:1px solid var(--border);color:var(--text);
-      padding:.45rem .9rem;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;
-      transition:all .15s ease;box-shadow:0 1px 2px rgba(0,0,0,.04)}
-    .btn:hover{background:var(--primary-light);border-color:var(--primary-border);color:var(--primary)}
-
-    .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;
-      padding:1.75rem 2rem;margin-bottom:2rem;box-shadow:var(--shadow)}
-    h2.module-title{color:var(--primary);font-size:1.6rem;margin-top:0;
-      padding-bottom:.6rem;border-bottom:2px solid var(--primary-light);
-      display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
-    .badge{background:var(--primary);color:#fff;font-size:.8rem;padding:.2rem .6rem;
-      border-radius:6px;font-weight:700;letter-spacing:.04em}
-    h3.section-title{color:#0f172a;font-size:1.25rem;margin-top:1.8rem;margin-bottom:.75rem}
-    h4.sub-title{color:#334155;font-size:1.05rem;margin-top:1.2rem;margin-bottom:.5rem}
-
-    .table-wrapper{overflow-x:auto;margin:1.2rem 0;border-radius:10px;border:1px solid var(--border)}
-    table{width:100%;border-collapse:collapse;font-size:.95rem;background:var(--surface)}
-    th{background:#f1f5f9;color:#0f172a;font-weight:700;text-align:left;padding:.8rem 1rem;
-      border-bottom:2px solid var(--border)}
-    td{padding:.75rem 1rem;border-bottom:1px solid var(--border);vertical-align:middle}
-    tr:last-child td{border-bottom:none}
-    tr:hover td{background:#f8fafc}
-    table a{color:var(--primary);text-decoration:none;font-weight:600}
-    table a:hover{text-decoration:underline}
-
-    .callout{border-left:4px solid;border-radius:0 10px 10px 0;padding:1.1rem 1.35rem;margin:1.25rem 0}
-    .callout-def{background:var(--primary-light);border-color:var(--primary-border)}
-    .callout-thm{background:var(--secondary-light);border-color:var(--secondary-border)}
-    .callout-note{background:var(--accent-light);border-color:var(--accent-border)}
-    .callout-title{font-weight:700;margin-bottom:.5rem;display:flex;align-items:center;
-      gap:.45rem;font-size:1rem}
-    .callout-def .callout-title{color:var(--primary)}
-    .callout-thm .callout-title{color:var(--secondary)}
-    .callout-note .callout-title{color:var(--accent)}
-    .callout ol,.callout ul{margin:.5rem 0 0 0;padding-left:1.4rem}
-    .callout ol li,.callout ul li{margin-bottom:.35rem}
-
-    .example-box{background:#fafafa;border:1px solid #e2e8f0;border-radius:12px;
-      padding:1.2rem 1.4rem;margin:1.35rem 0}
-    .example-header{font-weight:700;color:#0f172a;margin-bottom:.6rem;font-size:1.03rem;
-      display:flex;align-items:center;gap:.45rem}
-
-    .diagram-container{display:flex;flex-direction:column;align-items:center;
-      margin:1.25rem 0;padding:1rem;background:#fff;border:1px dashed #cbd5e1;border-radius:10px}
-    .diagram-container svg{max-width:100%;height:auto;display:block}
-    .diagram-caption{text-align:center;font-size:.85rem;color:var(--text-muted);
-      margin-top:.6rem;font-weight:600;max-width:780px}
-
-    .back-top{text-align:right;margin-top:1.5rem;padding-top:.75rem;border-top:1px solid var(--border)}
-    .back-top a{font-size:.88rem;color:var(--text-muted);text-decoration:none;font-weight:600}
-    .back-top a:hover{color:var(--primary)}
-
-    @media (max-width:640px){
-      body{font-size:.96rem;line-height:1.6}
-      .container{padding:.9rem .85rem 3.5rem}
-      header.doc-header{padding:1.4rem 1.15rem;border-radius:12px;margin-bottom:1.25rem}
-      header.doc-header h1{font-size:1.45rem;line-height:1.25}
-      .meta-bar{flex-direction:column;gap:.35rem;font-size:.85rem}
-      .controls-bar{flex-direction:column;gap:.5rem}
-      .controls-bar .btn{width:100%;text-align:center;padding:.65rem .85rem}
-      .card{padding:1.15rem 1rem;border-radius:12px;margin-bottom:1.25rem}
-      h2.module-title{font-size:1.22rem;line-height:1.3}
-      h3.section-title{font-size:1.1rem;margin-top:1.4rem}
-      .example-box,.callout{padding:.95rem 1rem;margin:1rem 0}
-      th,td{padding:.55rem .65rem;font-size:.86rem}
-      .katex-display{overflow-x:auto;overflow-y:hidden;padding:.35rem 0;max-width:100%}
-      .katex-display>.katex{font-size:.95em}
-    }
-  </style>
+  <link rel="stylesheet" href="estilos_t2.css">
 </head>
+
 <body>
-<div class="container">
+  <div class="container">
 
-  <!-- ===================== HEADER ===================== -->
-  <header class="doc-header" id="inicio">
-    <h1>🧮 Sucesiones y Series Infinitas</h1>
-    <p style="margin:0;color:#e2e8f0;font-size:1.05rem;">
-      Introducción a las sucesiones numéricas, límites finitos e infinitos, condiciones de convergencia,
-      series infinitas, criterio de la integral, serie p, serie geométrica, series alternantes,
-      convergencia absoluta, criterios del cociente y de la raíz, y propiedades notables.
-    </p>
-    <div class="meta-bar">
-      <span><strong>Tema:</strong> Sucesiones y Series</span>
-      <span>•</span>
-      <span><strong>Área:</strong> Cálculo / Análisis</span>
-      <span>•</span>
-      <span><strong>Nivel:</strong> Universitario</span>
+    <!-- ===================== HEADER ===================== -->
+    <header class="doc-header" id="inicio">
+      <h1>🧮 Sucesiones y Series Infinitas</h1>
+      <p style="margin:0;color:#e2e8f0;font-size:1.05rem;">
+        Introducción a las sucesiones numéricas, límites finitos e infinitos, condiciones de convergencia,
+        series infinitas, criterio de la integral, serie p, serie geométrica, series alternantes,
+        convergencia absoluta, criterios del cociente y de la raíz, y Tabla resumen.
+      </p>
+      <div class="meta-bar">
+        <span><strong>Tema:</strong> Sucesiones y Series</span>
+        <span><strong>Área:</strong> Cálculo / Análisis</span>
+        <span><strong>Nivel:</strong> Universitario</span>
+      </div>
+    </header>
+
+    <!-- ===================== CONTROLES ===================== -->
+    <div class="controls-bar">
+      <button class="btn" onclick="toggleAllDetails(true)">📂 Expandir todas las soluciones</button>
+      <button class="btn" onclick="toggleAllDetails(false)">📁 Contraer todas las soluciones</button>
     </div>
-  </header>
 
-  <!-- ===================== CONTROLES ===================== -->
-  <div class="controls-bar">
-    <button class="btn" onclick="toggleAllDetails(true)">📂 Expandir todas las soluciones</button>
-    <button class="btn" onclick="toggleAllDetails(false)">📁 Contraer todas las soluciones</button>
+    <!-- ===================== MAPA DE CONTENIDOS ===================== -->
+    <section class="card" id="mapa-de-contenidos">
+      <h2 class="module-title">📑 Mapa de Contenidos</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:80px;">Módulo</th>
+              <th style="width:280px;">Tema Principal</th>
+              <th>Subtemas Clave</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="badge">01</span></td>
+              <td><a href="#mod-1">Sucesiones</a></td>
+              <td>
+                <a href="#sec-1-1">1.1 Definición</a><br>
+                <a href="#sec-1-2">1.2 Límite finito e infinito</a><br>
+                <a href="#sec-1-3">1.3 Figuras de convergencia</a>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="badge">02</span></td>
+              <td><a href="#mod-2">Condiciones de Convergencia</a></td>
+              <td>
+                <a href="#sec-2-1">2.1 Límite vía función</a><br>
+                <a href="#sec-2-2">2.2 Límite del valor absoluto</a><br>
+                <a href="#sec-2-3">2.3 Continuidad</a><br>
+                <a href="#sec-2-4">2.4 Sucesión geométrica</a><br>
+                <a href="#sec-2-5">2.5 Teorema de la sucesión monótona</a>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="badge">03</span></td>
+              <td><a href="#mod-3">Series Infinitas</a></td>
+              <td>
+                <a href="#sec-3-1">3.1 Sucesión vs. serie</a><br>
+                <a href="#sec-3-2">3.2 Sumas parciales</a><br>
+                <a href="#sec-3-3">3.3 Criterio de la integral</a><br>
+                <a href="#sec-3-4">3.4 Serie p</a>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="badge">04</span></td>
+              <td><a href="#mod-4">Serie Geométrica y Alternantes</a></td>
+              <td>
+                <a href="#sec-4-1">4.1 Serie geométrica</a><br>
+                <a href="#sec-4-2">4.2 Series alternadas (Leibniz)</a>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="badge">05</span></td>
+              <td><a href="#mod-5">Convergencia Absoluta y Criterios</a></td>
+              <td>
+                <a href="#sec-5-1">5.1 Convergencia absoluta y condicional</a><br>
+                <a href="#sec-5-2">5.2 Criterio del cociente</a><br>
+                <a href="#sec-5-3">5.3 Criterio de la raíz</a>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="badge">06</span></td>
+              <td><a href="#mod-6">Tabla resumen</a></td>
+              <td>
+                <a href="#sec-6-1">6.1 Tabla resumen de criterios</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- MÓDULO 01: SUCESIONES                                                -->
+    <!-- ===================================================================== -->
+    <section class="card" id="mod-1">
+      <h2 class="module-title"><span class="badge">MÓDULO 01</span> Sucesiones</h2>
+
+      <h3 class="section-title" id="sec-1-1">1.1 Definición</h3>
+      <p>Se puede considerar que una sucesión es una lista de números escritos en un orden definido:</p>
+      $$a_1,\; a_2,\; a_3,\; a_4,\; \dots,\; a_n,\; \dots$$
+      <p>El número $a_1$ recibe el nombre de primer término, $a_2$ es el segundo término y, en general, $a_n$ es el
+        $n$-ésimo término. Aquí se trata exclusivamente con sucesiones infinitas, por lo que cada término $a_n$ tiene un
+        sucesor $a_{n+1}$. Para todo entero positivo $n$ hay un número correspondiente $a_n$, por lo que una sucesión se
+        puede definir formalmente como una función cuyo dominio es el conjunto de enteros positivos. Por lo regular, se
+        escribe $a_n$ en lugar de la notación de función $f(n)$. La sucesión $\{a_1,a_2,a_3,\dots\}$ también se denota
+        mediante $\{a_n\}$ o $\{a_n\}_{n=1}^{\infty}$.</p>
+
+      <div class="callout callout-def">
+        <div class="callout-title">📌 Definición: Sucesión</div>
+        <p style="margin:0;">Una <strong>sucesión</strong> $\{a_n\}_{n=1}^{\infty}$ es una función con dominio en los
+          enteros positivos ($a_n=f(n)$) que representa una lista ordenada infinita de términos.</p>
+      </div>
+
+      <div class="diagram-container">
+        <svg viewBox="0 0 500 250" xmlns="http://www.w3.org/2000/svg" style="max-width:500px;width:100%;">
+          <!-- Ejes -->
+          <line x1="40" y1="210" x2="480" y2="210" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah1)" />
+          <line x1="40" y1="210" x2="40" y2="30" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah1)" />
+          <defs>
+            <marker id="ah1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0,0 L10,5 L0,10 Z" fill="#1e293b" />
+            </marker>
+          </defs>
+          <text x="475" y="230" font-size="14" fill="#1e293b">n</text>
+          <text x="15" y="30" font-size="14" fill="#1e293b">aₙ</text>
+          <!-- Puntos (escala: a_n para n=1..6) -->
+          <!-- valores: 3.0, 1.8, 2.5, 2.1, 2.3, 2.2 → Y = 210 - v*45 -->
+          <g fill="#1e3a8a">
+            <circle cx="100" cy="75" r="4" />
+            <circle cx="160" cy="129" r="4" />
+            <circle cx="220" cy="97.5" r="4" />
+            <circle cx="280" cy="115.5" r="4" />
+            <circle cx="340" cy="106.5" r="4" />
+            <circle cx="400" cy="111" r="4" />
+          </g>
+          <g stroke="#94a3b8" stroke-dasharray="3 3" stroke-width="1">
+            <line x1="100" y1="210" x2="100" y2="75" />
+            <line x1="160" y1="210" x2="160" y2="129" />
+            <line x1="220" y1="210" x2="220" y2="97.5" />
+            <line x1="280" y1="210" x2="280" y2="115.5" />
+            <line x1="340" y1="210" x2="340" y2="106.5" />
+            <line x1="400" y1="210" x2="400" y2="111" />
+          </g>
+          <g font-size="12" fill="#334155" text-anchor="middle">
+            <text x="100" y="228">1</text>
+            <text x="160" y="228">2</text>
+            <text x="220" y="228">3</text>
+            <text x="280" y="228">4</text>
+            <text x="340" y="228">5</text>
+            <text x="400" y="228">6</text>
+          </g>
+        </svg>
+        <p class="diagram-caption">Figura 1. Representación de los primeros términos de una sucesión discreta $a_n$ en
+          función de $n$.</p>
+      </div>
+
+      <h3 class="section-title" id="sec-1-2">1.2 Límite finito e infinito</h3>
+      <div class="callout callout-def">
+        <div class="callout-title">📌 Definición formal de límite</div>
+        <p style="margin:0;">Sean $a_n\in\mathbb{R}$ los términos de la sucesión, con $n,N\in\mathbb{N}$,
+          $L\in\mathbb{R}$, $\varepsilon>0$ y $M>0$.</p>
+        <ul>
+          <li><strong>Límite finito ($L$):</strong> los términos $a_n$ se aproximan tanto a $L$ como se quiera para $n$
+            suficientemente grande:
+            $$\forall\varepsilon>0,\;\exists N\in\mathbb{N}\text{ tal que } n\ge N\implies|a_n-L|<\varepsilon$$ </li>
+          <li><strong>Límite infinito ($\infty$):</strong> los términos $a_n$ crecen indefinidamente y sin cota:
+            $$\forall M>0,\;\exists N\in\mathbb{N}\text{ tal que } n\ge N\implies a_n>M$$
+          </li>
+        </ul>
+      </div>
+
+      <h3 class="section-title" id="sec-1-3">1.3 Figuras de convergencia</h3>
+
+      <h4 class="sub-title">Límite finito: $a_n=2.5+\frac{1.5(-1)^n}{n}$</h4>
+      <p>El valor límite es $L=2.5$ (línea naranja). La banda de tolerancia está definida por $\varepsilon=0.7$,
+        delimitando las franjas superior $L+\varepsilon=3.2$ e inferior $L-\varepsilon=1.8$ (verde discontinuo). El
+        parámetro $N=3$ (umbral rojo) garantiza que para $n\ge N$ todos los términos se confinen en la franja.</p>
+
+      <div class="diagram-container">
+        <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
+          <defs>
+            <marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0,0 L10,5 L0,10 Z" fill="#1e293b" />
+            </marker>
+          </defs>
+          <!-- Ejes: y = 220 - a*40, x = 40 + n*55 -->
+          <line x1="40" y1="220" x2="530" y2="220" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah2)" />
+          <line x1="40" y1="220" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah2)" />
+          <text x="525" y="240" font-size="13" fill="#1e293b">n</text>
+          <text x="15" y="25" font-size="13" fill="#1e293b">aₙ</text>
+          <!-- L = 2.5 → y = 120 -->
+          <line x1="40" y1="120" x2="520" y2="120" stroke="#ea580c" stroke-width="2.5" />
+          <text x="525" y="124" font-size="12" fill="#ea580c" font-weight="700">L=2.5</text>
+          <!-- ε band: 3.2 → y=92; 1.8 → y=148 -->
+          <line x1="40" y1="92" x2="520" y2="92" stroke="#16a34a" stroke-dasharray="4 3" stroke-width="1.5" />
+          <line x1="40" y1="148" x2="520" y2="148" stroke="#16a34a" stroke-dasharray="4 3" stroke-width="1.5" />
+          <text x="525" y="96" font-size="10" fill="#16a34a">L+ε</text>
+          <text x="525" y="152" font-size="10" fill="#16a34a">L−ε</text>
+          <!-- N=3: x=205 -->
+          <line x1="205" y1="30" x2="205" y2="220" stroke="#dc2626" stroke-dasharray="4 3" stroke-width="1.5" />
+          <text x="205" y="245" font-size="12" fill="#dc2626" font-weight="700" text-anchor="middle">N</text>
+          <!-- Puntos a_n = 2.5 + 1.5*(-1)^n/n (Y=220-40*a) -->
+          <!-- n=1: 1.0 → y=180 (negro) ; n=2: 3.25 → y=90 (negro) ; n=3: 2.0 → y=140 (verde) ; n=4: 2.875 → y=105 (verde) ; n=5: 2.2 → y=132 (verde) ; n=6: 2.75 → y=110 (verde) ; n=7: 2.285→y=128.5 ; n=8:2.6875→y=112.5 -->
+          <circle cx="95" cy="180" r="4.5" fill="#0f172a" />
+          <circle cx="150" cy="90" r="4.5" fill="#0f172a" />
+          <circle cx="205" cy="140" r="4.5" fill="#16a34a" />
+          <circle cx="260" cy="105" r="4.5" fill="#16a34a" />
+          <circle cx="315" cy="132" r="4.5" fill="#16a34a" />
+          <circle cx="370" cy="110" r="4.5" fill="#16a34a" />
+          <circle cx="425" cy="128.5" r="4.5" fill="#16a34a" />
+          <circle cx="480" cy="112.5" r="4.5" fill="#16a34a" />
+          <g font-size="11" fill="#334155" text-anchor="middle">
+            <text x="95" y="240">1</text>
+            <text x="150" y="240">2</text>
+            <text x="205" y="240">3</text>
+            <text x="260" y="240">4</text>
+            <text x="315" y="240">5</text>
+            <text x="370" y="240">6</text>
+            <text x="425" y="240">7</text>
+            <text x="480" y="240">8</text>
+          </g>
+        </svg>
+        <p class="diagram-caption">Figura 2. Convergencia de $a_n=2.5+\frac{1.5(-1)^n}{n}$ hacia $L=2.5$ con banda
+          $\varepsilon=0.7$.</p>
+      </div>
+
+      <h4 class="sub-title">Límite infinito: $a_n=\frac{1}{2}n$</h4>
+      <p>La variable $M=2.5$ (morada) actúa como cota. A partir de $N=4$ (rojo), todos los términos $n\ge N$ superan la
+        cota.</p>
+
+      <div class="diagram-container">
+        <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
+          <defs>
+            <marker id="ah3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0,0 L10,5 L0,10 Z" fill="#1e293b" />
+            </marker>
+          </defs>
+          <line x1="40" y1="220" x2="530" y2="220" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah3)" />
+          <line x1="40" y1="220" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah3)" />
+          <text x="525" y="240" font-size="13" fill="#1e293b">n</text>
+          <text x="15" y="25" font-size="13" fill="#1e293b">aₙ</text>
+          <line x1="40" y1="120" x2="520" y2="120" stroke="#7c3aed" stroke-dasharray="5 3" stroke-width="1.8" />
+          <text x="515" y="124" font-size="12" fill="#7c3aed" font-weight="700">M=2.5</text>
+          <line x1="290" y1="30" x2="290" y2="220" stroke="#dc2626" stroke-dasharray="4 3" stroke-width="1.5" />
+          <text x="290" y="245" font-size="12" fill="#dc2626" font-weight="700" text-anchor="middle">N</text>
+          <!-- Puntos a_n = 0.5*n, y=220-40*a -->
+          <circle cx="95" cy="200" r="4.5" fill="#0f172a" />
+          <circle cx="150" cy="180" r="4.5" fill="#0f172a" />
+          <circle cx="205" cy="160" r="4.5" fill="#0f172a" />
+          <circle cx="260" cy="140" r="4.5" fill="#0f172a" />
+          <circle cx="315" cy="120" r="4.5" fill="#2563eb" />
+          <circle cx="370" cy="100" r="4.5" fill="#2563eb" />
+          <circle cx="425" cy="80" r="4.5" fill="#2563eb" />
+          <circle cx="480" cy="60" r="4.5" fill="#2563eb" />
+          <g font-size="11" fill="#334155" text-anchor="middle">
+            <text x="95" y="240">1</text><text x="150" y="240">2</text>
+            <text x="205" y="240">3</text><text x="260" y="240">4</text>
+            <text x="315" y="240">5</text><text x="370" y="240">6</text>
+            <text x="425" y="240">7</text><text x="480" y="240">8</text>
+          </g>
+        </svg>
+        <p class="diagram-caption">Figura 3. Crecimiento indefinido de $a_n=\tfrac12 n$; para $n>N$ se cumple $a_n>M$.
+        </p>
+      </div>
+
+      <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- MÓDULO 02: CONDICIONES DE CONVERGENCIA                               -->
+    <!-- ===================================================================== -->
+    <section class="card" id="mod-2">
+      <h2 class="module-title"><span class="badge">MÓDULO 02</span> Condiciones de Convergencia</h2>
+
+      <h3 class="section-title" id="sec-2-1">2.1 Límite de una sucesión a partir de una función</h3>
+      <div class="callout callout-thm">
+        <div class="callout-title">📐 Teorema</div>
+        <p style="margin:0;">Si $\lim_{x\to\infty}f(x)=L$ y $f(n)=a_n$ para todo entero positivo $n$, entonces:</p>
+        $$\lim_{n\to\infty}a_n=L$$
+      </div>
+      <p>Al evaluar la función continua $f(x)=2+\tfrac{1}{x}$ (azul), los datos de la sucesión $a_n=2+\tfrac{1}{n}$
+        (verde) se alojan exactamente sobre los valores enteros. Ambos convergen a $L=2$.</p>
+
+      <div class="diagram-container">
+        <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
+          <defs>
+            <marker id="ah4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0,0 L10,5 L0,10 Z" fill="#1e293b" />
+            </marker>
+          </defs>
+          <line x1="40" y1="220" x2="530" y2="220" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah4)" />
+          <line x1="40" y1="220" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah4)" />
+          <text x="525" y="240" font-size="13" fill="#1e293b">x/n</text>
+          <text x="15" y="25" font-size="13" fill="#1e293b">y</text>
+          <!-- L = 2 → y = 140 -->
+          <line x1="40" y1="140" x2="520" y2="140" stroke="#ea580c" stroke-dasharray="4 3" stroke-width="1.5" />
+          <text x="525" y="144" font-size="12" fill="#ea580c" font-weight="700">L=2</text>
+          <!-- f(x) = 2 + 1/x (Y=140-80/x) pasando por los puntos -->
+          <path
+            d="M 100 60 L 113.75 76 L 127.5 86.67 L 141.25 94.29 L 155 100 L 168.75 104.44 L 182.5 108 L 196.25 110.91 L 210 113.33 L 223.75 115.38 L 237.5 117.14 L 251.25 118.67 L 265 120 L 278.75 121.18 L 292.5 122.22 L 306.25 123.16 L 320 124 L 333.75 124.76 L 347.5 125.45 L 361.25 126.09 L 375 126.67 L 388.75 127.2 L 402.5 127.69 L 416.25 128.15 L 430 128.57 L 443.75 128.97 L 457.5 129.33 L 471.25 129.68 L 485 130"
+            fill="none" stroke="#1e40af" stroke-width="2" stroke-linejoin="round" />
+          <!-- Puntos a_n = 2 + 1/n -->
+          <circle cx="100" cy="60" r="4" fill="#16a34a" />
+          <circle cx="155" cy="100" r="4" fill="#16a34a" />
+          <circle cx="210" cy="113.33" r="4" fill="#16a34a" />
+          <circle cx="265" cy="120" r="4" fill="#16a34a" />
+          <circle cx="320" cy="124" r="4" fill="#16a34a" />
+          <circle cx="375" cy="126.67" r="4" fill="#16a34a" />
+          <circle cx="430" cy="128.57" r="4" fill="#16a34a" />
+          <g font-size="11" fill="#334155" text-anchor="middle">
+            <text x="100" y="240">1</text><text x="155" y="240">2</text>
+            <text x="210" y="240">3</text><text x="265" y="240">4</text>
+            <text x="320" y="240">5</text><text x="375" y="240">6</text>
+            <text x="430" y="240">7</text>
+          </g>
+        </svg>
+        <p class="diagram-caption">Figura 4. Sucesión $a_n=2+\tfrac{1}{n}$ contenida en la función continua
+          $f(x)=2+\tfrac{1}{x}$.</p>
+      </div>
+      <h3 class="section-title" id="sec-2-2">2.2 Límite del valor absoluto</h3>
+      <div class="callout callout-thm">
+        <div class="callout-title">📐 Teorema del valor absoluto</div>
+        <p style="margin:0;">Si $\lim_{n\to\infty}|a_n|=0$, entonces $\lim_{n\to\infty}a_n=0$.</p>
+      </div>
+
+      <p>Cuando una sucesión oscila alternando signos (como $a_n=\frac{(-1)^{n+1}}{n}$, azul), su estudio directo es
+        complejo. El teorema resuelve esto evaluando $|a_n|=\tfrac{1}{n}$ (naranja), que converge a $0$.</p>
+
+      <div class="diagram-container">
+        <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
+          <defs>
+            <marker id="arrow-black" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6"
+              orient="auto">
+              <path d="M0,0 L10,5 L0,10 Z" fill="#1e293b" />
+            </marker>
+            <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6"
+              orient="auto">
+              <path d="M0,0 L10,5 L0,10 Z" fill="#ea580c" />
+            </marker>
+          </defs>
+
+          <!-- Ejes con flechas -->
+          <line x1="40" y1="130" x2="530" y2="130" stroke="#ea580c" stroke-width="1.5"
+            marker-end="url(#arrow-orange)" />
+          <line x1="40" y1="240" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5" marker-end="url(#arrow-black)" />
+
+          <!-- Líneas de épsilon -->
+          <line x1="40" y1="85" x2="500" y2="85" stroke="#16a34a" stroke-dasharray="5 4" stroke-width="1.5" />
+          <line x1="40" y1="175" x2="500" y2="175" stroke="#16a34a" stroke-dasharray="5 4" stroke-width="1.5" />
+          <text x="510" y="89" font-size="14" fill="#16a34a" font-weight="bold">ε</text>
+          <text x="505" y="179" font-size="14" fill="#16a34a" font-weight="bold">−ε</text>
+
+          <!-- Marcas en el eje x -->
+          <g stroke="#1e293b" stroke-width="1.5">
+            <line x1="95" y1="130" x2="95" y2="136" />
+            <line x1="150" y1="130" x2="150" y2="136" />
+            <line x1="205" y1="130" x2="205" y2="136" />
+            <line x1="260" y1="130" x2="260" y2="136" />
+            <line x1="315" y1="130" x2="315" y2="136" />
+            <line x1="370" y1="130" x2="370" y2="136" />
+            <line x1="425" y1="130" x2="425" y2="136" />
+            <line x1="480" y1="130" x2="480" y2="136" />
+          </g>
+
+          <!-- Etiquetas de los ejes -->
+          <g font-size="14" fill="#1e293b" text-anchor="middle">
+            <text x="95" y="152">1</text>
+            <text x="150" y="152">2</text>
+            <text x="205" y="152">3</text>
+            <text x="260" y="152">4</text>
+            <text x="315" y="152">5</text>
+            <text x="370" y="152">6</text>
+            <text x="425" y="152">7</text>
+            <text x="480" y="152">8</text>
+          </g>
+          <text x="520" y="148" font-size="16" fill="#1e293b" font-weight="bold">n</text>
+          <text x="20" y="25" font-size="16" fill="#1e293b" font-weight="bold">aₙ</text>
+          <text x="495" y="148" font-size="16" fill="#ea580c" font-weight="bold">0</text>
+
+          <!-- Puntos de la sucesión (Naranja más grande, Azul más pequeño) -->
+
+          <!-- n=1 -->
+          <circle cx="95" cy="70" r="4" fill="#ea580c" />
+          <circle cx="95" cy="70" r="2" fill="#1e40af" />
+
+          <!-- n=2 -->
+          <circle cx="150" cy="160" r="2" fill="#1e40af" />
+          <circle cx="150" cy="100" r="4" fill="#ea580c" />
+
+          <!-- n=3 -->
+          <circle cx="205" cy="110" r="4" fill="#ea580c" />
+          <circle cx="205" cy="110" r="2" fill="#1e40af" />
+
+          <!-- n=4 -->
+          <circle cx="260" cy="145" r="2" fill="#1e40af" />
+          <circle cx="260" cy="115" r="4" fill="#ea580c" />
+
+          <!-- n=5 -->
+          <circle cx="315" cy="118" r="4" fill="#ea580c" />
+          <circle cx="315" cy="118" r="2" fill="#1e40af" />
+
+          <!-- n=6 -->
+          <circle cx="370" cy="140" r="2" fill="#1e40af" />
+          <circle cx="370" cy="120" r="4" fill="#ea580c" />
+
+          <!-- n=7 -->
+          <circle cx="425" cy="121.4" r="4" fill="#ea580c" />
+          <circle cx="425" cy="121.4" r="2" fill="#1e40af" />
+
+          <!-- n=8 -->
+          <circle cx="480" cy="137.5" r="2" fill="#1e40af" />
+          <circle cx="480" cy="122.5" r="4" fill="#ea580c" />
+
+        </svg>
+        <p class="diagram-caption">Figura 5. Sucesión oscilante $a_n=\tfrac{(-1)^{n+1}}{n}$ (azul) y su valor absoluto
+          $|a_n|=\tfrac{1}{n}$ (naranja).</p>
+      </div>
+      <h3 class="section-title" id="sec-2-3">2.3 Continuidad y límites de sucesiones</h3>
+      <div class="callout callout-thm">
+        <div class="callout-title">📐 Teorema</div>
+        <p style="margin:0;">Si $\lim_{n\to\infty}a_n=L$ y $f$ es continua en $L$, entonces:</p>
+        $$\lim_{n\to\infty}f(a_n)=f(L)$$
+      </div>
+
+      <h3 class="section-title" id="sec-2-4">2.4 Convergencia de la sucesión geométrica</h3>
+      <div class="callout callout-thm">
+        <div class="callout-title">📐 Teorema</div>
+        <p style="margin:0;">La sucesión $\{r^n\}$ es convergente si $-1 \lt r \le 1$ y divergente en otro caso,
+          cumpliéndose:</p>
+        <div style="margin-top: 10px;">
+          $$\lim_{n\to\infty}r^n=\begin{cases}0 & \text{si } -1 \lt r \lt 1\\ 1 & \text{si } r=1\end{cases}$$
+        </div>
+      </div>
+
+      <p>A continuación, se muestra la representación gráfica del comportamiento de la sucesión geométrica $r^n$ para
+        distintos valores de $r$. Se ilustra el caso en que $r=1$ (puntos verdes), donde los términos se mantienen
+        constantes; y el caso en que $0 \lt r \lt 1$, específicamente con $r=\frac{13}{20}$ (puntos azules), donde se
+        observa cómo los términos decrecen aproximándose a cero.</p>
+
+      <div class="diagram-container">
+        <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
+          <defs>
+            <marker id="ah5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0,0 L10,5 L0,10 Z" fill="#1e293b" />
+            </marker>
+          </defs>
+          <line x1="40" y1="220" x2="530" y2="220" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah5)" />
+          <line x1="40" y1="220" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah5)" />
+          <text x="525" y="240" font-size="13" fill="#1e293b">n</text>
+          <text x="15" y="25" font-size="13" fill="#1e293b">rⁿ</text>
+          <!-- Línea y=1 → y=120 ; y=0 → y=220 -->
+          <line x1="40" y1="120" x2="520" y2="120" stroke="#ea580c" stroke-width="2" />
+          <text x="525" y="124" font-size="12" fill="#ea580c" font-weight="700">1</text>
+          <line x1="40" y1="220" x2="520" y2="220" stroke="#64748b" stroke-dasharray="3 3" />
+          <!-- r=1: puntos verdes en y=120 -->
+          <g fill="#16a34a">
+            <circle cx="95" cy="120" r="4" />
+            <circle cx="150" cy="120" r="4" />
+            <circle cx="205" cy="120" r="4" />
+            <circle cx="260" cy="120" r="4" />
+            <circle cx="315" cy="120" r="4" />
+            <circle cx="370" cy="120" r="4" />
+            <circle cx="425" cy="120" r="4" />
+          </g>
+          <!-- r=0.65: valores 3, 1.95, 1.27, 0.82, 0.53, 0.34, 0.22 → y=220-33*v -->
+          <g fill="#1e40af">
+            <circle cx="95" cy="121" r="4" />
+            <circle cx="150" cy="156" r="4" />
+            <circle cx="205" cy="178" r="4" />
+            <circle cx="260" cy="193" r="4" />
+            <circle cx="315" cy="202" r="4" />
+            <circle cx="370" cy="208" r="4" />
+            <circle cx="425" cy="212" r="4" />
+          </g>
+        </svg>
+        <p class="diagram-caption">Figura 6. Comportamiento de $r^n$ para $r=1$ (verde) y $0 \lt r \lt 1$ (azul).</p>
+      </div>
+
+      <h3 class="section-title" id="sec-2-5">2.5 Monotonía, acotamiento y teorema de la sucesión monótona</h3>
+
+      <div class="callout callout-def">
+        <div class="callout-title">📌 Monotonía y acotamiento</div>
+        <p style="margin:0;">Sea $\{a_n\}$ una sucesión ($\forall n\ge 1$):</p>
+        <ul>
+          <li><strong>Monotonía:</strong> <em>creciente</em> si $a_n \lt a_{n+1}$, <em>decreciente</em> si
+            $a_n \gt a_{n+1}$, <em>monótona</em> si cumple alguna de las dos.</li>
+          <li><strong>Acotamiento:</strong> <em>acotada</em> si existen $m,M\in\mathbb{R}$ tales que $m \le
+            a_n \le M$.</li>
+        </ul>
+      </div>
+
+      <div class="callout callout-thm">
+        <div class="callout-title">📐 Teorema de la sucesión monótona</div>
+        <p style="margin:0;">Si $\{a_n\}$ es acotada y monótona, entonces $\{a_n\}$ es convergente.</p>
+      </div>
+
+      <p>Para ilustrar este teorema, se grafica la sucesión $a_n = \frac{19}{5} -
+        \frac{14}{5}\left(\frac{3}{4}\right)^{n-1}$. En el diagrama se aprecia cómo los términos aumentan de forma
+        creciente, pero se mantienen estrictamente acotados entre la cota inferior $m=\frac{4}{5}$ y la cota superior
+        $M=\frac{19}{5}$.</p>
+
+      <div class="diagram-container">
+        <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
+          <line x1="40" y1="220" x2="530" y2="220" stroke="#1e293b" stroke-width="1.5" />
+          <line x1="40" y1="220" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5" />
+          <text x="525" y="240" font-size="13" fill="#1e293b">n</text>
+          <text x="15" y="25" font-size="13" fill="#1e293b">aₙ</text>
+          <!-- M=3.8 → y=68 ; m=0.8 → y=188 -->
+          <line x1="40" y1="68" x2="520" y2="68" stroke="#7c3aed" stroke-dasharray="4 3" />
+          <line x1="40" y1="200" x2="520" y2="200" stroke="#0891b2" stroke-dasharray="4 3" />
+          <text x="525" y="72" font-size="11" fill="#7c3aed">M=3.8</text>
+          <text x="525" y="200" font-size="11" fill="#0891b2">m=0.8</text>
+          <!-- a_n = 3.8 - 2.8*(0.75)^{n-1}  → Y=220-40*a -->
+          <g fill="#1e3a8a">
+            <circle cx="95" cy="108" r="4.5" />
+            <circle cx="150" cy="132" r="4.5" />
+            <circle cx="205" cy="150" r="4.5" />
+            <circle cx="260" cy="163.5" r="4.5" />
+            <circle cx="315" cy="173.5" r="4.5" />
+            <circle cx="370" cy="180.7" r="4.5" />
+            <circle cx="425" cy="186" r="4.5" />
+            <circle cx="480" cy="189.5" r="4.5" />
+          </g>
+        </svg>
+        <p class="diagram-caption">Figura 7. Sucesión monótona creciente acotada por $M=3.8$ y $m=0.8$.</p>
+      </div>
+      <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- MÓDULO 03: SERIES INFINITAS                                          -->
+    <!-- ===================================================================== -->
+    <section class="card" id="mod-3">
+      <h2 class="module-title"><span class="badge">MÓDULO 03</span> Series Infinitas</h2>
+
+      <h3 class="section-title" id="sec-3-1">3.1 Sucesión vs. serie</h3>
+      <ul>
+        <li><strong>Sucesión ($\{a_n\}$):</strong> lista ordenada infinita $a_1,a_2,\dots$. Su estudio se centra en el
+          comportamiento de los términos individuales $a_n$ cuando $n\to\infty$.</li>
+        <li><strong>Serie ($\sum a_n$):</strong> suma infinita $a_1+a_2+a_3+\cdots$. Su convergencia depende de cómo se
+          acumula la suma, no solo de que $a_n\to 0$.</li>
+      </ul>
+      <p>En resumen, una sucesión es una <em>secuencia de valores</em>, mientras que una serie es una <em>operación de
+          acumulación infinita</em>.</p>
+
+      <h3 class="section-title" id="sec-3-2">3.2 Sumas parciales y definición de convergencia</h3>
+      <div class="callout callout-def">
+        <div class="callout-title">📌 Definición</div>
+        <p style="margin:0;">Para $\sum_{n=1}^{\infty}a_n$ se define la $n$-ésima <strong>suma parcial</strong>
+          $s_n=\sum_{i=1}^{n}a_i$:</p>
+        <ul>
+          <li>$\displaystyle\lim_{n\to\infty}s_n=s\in\mathbb{R}\implies \sum_{n=1}^{\infty}a_n=s$ (serie
+            <strong>convergente</strong>).
+          </li>
+          <li>$\sum_{n=1}^{\infty}a_n$ convergente $\implies\lim_{n\to\infty}a_n=0$ (condición necesaria, no
+            suficiente).</li>
+          <li>$\sum a_n$ divergente $\iff\lim s_n$ no existe o no es finito.</li>
+        </ul>
+      </div>
+      <p>El Teorema de la Sucesión Monótona corona el análisis asegurando que toda estructura que sea simultáneamente
+        monótona y acotada tiene garantizada su convergencia. La sucesión \(s_n = 3.5 - 3.5(0.6)^n\) (puntos azules)
+        ejemplifica este principio: al aumentar \(n\), los datos crecen progresivamente y se aproximan de forma
+        asintótica hacia el límite real \(s = 3.5\) (línea discontinua naranja), colapsando el margen de error gracias
+        al soporte de las cotas.</p>
+
+      <div class="diagram-container">
+        <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
+          <line x1="40" y1="220" x2="530" y2="220" stroke="#1e293b" stroke-width="1.5" />
+          <line x1="40" y1="220" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5" />
+          <text x="525" y="240" font-size="13" fill="#1e293b">n</text>
+          <text x="15" y="25" font-size="13" fill="#1e293b">sₙ</text>
+          <!-- s = 3.5 → y=80 -->
+          <line x1="40" y1="70" x2="520" y2="70" stroke="#ea580c" stroke-dasharray="4 3" stroke-width="1.5" />
+          <text x="525" y="70" font-size="11" fill="#ea580c" font-weight="700">s=3.5</text>
+          <!-- s_n = 3.5 - 3.5*(0.6)^n → Y=220-40*s -->
+          <g fill="#1e40af">
+            <circle cx="95" cy="136" r="4.5" />
+            <circle cx="150" cy="109.5" r="4.5" />
+            <circle cx="205" cy="93.7" r="4.5" />
+            <circle cx="260" cy="86.2" r="4.5" />
+            <circle cx="315" cy="82.7" r="4.5" />
+            <circle cx="370" cy="81.3" r="4.5" />
+            <circle cx="425" cy="80.5" r="4.5" />
+            <circle cx="480" cy="80.3" r="4.5" />
+          </g>
+          <g font-size="11" fill="#334155" text-anchor="middle">
+            <text x="95" y="240">1</text><text x="150" y="240">2</text>
+            <text x="205" y="240">3</text><text x="260" y="240">4</text>
+            <text x="315" y="240">5</text><text x="370" y="240">6</text>
+            <text x="425" y="240">7</text><text x="480" y="240">8</text>
+          </g>
+        </svg>
+        <p class="diagram-caption">Figura 8. Sumas parciales $s_n$ convergiendo asintóticamente a $s=3.5$.</p>
+      </div>
+
+      <h3 class="section-title" id="sec-3-3">3.3 Criterio de la integral</h3>
+      <div class="callout callout-thm">
+        <div class="callout-title">📐 Criterio de la integral</div>
+        <p style="margin:0;">Sea \(a_n=f(n)\), con \(f(x)\) continua, positiva y decreciente en \([1,\infty)\):</p>
+        <ul>
+          <li>Si \(\int_1^\infty f(x)\,dx\) es convergente \(\implies\sum a_n\) <strong>convergente</strong>.</li>
+          <li>Si \(\int_1^\infty f(x)\,dx\) es divergente \(\implies\sum a_n\) <strong>divergente</strong>.</li>
+        </ul>
+      </div>
+
+      <p>La justificación geométrica de este criterio se aprecia al comparar el área total bajo la curva continua
+        \(f(x)\) con la suma de las áreas de los rectángulos definidos por los términos discretos \(a_n = f(n)\). Si la
+        integral acumulada hasta el infinito es finita, los rectángulos (que representan la serie) también lo serán:</p>
+<div class="diagram-container">
+  <svg viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
+    <defs>
+      <marker id="ah6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M0,0 L10,5 L0,10 Z" fill="#1e293b" />
+      </marker>
+    </defs>
+
+    <!-- Ejes con flechas -->
+    <line x1="40" y1="230" x2="530" y2="230" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah6)" />
+    <line x1="40" y1="230" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah6)" />
+
+    <!-- Etiquetas de los ejes -->
+    <text x="525" y="250" font-size="13" fill="#1e293b">x</text>
+    <text x="15" y="25" font-size="13" fill="#1e293b">y</text>
+
+    <!-- Leyenda -->
+    <text x="245" y="75" font-size="13" fill="#1e40af">\(a_n = f(n)\) (Términos)</text>
+    <rect x="245" y="88" width="11" height="11" fill="#b91c1c" />
+    <text x="262" y="99" font-size="13" fill="#b91c1c">Rectángulos de área \(a_n\)</text>
+
+    <!-- Ecuación de la curva -->
+    <text x="370" y="195" font-size="15" fill="#1e40af">\(f(x) = 3.5e^{-0.35x}\)</text>
+
+    <!-- Rectángulos sobre [n,n+1] con altura a_n=f(n) -->
+    <g fill="none" stroke="#b91c1c" stroke-width="1.5">
+      <rect x="40" y="142.1" width="55" height="87.9" />
+      <rect x="95" y="167.5" width="55" height="62.5" />
+      <rect x="150" y="185.4" width="55" height="44.6" />
+      <rect x="205" y="198" width="55" height="32" />
+      <rect x="260" y="207" width="55" height="23" />
+      <rect x="315" y="213.6" width="55" height="16.4" />
+      <rect x="370" y="218.6" width="55" height="11.4" />
+    </g>
+
+    <!-- Curva f(x) corregida pasando exactamente por los puntos -->
+    <path d="M 40 142.1
+             C 60 156, 80 164, 95 167.5
+             C 115 172, 135 181, 150 185.4
+             C 170 190, 185 194.5, 205 198
+             C 225 201, 245 204.5, 260 207
+             C 285 210, 300 211.5, 315 213.6
+             C 335 215.5, 350 217, 370 218.6
+             C 390 220, 410 221.5, 425 222.3
+             C 450 224.5, 480 227.5, 520 230"
+          fill="none" stroke="#1e40af" stroke-width="2" />
+
+    <!-- Puntos a_n = f(n) -->
+    <g fill="#0f172a">
+      <circle cx="40" cy="142.1" r="3.5" />
+      <circle cx="95" cy="167.5" r="3.5" />
+      <circle cx="150" cy="185.4" r="3.5" />
+      <circle cx="205" cy="198" r="3.5" />
+      <circle cx="260" cy="207" r="3.5" />
+      <circle cx="315" cy="213.6" r="3.5" />
+      <circle cx="370" cy="218.6" r="3.5" />
+    </g>
+
+    <!-- Marcas y etiquetas del eje x -->
+    <g font-size="11" fill="#334155" text-anchor="middle">
+      <text x="40" y="250">1</text><text x="95" y="250">2</text>
+      <text x="150" y="250">3</text><text x="205" y="250">4</text>
+      <text x="260" y="250">5</text><text x="315" y="250">6</text>
+      <text x="370" y="250">7</text><text x="425" y="250">8</text>
+    </g>
+  </svg>
+  <p class="diagram-caption" style="text-align: justify;">Figura 2: Interpretación geométrica del Criterio de la
+    Integral relacionando el área bajo la curva continua con la suma discreta de los rectángulos.</p>
+</div>
+      <h3 class="section-title" id="sec-3-4">3.4 Aplicación: serie $p$</h3>
+      <div class="callout callout-thm">
+        <div class="callout-title">📐 Convergencia de la serie $p$</div>
+        <p style="margin:0;">La serie $p$ (o hiperarmónica) $\displaystyle\sum_{n=1}^{\infty}\frac{1}{n^p}$:</p>
+        <ul>
+          <li><strong>Converge</strong> si $p>1$.</li>
+          <li><strong>Diverge</strong> si $p\le 1$.</li>
+        </ul>
+      </div>
+
+      <div class="example-box">
+        <div class="example-header">🧩 Ejemplo 3.1: Serie de Basilea generalizada ($p=2$)</div>
+        <p>Estudiar la convergencia de $\sum_{n=1}^{\infty}\frac{1}{n^2}$.</p>
+        <details class="solution">
+          <summary>🔍 Ver solución</summary>
+          <div class="solution-content">
+            <p>Con $f(x)=\frac{1}{x^2}$, calculamos la integral impropia:</p>
+            $$\int_1^\infty\frac{1}{x^2}\,dx=\lim_{t\to\infty}\left[-\frac{1}{x}\right]_1^t=\lim_{t\to\infty}\left(-\frac{1}{t}+1\right)=1
+            <\infty$$ <p>Como el valor es finito, el criterio de la integral garantiza la <strong>convergencia</strong>
+              de la serie.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+    </section>
+
+<!-- ===================================================================== -->
+<!-- MÓDULO 04: SERIE GEOMÉTRICA Y ALTERNANTES                            -->
+<!-- ===================================================================== -->
+<section class="card" id="mod-4">
+  <h2 class="module-title"><span class="badge">MÓDULO 04</span> Serie Geométrica y Alternantes</h2>
+
+  <h3 class="section-title" id="sec-4-1">4.1 Aplicación del Criterio: Serie \(p\)</h3>
+
+  <p>Una de las aplicaciones directas y más útiles del Criterio de la Integral es el estudio de la <strong>Serie \(p\)</strong>, definida de la forma general \(\sum_{n=1}^{\infty} \frac{1}{n^p}\).</p>
+
+  <div class="callout callout-thm">
+    <div class="callout-title">📐 Convergencia de la Serie \(p\)</div>
+    <p style="margin:0;">Sea una serie \(p\) (también llamada serie hiperarmónica) definida por la expresión:</p>
+    \[
+    \sum_{n=1}^{\infty} \frac{1}{n^p} = 1 + \frac{1}{2^p} + \frac{1}{3^p} + \frac{1}{4^p} + \dots
+    \]
+    <p>donde \(p\) es una constante real. Su criterio de convergencia se establece según el valor del exponente \(p\):</p>
+    <ul>
+      <li>La serie <strong>converge</strong> si y solo si el exponente es estrictamente mayor que uno (\(p > 1\)).</li>
+      <li>La serie <strong>diverge</strong> si el exponente es menor o igual a uno (\(p \le 1\)).</li>
+    </ul>
   </div>
 
-  <!-- ===================== MAPA DE CONTENIDOS ===================== -->
-  <section class="card" id="mapa-de-contenidos">
-    <h2 class="module-title">📑 Mapa de Contenidos</h2>
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th style="width:80px;">Módulo</th>
-            <th style="width:280px;">Tema Principal</th>
-            <th>Subtemas Clave</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="badge">01</span></td>
-            <td><a href="#mod-1">Sucesiones</a></td>
-            <td>
-              <a href="#sec-1-1">1.1 Definición</a> •
-              <a href="#sec-1-2">1.2 Límite finito e infinito</a> •
-              <a href="#sec-1-3">1.3 Figuras de convergencia</a>
-            </td>
-          </tr>
-          <tr>
-            <td><span class="badge">02</span></td>
-            <td><a href="#mod-2">Condiciones de Convergencia</a></td>
-            <td>
-              <a href="#sec-2-1">2.1 Límite vía función</a> •
-              <a href="#sec-2-2">2.2 Límite del valor absoluto</a> •
-              <a href="#sec-2-3">2.3 Continuidad</a> •
-              <a href="#sec-2-4">2.4 Sucesión geométrica</a> •
-              <a href="#sec-2-5">2.5 Teorema de la sucesión monótona</a>
-            </td>
-          </tr>
-          <tr>
-            <td><span class="badge">03</span></td>
-            <td><a href="#mod-3">Series Infinitas</a></td>
-            <td>
-              <a href="#sec-3-1">3.1 Sucesión vs. serie</a> •
-              <a href="#sec-3-2">3.2 Sumas parciales</a> •
-              <a href="#sec-3-3">3.3 Criterio de la integral</a> •
-              <a href="#sec-3-4">3.4 Serie p</a>
-            </td>
-          </tr>
-          <tr>
-            <td><span class="badge">04</span></td>
-            <td><a href="#mod-4">Serie Geométrica y Alternantes</a></td>
-            <td>
-              <a href="#sec-4-1">4.1 Serie geométrica</a> •
-              <a href="#sec-4-2">4.2 Series alternadas (Leibniz)</a>
-            </td>
-          </tr>
-          <tr>
-            <td><span class="badge">05</span></td>
-            <td><a href="#mod-5">Convergencia Absoluta y Criterios</a></td>
-            <td>
-              <a href="#sec-5-1">5.1 Convergencia absoluta y condicional</a> •
-              <a href="#sec-5-2">5.2 Criterio del cociente</a> •
-              <a href="#sec-5-3">5.3 Criterio de la raíz</a>
-            </td>
-          </tr>
-          <tr>
-            <td><span class="badge">06</span></td>
-            <td><a href="#mod-6">Propiedades Notables</a></td>
-            <td>
-              <a href="#sec-6-1">6.1 Leyes de límites</a> •
-              <a href="#sec-6-2">6.2 Teorema del sándwich</a> •
-              <a href="#sec-6-3">6.3 Álgebra de series</a> •
-              <a href="#sec-6-4">6.4 Estimación del residuo</a> •
-              <a href="#sec-6-5">6.5 Criterios de comparación</a> •
-              <a href="#sec-6-6">6.6 Tabla resumen</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+  <div class="example-box">
+    <div class="example-header">🧩 Ejemplo 4.1: Serie \(p\) con \(p = 2\)</div>
+    <p>Tomemos como ejemplo el caso particular \(p = 2\) (conocida como la serie de Basilea generalizada), cuyos términos son \(a_n = \frac{1}{n^2}\). Si definimos la función continua \(f(x) = \frac{1}{x^2}\) para \(x \ge 1\), evaluamos su integral impropia:</p>
+    $$
+    \int_{1}^{\infty} \frac{1}{x^2} \, dx = \lim_{t \to \infty} \left[ -\frac{1}{x} \right]_{1}^{t} = \lim_{t \to \infty} \left( -\frac{1}{t} + 1 \right) = 1
+    $$
+    <p>Como el valor de la integral es finito (\(1 < \infty\)), el Criterio de la Integral garantiza que la serie \(\sum_{n=1}^{\infty} \frac{1}{n^2}\) es <strong>convergente</strong>. De forma general, se demuestra que la serie \(p\) converge si \(p > 1\) y diverge si \(p \le 1\).</p>
+  </div>
 
-  <!-- ===================================================================== -->
-  <!-- MÓDULO 01: SUCESIONES                                                -->
-  <!-- ===================================================================== -->
-  <section class="card" id="mod-1">
-    <h2 class="module-title"><span class="badge">MÓDULO 01</span> Sucesiones</h2>
+  <p>La siguiente gráfica muestra cómo decaen los términos \(a_n = \frac{1}{n^2}\) de forma polinómica acelerada:</p>
 
-    <h3 class="section-title" id="sec-1-1">1.1 Definición</h3>
-    <p>Se puede considerar que una sucesión es una lista de números escritos en un orden definido:</p>
-    $$a_1,\; a_2,\; a_3,\; a_4,\; \dots,\; a_n,\; \dots$$
-    <p>El número $a_1$ recibe el nombre de primer término, $a_2$ es el segundo término y, en general, $a_n$ es el $n$-ésimo término. Aquí se trata exclusivamente con sucesiones infinitas, por lo que cada término $a_n$ tiene un sucesor $a_{n+1}$. Para todo entero positivo $n$ hay un número correspondiente $a_n$, por lo que una sucesión se puede definir formalmente como una función cuyo dominio es el conjunto de enteros positivos. Por lo regular, se escribe $a_n$ en lugar de la notación de función $f(n)$. La sucesión $\{a_1,a_2,a_3,\dots\}$ también se denota mediante $\{a_n\}$ o $\{a_n\}_{n=1}^{\infty}$.</p>
+  <div class="diagram-container">
+    <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
+      <defs>
+        <marker id="ah-p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0,0 L10,5 L0,10 Z" fill="#1e293b" />
+        </marker>
+      </defs>
+      <line x1="40" y1="220" x2="530" y2="220" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah-p)" />
+      <line x1="40" y1="220" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah-p)" />
+      <text x="525" y="240" font-size="13" fill="#1e293b">n</text>
+      <text x="15" y="25" font-size="13" fill="#1e293b">aₙ</text>
 
-    <div class="callout callout-def">
-      <div class="callout-title">📌 Definición: Sucesión</div>
-      <p style="margin:0;">Una <strong>sucesión</strong> $\{a_n\}_{n=1}^{\infty}$ es una función con dominio en los enteros positivos ($a_n=f(n)$) que representa una lista ordenada infinita de términos.</p>
-    </div>
+      <!-- Curva f(x) = 3.5 / x^2 escalada para visualización -->
+      <path d="M 40 100 C 70 160, 80 170, 100 185 C 130 198, 150 203, 160 204.5 C 190 209.5, 210 211, 220 211.3 C 260 213.8, 300 215.2, 340 216.1 C 400 217.3, 430 217.8, 460 217.8" fill="none" stroke="#1e40af" stroke-width="2" />
 
-    <div class="diagram-container">
-      <svg viewBox="0 0 500 250" xmlns="http://www.w3.org/2000/svg" style="max-width:500px;width:100%;">
-        <!-- Ejes -->
-        <line x1="40" y1="210" x2="480" y2="210" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah1)"/>
-        <line x1="40" y1="210" x2="40" y2="30" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah1)"/>
-        <defs>
-          <marker id="ah1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M0,0 L10,5 L0,10 Z" fill="#1e293b"/>
-          </marker>
-        </defs>
-        <text x="475" y="230" font-size="14" fill="#1e293b">n</text>
-        <text x="15" y="30" font-size="14" fill="#1e293b">aₙ</text>
-        <!-- Puntos (escala: a_n para n=1..6) -->
-        <!-- valores: 3.0, 1.8, 2.5, 2.1, 2.3, 2.2 → Y = 210 - v*45 -->
-        <g fill="#1e3a8a">
-          <circle cx="100" cy="75" r="4"/>
-          <circle cx="160" cy="129" r="4"/>
-          <circle cx="220" cy="97.5" r="4"/>
-          <circle cx="280" cy="115.5" r="4"/>
-          <circle cx="340" cy="106.5" r="4"/>
-          <circle cx="400" cy="111" r="4"/>
-        </g>
-        <g stroke="#94a3b8" stroke-dasharray="3 3" stroke-width="1">
-          <line x1="100" y1="210" x2="100" y2="75"/>
-          <line x1="160" y1="210" x2="160" y2="129"/>
-          <line x1="220" y1="210" x2="220" y2="97.5"/>
-          <line x1="280" y1="210" x2="280" y2="115.5"/>
-          <line x1="340" y1="210" x2="340" y2="106.5"/>
-          <line x1="400" y1="210" x2="400" y2="111"/>
-        </g>
-        <g font-size="12" fill="#334155" text-anchor="middle">
-          <text x="100" y="228">1</text>
-          <text x="160" y="228">2</text>
-          <text x="220" y="228">3</text>
-          <text x="280" y="228">4</text>
-          <text x="340" y="228">5</text>
-          <text x="400" y="228">6</text>
-        </g>
-      </svg>
-      <p class="diagram-caption">Figura 1. Representación de los primeros términos de una sucesión discreta $a_n$ en función de $n$.</p>
-    </div>
+      <!-- Puntos de la serie p -->
+      <g fill="#1e40af">
+        <circle cx="40" cy="100" r="4.5" />
+        <circle cx="100" cy="185" r="4.5" />
+        <circle cx="160" cy="204.5" r="4.5" />
+        <circle cx="220" cy="211.3" r="4.5" />
+        <circle cx="280" cy="214.4" r="4.5" />
+        <circle cx="340" cy="216.1" r="4.5" />
+        <circle cx="400" cy="217.2" r="4.5" />
+        <circle cx="460" cy="217.8" r="4.5" />
+      </g>
 
-    <h3 class="section-title" id="sec-1-2">1.2 Límite finito e infinito</h3>
-    <div class="callout callout-def">
-      <div class="callout-title">📌 Definición formal de límite</div>
-      <p style="margin:0;">Sean $a_n\in\mathbb{R}$ los términos de la sucesión, con $n,N\in\mathbb{N}$, $L\in\mathbb{R}$, $\varepsilon>0$ y $M>0$.</p>
-      <ul>
-        <li><strong>Límite finito ($L$):</strong> los términos $a_n$ se aproximan tanto a $L$ como se quiera para $n$ suficientemente grande:
-          $$\forall\varepsilon>0,\;\exists N\in\mathbb{N}\text{ tal que } n\ge N\implies|a_n-L|<\varepsilon$$
-        </li>
-        <li><strong>Límite infinito ($\infty$):</strong> los términos $a_n$ crecen indefinidamente y sin cota:
-          $$\forall M>0,\;\exists N\in\mathbb{N}\text{ tal que } n\ge N\implies a_n>M$$
-        </li>
-      </ul>
-    </div>
+      <!-- Etiquetas de los ejes -->
+      <g font-size="11" fill="#334155" text-anchor="middle">
+        <text x="40" y="240">1</text>
+        <text x="100" y="240">2</text>
+        <text x="160" y="240">3</text>
+        <text x="220" y="240">4</text>
+        <text x="280" y="240">5</text>
+        <text x="340" y="240">6</text>
+        <text x="400" y="240">7</text>
+        <text x="460" y="240">8</text>
+      </g>
 
-    <h3 class="section-title" id="sec-1-3">1.3 Figuras de convergencia</h3>
+      <!-- Leyenda -->
+      <text x="180" y="100" font-size="13" fill="#1e40af">aₙ = 1/n² (p = 2 &gt; 1)</text>
+    </svg>
+    <p class="diagram-caption">Figura 3: Términos de la serie p con p = 2, demostrando su rápida convergencia respaldada por la integral.</p>
+  </div>
 
-    <h4 class="sub-title">Límite finito: $a_n=2.5+\frac{1.5(-1)^n}{n}$</h4>
-    <p>El valor límite es $L=2.5$ (línea naranja). La banda de tolerancia está definida por $\varepsilon=0.7$, delimitando las franjas superior $L+\varepsilon=3.2$ e inferior $L-\varepsilon=1.8$ (verde discontinuo). El parámetro $N=3$ (umbral rojo) garantiza que para $n\ge N$ todos los términos se confinen en la franja.</p>
-
-    <div class="diagram-container">
-      <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
-        <defs>
-          <marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M0,0 L10,5 L0,10 Z" fill="#1e293b"/>
-          </marker>
-        </defs>
-        <!-- Ejes: y = 220 - a*40, x = 40 + n*55 -->
-        <line x1="40" y1="220" x2="530" y2="220" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah2)"/>
-        <line x1="40" y1="220" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah2)"/>
-        <text x="525" y="240" font-size="13" fill="#1e293b">n</text>
-        <text x="15" y="25" font-size="13" fill="#1e293b">aₙ</text>
-        <!-- L = 2.5 → y = 120 -->
-        <line x1="40" y1="120" x2="520" y2="120" stroke="#ea580c" stroke-width="2.5"/>
-        <text x="525" y="124" font-size="12" fill="#ea580c" font-weight="700">L=2.5</text>
-        <!-- ε band: 3.2 → y=92; 1.8 → y=148 -->
-        <line x1="40" y1="92" x2="520" y2="92" stroke="#16a34a" stroke-dasharray="4 3" stroke-width="1.5"/>
-        <line x1="40" y1="148" x2="520" y2="148" stroke="#16a34a" stroke-dasharray="4 3" stroke-width="1.5"/>
-        <text x="525" y="96" font-size="10" fill="#16a34a">L+ε</text>
-        <text x="525" y="152" font-size="10" fill="#16a34a">L−ε</text>
-        <!-- N=3: x=205 -->
-        <line x1="205" y1="30" x2="205" y2="220" stroke="#dc2626" stroke-dasharray="4 3" stroke-width="1.5"/>
-        <text x="205" y="245" font-size="12" fill="#dc2626" font-weight="700" text-anchor="middle">N</text>
-        <!-- Puntos a_n = 2.5 + 1.5*(-1)^n/n (Y=220-40*a) -->
-        <!-- n=1: 1.0 → y=180 (negro) ; n=2: 3.25 → y=90 (negro) ; n=3: 2.0 → y=140 (verde) ; n=4: 2.875 → y=105 (verde) ; n=5: 2.2 → y=132 (verde) ; n=6: 2.75 → y=110 (verde) ; n=7: 2.285→y=128.5 ; n=8:2.6875→y=112.5 -->
-        <circle cx="95" cy="180" r="4.5" fill="#0f172a"/>
-        <circle cx="150" cy="90" r="4.5" fill="#0f172a"/>
-        <circle cx="205" cy="140" r="4.5" fill="#16a34a"/>
-        <circle cx="260" cy="105" r="4.5" fill="#16a34a"/>
-        <circle cx="315" cy="132" r="4.5" fill="#16a34a"/>
-        <circle cx="370" cy="110" r="4.5" fill="#16a34a"/>
-        <circle cx="425" cy="128.5" r="4.5" fill="#16a34a"/>
-        <circle cx="480" cy="112.5" r="4.5" fill="#16a34a"/>
-        <g font-size="11" fill="#334155" text-anchor="middle">
-          <text x="95" y="240">1</text>
-          <text x="150" y="240">2</text>
-          <text x="205" y="240">3</text>
-          <text x="260" y="240">4</text>
-          <text x="315" y="240">5</text>
-          <text x="370" y="240">6</text>
-          <text x="425" y="240">7</text>
-          <text x="480" y="240">8</text>
-        </g>
-      </svg>
-      <p class="diagram-caption">Figura 2. Convergencia de $a_n=2.5+\frac{1.5(-1)^n}{n}$ hacia $L=2.5$ con banda $\varepsilon=0.7$.</p>
-    </div>
-
-    <h4 class="sub-title">Límite infinito: $a_n=\frac{1}{2}n$</h4>
-    <p>La variable $M=2.5$ (morada) actúa como cota. A partir de $N=4$ (rojo), todos los términos $n\ge N$ superan la cota.</p>
-
-    <div class="diagram-container">
-      <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
-        <defs>
-          <marker id="ah3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M0,0 L10,5 L0,10 Z" fill="#1e293b"/>
-          </marker>
-        </defs>
-        <line x1="40" y1="220" x2="530" y2="220" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah3)"/>
-        <line x1="40" y1="220" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah3)"/>
-        <text x="525" y="240" font-size="13" fill="#1e293b">n</text>
-        <text x="15" y="25" font-size="13" fill="#1e293b">aₙ</text>
-        <line x1="40" y1="120" x2="520" y2="120" stroke="#7c3aed" stroke-dasharray="5 3" stroke-width="1.8"/>
-        <text x="525" y="124" font-size="12" fill="#7c3aed" font-weight="700">M=2.5</text>
-        <line x1="290" y1="30" x2="290" y2="220" stroke="#dc2626" stroke-dasharray="4 3" stroke-width="1.5"/>
-        <text x="290" y="245" font-size="12" fill="#dc2626" font-weight="700" text-anchor="middle">N</text>
-        <!-- Puntos a_n = 0.5*n, y=220-40*a -->
-        <circle cx="95" cy="200" r="4.5" fill="#0f172a"/>
-        <circle cx="150" cy="180" r="4.5" fill="#0f172a"/>
-        <circle cx="205" cy="160" r="4.5" fill="#0f172a"/>
-        <circle cx="260" cy="140" r="4.5" fill="#0f172a"/>
-        <circle cx="315" cy="120" r="4.5" fill="#2563eb"/>
-        <circle cx="370" cy="100" r="4.5" fill="#2563eb"/>
-        <circle cx="425" cy="80" r="4.5" fill="#2563eb"/>
-        <circle cx="480" cy="60" r="4.5" fill="#2563eb"/>
-        <g font-size="11" fill="#334155" text-anchor="middle">
-          <text x="95" y="240">1</text><text x="150" y="240">2</text>
-          <text x="205" y="240">3</text><text x="260" y="240">4</text>
-          <text x="315" y="240">5</text><text x="370" y="240">6</text>
-          <text x="425" y="240">7</text><text x="480" y="240">8</text>
-        </g>
-      </svg>
-      <p class="diagram-caption">Figura 3. Crecimiento indefinido de $a_n=\tfrac12 n$; para $n>N$ se cumple $a_n>M$.</p>
-    </div>
-
-    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
-  </section>
-
-  <!-- ===================================================================== -->
-  <!-- MÓDULO 02: CONDICIONES DE CONVERGENCIA                               -->
-  <!-- ===================================================================== -->
-  <section class="card" id="mod-2">
-    <h2 class="module-title"><span class="badge">MÓDULO 02</span> Condiciones de Convergencia</h2>
-
-    <h3 class="section-title" id="sec-2-1">2.1 Límite de una sucesión a partir de una función</h3>
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Teorema</div>
-      <p style="margin:0;">Si $\lim_{x\to\infty}f(x)=L$ y $f(n)=a_n$ para todo entero positivo $n$, entonces:</p>
-      $$\lim_{n\to\infty}a_n=L$$
-    </div>
-    <p>Al evaluar la función continua $f(x)=2+\tfrac{1}{x}$ (azul), los datos de la sucesión $a_n=2+\tfrac{1}{n}$ (verde) se alojan exactamente sobre los valores enteros. Ambos convergen a $L=2$.</p>
-
-    <div class="diagram-container">
-      <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
-        <defs>
-          <marker id="ah4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M0,0 L10,5 L0,10 Z" fill="#1e293b"/>
-          </marker>
-        </defs>
-        <line x1="40" y1="220" x2="530" y2="220" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah4)"/>
-        <line x1="40" y1="220" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah4)"/>
-        <text x="525" y="240" font-size="13" fill="#1e293b">x/n</text>
-        <text x="15" y="25" font-size="13" fill="#1e293b">y</text>
-        <!-- L = 2 → y = 140 -->
-        <line x1="40" y1="140" x2="520" y2="140" stroke="#ea580c" stroke-dasharray="4 3" stroke-width="1.5"/>
-        <text x="525" y="144" font-size="12" fill="#ea580c" font-weight="700">L=2</text>
-        <!-- f(x) = 2 + 2/x (Y=220-40*(2+2/x)); sample x=0.5..8 -->
-        <path d="M 60 60 Q 90 130 130 165 Q 200 190 300 200 Q 400 205 500 208"
-              fill="none" stroke="#1e40af" stroke-width="2"/>
-        <!-- Puntos a_n = 2 + 2/n -->
-        <circle cx="100" cy="60" r="4" fill="#16a34a"/>
-        <circle cx="155" cy="140" r="4" fill="#16a34a"/>
-        <circle cx="210" cy="167" r="4" fill="#16a34a"/>
-        <circle cx="265" cy="180" r="4" fill="#16a34a"/>
-        <circle cx="320" cy="188" r="4" fill="#16a34a"/>
-        <circle cx="375" cy="193" r="4" fill="#16a34a"/>
-        <circle cx="430" cy="196" r="4" fill="#16a34a"/>
-        <g font-size="11" fill="#334155" text-anchor="middle">
-          <text x="100" y="240">1</text><text x="155" y="240">2</text>
-          <text x="210" y="240">3</text><text x="265" y="240">4</text>
-          <text x="320" y="240">5</text><text x="375" y="240">6</text>
-          <text x="430" y="240">7</text>
-        </g>
-      </svg>
-      <p class="diagram-caption">Figura 4. Sucesión $a_n=2+\tfrac{1}{n}$ contenida en la función continua $f(x)=2+\tfrac{1}{x}$.</p>
-    </div>
-
-    <h3 class="section-title" id="sec-2-2">2.2 Límite del valor absoluto</h3>
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Teorema del valor absoluto</div>
-      <p style="margin:0;">Si $\lim_{n\to\infty}|a_n|=0$, entonces $\lim_{n\to\infty}a_n=0$.</p>
-    </div>
-
-    <p>Cuando una sucesión oscila alternando signos (como $a_n=\frac{(-1)^{n+1}}{n}$, azul), su estudio directo es complejo. El teorema resuelve esto evaluando $|a_n|=\tfrac{1}{n}$ (naranja), que converge a $0$.</p>
-
-    <div class="diagram-container">
-      <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
-        <line x1="40" y1="130" x2="530" y2="130" stroke="#1e293b" stroke-width="1.5"/>
-        <line x1="40" y1="130" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5"/>
-        <line x1="40" y1="130" x2="40" y2="240" stroke="#1e293b" stroke-width="1.5"/>
-        <text x="525" y="148" font-size="13" fill="#1e293b">n</text>
-        <text x="15" y="30" font-size="13" fill="#1e293b">aₙ</text>
-        <!-- ε = 1.2 → y=130±45 -->
-        <line x1="40" y1="85" x2="520" y2="85" stroke="#16a34a" stroke-dasharray="4 3"/>
-        <line x1="40" y1="175" x2="520" y2="175" stroke="#16a34a" stroke-dasharray="4 3"/>
-        <text x="525" y="89" font-size="10" fill="#16a34a">ε</text>
-        <text x="525" y="179" font-size="10" fill="#16a34a">−ε</text>
-        <!-- n=1..8: a_n = ±2/n (Y=130-37.5*a_n) ; |a_n| naranja -->
-        <g fill="#ea580c">
-          <circle cx="95" cy="55" r="4"/>
-          <circle cx="150" cy="92.5" r="4"/>
-          <circle cx="205" cy="105" r="4"/>
-          <circle cx="260" cy="111.25" r="4"/>
-          <circle cx="315" cy="115" r="4"/>
-          <circle cx="370" cy="117.5" r="4"/>
-          <circle cx="425" cy="119.3" r="4"/>
-          <circle cx="480" cy="120.6" r="4"/>
-        </g>
-        <g fill="#1e40af">
-          <circle cx="95" cy="205" r="3"/>
-          <circle cx="150" cy="167.5" r="3"/>
-          <circle cx="205" cy="155" r="3"/>
-          <circle cx="260" cy="148.75" r="3"/>
-          <circle cx="315" cy="145" r="3"/>
-          <circle cx="370" cy="142.5" r="3"/>
-          <circle cx="425" cy="140.7" r="3"/>
-          <circle cx="480" cy="139.4" r="3"/>
-        </g>
-      </svg>
-      <p class="diagram-caption">Figura 5. Sucesión oscilante $a_n=\tfrac{(-1)^{n+1}}{n}$ y su valor absoluto $|a_n|=\tfrac{1}{n}$.</p>
-    </div>
-
-    <h3 class="section-title" id="sec-2-3">2.3 Continuidad y límites de sucesiones</h3>
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Teorema</div>
-      <p style="margin:0;">Si $\lim_{n\to\infty}a_n=L$ y $f$ es continua en $L$, entonces:</p>
-      $$\lim_{n\to\infty}f(a_n)=f(L)$$
-    </div>
-
-    <h3 class="section-title" id="sec-2-4">2.4 Convergencia de la sucesión geométrica</h3>
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Teorema</div>
-      <p style="margin:0;">La sucesión $\{r^n\}$ es convergente si $-1<r\le 1$ y divergente en otro caso, cumpliéndose:</p>
-      $$\lim_{n\to\infty}r^n=\begin{cases}0 & \text{si }-1<r<1\\ 1 & \text{si } r=1\end{cases}$$
-    </div>
-
-    <div class="diagram-container">
-      <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
-        <defs>
-          <marker id="ah5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M0,0 L10,5 L0,10 Z" fill="#1e293b"/>
-          </marker>
-        </defs>
-        <line x1="40" y1="220" x2="530" y2="220" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah5)"/>
-        <line x1="40" y1="220" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah5)"/>
-        <text x="525" y="240" font-size="13" fill="#1e293b">n</text>
-        <text x="15" y="25" font-size="13" fill="#1e293b">rⁿ</text>
-        <!-- Línea y=1 → y=120 ; y=0 → y=220 -->
-        <line x1="40" y1="120" x2="520" y2="120" stroke="#ea580c" stroke-width="2"/>
-        <text x="525" y="124" font-size="12" fill="#ea580c" font-weight="700">1</text>
-        <line x1="40" y1="220" x2="520" y2="220" stroke="#64748b" stroke-dasharray="3 3"/>
-        <!-- r=1: puntos verdes en y=120 -->
-        <g fill="#16a34a">
-          <circle cx="95" cy="120" r="4"/>
-          <circle cx="150" cy="120" r="4"/>
-          <circle cx="205" cy="120" r="4"/>
-          <circle cx="260" cy="120" r="4"/>
-          <circle cx="315" cy="120" r="4"/>
-          <circle cx="370" cy="120" r="4"/>
-          <circle cx="425" cy="120" r="4"/>
-        </g>
-        <!-- r=0.65: valores 3, 1.95, 1.27, 0.82, 0.53, 0.34, 0.22 → y=220-33*v -->
-        <g fill="#1e40af">
-          <circle cx="95" cy="121" r="4"/>
-          <circle cx="150" cy="156" r="4"/>
-          <circle cx="205" cy="178" r="4"/>
-          <circle cx="260" cy="193" r="4"/>
-          <circle cx="315" cy="202" r="4"/>
-          <circle cx="370" cy="208" r="4"/>
-          <circle cx="425" cy="212" r="4"/>
-        </g>
-      </svg>
-      <p class="diagram-caption">Figura 6. Comportamiento de $r^n$ para $r=1$ (verde) y $0<r<1$ (azul).</p>
-    </div>
-
-    <h3 class="section-title" id="sec-2-5">2.5 Monotonía, acotamiento y teorema de la sucesión monótona</h3>
-
-    <div class="callout callout-def">
-      <div class="callout-title">📌 Monotonía y acotamiento</div>
-      <p style="margin:0;">Sea $\{a_n\}$ una sucesión ($\forall n\ge 1$):</p>
-      <ul>
-        <li><strong>Monotonía:</strong> <em>creciente</em> si $a_n<a_{n+1}$, <em>decreciente</em> si $a_n>a_{n+1}$, <em>monótona</em> si cumple alguna de las dos.</li>
-        <li><strong>Acotamiento:</strong> <em>acotada</em> si existen $m,M\in\mathbb{R}$ tales que $m\le a_n\le M$.</li>
-      </ul>
-    </div>
-
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Teorema de la sucesión monótona</div>
-      <p style="margin:0;">Si $\{a_n\}$ es acotada y monótona, entonces $\{a_n\}$ es convergente.</p>
-    </div>
-
-    <div class="diagram-container">
-      <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
-        <line x1="40" y1="220" x2="530" y2="220" stroke="#1e293b" stroke-width="1.5"/>
-        <line x1="40" y1="220" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5"/>
-        <text x="525" y="240" font-size="13" fill="#1e293b">n</text>
-        <text x="15" y="25" font-size="13" fill="#1e293b">aₙ</text>
-        <!-- M=3.8 → y=68 ; m=0.8 → y=188 -->
-        <line x1="40" y1="68" x2="520" y2="68" stroke="#7c3aed" stroke-dasharray="4 3"/>
-        <line x1="40" y1="188" x2="520" y2="188" stroke="#0891b2" stroke-dasharray="4 3"/>
-        <text x="525" y="72" font-size="11" fill="#7c3aed">M=3.8</text>
-        <text x="525" y="192" font-size="11" fill="#0891b2">m=0.8</text>
-        <!-- a_n = 3.8 - 2.8*(0.75)^{n-1}  → Y=220-40*a -->
-        <g fill="#1e3a8a">
-          <circle cx="95" cy="108" r="4.5"/>
-          <circle cx="150" cy="132" r="4.5"/>
-          <circle cx="205" cy="150" r="4.5"/>
-          <circle cx="260" cy="163.5" r="4.5"/>
-          <circle cx="315" cy="173.5" r="4.5"/>
-          <circle cx="370" cy="180.7" r="4.5"/>
-          <circle cx="425" cy="186" r="4.5"/>
-          <circle cx="480" cy="189.5" r="4.5"/>
-        </g>
-      </svg>
-      <p class="diagram-caption">Figura 7. Sucesión monótona creciente acotada por $M=3.8$ y $m=0.8$.</p>
-    </div>
-
-    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
-  </section>
-
-  <!-- ===================================================================== -->
-  <!-- MÓDULO 03: SERIES INFINITAS                                          -->
-  <!-- ===================================================================== -->
-  <section class="card" id="mod-3">
-    <h2 class="module-title"><span class="badge">MÓDULO 03</span> Series Infinitas</h2>
-
-    <h3 class="section-title" id="sec-3-1">3.1 Sucesión vs. serie</h3>
+  <h3 class="section-title" id="sec-4-2">4.2 Serie geométrica</h3>
+  <div class="callout callout-thm">
+    <div class="callout-title">📐 Convergencia de la serie geométrica</div>
+    <p style="margin:0;">Para la serie geométrica \(\sum_{n=1}^{\infty}ar^{n-1}=a+ar+ar^2+\cdots\) (con \(a\neq 0\)):</p>
     <ul>
-      <li><strong>Sucesión ($\{a_n\}$):</strong> lista ordenada infinita $a_1,a_2,\dots$. Su estudio se centra en el comportamiento de los términos individuales $a_n$ cuando $n\to\infty$.</li>
-      <li><strong>Serie ($\sum a_n$):</strong> suma infinita $a_1+a_2+a_3+\cdots$. Su convergencia depende de cómo se acumula la suma, no solo de que $a_n\to 0$.</li>
+      <li><strong>Converge</strong> si \(|r|<1\), con suma \(s=\dfrac{a}{1-r}\).</li>
+      <li><strong>Diverge</strong> si \(|r|\ge 1\).</li>
     </ul>
-    <p>En resumen, una sucesión es una <em>secuencia de valores</em>, mientras que una serie es una <em>operación de acumulación infinita</em>.</p>
+  </div>
 
-    <h3 class="section-title" id="sec-3-2">3.2 Sumas parciales y definición de convergencia</h3>
-    <div class="callout callout-def">
-      <div class="callout-title">📌 Definición</div>
-      <p style="margin:0;">Para $\sum_{n=1}^{\infty}a_n$ se define la $n$-ésima <strong>suma parcial</strong> $s_n=\sum_{i=1}^{n}a_i$:</p>
-      <ul>
-        <li>$\displaystyle\lim_{n\to\infty}s_n=s\in\mathbb{R}\implies \sum_{n=1}^{\infty}a_n=s$ (serie <strong>convergente</strong>).</li>
-        <li>$\sum_{n=1}^{\infty}a_n$ convergente $\implies\lim_{n\to\infty}a_n=0$ (condición necesaria, no suficiente).</li>
-        <li>$\sum a_n$ divergente $\iff\lim s_n$ no existe o no es finito.</li>
-      </ul>
-    </div>
+  <div class="example-box">
+    <div class="example-header">🧩 Ejemplo 4.2: Serie geométrica con \(a=4\), \(r=0.65\)</div>
+    <p>Tomemos como ejemplo concreto los valores \(a = 4\) y \(r = 0.65\) (\(|r| < 1\)), cuyos términos son \(a_n = 4(0.65)^{n-1}\). Al tomar el límite cuando \(n \to \infty\), puesto que \(|r| < 1\), se tiene que \(\lim_{n \to \infty} r^n = 0\), lo que lleva a la suma total:</p>
+    $$s=\frac{a}{1-r}=\frac{4}{1-0.65}=\frac{4}{0.35}=\frac{80}{7}\approx 11.43$$
+  </div>
 
-    <div class="diagram-container">
-      <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
-        <line x1="40" y1="220" x2="530" y2="220" stroke="#1e293b" stroke-width="1.5"/>
-        <line x1="40" y1="220" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5"/>
-        <text x="525" y="240" font-size="13" fill="#1e293b">n</text>
-        <text x="15" y="25" font-size="13" fill="#1e293b">sₙ</text>
-        <!-- s = 3.5 → y=80 -->
-        <line x1="40" y1="80" x2="520" y2="80" stroke="#ea580c" stroke-dasharray="4 3" stroke-width="1.5"/>
-        <text x="525" y="84" font-size="11" fill="#ea580c" font-weight="700">s=3.5</text>
-        <!-- s_n = 3.5 - 3.5*(0.6)^n → Y=220-40*s -->
-        <g fill="#1e40af">
-          <circle cx="95" cy="136" r="4.5"/>
-          <circle cx="150" cy="109.5" r="4.5"/>
-          <circle cx="205" cy="93.7" r="4.5"/>
-          <circle cx="260" cy="86.2" r="4.5"/>
-          <circle cx="315" cy="82.7" r="4.5"/>
-          <circle cx="370" cy="81.3" r="4.5"/>
-          <circle cx="425" cy="80.5" r="4.5"/>
-          <circle cx="480" cy="80.3" r="4.5"/>
-        </g>
-        <g font-size="11" fill="#334155" text-anchor="middle">
-          <text x="95" y="240">1</text><text x="150" y="240">2</text>
-          <text x="205" y="240">3</text><text x="260" y="240">4</text>
-          <text x="315" y="240">5</text><text x="370" y="240">6</text>
-          <text x="425" y="240">7</text><text x="480" y="240">8</text>
-        </g>
-      </svg>
-      <p class="diagram-caption">Figura 8. Sumas parciales $s_n$ convergiendo asintóticamente a $s=3.5$.</p>
-    </div>
+  <p>A continuación se ilustra el comportamiento de los términos de esta serie geométrica:</p>
 
-    <h3 class="section-title" id="sec-3-3">3.3 Criterio de la integral</h3>
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Criterio de la integral</div>
-      <p style="margin:0;">Sea $a_n=f(n)$, con $f(x)$ continua, positiva y decreciente en $[1,\infty)$:</p>
-      <ul>
-        <li>Si $\int_1^\infty f(x)\,dx$ es convergente $\implies\sum a_n$ <strong>convergente</strong>.</li>
-        <li>Si $\int_1^\infty f(x)\,dx$ es divergente $\implies\sum a_n$ <strong>divergente</strong>.</li>
-      </ul>
-    </div>
+  <div class="diagram-container">
+    <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
+      <defs>
+        <marker id="ah-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0,0 L10,5 L0,10 Z" fill="#1e293b" />
+        </marker>
+      </defs>
+      <line x1="40" y1="220" x2="530" y2="220" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah-g)" />
+      <line x1="40" y1="220" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5" marker-end="url(#ah-g)" />
+      <text x="525" y="240" font-size="13" fill="#1e293b">n</text>
+      <text x="15" y="25" font-size="13" fill="#1e293b">aₙ</text>
 
-    <div class="diagram-container">
-      <svg viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
-        <line x1="40" y1="230" x2="530" y2="230" stroke="#1e293b" stroke-width="1.5"/>
-        <line x1="40" y1="230" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5"/>
-        <text x="525" y="250" font-size="13" fill="#1e293b">x</text>
-        <text x="15" y="25" font-size="13" fill="#1e293b">y</text>
-        <!-- f(x) = 3.5*e^{-0.35x} → Y=230-33*f ; X=40+55*n -->
-        <!-- Rectángulos sobre [n,n+1] con altura a_n=f(n) -->
-        <g fill="none" stroke="#b91c1c" stroke-width="1.5">
-          <rect x="40" y="142.1" width="55" height="87.9"/>
-          <rect x="95" y="167.5" width="55" height="62.5"/>
-          <rect x="150" y="185.4" width="55" height="44.6"/>
-          <rect x="205" y="198" width="55" height="32"/>
-          <rect x="260" y="207" width="55" height="23"/>
-          <rect x="315" y="213.6" width="55" height="16.4"/>
-          <rect x="370" y="218.6" width="55" height="11.4"/>
-        </g>
-        <!-- Curva f(x) aproximada -->
-        <path d="M 40 142 Q 120 200 200 220 Q 300 228 420 229.5 Q 470 229.9 520 230"
-              fill="none" stroke="#1e40af" stroke-width="2"/>
-        <!-- Puntos a_n = f(n) -->
-        <g fill="#0f172a">
-          <circle cx="40" cy="142.1" r="3.5"/>
-          <circle cx="95" cy="167.5" r="3.5"/>
-          <circle cx="150" cy="185.4" r="3.5"/>
-          <circle cx="205" cy="198" r="3.5"/>
-          <circle cx="260" cy="207" r="3.5"/>
-          <circle cx="315" cy="213.6" r="3.5"/>
-          <circle cx="370" cy="218.6" r="3.5"/>
-        </g>
-        <g font-size="11" fill="#334155" text-anchor="middle">
-          <text x="40" y="250">1</text><text x="95" y="250">2</text>
-          <text x="150" y="250">3</text><text x="205" y="250">4</text>
-          <text x="260" y="250">5</text><text x="315" y="250">6</text>
-          <text x="370" y="250">7</text><text x="425" y="250">8</text>
-        </g>
-      </svg>
-      <p class="diagram-caption">Figura 9. Interpretación geométrica del criterio de la integral: rectángulos de área $a_n$ frente a la curva $f(x)$.</p>
-    </div>
+<!-- Curva a_n = 4(0.65)^{n-1} suavizada con derivadas exactas -->
+<path d="M 40 60
+         C 60 83, 80 101.1, 100 116
+         C 120 130.9, 140 142.7, 160 152.4
+         C 180 162.1, 200 169.8, 220 176.1
+         C 240 182.4, 260 187.3, 280 191.4
+         C 300 195.5, 320 198.7, 340 201.4
+         C 360 204.1, 380 206.2, 400 207.9
+         C 420 209.6, 440 211.1, 460 212.2"
+      fill="none" stroke="#7c3aed" stroke-width="2" />
+      <!-- Puntos de la serie geométrica -->
+      <g fill="#16a34a">
+        <circle cx="40" cy="60" r="4.5" />
+        <circle cx="100" cy="116" r="4.5" />
+        <circle cx="160" cy="152.4" r="4.5" />
+        <circle cx="220" cy="176.1" r="4.5" />
+        <circle cx="280" cy="191.4" r="4.5" />
+        <circle cx="340" cy="201.4" r="4.5" />
+        <circle cx="400" cy="207.9" r="4.5" />
+        <circle cx="460" cy="212.2" r="4.5" />
+      </g>
 
-    <h3 class="section-title" id="sec-3-4">3.4 Aplicación: serie $p$</h3>
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Convergencia de la serie $p$</div>
-      <p style="margin:0;">La serie $p$ (o hiperarmónica) $\displaystyle\sum_{n=1}^{\infty}\frac{1}{n^p}$:</p>
-      <ul>
-        <li><strong>Converge</strong> si $p>1$.</li>
-        <li><strong>Diverge</strong> si $p\le 1$.</li>
-      </ul>
-    </div>
+      <!-- Etiquetas de los ejes -->
+      <g font-size="11" fill="#334155" text-anchor="middle">
+        <text x="40" y="240">1</text>
+        <text x="100" y="240">2</text>
+        <text x="160" y="240">3</text>
+        <text x="220" y="240">4</text>
+        <text x="280" y="240">5</text>
+        <text x="340" y="240">6</text>
+        <text x="400" y="240">7</text>
+        <text x="460" y="240">8</text>
+      </g>
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 3.1: Serie de Basilea generalizada ($p=2$)</div>
-      <p>Estudiar la convergencia de $\sum_{n=1}^{\infty}\frac{1}{n^2}$.</p>
-      <details class="solution"><summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p>Con $f(x)=\frac{1}{x^2}$, calculamos la integral impropia:</p>
-          $$\int_1^\infty\frac{1}{x^2}\,dx=\lim_{t\to\infty}\left[-\frac{1}{x}\right]_1^t=\lim_{t\to\infty}\left(-\frac{1}{t}+1\right)=1<\infty$$
-          <p>Como el valor es finito, el criterio de la integral garantiza la <strong>convergencia</strong> de la serie.</p>
-        </div>
-      </details>
-    </div>
+      <!-- Leyenda -->
+      <text x="180" y="100" font-size="13" fill="#16a34a">aₙ → 0 (|r| = 0.65 &lt; 1)</text>
+    </svg>
+    <p class="diagram-caption">Figura 4: Decrecimiento exponencial de los términos de la serie geométrica aₙ = 4(0.65)ⁿ⁻¹.</p>
+  </div>
 
-    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
-  </section>
+  <h3 class="section-title" id="sec-4-3">4.3 Series alternadas (criterio de Leibniz)</h3>
+  <div class="callout callout-thm">
+    <div class="callout-title">📐 Criterio de la serie alternada</div>
+    <p style="margin:0;">Para la serie alternada \(\sum_{n=1}^{\infty}(-1)^{n-1}b_n\) (con \(b_n>0\)):</p>
+    <ul>
+      <li><strong>Converge</strong> si:
+        <ol>
+          <li>\(b_{n+1}\le b_n\) (sucesión decreciente en valor absoluto).</li>
+          <li>\(\lim_{n\to\infty}b_n=0\).</li>
+        </ol>
+      </li>
+      <li><strong>Estimación del residuo:</strong> \(|R_n|=|s-s_n|\le b_{n+1}\).</li>
+    </ul>
+  </div>
 
-  <!-- ===================================================================== -->
-  <!-- MÓDULO 04: SERIE GEOMÉTRICA Y ALTERNANTES                            -->
-  <!-- ===================================================================== -->
-  <section class="card" id="mod-4">
-    <h2 class="module-title"><span class="badge">MÓDULO 04</span> Serie Geométrica y Alternantes</h2>
+  <div class="example-box">
+    <div class="example-header">🧩 Ejemplo 4.3: Serie alternada \(a_n=\frac{(-1)^{n-1}\cdot 3}{n}\)</div>
+    <p>Tomemos como ejemplo el caso particular de la serie alternada con términos \(a_n = \frac{(-1)^{n-1} \cdot 3}{n}\), cuya componente en valor absoluto es \(b_n = \frac{3}{n}\). Para verificar su convergencia utilizando el criterio, comprobamos paso a paso sus dos condiciones esenciales:</p>
+    <details class="solution">
+      <summary>🔍 Ver solución</summary>
+      <div class="solution-content">
+        <ol>
+          <li><strong>Decrecimiento (\(b_{n+1} \le b_n\)):</strong> Dado que \(n < n+1\), al evaluar las fracciones se cumple que \(\frac{3}{n+1} < \frac{3}{n}\), confirmando que los términos disminuyen monótonamente en magnitud.</li>
+          <li><strong>Límite al infinito (\(\lim_{n \to \infty} b_n = 0\)):</strong> Evaluamos el límite de la envolvente positiva:
+          \[
+          \lim_{n \to \infty} \frac{3}{n} = 0
+          \]</li>
+        </ol>
+        <p>Al cumplirse ambas hipótesis, el Criterio de la Serie Alternada garantiza que la serie es <strong>convergente</strong>.</p>
+      </div>
+    </details>
+  </div>
 
-    <h3 class="section-title" id="sec-4-1">4.1 Serie geométrica</h3>
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Convergencia de la serie geométrica</div>
-      <p style="margin:0;">Para la serie geométrica $\sum_{n=1}^{\infty}ar^{n-1}=a+ar+ar^2+\cdots$ (con $a\neq 0$):</p>
-      <ul>
-        <li><strong>Converge</strong> si $|r|<1$, con suma $s=\dfrac{a}{1-r}$.</li>
-        <li><strong>Diverge</strong> si $|r|\ge 1$.</li>
-      </ul>
-    </div>
+  <p>La siguiente gráfica ilustra de forma geométrica este comportamiento oscilatorio y cómo las envolventes acotan los términos:</p>
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 4.1: Serie geométrica con $a=4$, $r=0.65$</div>
-      <p>Calcular la suma total de $a_n=4(0.65)^{n-1}$.</p>
-      <details class="solution"><summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p>Como $|r|=0.65<1$:</p>
-          $$s=\frac{a}{1-r}=\frac{4}{1-0.65}=\frac{4}{0.35}=\frac{80}{7}\approx 11.43$$
-        </div>
-      </details>
-    </div>
+  <div class="diagram-container">
+    <svg viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
+      <line x1="40" y1="140" x2="530" y2="140" stroke="#1e293b" stroke-width="1.5" />
+      <line x1="40" y1="140" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5" />
+      <line x1="40" y1="140" x2="40" y2="260" stroke="#1e293b" stroke-width="1.5" />
+      <text x="525" y="158" font-size="13" fill="#1e293b">n</text>
+      <text x="15" y="25" font-size="13" fill="#1e293b">aₙ</text>
+      <!-- Envolventes b_n = 3/n: n=1..8 → y=140-33*(3/n) → arriba ; -b_n abajo -->
+<!-- Envolventes b_n = 3/n suavizadas con derivadas exactas (Corregidas) -->
+<!-- Envolventes b_n = 3/n y -3/n suavizadas sin ondulaciones -->
+<!-- Envolventes b_n = 3/n y -3/n suavizadas pasando exactamente por n = 1..7 -->
+<!-- Envolventes b_n = 3/n y -3/n suavizadas hasta n = 8 (x = 480) -->
+      <path d="M 95 41
+               C 104.17 57.5, 131.67 80, 150 88
+               C 168.33 96.46, 186.67 103.33, 205 107
+               C 223.33 110.67, 241.67 113.19, 260 115.25
+               C 278.33 117.31, 296.67 118.88, 315 120.2
+               C 333.33 121.52, 351.67 122.58, 370 123.5
+               C 388.33 124.42, 406.67 125.19, 425 125.86
+               C 443.33 126.53, 470.83 127.36, 480 127.63"
+            fill="none" stroke="#7c3aed" stroke-width="2.2" stroke-linecap="round" />
 
-    <h3 class="section-title" id="sec-4-2">4.2 Series alternadas (criterio de Leibniz)</h3>
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Criterio de la serie alternada</div>
-      <p style="margin:0;">Para la serie alternada $\sum_{n=1}^{\infty}(-1)^{n-1}b_n$ (con $b_n>0$):</p>
-      <ul>
-        <li><strong>Converge</strong> si:
-          <ol>
-            <li>$b_{n+1}\le b_n$ (sucesión decreciente en valor absoluto).</li>
-            <li>$\lim_{n\to\infty}b_n=0$.</li>
-          </ol>
-        </li>
-        <li><strong>Estimación del residuo:</strong> $|R_n|=|s-s_n|\le b_{n+1}$.</li>
-      </ul>
-    </div>
+      <path d="M 95 239
+               C 104.17 222.5, 131.67 195.46, 150 189.5
+               C 168.33 183.54, 186.67 176.67, 205 173
+               C 223.33 169.33, 241.67 166.81, 260 164.75
+               C 278.33 162.69, 296.67 161.12, 315 159.8
+               C 333.33 158.48, 351.67 157.42, 370 156.5
+               C 388.33 155.58, 406.67 154.81, 425 154.14
+               C 443.33 153.47, 470.83 152.64, 480 152.38"
+            fill="none" stroke="#7c3aed" stroke-width="2.2" stroke-linecap="round" />
 
-    <div class="example-box">
-      <div class="example-header">🧩 Ejemplo 4.2: Serie alternada $a_n=\frac{(-1)^{n-1}\cdot 3}{n}$</div>
-      <p>Verificar convergencia mediante Leibniz.</p>
-      <details class="solution"><summary>🔍 Ver solución</summary>
-        <div class="solution-content">
-          <p>Con $b_n=\frac{3}{n}$:</p>
-          <ol>
-            <li><strong>Decrecimiento:</strong> $\frac{3}{n+1}<\frac{3}{n}$ para todo $n\ge 1$ ✔</li>
-            <li><strong>Límite al infinito:</strong> $\lim_{n\to\infty}\frac{3}{n}=0$ ✔</li>
-          </ol>
-          <p>Ambas hipótesis se cumplen, por lo que la serie es <strong>convergente</strong>.</p>
-        </div>
-      </details>
-    </div>
+      <!-- Puntos azules discretos de a_n = (-1)^(n-1) * 3 / n para n = 1..7 -->
+      <g fill="#2563eb" stroke="#ffffff" stroke-width="1.5">
+        <circle cx="95"  cy="41"     r="4.5" /> <!-- n = 1 -->
+        <circle cx="150" cy="189.5"  r="4.5" /> <!-- n = 2 -->
+        <circle cx="205" cy="107"    r="4.5" /> <!-- n = 3 -->
+        <circle cx="260" cy="164.75" r="4.5" /> <!-- n = 4 -->
+        <circle cx="315" cy="120.2"  r="4.5" /> <!-- n = 5 -->
+        <circle cx="370" cy="156.5"  r="4.5" /> <!-- n = 6 -->
+        <circle cx="425" cy="125.86" r="4.5" /> <!-- n = 7 -->
+      </g>
+    </svg>
+    <p class="diagram-caption">Figura 5. Representación geométrica de las condiciones de convergencia para la serie alternada \(a_n = \frac{(-1)^{n-1} \cdot 3}{n}\).</p>
+  </div>
 
-    <div class="diagram-container">
-      <svg viewBox="0 0 560 280" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
-        <line x1="40" y1="140" x2="530" y2="140" stroke="#1e293b" stroke-width="1.5"/>
-        <line x1="40" y1="140" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5"/>
-        <line x1="40" y1="140" x2="40" y2="260" stroke="#1e293b" stroke-width="1.5"/>
-        <text x="525" y="158" font-size="13" fill="#1e293b">n</text>
-        <text x="15" y="25" font-size="13" fill="#1e293b">aₙ</text>
-        <!-- Envolventes b_n = 3/n: n=1..8 → y=140-33*(3/n) → arriba ; -b_n abajo -->
-        <path d="M 95 41 Q 150 90 205 110 Q 260 120 315 126 Q 370 129 425 131 Q 480 133 520 133.5"
-              fill="none" stroke="#7c3aed" stroke-width="2"/>
-        <path d="M 95 239 Q 150 190 205 170 Q 260 160 315 154 Q 370 151 425 149 Q 480 147 520 146.5"
-              fill="none" stroke="#7c3aed" stroke-width="2"/>
-        <!-- Puntos a_n = (-1)^{n-1}*3/n (y=140-33*a) -->
-        <!-- n=1: +3 → 41 ; n=2: -1.5 → 189.5 ; n=3: +1 → 107 ; n=4: -0.75 → 164.75 ; n=5: +0.6 → 120.2 ; n=6: -0.5 → 156.5 ; n=7: +0.43 → 125.8 ; n=8: -0.375 → 152.4 -->
-        <g fill="#1e40af">
-          <circle cx="95" cy="41" r="5"/>
-          <circle cx="150" cy="189.5" r="5"/>
-          <circle cx="205" cy="107" r="5"/>
-          <circle cx="260" cy="164.75" r="5"/>
-          <circle cx="315" cy="120.2" r="5"/>
-          <circle cx="370" cy="156.5" r="5"/>
-          <circle cx="425" cy="125.8" r="5"/>
-          <circle cx="480" cy="152.4" r="5"/>
-        </g>
-      </svg>
-      <p class="diagram-caption">Figura 10. Serie alternada $a_n=\tfrac{(-1)^{n-1}\cdot 3}{n}$ confinada por $\pm b_n$.</p>
-    </div>
+  <p>Los puntos azules muestran los términos oscilando entre valores positivos y negativos, confinados estrictamente por las envolventes \(\pm b_n = \pm \frac{3}{n}\) (curvas violetas). Esto ilustra visualmente que los términos decrecen en magnitud (\(b_{n+1} \le b_n\)) y convergen hacia cero a medida que \(n\) crece.</p>
 
-    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
-  </section>
+  <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+</section>
 
-  <!-- ===================================================================== -->
-  <!-- MÓDULO 05: CONVERGENCIA ABSOLUTA Y CRITERIOS                         -->
-  <!-- ===================================================================== -->
-  <section class="card" id="mod-5">
-    <h2 class="module-title"><span class="badge">MÓDULO 05</span> Convergencia Absoluta y Criterios</h2>
+<!-- ===================================================================== -->
+<!-- MÓDULO 05: CONVERGENCIA ABSOLUTA Y CRITERIOS                         -->
+<!-- ===================================================================== -->
+<section class="card" id="mod-5">
+  <h2 class="module-title"><span class="badge">MÓDULO 05</span> Convergencia Absoluta y Criterios</h2>
 
-    <h3 class="section-title" id="sec-5-1">5.1 Convergencia absoluta y condicional</h3>
+  <h3 class="section-title" id="sec-5-1">5.1 Convergencia absoluta y condicional</h3>
 
-    <div class="callout callout-def">
-      <div class="callout-title">📌 Definiciones</div>
-      <ul>
-        <li><strong>Convergencia absoluta:</strong> $\sum a_n$ converge absolutamente si $\sum|a_n|$ converge.</li>
-        <li><strong>Convergencia condicional:</strong> $\sum a_n$ converge condicionalmente si $\sum a_n$ converge pero $\sum|a_n|$ diverge.</li>
-      </ul>
-    </div>
+  <p>Para analizar el comportamiento de una serie \(\sum_{n=1}^{\infty} a_n\), especialmente aquellas que contienen términos con signos alternantes o variables, resulta de gran utilidad estudiar la serie formada por sus valores absolutos:</p>
+  $$
+  \sum_{n=1}^{\infty} |a_n| = |a_1| + |a_2| + |a_3| + \cdots
+  $$
 
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Relación de convergencia</div>
-      <p style="margin:0;">Si una serie es absolutamente convergente, entonces es convergente:</p>
-      $$\sum_{n=1}^{\infty}|a_n|\text{ converge}\implies \sum_{n=1}^{\infty}a_n\text{ converge}$$
-    </div>
+  <p>Dependiendo del comportamiento de esta nueva serie, se definen dos tipos fundamentales de convergencia:</p>
 
-    <div class="diagram-container">
-      <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
-        <line x1="40" y1="130" x2="530" y2="130" stroke="#1e293b" stroke-width="1.5"/>
-        <line x1="40" y1="130" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5"/>
-        <line x1="40" y1="130" x2="40" y2="250" stroke="#1e293b" stroke-width="1.5"/>
-        <text x="525" y="148" font-size="13" fill="#1e293b">n</text>
-        <text x="15" y="25" font-size="13" fill="#1e293b">aₙ, |aₙ|</text>
-        <!-- |a_n| = 1.5*(0.65)^{n-1} → y=130 - 50*|a_n| -->
-        <g fill="#ea580c">
-          <circle cx="95" cy="55" r="5"/>
-          <circle cx="150" cy="83" r="5"/>
-          <circle cx="205" cy="97.5" r="5"/>
-          <circle cx="260" cy="105" r="5"/>
-          <circle cx="315" cy="110" r="5"/>
-          <circle cx="370" cy="113" r="5"/>
-          <circle cx="425" cy="114.5" r="5"/>
-          <circle cx="480" cy="115.5" r="5"/>
-        </g>
-        <!-- a_n alterna signos -->
-        <g fill="#1e40af">
-          <circle cx="95" cy="55" r="3.5"/>
-          <circle cx="150" cy="177" r="3.5"/>
-          <circle cx="205" cy="97.5" r="3.5"/>
-          <circle cx="260" cy="155" r="3.5"/>
-          <circle cx="315" cy="110" r="3.5"/>
-          <circle cx="370" cy="147" r="3.5"/>
-          <circle cx="425" cy="114.5" r="3.5"/>
-          <circle cx="480" cy="144.5" r="3.5"/>
-        </g>
-      </svg>
-      <p class="diagram-caption">Figura 11. Serie oscilante $a_n$ (azul) acotada por $|a_n|$ (naranja).</p>
-    </div>
+  <div class="callout callout-def">
+    <div class="callout-title">📌 Definiciones</div>
+    <ul>
+      <li><strong>Convergencia absoluta:</strong> Se dice que la serie \(\sum_{n=1}^{\infty} a_n\) converge absolutamente si la serie de valores absolutos \(\sum_{n=1}^{\infty} |a_n|\) converge.</li>
+      <li><strong>Convergencia condicional:</strong> Se dice que converge condicionalmente si la serie original \(\sum_{n=1}^{\infty} a_n\) converge, pero su correspondiente serie de valores absolutos \(\sum_{n=1}^{\infty} |a_n|\) diverge.</li>
+    </ul>
+  </div>
 
-    <h3 class="section-title" id="sec-5-2">5.2 Criterio del cociente (razón)</h3>
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Criterio del cociente</div>
-      <p style="margin:0;">Para la serie $\sum a_n$, sea $L=\displaystyle\lim_{n\to\infty}\left|\frac{a_{n+1}}{a_n}\right|$:</p>
-      <ul>
-        <li>$L<1$ $\implies$ la serie es <strong>absolutamente convergente</strong> (y por ende, convergente).</li>
-        <li>$L>1$ o $L=\infty$ $\implies$ la serie es <strong>divergente</strong>.</li>
-        <li>$L=1$ $\implies$ <strong>no concluyente</strong>.</li>
-      </ul>
-      <p style="margin:.4rem 0 0 0;font-size:.9rem;color:#475569;"><strong>Útil cuando</strong> hay factoriales $n!$, potencias $r^n$ o productos algebraicos.</p>
-    </div>
+  <div class="callout callout-thm">
+    <div class="callout-title">📐 Relación de convergencia</div>
+    <p style="margin:0;">Si una serie es <strong>absolutamente convergente</strong>, entonces está garantizado que es <strong>convergente</strong>:</p>
+    $$
+    \sum_{n=1}^{\infty} |a_n| \text{ converge } \implies \sum_{n=1}^{\infty} a_n \text{ converge}
+    $$
+  </div>
 
-    <div class="diagram-container">
-      <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
-        <line x1="40" y1="220" x2="530" y2="220" stroke="#1e293b" stroke-width="1.5"/>
-        <line x1="40" y1="220" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5"/>
-        <text x="525" y="240" font-size="13" fill="#1e293b">n</text>
-        <text x="15" y="25" font-size="13" fill="#1e293b">Lₙ</text>
-        <!-- L = 1 → y = 130 -->
-        <line x1="40" y1="130" x2="520" y2="130" stroke="#dc2626" stroke-dasharray="5 3" stroke-width="2"/>
-        <text x="525" y="134" font-size="12" fill="#dc2626" font-weight="700">L=1</text>
-        <!-- L_n = 1.5 + 1.2*exp(-0.4n) → y=220-35*L_n -->
-        <g fill="#16a34a">
-          <circle cx="95" cy="135" r="4.5"/>
-          <circle cx="150" cy="145" r="4.5"/>
-          <circle cx="205" cy="151" r="4.5"/>
-          <circle cx="260" cy="155" r="4.5"/>
-          <circle cx="315" cy="157.5" r="4.5"/>
-          <circle cx="370" cy="159" r="4.5"/>
-          <circle cx="425" cy="160" r="4.5"/>
-          <circle cx="480" cy="160.5" r="4.5"/>
-        </g>
-        <g font-size="11" fill="#334155" text-anchor="middle">
-          <text x="95" y="240">1</text><text x="150" y="240">2</text>
-          <text x="205" y="240">3</text><text x="260" y="240">4</text>
-          <text x="315" y="240">5</text><text x="370" y="240">6</text>
-          <text x="425" y="240">7</text><text x="480" y="240">8</text>
-        </g>
-      </svg>
-      <p class="diagram-caption">Figura 12. Cociente $L_n$ estabilizándose por debajo del umbral crítico $L=1$.</p>
-    </div>
+  <p>A continuación, visualizamos de manera geométrica cómo la cota superior impuesta por la serie de valores absolutos domina y asegura el comportamiento de la serie oscilante original.</p>
 
-    <h3 class="section-title" id="sec-5-3">5.3 Criterio de la raíz</h3>
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Criterio de la raíz</div>
-      <p style="margin:0;">Para la serie $\sum a_n$, sea $L=\displaystyle\lim_{n\to\infty}\sqrt[n]{|a_n|}$:</p>
-      <ul>
-        <li>$L<1$ $\implies$ <strong>absolutamente convergente</strong>.</li>
-        <li>$L>1$ o $L=\infty$ $\implies$ <strong>divergente</strong>.</li>
-        <li>$L=1$ $\implies$ <strong>no concluyente</strong>.</li>
-      </ul>
-      <p style="margin:.4rem 0 0 0;font-size:.9rem;color:#475569;"><strong>Útil cuando</strong> el término general está elevado a la $n$: $(b_n)^n$.</p>
-    </div>
+  <div class="diagram-container">
+    <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
+      <line x1="40" y1="130" x2="530" y2="130" stroke="#1e293b" stroke-width="1.5" />
+      <line x1="40" y1="130" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5" />
+      <line x1="40" y1="130" x2="40" y2="250" stroke="#1e293b" stroke-width="1.5" />
+      <text x="525" y="148" font-size="13" fill="#1e293b">n</text>
+      <text x="15" y="25" font-size="13" fill="#1e293b">aₙ, |aₙ|</text>
+      <!-- |a_n| = 1.5*(0.65)^{n-1} → y=130 - 50*|a_n| -->
+      <g fill="#ea580c">
+        <circle cx="95" cy="55" r="5" />
+        <circle cx="150" cy="83" r="5" />
+        <circle cx="205" cy="97.5" r="5" />
+        <circle cx="260" cy="105" r="5" />
+        <circle cx="315" cy="110" r="5" />
+        <circle cx="370" cy="113" r="5" />
+        <circle cx="425" cy="114.5" r="5" />
+        <circle cx="480" cy="115.5" r="5" />
+      </g>
+      <!-- a_n alterna signos -->
+      <g fill="#1e40af">
+        <circle cx="95" cy="55" r="3.5" />
+        <circle cx="150" cy="177" r="3.5" />
+        <circle cx="205" cy="97.5" r="3.5" />
+        <circle cx="260" cy="155" r="3.5" />
+        <circle cx="315" cy="110" r="3.5" />
+        <circle cx="370" cy="147" r="3.5" />
+        <circle cx="425" cy="114.5" r="3.5" />
+        <circle cx="480" cy="144.5" r="3.5" />
+      </g>
+      <!-- Leyenda -->
+      <text x="230" y="45" font-size="12" fill="#ea580c">|aₙ| = 1.5(0.65)ⁿ⁻¹ (Valor absoluto)</text>
+      <text x="230" y="65" font-size="12" fill="#1e40af">aₙ = (-1)ⁿ⁻¹1.5(0.65)ⁿ⁻¹ (Original)</text>
+    </svg>
+    <p class="diagram-caption">Figura 11. Comparación gráfica entre la serie oscilante \(a_n\) y su correspondiente serie de valores absolutos \(|a_n|\).</p>
+  </div>
 
-    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
-  </section>
+  <p>En la representación anterior se comparan los términos de la serie oscilante \(a_n = (-1)^{n-1}1.5(0.65)^{n-1}\) (puntos azules) con los de su respectiva serie de valores absolutos \(|a_n| = 1.5(0.65)^{n-1}\) (puntos naranjas de fondo). Al aplicar los criterios analíticos correspondientes, se obtiene un valor límite \(L = 0.65 \lt 1\), lo cual confirma y garantiza la convergencia absoluta de la serie.</p>
 
-  <!-- ===================================================================== -->
-  <!-- MÓDULO 06: PROPIEDADES NOTABLES                                      -->
-  <!-- ===================================================================== -->
-  <section class="card" id="mod-6">
-    <h2 class="module-title"><span class="badge">MÓDULO 06</span> Propiedades Notables</h2>
+  <p>Para determinar la convergencia absoluta de una serie, disponemos de herramientas potentes basadas en el análisis asintótico de sus términos cuando \(n\) crece indefinidamente. La elección de qué criterio utilizar depende directamente de la estructura algebraica de la serie.</p>
 
-    <h3 class="section-title" id="sec-6-1">6.1 Leyes de los límites de sucesiones</h3>
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Leyes de los límites</div>
-      <p style="margin:0;">Si $\{a_n\},\{b_n\}$ convergen y $c$ es constante:</p>
-      <ul>
-        <li>$\lim(a_n+b_n)=\lim a_n+\lim b_n$</li>
-        <li>$\lim(a_n-b_n)=\lim a_n-\lim b_n$</li>
-        <li>$\lim c=c$</li>
-        <li>$\lim(c\,a_n)=c\lim a_n$</li>
-        <li>$\lim(a_n b_n)=\lim a_n\cdot\lim b_n$</li>
-        <li>$\lim\dfrac{a_n}{b_n}=\dfrac{\lim a_n}{\lim b_n}$ si $\lim b_n\neq 0$</li>
-        <li>$\lim a_n^p=(\lim a_n)^p$ si $p>0$ y $a_n>0$</li>
-      </ul>
-    </div>
+  <h3 class="section-title" id="sec-5-2">5.2 Criterio del cociente (o de la razón)</h3>
 
-    <h3 class="section-title" id="sec-6-2">6.2 Teorema de la compresión (sándwich)</h3>
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Teorema del sándwich</div>
-      <p style="margin:0;">Si $a_n\le b_n\le c_n$ para todo $n\ge n_0$ y $\lim a_n=\lim c_n=L$, entonces:</p>
-      $$\lim_{n\to\infty}b_n=L$$
-    </div>
+  <p>El Criterio del Cociente resulta sumamente útil y eficaz cuando la serie contiene factoriales (\(n!\)), potencias elevadas a la \(n\) (como \(r^n\)) o productos de términos algebraicos complejos, ya que al evaluar la relación entre términos consecutivos (\(a_{n+1}\) y \(a_n\)), muchos factores se simplifican algebraicamente en el límite.</p>
 
-    <h3 class="section-title" id="sec-6-3">6.3 Propiedades algebraicas de las series convergentes</h3>
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Álgebra de series</div>
-      <p style="margin:0;">Si $\sum a_n$ y $\sum b_n$ convergen y $c\in\mathbb{R}$:</p>
-      <ul>
-        <li><strong>Multiplicación por escalar:</strong> $\sum c\,a_n=c\sum a_n$.</li>
-        <li><strong>Suma y resta:</strong> $\sum(a_n\pm b_n)=\sum a_n\pm\sum b_n$.</li>
-      </ul>
-    </div>
+  <div class="callout callout-thm">
+    <div class="callout-title">📐 Criterio del cociente</div>
+    <p style="margin:0;">Sea \(\sum_{n=1}^{\infty} a_n\) una serie dada. Se define el límite del cociente de sus valores absolutos como:</p>
+    $$ L = \lim_{n \to \infty} \left| \frac{a_{n+1}}{a_n} \right| $$
+    <p style="margin-top: 0.5rem;">Según el valor obtenido de \(L\), se concluye lo siguiente:</p>
+    <ul>
+      <li><strong>Si \(L \lt 1\):</strong> La serie es <strong>absolutamente convergente</strong> (y por ende, convergente).</li>
+      <li><strong>Si \(L \gt 1\) o \(L = \infty\):</strong> La serie es <strong>divergente</strong>.</li>
+      <li><strong>Si \(L = 1\):</strong> El criterio <strong>no es concluyente</strong> (se debe recurrir a otra prueba).</li>
+    </ul>
+  </div>
 
-    <h3 class="section-title" id="sec-6-4">6.4 Estimación del residuo y acotamiento de la suma</h3>
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Estimación del residuo</div>
-      <p style="margin:0;">Sea $a_n=f(n)$, con $f(x)$ continua, positiva y decreciente en $[1,\infty)$:</p>
-      <ul>
-        <li><strong>Acotamiento del residuo</strong> $R_n=s-s_n$:
-          $$\int_{n+1}^{\infty}f(x)\,dx\le R_n\le\int_{n}^{\infty}f(x)\,dx$$
-        </li>
-        <li><strong>Acotamiento de la suma</strong> $s$:
-          $$s_n+\int_{n+1}^{\infty}f(x)\,dx\le s\le s_n+\int_{n}^{\infty}f(x)\,dx$$
-        </li>
-      </ul>
-    </div>
+  <p>Para ilustrar el funcionamiento práctico del Criterio del Cociente, consideremos una sucesión cuyo comportamiento asintótico nos permita verificar con claridad la frontera de convergencia establecida por la unidad.</p>
 
-    <h3 class="section-title" id="sec-6-5">6.5 Criterios de comparación para términos positivos</h3>
-    <div class="callout callout-thm">
-      <div class="callout-title">📐 Comparación directa y en el límite</div>
-      <p style="margin:0;">Sean $\sum a_n$ y $\sum b_n$ series de términos positivos:</p>
-      <ul>
-        <li><strong>Comparación directa:</strong>
-          <ul>
-            <li>Si $a_n\le b_n$ y $\sum b_n$ converge $\implies\sum a_n$ <strong>converge</strong>.</li>
-            <li>Si $a_n\ge b_n$ y $\sum b_n$ diverge $\implies\sum a_n$ <strong>diverge</strong>.</li>
-          </ul>
-        </li>
-        <li><strong>Comparación en el límite:</strong> si $\lim_{n\to\infty}\frac{a_n}{b_n}=c$ con $0<c<\infty$, <strong>ambas series convergen o ambas divergen</strong>.</li>
-      </ul>
-    </div>
+  <div class="diagram-container">
+    <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
+      <line x1="40" y1="220" x2="530" y2="220" stroke="#1e293b" stroke-width="1.5" />
+      <line x1="40" y1="220" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5" />
+      <text x="525" y="240" font-size="13" fill="#1e293b">n</text>
+      <text x="15" y="25" font-size="13" fill="#1e293b">Cociente Lₙ</text>
+      <!-- L = 1 → y = 130 -->
+      <line x1="40" y1="130" x2="520" y2="130" stroke="#dc2626" stroke-dasharray="5 3" stroke-width="2" />
+      <text x="525" y="134" font-size="12" fill="#dc2626" font-weight="700">L = 1</text>
+      <!-- L_n = 1.5 + 1.2*exp(-0.4n) → y=220-35*L_n -->
+      <g fill="#16a34a">
+        <circle cx="95" cy="135" r="4.5" />
+        <circle cx="150" cy="145" r="4.5" />
+        <circle cx="205" cy="151" r="4.5" />
+        <circle cx="260" cy="155" r="4.5" />
+        <circle cx="315" cy="157.5" r="4.5" />
+        <circle cx="370" cy="159" r="4.5" />
+        <circle cx="425" cy="160" r="4.5" />
+        <circle cx="480" cy="160.5" r="4.5" />
+      </g>
+      <g font-size="11" fill="#334155" text-anchor="middle">
+        <text x="95" y="240">1</text><text x="150" y="240">2</text>
+        <text x="205" y="240">3</text><text x="260" y="240">4</text>
+        <text x="315" y="240">5</text><text x="370" y="240">6</text>
+        <text x="425" y="240">7</text><text x="480" y="240">8</text>
+      </g>
+      <!-- Leyenda explicativa -->
+      <text x="230" y="70" font-size="12" fill="#16a34a">Sucesión: aₙ = (0.6)ⁿ</text>
+      <text x="230" y="90" font-size="12" fill="#16a34a">Cociente: Lₙ = |aₙ₊₁ / aₙ| = 0.6 &lt; 1</text>
+    </svg>
+    <p class="diagram-caption">Figura 12. Estabilización de los valores del cociente \(L_n\) frente al umbral crítico \(L = 1\).</p>
+  </div>
 
-    <div class="diagram-container">
-      <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%;">
-        <line x1="40" y1="220" x2="530" y2="220" stroke="#1e293b" stroke-width="1.5"/>
-        <line x1="40" y1="220" x2="40" y2="20" stroke="#1e293b" stroke-width="1.5"/>
-        <text x="525" y="240" font-size="13" fill="#1e293b">n</text>
-        <text x="15" y="25" font-size="13" fill="#1e293b">Términos</text>
-        <!-- b_n = 3.5*exp(-0.3n), a_n = 2.2*exp(-0.3n) ; y=220-45*v -->
-        <path d="M 95 127 Q 200 180 350 205 Q 450 213 510 217"
-              fill="none" stroke="#ea580c" stroke-width="2"/>
-        <path d="M 95 156 Q 200 192 350 209 Q 450 215 510 218"
-              fill="none" stroke="#1e40af" stroke-width="2"/>
-        <g fill="#ea580c">
-          <circle cx="95" cy="127" r="4"/>
-          <circle cx="150" cy="151" r="4"/>
-          <circle cx="205" cy="169" r="4"/>
-          <circle cx="260" cy="182" r="4"/>
-          <circle cx="315" cy="191" r="4"/>
-          <circle cx="370" cy="198" r="4"/>
-          <circle cx="425" cy="203" r="4"/>
-        </g>
-        <g fill="#1e40af">
-          <circle cx="95" cy="156" r="3.5"/>
-          <circle cx="150" cy="171" r="3.5"/>
-          <circle cx="205" cy="182" r="3.5"/>
-          <circle cx="260" cy="190" r="3.5"/>
-          <circle cx="315" cy="196" r="3.5"/>
-          <circle cx="370" cy="201" r="3.5"/>
-          <circle cx="425" cy="205" r="3.5"/>
-        </g>
-      </svg>
-      <p class="diagram-caption">Figura 13. Comparación directa: $a_n\le b_n$; la serie mayor $b_n$ domina.</p>
-    </div>
+  <p>Como se observa en la representación anterior, al evaluar la sucesión geométrica \(a_n = (0.6)^n\), los puntos verdes que representan el cociente \(L_n = \left|\frac{a_{n+1}}{a_n}\right|\) convergen rápidamente y se estabilizan por debajo de la línea umbral \(L = 1\) (indicada en rojo discontinuo). Dado que este límite se mantiene estrictamente menor que la unidad, el criterio confirma de manera la convergencia absoluta de la serie.</p>
 
-    <h3 class="section-title" id="sec-6-6">6.6 Tabla resumen de criterios</h3>
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th>Tipo de objeto</th>
-            <th>Estructura / Fórmula</th>
-            <th>Criterio de convergencia</th>
-            <th>Método de cálculo</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Sucesión numérica</strong></td>
-            <td>$a_n=L+\frac{k(-1)^n}{n}$</td>
-            <td>Definición formal de límite $\lim a_n=L$</td>
-            <td>Evaluación directa del límite cuando $n\to\infty$</td>
-          </tr>
-          <tr>
-            <td><strong>Serie geométrica</strong></td>
-            <td>$\sum_{n=1}^{\infty}ar^{n-1}$</td>
-            <td>Criterio de la razón $|r|<1$</td>
-            <td>$S=\dfrac{a}{1-r}$</td>
-          </tr>
-          <tr>
-            <td><strong>Serie $p$</strong></td>
-            <td>$\sum_{n=1}^{\infty}\frac{1}{n^p}$</td>
-            <td>Criterio de la integral $p>1$</td>
-            <td>Evaluar $\int_1^\infty x^{-p}\,dx$</td>
-          </tr>
-          <tr>
-            <td><strong>Serie (criterio integral)</strong></td>
-            <td>$\sum f(n)$</td>
-            <td>$\int_1^\infty f(x)\,dx$ converge</td>
-            <td>Cálculo explícito de la integral impropia</td>
-          </tr>
-          <tr>
-            <td><strong>Serie alternada</strong></td>
-            <td>$\sum(-1)^{n-1}b_n$</td>
-            <td>$b_{n+1}\le b_n$ y $\lim b_n=0$</td>
-            <td>$|R_n|\le b_{n+1}$ o suma geométrica asociada</td>
-          </tr>
-          <tr>
-            <td><strong>Cociente y raíz</strong></td>
-            <td>$\sum a_n$</td>
-            <td>$L=\lim\left|\frac{a_{n+1}}{a_n}\right|<1$ o $L=\lim\sqrt[n]{|a_n|}<1$</td>
-            <td>Comparación asintótica con geométrica de razón $L$</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <h3 class="section-title" id="sec-5-3">5.3 Criterio de la raíz</h3>
 
-    <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
-  </section>
+  <p>Por otro lado, el Criterio de la Raíz es la herramienta ideal cuando el término general de la serie se encuentra completamente elevado a la potencia \(n\) (es decir, expresiones de la forma \((b_n)^n\) o expresiones polinómicas/exponenciales complejas dentro de una potencia \(n\)-ésima). La aplicación de la raíz \(n\)-ésima permite eliminar dicho exponente y simplificar drásticamente el cálculo del límite.</p>
 
-</div>
+  <div class="callout callout-thm">
+    <div class="callout-title">📐 Criterio de la raíz</div>
+    <p style="margin:0;">Sea \(\sum_{n=1}^{\infty} a_n\) una serie dada. Se define el límite de la raíz \(n\)-ésima del valor absoluto como:</p>
+    $$ L = \lim_{n \to \infty} \sqrt[n]{|a_n|} $$
+    <p style="margin-top: 0.5rem;">Dependiendo del valor de \(L\), se establecen los siguientes casos:</p>
+    <ul>
+      <li><strong>Si \(L \lt 1\):</strong> La serie es <strong>absolutamente convergente</strong> (y por ende, convergente).</li>
+      <li><strong>Si \(L \gt 1\) o \(L = \infty\):</strong> La serie es <strong>divergente</strong>.</li>
+      <li><strong>Si \(L = 1\):</strong> El criterio <strong>no es concluyente</strong> (el test falla y se requiere otro método).</li>
+    </ul>
+  </div>
 
-<!-- ===================== SCRIPT GLOBAL ===================== -->
-<script>
-  function toggleAllDetails(open) {
-    document.querySelectorAll('details.solution').forEach(d => d.open = open);
-  }
-</script>
+  <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+</section>
+    <!-- ===================================================================== -->
+    <!-- MÓDULO 06: Tabla resumen                                      -->
+    <!-- ===================================================================== -->
+    <section class="card" id="mod-6">
+      <h2 class="module-title"><span class="badge">MÓDULO 06</span> Tabla resumen</h2>
+
+      <h3 class="section-title" id="sec-6-1">6.1 Tabla resumen de criterios</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Tipo de objeto</th>
+              <th>Estructura / Fórmula</th>
+              <th>Criterio de convergencia</th>
+              <th>Método de cálculo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Sucesión numérica</strong></td>
+              <td>$a_n=L+\frac{k(-1)^n}{n}$</td>
+              <td>Definición formal de límite $\lim a_n=L$</td>
+              <td>Evaluación directa del límite cuando $n\to\infty$</td>
+            </tr>
+            <tr>
+              <td><strong>Serie geométrica</strong></td>
+              <td>$\sum_{n=1}^{\infty}ar^{n-1}$</td>
+              <td>Criterio de la razón $|r|<1$< /td>
+              <td>$S=\dfrac{a}{1-r}$</td>
+            </tr>
+            <tr>
+              <td><strong>Serie $p$</strong></td>
+              <td>$\sum_{n=1}^{\infty}\frac{1}{n^p}$</td>
+              <td>Criterio de la integral $p>1$</td>
+              <td>Evaluar $\int_1^\infty x^{-p}\,dx$</td>
+            </tr>
+            <tr>
+              <td><strong>Serie (criterio integral)</strong></td>
+              <td>$\sum f(n)$</td>
+              <td>$\int_1^\infty f(x)\,dx$ converge</td>
+              <td>Cálculo explícito de la integral impropia</td>
+            </tr>
+            <tr>
+              <td><strong>Serie alternada</strong></td>
+              <td>$\sum(-1)^{n-1}b_n$</td>
+              <td>$b_{n+1}\le b_n$ y $\lim b_n=0$</td>
+              <td>$|R_n|\le b_{n+1}$ o suma geométrica asociada</td>
+            </tr>
+            <tr>
+              <td><strong>Cociente y raíz</strong></td>
+              <td>$\sum a_n$</td>
+              <td>$L=\lim\left|\frac{a_{n+1}}{a_n}\right|<1$ o $L=\lim\sqrt[n]{|a_n|}<1$</td>
+              <td>Comparación asintótica con geométrica de razón $L$</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="back-top"><a href="#mapa-de-contenidos">⬆️ Volver al índice</a></div>
+    </section>
+
+  </div>
+
+  <!-- ===================== SCRIPT GLOBAL ===================== -->
+  <script>
+    function toggleAllDetails(open) {
+      document.querySelectorAll('details.solution').forEach(d => d.open = open);
+    }
+  </script>
 </body>
+
 </html>
